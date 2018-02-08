@@ -18,6 +18,7 @@ eval $(thefuck --alias)
 alias be="bundle exec"
 alias yolo="be rake db:drop;be rake db:create;"
 alias cuke="be cucumber"
+alias coverage="be rake ci:coverage"
 
 # Balance Aliases
 

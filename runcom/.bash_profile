@@ -26,6 +26,7 @@ for DOTFILE in "$DOTFILES_DIR"/system/.{function,path,env,private_env,alias,comp
   [ -f "$DOTFILE" ] && . "$DOTFILE"
 done
 
+source "$DOTFILES_DIR"/git/.git-completion.bash
 # Set LSCOLORS
 
 # eval "$(dircolors "$DOTFILES_DIR"/system/.dir_colors)"
@@ -40,4 +41,3 @@ export DOTFILES_DIR DOTFILES_EXTRA_DIR
 
 # $VARIABLE will render before the rest of the command is executed
 echo "Logged in as $USER at $(hostname)"
-
