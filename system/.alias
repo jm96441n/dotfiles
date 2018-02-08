@@ -1,0 +1,28 @@
+# Shortcuts
+
+alias reload="source ~/.bash_profile"
+alias g="git"
+
+# Directory traversal
+
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias ls='ls -Gh' # Force ls to use colors (G) and use humanized file sizes (h)
+
+
+# For better autocomplete
+eval $(thefuck --alias)
+
+# Rails Aliases
+alias be="bundle exec"
+alias yolo="be rake db:drop;be rake db:create;"
+alias cuke="be cucumber"
+
+# Balance Aliases
+
+alias cw="clockwork"
+alias balance="cd /Users/jmaguire/balance"
+alias nudge="GITHUB_AUTH_TOKEN=${ENV['GITHUB_AUTH_TOKEN']} bundle exec rake ci:nudge_travis"
+alias sandbox="ssh -vo ProxyCommand='ssh -vW %h:%p 54.173.131.164' 10.224.176.191"
+alias init="be rake ci:initialize"

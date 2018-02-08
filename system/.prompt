@@ -1,0 +1,15 @@
+# A more colorful prompt
+# \[\e[0m\] resets the color to default color
+c_reset='\[\e[0m\]'
+#  \e[0;31m\ sets the color to red
+c_path='\[\e[0;31m\]'
+# \e[0;32m\ sets the color to green
+c_git_clean='\[\e[0;32m\]'
+# \e[0;31m\ sets the color to red
+c_git_dirty='\[\e[0;31m\]'
+
+# PS1 is the variable for the prompt you see everytime you hit enter
+PROMPT_COMMAND=$PROMPT_COMMAND' PS1="${c_path}\W${c_reset}$(git_prompt) :> "'
+#export PS1='\n\[\033[0;31m\]\W\[\033[0m\]$(git_prompt)\[\033[0m\]:> '
+export PS1='`if [ $? = 0 ]; then echo "\[\033[01;32m\]✔"; else echo "\[\033[01;31m\]✘"; fi` \W\[\033[35m\]$(__git_ps1 " %s") \[\033[01;31m\]: '
+
