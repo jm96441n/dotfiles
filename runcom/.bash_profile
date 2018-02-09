@@ -22,7 +22,7 @@ fi
 
 # Finally we can source the dotfiles (order matters)
 
-for DOTFILE in "$DOTFILES_DIR"/system/.{function,path,env,private_env,alias,completion,prompt,chruby,custom}; do
+for DOTFILE in "$DOTFILES_DIR"/system/.{function,path,env,private_env,alias,private_alias,completion,prompt,chruby,custom}; do
   [ -f "$DOTFILE" ] && . "$DOTFILE"
 done
 
