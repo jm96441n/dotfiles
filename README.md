@@ -9,7 +9,9 @@ This is a collection of useful functions, aliases, and git configurations.
     ln -s ~/.dotfiles/runcom/.inputrc ~./inputrc
     ln -s ~/.dotfiles/git/.gitconfig ~/.gitconfig
   ```
+
 NOTE: Be careful doing running these lines, you probably have existing versions of these files. If so, back them up then remove them and then perform the symlink.
+
 OPTIONAL: For VS Code settings, navigate to the current location of your VS Code settings (if on macOS it should be /Users/${YOUR USER NAME}/Library/Application\ Support/Code/User/settings.json, remove that file and then symlink it like outlined above:
   ```
     ln -s ~/.dotfiles/editor_configs/settings.json /Users/${YOUR USER NAME}/Library/Application\ Support/Code/User/settings.json
