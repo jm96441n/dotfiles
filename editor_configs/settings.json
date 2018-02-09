@@ -1,0 +1,64 @@
+{
+    // Theme
+    "workbench.colorTheme": "Hyrule",
+
+    // Icon theme for side bar
+    "workbench.iconTheme": "material-icon-theme",
+
+    // Auto save files when the focus changes
+    "files.autoSave": "onFocusChange",
+
+    // Format pasted code to match pre-defined style
+    "editor.formatOnPaste": true,
+
+    // Set tab size to 2 spaces
+    "editor.tabSize": 2,
+
+    // Set where rules should go in editor
+    "editor.rulers": [120],
+
+    // Trim trailing whitespace
+    "files.trimTrailingWhitespace": true,
+
+    // Insert newline at end of file
+    "files.insertFinalNewline": true,
+
+    // Insert spaces when pressing Tab.
+    "editor.insertSpaces": true,
+
+    // Gitlens set up
+    "gitlens.advanced.messages": {
+        "suppressCommitHasNoPreviousCommitWarning": false,
+        "suppressCommitNotFoundWarning": false,
+        "suppressFileNotUnderSourceControlWarning": false,
+        "suppressGitVersionWarning": false,
+        "suppressLineUncommittedWarning": false,
+        "suppressNoRepositoryWarning": false,
+        "suppressResultsExplorerNotice": true,
+        "suppressUpdateNotice": false,
+        "suppressWelcomeNotice": true
+    },
+
+    // Layout of files in Gitlens explorer
+    "gitlens.gitExplorer.files.layout": "auto",
+
+    // Add Sublime keymapping
+    "sublimeTextKeymap.promptV3Features": true,
+
+    // Mimic Sublime keybinding for multi-cursor
+    "editor.multiCursorModifier": "ctrlCmd",
+
+    // Location of snippet suggestions
+    "editor.snippetSuggestions": "top",
+
+    // Zoom level for text
+    "window.zoomLevel": 1,
+
+    // Enable tab completion of text
+    "editor.tabCompletion": true,
+
+    // Disable preview mode
+    "workbench.editor.enablePreview": false,
+    "workbench.editor.enablePreviewFromQuickOpen": false,
+    "vsicons.projectDetection.autoReload": true
+}
