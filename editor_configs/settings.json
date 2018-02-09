@@ -60,5 +60,8 @@
     // Disable preview mode
     "workbench.editor.enablePreview": false,
     "workbench.editor.enablePreviewFromQuickOpen": false,
-    "vsicons.projectDetection.autoReload": true
+    "vsicons.projectDetection.autoReload": true,
+
+    // Stop from scrolling past bottom of open file
+    "editor.scrollBeyondLastLine": false
 }
