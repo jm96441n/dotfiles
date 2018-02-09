@@ -1,5 +1,7 @@
 # Adapted from https://github.com/webpro/dotfiles/blob/master/runcom/.inputrc
 
+# Turn off terminal autocomplete bell
+set bell-style visible
 
 # Make Tab autocomplete regardless of filename case
 set completion-ignore-case on
