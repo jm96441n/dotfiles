@@ -1,7 +1,7 @@
 # Dotfiles!
 This is a collection of useful functions, aliases, and git configurations.
 
-###mHow to use?
+### How to use?
 1) Pull down this repo to your home directory.
 2) Symlink to these files:
   ```
