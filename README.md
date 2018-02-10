@@ -7,6 +7,7 @@ This is a collection of useful functions, aliases, and git configurations.
     * (Homebrew)[https://brew.sh/] + (Homebrew Cask)[https://caskroom.github.io/)
     * GNU (grep)[https://www.gnu.org/software/grep/], (Wget)[https://www.gnu.org/software/wget/]
     * (tree)[http://mama.indstate.edu/users/ice/tree/], (MySQL)[https://www.mysql.com/], (PostgreSQL)[https://www.postgresql.org/], (thefuck)[https://github.com/nvbn/thefuck]
+    * (imagemagick)[https://www.imagemagick.org/]
     * (unar)[https://theunarchiver.com/command-line)
     * (asdf)[https://github.com/asdf-vm/asdf) (Ruby 2.5.0)
     * Python 2
