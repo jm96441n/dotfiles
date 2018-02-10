@@ -1,21 +1,46 @@
 # Dotfiles!
 This is a collection of useful functions, aliases, and git configurations.
 
-### How to use?
-1) Pull down this repo to your home directory.
-2) Symlink to these files:
-  ```
-    ln -s ~/.dotfiles/runcom/.bash_profile ~/.bash_profile
-    ln -s ~/.dotfiles/runcom/.inputrc ~/.inputrc
-    ln -s ~/.dotfiles/git/.gitconfig ~/.gitconfig
-  ```
+## Packages Included
+  * Core
+    * Bash + (coreutils)[https://en.wikipedia.org/wiki/GNU_Core_Utilities] + bash-completion
+    * (Homebrew)[https://brew.sh/] + (Homebrew Cask)[https://caskroom.github.io/)
+    * GNU (grep)[https://www.gnu.org/software/grep/], (Wget)[https://www.gnu.org/software/wget/]
+    * (tree)[http://mama.indstate.edu/users/ice/tree/], (MySQL)[https://www.mysql.com/], (PostgreSQL)[https://www.postgresql.org/], (thefuck)[https://github.com/nvbn/thefuck]
+    * (unar)[https://theunarchiver.com/command-line)
+    * (asdf)[https://github.com/asdf-vm/asdf) (Ruby 2.5.0)
+    * Python 2
+  * macOS: (Quick Lookup plugins)[https://github.com/sindresorhus/quick-look-plugins]
+  * (macOS apps)[https://github.com/jm96441n/dotfiles/install/brew-cask.sh]
 
-NOTE: Be careful doing running these lines, you probably have existing versions of these files. If so, back them up then remove them and then perform the symlink.
 
-OPTIONAL: For VS Code settings, navigate to the current location of your VS Code settings (if on macOS it should be /Users/${YOUR USER NAME}/Library/Application\ Support/Code/User/settings.json, remove that file and then symlink it like outlined above:
-  ```
-    ln -s ~/.dotfiles/editor_configs/settings.json /Users/${YOUR USER NAME}/Library/Application\ Support/Code/User/settings.json
-  ```
+## Install
 
-### Plans for the future?
-Of course! Down the line I want to add the necessary dotfiles to install necessary software for a fresh install of a new OS. Once those are complete, these docs will updated to reflect those new changes.
+On a clean macOS installation:
+```
+sudo softwareupdate -i -a
+xcode-select --install
+```
+#### Clone with Git
+```
+git clone https://github.com/jm96441n/dotfiles.git ~/.dotfiles
+source ~/.dotfiles/install.sh
+```
+
+## The `dotfiles` command
+```
+$ dotfiles help
+Usage: dotfiles <command>
+
+Commands:
+   clean            Clean up caches (brew, npm, gem, rvm)
+   dock             Apply macOS Dock settings
+   edit             Open dotfiles in IDE (code) and Git GUI (stree)
+   help             This help message
+   macos            Apply macOS system defaults
+   update           Update packages and pkg managers (OS, brew, npm, gem)
+```
+
+## Credits
+
+The (dotfiles community)[https://dotfiles.github.io/] and (webpro)[https://github.com/webpro/dotfiles] who I've adapted these from
