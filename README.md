@@ -6,7 +6,7 @@ This is a collection of useful functions, aliases, and git configurations.
 2) Symlink to these files:
   ```
     ln -s ~/.dotfiles/runcom/.bash_profile ~/.bash_profile
-    ln -s ~/.dotfiles/runcom/.inputrc ~./inputrc
+    ln -s ~/.dotfiles/runcom/.inputrc ~/.inputrc
     ln -s ~/.dotfiles/git/.gitconfig ~/.gitconfig
   ```
 
@@ -16,6 +16,6 @@ OPTIONAL: For VS Code settings, navigate to the current location of your VS Code
   ```
     ln -s ~/.dotfiles/editor_configs/settings.json /Users/${YOUR USER NAME}/Library/Application\ Support/Code/User/settings.json
   ```
-  
+
 ### Plans for the future?
 Of course! Down the line I want to add the necessary dotfiles to install necessary software for a fresh install of a new OS. Once those are complete, these docs will updated to reflect those new changes.
