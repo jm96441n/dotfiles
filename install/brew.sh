@@ -30,6 +30,7 @@ apps=(
   tree
   wifi-password
   wget
+  yarn
 )
 
 brew install "${apps[@]}"
