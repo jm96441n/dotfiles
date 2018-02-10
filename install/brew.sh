@@ -16,6 +16,7 @@ apps=(
   git
   # https://github.com/tj/git-extras/blob/master/Commands.md
   git-extras
+  grep
   geckodriver
   hub
   imagemagick
@@ -27,6 +28,7 @@ apps=(
   readline
   ssh-copy-id
   thefuck
+  unar
   tree
   wifi-password
   wget
