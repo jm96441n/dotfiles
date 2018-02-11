@@ -8,12 +8,12 @@ sub_help () {
   echo "Usage: $BIN_NAME <command>"
   echo
   echo "Commands:"
-  echo "   clean            Clean up caches (brew, gem)"
+  echo "   clean            Clean up caches (brew, asdf, gem)"
   echo "   dock             Apply macOS Dock settings"
   echo "   edit             Open dotfiles in IDE ($DOTFILES_IDE) and Git GUI ($DOTFILES_GIT_GUI)"
   echo "   help             This help message"
   echo "   macos            Apply macOS system defaults"
-  echo "   update           Update packages and pkg managers (OS, brew, gem)"
+  echo "   update           Update packages and pkg managers (OS, brew, gem, asdf)"
 }
 
 sub_edit () {
@@ -27,12 +27,14 @@ sub_update () {
   brew upgrade
   gem update --system
   gem update
+  asdf update
 }
 
 sub_clean () {
   brew cleanup
   brew cask cleanup
   gem cleanup
+  asdf cleanup
 }
 
 sub_macos () {
