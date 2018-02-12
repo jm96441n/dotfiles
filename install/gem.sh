@@ -6,7 +6,7 @@ fi
 brew install gpg2
 
 # asdf for version management
-git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.4.1
+brew install asdf
 
 asdf plugin-add ruby
 
