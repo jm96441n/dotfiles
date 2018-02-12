@@ -44,4 +44,4 @@ Commands:
 
 ## Credits
 
-The [dotfiles community](https://dotfiles.github.io] and [webpro](https://github.com/webpro/dotfiles) who I've adapted these from
+The [dotfiles community](https://dotfiles.github.io) and [webpro](https://github.com/webpro/dotfiles) who I've adapted these from
