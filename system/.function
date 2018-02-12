@@ -1,6 +1,6 @@
 # rp - rake parallel tasks
 function rp () {
-  be rake parallel:features[4,${*},'--format progress']
+  bundle exec rake parallel:features[4,${*},'--format progress']
 }
 
 # \[\e[0m\] resets the color to default color
