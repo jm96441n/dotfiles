@@ -11,15 +11,12 @@ brew tap caskroom/fonts
  apps=(
   dropbox
   firefox
-  flux
   iterm2
   lastpass
   google-chrome
   postico
-  pulse
   spotify
   sublime-text
-  utorrent
   visual-studio-code
   vlc
   wavebox
