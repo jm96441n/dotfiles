@@ -1,6 +1,6 @@
 {
     // Theme
-    "workbench.colorTheme": "Hyrule",
+    "workbench.colorTheme": "Dracula Soft Syntax Theme",
 
     // Icon theme for side bar
     "workbench.iconTheme": "material-icon-theme",
