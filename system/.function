@@ -3,6 +3,10 @@ function rp () {
   bundle exec rake parallel:features[4,${*},'--format progress']
 }
 
+function mk() {
+    mkdir -p "$@" && cd "$@"
+}
+
 # \[\e[0m\] resets the color to default color
 c_reset='\[\e[0m\]'
 #  \e[0;31m\ sets the color to red
