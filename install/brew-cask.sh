@@ -13,7 +13,6 @@ brew tap caskroom/fonts
  apps=(
   dropbox
   firefox
-  flux
   iterm2
   lastpass
   google-chrome
