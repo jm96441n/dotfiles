@@ -22,7 +22,7 @@ fi
 
 # Finally we can source the dotfiles (order matters)
 
-for DOTFILE in "$DOTFILES_DIR"/system/.{function,path,env,private_env,alias,private_alias,completion,prompt,chruby,asdf,custom}; do
+for DOTFILE in "$DOTFILES_DIR"/system/.{function,path,env,private_env,alias,private_alias,completion,prompt,asdf,custom}; do
   [ -f "$DOTFILE" ] && . "$DOTFILE"
 done
 
@@ -41,3 +41,11 @@ export DOTFILES_DIR DOTFILES_EXTRA_DIR
 
 # $VARIABLE will render before the rest of the command is executed
 echo "Logged in as $USER at $(hostname)"
+
+. $HOME/.asdf/asdf.sh
+
+. $HOME/.asdf/completions/asdf.bash
+
+. $HOME/.asdf/asdf.sh
+
+. $HOME/.asdf/completions/asdf.bash
