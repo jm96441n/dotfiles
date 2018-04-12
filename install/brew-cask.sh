@@ -1,3 +1,5 @@
+#!/bin/bash
+
 if ! is-macos -o ! is-executable brew; then
   echo "Skipped: Homebrew-Cask"
   return
@@ -16,10 +18,8 @@ brew tap caskroom/fonts
   lastpass
   google-chrome
   postico
-  pulse
   spotify
   sublime-text
-  utorrent
   visual-studio-code
   vlc
   wavebox
