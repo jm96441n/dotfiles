@@ -68,5 +68,6 @@
 
     // Stop from scrolling past bottom of open file
     "editor.scrollBeyondLastLine": false,
-    "gitlens.keymap": "chorded"
+    "gitlens.keymap": "chorded",
+    "gitlens.historyExplorer.enabled": false
 }
