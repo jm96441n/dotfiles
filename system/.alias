@@ -28,3 +28,7 @@ alias init="be rake ci:initialize"
 # Personal Aliases
 
 alias projects="cd /Users/johnmaguire/Projects"
+
+# React on Rails Aliases
+
+alias react_server="foreman start -f Procfile.dev"
