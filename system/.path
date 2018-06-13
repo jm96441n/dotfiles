@@ -25,3 +25,4 @@ PATH=`echo -n $PATH | awk -v RS=: '{ if (!arr[$0]++) {printf("%s%s",!ln++?"":":"
 # Wrap up
 
 export PATH
+export PATH="$(brew --prefix qt@5.5)/bin:$PATH"
