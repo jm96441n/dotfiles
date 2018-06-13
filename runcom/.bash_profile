@@ -22,9 +22,11 @@ fi
 
 # Finally we can source the dotfiles (order matters)
 
-for DOTFILE in "$DOTFILES_DIR"/system/.{function,path,env,private_env,alias,private_alias,completion,prompt,chruby,asdf,custom}; do
+for DOTFILE in "$DOTFILES_DIR"/system/.{function,path,env,private_env,alias,private_alias,completion,prompt,custom}; do
   [ -f "$DOTFILE" ] && . "$DOTFILE"
 done
+
+eval "$(rbenv init -)"
 
 source "$DOTFILES_DIR"/git/.git-completion.bash
 # Set LSCOLORS
