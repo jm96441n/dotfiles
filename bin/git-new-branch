@@ -1,0 +1,8 @@
+#!/bin/bash
+branch=$1
+commit_message=$2
+test -z $branch && echo "Branch name required" 1>&2 && exit 1
+test -z "$commit_message" && echo "Commit message required" 1>&2 && exit 1
+
+git checkout -b $branch
+git commit -m"$commit_message" --allow-empty

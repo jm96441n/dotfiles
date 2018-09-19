@@ -3,7 +3,7 @@
     "workbench.colorTheme": "Dracula Soft",
 
     // Icon theme for side bar
-    "workbench.iconTheme": "material-icon-theme",
+    "workbench.iconTheme": "cage",
 
     // Sets horizontal scrolling for sidebar
     "workbench.tree.horizontalScrolling": true,
@@ -69,5 +69,7 @@
     // Stop from scrolling past bottom of open file
     "editor.scrollBeyondLastLine": false,
     "gitlens.keymap": "chorded",
-    "gitlens.historyExplorer.enabled": false
+    "gitlens.historyExplorer.enabled": false,
+    "java.errors.incompleteClasspath.severity": "ignore",
+    "files.trimFinalNewlines": true
 }
