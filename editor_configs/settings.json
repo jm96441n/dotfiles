@@ -24,7 +24,7 @@
     "files.trimTrailingWhitespace": true,
 
     // Insert newline at end of file
-    "files.insertFinalNewline": true,
+    "files.insertFinalNewline": false,
 
     // Insert spaces when pressing Tab.
     "editor.insertSpaces": true,
