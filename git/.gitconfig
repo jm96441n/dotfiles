@@ -2,7 +2,7 @@
   # Excludesfiles allows us to set a global list of things to ignore
   excludesfile = ~/.gitignore_global
 
-  # Sets up VS Code as the editor
+  # Sets up Vim as the editor
   editor = vim
 
 # These are custom color options for the console
