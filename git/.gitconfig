@@ -3,7 +3,7 @@
   excludesfile = ~/.gitignore_global
 
   # Sets up VS Code as the editor
-  editor = code -w
+  editor = vim
 
 # These are custom color options for the console
 [color]
@@ -94,6 +94,6 @@
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
-	required = true
+  required = true
 [credential]
-	helper = osxkeychain
+  helper = osxkeychain
