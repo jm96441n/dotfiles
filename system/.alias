@@ -1,10 +1,11 @@
-# Shortcuts
+#!/bin/bash
 
+# Shortcuts
 alias reload="source ~/.bash_profile"
 alias g="git"
 __git_complete g _git
-# Directory traversal
 
+# Directory traversal
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
@@ -20,15 +21,19 @@ alias cuke="be cucumber"
 alias coverage="be rake ci:coverage"
 
 # Balance Aliases
-
 alias cw="clockwork"
 alias balance="cd /Users/jmaguire/balance"
 alias nudge="GITHUB_AUTH_TOKEN='$GITHUB_AUTH_TOKEN' bundle exec rake ci:nudge_travis"
 alias init="be rake ci:initialize"
-# Personal Aliases
 
+# Personal Aliases
 alias projects="cd /Users/johnmaguire/Projects"
 
-# React on Rails Aliases
+# Fix grep to use color and show line numbers
+alias grep="grep --color=auto"
+alias fgrep="fgrep --color=auto"
+alias egrep="egrep --color=auto"
 
+
+# React on Rails Aliases
 alias react_server="foreman start -f Procfile.dev"

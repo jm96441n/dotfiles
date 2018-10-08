@@ -71,5 +71,6 @@
     "gitlens.keymap": "chorded",
     "gitlens.historyExplorer.enabled": false,
     "java.errors.incompleteClasspath.severity": "ignore",
-    "files.trimFinalNewlines": true
+    "files.trimFinalNewlines": true,
+    "typescript.updateImportsOnFileMove.enabled": "always"
 }
