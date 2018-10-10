@@ -20,15 +20,16 @@ alias cuke="be cucumber"
 alias coverage="be rake ci:coverage"
 
 # Balance Aliases
-
 alias cw="clockwork"
 alias balance="cd /Users/jmaguire/balance"
 alias nudge="GITHUB_AUTH_TOKEN='$GITHUB_AUTH_TOKEN' bundle exec rake ci:nudge_travis"
 alias init="be rake ci:initialize"
-# Personal Aliases
 
+# Personal Aliases
 alias projects="cd /Users/johnmaguire/Projects"
 
 # React on Rails Aliases
-
 alias react_server="foreman start -f Procfile.dev"
+
+# Map vim to use neovim
+alias vim="nvim"
