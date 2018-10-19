@@ -26,6 +26,8 @@ for DOTFILE in "$DOTFILES_DIR"/system/.{function,path,env,private_env,alias,priv
   [ -f "$DOTFILE" ] && . "$DOTFILE"
 done
 
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
 eval "$(rbenv init -)"
 
 source "$DOTFILES_DIR"/git/.git-completion.bash
