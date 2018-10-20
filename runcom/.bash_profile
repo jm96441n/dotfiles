@@ -22,13 +22,19 @@ fi
 
 # Finally we can source the dotfiles (order matters)
 
-for DOTFILE in "$DOTFILES_DIR"/system/.{function,path,env,private_env,alias,private_alias,completion,prompt,asdf,custom}; do
+for DOTFILE in "$DOTFILES_DIR"/system/.{function,path,env,private_env,alias,private_alias,completion,prompt,custom}; do
   [ -f "$DOTFILE" ] && . "$DOTFILE"
 done
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
-eval "$(rbenv init -)"
+if is-macos -o; then
+  [ -f "$DOTFILES_DIR/system/.asdf" ] && . "$DOTFILES_DIR/system/.asdf"
+fi
+
+if is-macos -o; then
+  eval "$(rbenv init -)"
+fi
 
 source "$DOTFILES_DIR"/git/.git-completion.bash
 # Set LSCOLORS
@@ -65,3 +71,7 @@ export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
 export PATH=/usr/local/opt/mysql@5.7/bin:/usr/local/opt/mysql@5.7/bin:/usr/local/opt/mysql@5.7/bin:/Users/jmaguire/.nvm/versions/node/v8.11.3/bin:/Users/jmaguire/.rbenv/shims:/usr/local/opt/asdf/shims:/usr/local/opt/asdf/bin:/usr/local/Cellar/qt@5.5/5.5.1_1/bin:/usr/local/sbin:/usr/sbin:/sbin:/Users/jmaguire/.dotfiles/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/mysql/bin
 export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
 export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
+export PATH="/snap/bin:$PATH"
+. $HOME/.asdf/asdf.sh
+
+. $HOME/.asdf/completions/asdf.bash
