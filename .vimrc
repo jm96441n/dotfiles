@@ -13,6 +13,9 @@ set autoread
 " line numbers
 set number
 
+" turn off word wrap
+set nowrap
+
 " use control s to save and exit insert mode
 map <C-s> <esc>:w<CR>
 imap <C-s> <esc>:w<CR>
@@ -45,6 +48,7 @@ Plug 'mechatroner/rainbow_csv'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-rails'
 Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'morhetz/gruvbox'
 Plug '~/.fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'sheerun/vim-polyglot'
@@ -57,8 +61,10 @@ call plug#end()
 map <C-n> :NERDTreeToggle<CR> 
 
 " Theme
-colorscheme dracula
-highlight Normal ctermbg=None
+" colorscheme dracula
+colorscheme gruvbox
+" highlight Normal ctermbg=None
+set background=dark
 
 " set column
 set cc=120
