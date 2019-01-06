@@ -72,5 +72,8 @@
     "gitlens.historyExplorer.enabled": false,
     "java.errors.incompleteClasspath.severity": "ignore",
     "files.trimFinalNewlines": true,
-    "typescript.updateImportsOnFileMove.enabled": "always"
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    "gitlens.views.repositories.files.layout": "auto",
+    "gitlens.views.fileHistory.enabled": false,
+    "gitlens.views.lineHistory.enabled": false
 }

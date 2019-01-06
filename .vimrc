@@ -45,6 +45,7 @@ Plug 'mechatroner/rainbow_csv'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-rails'
 Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'morhetz/gruvbox'
 Plug '~/.fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'sheerun/vim-polyglot'
@@ -57,8 +58,9 @@ call plug#end()
 map <C-n> :NERDTreeToggle<CR> 
 
 " Theme
-colorscheme dracula
-highlight Normal ctermbg=None
+" colorscheme dracula
+colorscheme gruvbox
+set background=dark
 
 " set column
 set cc=120
