@@ -13,6 +13,9 @@ set autoread
 " line numbers
 set number
 
+" turn off word wrap
+set nowrap
+
 " use control s to save and exit insert mode
 map <C-s> <esc>:w<CR>
 imap <C-s> <esc>:w<CR>
@@ -60,6 +63,7 @@ map <C-n> :NERDTreeToggle<CR>
 " Theme
 " colorscheme dracula
 colorscheme gruvbox
+" highlight Normal ctermbg=None
 set background=dark
 
 " set column
