@@ -96,4 +96,4 @@
 	process = git-lfs filter-process
   required = true
 [credential]
-  helper = osxkeychain
+	helper = osxkeychain
