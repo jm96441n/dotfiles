@@ -11,14 +11,16 @@ brew tap caskroom/fonts
 
 # Install packages
  apps=(
+  alfred
   firefox
-  iterm
+  iterm2
   google-chrome
   postico
   spotify
-  sublime-text
   visual-studio-code
   vlc
+  spotify
+  wavebox
  )
 
 brew cask install "${apps[@]}"
