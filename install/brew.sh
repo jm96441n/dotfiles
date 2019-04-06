@@ -33,6 +33,9 @@ apps=(
   wifi-password
   wget
   yarn
+  tmux
+  neovim
+  alfred
 )
 
 brew install "${apps[@]}"
