@@ -31,6 +31,8 @@ ln -sfv "$DOTFILES_DIR/ruby/.default_gems" ~
 . "$DOTFILES_DIR/install/brew-cask.sh"
 . "$DOTFILES_DIR/install/gem.sh"
 
+mkdir ~/.config/nvim/
+ln -sfv "$DOTFILES_DIR/.vimrc" ~/.config/nvim/init.vim
 # Run tests
 
 if is-executable bats; then bats test/*.bats; else echo "Skipped: tests (missing: bats)"; fi
