@@ -2,8 +2,8 @@
   # Excludesfiles allows us to set a global list of things to ignore
   excludesfile = ~/.gitignore_global
 
-  # Sets up Vim as the editor
-  editor = vim
+  # Sets up NeoVim as the editor
+  editor = nvim
 
 # These are custom color options for the console
 [color]
