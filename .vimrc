@@ -16,6 +16,10 @@ set number
 " turn off word wrap
 set nowrap
 
+" set bash like file autocompletion
+set wildmode=longest,list,full
+set wildmenu
+
 " use control s to save and exit insert mode
 map <C-s> <esc>:w<CR>
 imap <C-s> <esc>:w<CR>
