@@ -64,6 +64,9 @@ call plug#end()
 " Change keymap for nerdtree
 map <C-n> :NERDTreeToggle<CR> 
 
+" Add keymap for FZF
+nnoremap <c-p> :Files<CR>
+
 " Theme
 " colorscheme dracula
 colorscheme gruvbox
