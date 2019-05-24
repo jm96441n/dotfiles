@@ -36,6 +36,7 @@ apps=(
   tmux
   neovim
   alfred
+  fzf
   the_silver_searcher
 )
 
