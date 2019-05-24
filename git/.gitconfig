@@ -86,14 +86,16 @@
   # Edit the last commit
   amend= commit --verbose --amend
 [user]
-	name = John Maguire
-	email = jmaguire@mdsol.com
+  name = John Maguire
+  email = jmaguire@mdsol.com
 [push]
-	default = current
+  default = current
 [filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
   required = true
 [credential]
-	helper = osxkeychain
+  helper = osxkeychain
+[grep]
+  linenumber = true

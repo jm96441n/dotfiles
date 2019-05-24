@@ -3,6 +3,7 @@
 # Shortcuts
 alias reload="source ~/.bash_profile"
 alias g="git"
+alias gg="git grep"
 __git_complete g _git
 
 # Directory traversal
@@ -31,7 +32,7 @@ alias sync_release="git branch -D merge_release ; git checkout release && git pu
 alias projects="cd /Users/johnmaguire/Projects"
 
 # Fix grep to use color and show line numbers
-alias grep="grep --color=auto"
+alias grep="grep -nr --color=auto"
 alias fgrep="fgrep --color=auto"
 alias egrep="egrep --color=auto"
 

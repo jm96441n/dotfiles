@@ -36,6 +36,7 @@ apps=(
   tmux
   neovim
   alfred
+  the_silver_searcher
 )
 
 brew install "${apps[@]}"

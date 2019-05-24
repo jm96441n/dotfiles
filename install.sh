@@ -23,6 +23,7 @@ ln -sfv "$DOTFILES_DIR/runcom/.gemrc" ~
 ln -sfv "$DOTFILES_DIR/git/.gitconfig" ~
 ln -sfv "$DOTFILES_DIR/git/.gitignore_global" ~
 ln -sfv "$DOTFILES_DIR/ruby/.default_gems" ~
+ln -sfv "$DOTFILES_DIR/javascript/.default_npm_packages" ~
 
 # Package managers & packages
 

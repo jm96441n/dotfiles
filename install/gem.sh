@@ -11,5 +11,6 @@ brew install asdf
 asdf plugin-add ruby
 
 asdf install ruby 2.5.0
+asdf install ruby 2.5.3
 
-asdf global ruby 2.5.0
+asdf global ruby 2.5.3
