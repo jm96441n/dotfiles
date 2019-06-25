@@ -17,9 +17,10 @@ brew tap caskroom/fonts
   google-chrome
   postico
   spotify
+  spectacle
+  spotify
   visual-studio-code
   vlc
-  spotify
   wavebox
  )
 
