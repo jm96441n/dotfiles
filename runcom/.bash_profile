@@ -24,7 +24,7 @@ fi
 source "$DOTFILES_DIR"/git/.git-completion.bash
 
 # source tmuxinator completions
-source "$DOTFILES_DIR"/runcom/.tmuxinator.bash
+source "$DOTFILES_DIR"/runcom/tmuxinator.bash
 
 # Finally we can source the dotfiles (order matters)
 for DOTFILE in "$DOTFILES_DIR"/system/.{function,path,env,private_env,alias,private_alias,completion,prompt,custom}; do
