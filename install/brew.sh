@@ -11,8 +11,12 @@ brew upgrade
 
 apps=(
   bash-completion2
+  # cat clone with syntax highlighting
+  bat
+  bats
   coreutils
   diff-so-fancy
+  fzf
   git
   # https://github.com/tj/git-extras/blob/master/Commands.md
   git-extras
@@ -22,21 +26,20 @@ apps=(
   imagemagick
   jq
   mysql
+  neovim
   postgis
   postgresql
   python
   readline
   ssh-copy-id
+  the_silver_searcher
   thefuck
-  unar
+  tmux
   tree
+  unar
   wifi-password
   wget
   yarn
-  tmux
-  neovim
-  fzf
-  the_silver_searcher
 )
 
 brew install "${apps[@]}"
