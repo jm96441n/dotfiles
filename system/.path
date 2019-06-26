@@ -21,10 +21,3 @@ prepend-path "/usr/local/heroku/"
 # Source: http://unix.stackexchange.com/a/40755
 
 PATH=`echo -n $PATH | awk -v RS=: '{ if (!arr[$0]++) {printf("%s%s",!ln++?"":":",$0)}}'`
-
-# Wrap up
-
-export PATH
-if is-macos -o; then
-  export PATH="$(brew --prefix qt@5.5)/bin:$PATH"
-fi
