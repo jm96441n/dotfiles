@@ -22,6 +22,7 @@ fi
 
 # Finally we can source the dotfiles (order matters)
 
+source "$DOTFILES_DIR"/git/.git-completion.bash
 for DOTFILE in "$DOTFILES_DIR"/system/.{function,path,env,private_env,alias,private_alias,completion,prompt,custom}; do
   [ -f "$DOTFILE" ] && . "$DOTFILE"
 done
@@ -32,7 +33,6 @@ if is-macos -o; then
   [ -f "$DOTFILES_DIR/system/.asdf" ] && . "$DOTFILES_DIR/system/.asdf"
 fi
 
-source "$DOTFILES_DIR"/git/.git-completion.bash
 # Set LSCOLORS
 
 # eval "$(dircolors "$DOTFILES_DIR"/system/.dir_colors)"
