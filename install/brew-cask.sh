@@ -12,9 +12,7 @@ brew tap caskroom/fonts
 # Install packages
  apps=(
   alfred
-  firefox
   iterm2
-  google-chrome
   postico
   spotify
   spectacle
@@ -27,4 +25,4 @@ brew tap caskroom/fonts
 brew cask install "${apps[@]}"
 
 # Quick Look Plugins (https://github.com/sindresorhus/quick-look-plugins)
-brew cask install qlcolorcode qlstephen qlmarkdown quicklook-json qlimagesize webpquicklook suspicious-package qlvideo
+brew cask install qlcolorcode qlstephen qlmarkdown quicklook-json qlimagesize webpquicklook suspicious-package qlvideo firefox google-chrome
