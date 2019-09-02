@@ -45,7 +45,6 @@ call plug#begin('~/.vim/plugged')
 Plug 'w0rp/ale'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'vim-ruby/vim-ruby'
-Plug 'scrooloose/nerdtree'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'mechatroner/rainbow_csv'
@@ -58,11 +57,9 @@ Plug 'junegunn/fzf.vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-surround'
 Plug 'airblade/vim-gitgutter'
+Plug 'https://github.com/Valloric/YouCompleteMe'
 
 call plug#end()
-
-" Change keymap for nerdtree
-map <C-n> :NERDTreeToggle<CR> 
 
 " fzf file fuzzy search that respects .gitignore
 " If in git directory, show only files that are committed, staged, or unstaged

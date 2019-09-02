@@ -23,6 +23,7 @@ ln -sfv "$DOTFILES_DIR/runcom/.asdfrc" ~
 ln -sfv "$DOTFILES_DIR/runcom/.gemrc" ~
 ln -sfv "$DOTFILES_DIR/runcom/.tmux.conf" ~
 ln -sfv "$DOTFILES_DIR/git/.gitconfig" ~
+ln -sfv "$DOTFILES_DIR/git/.git-completion.bash" ~
 ln -sfv "$DOTFILES_DIR/git/.gitignore_global" ~
 ln -sfv "$DOTFILES_DIR/ruby/.default_gems" ~
 ln -sfv "$DOTFILES_DIR/javascript/.default_npm_packages" ~
@@ -34,6 +35,7 @@ ln -sfv "$DOTFILES_DIR/javascript/.default_npm_packages" ~
 . "$DOTFILES_DIR/install/brew-cask.sh"
 . "$DOTFILES_DIR/install/gem.sh"
 
+mkdir ~/.config/
 mkdir ~/.config/nvim/
 ln -sfv "$DOTFILES_DIR/.vimrc" ~/.config/nvim/init.vim
 # Run tests

@@ -86,8 +86,8 @@
   # Edit the last commit
   amend= commit --verbose --amend
 [user]
-  name = John Maguire
-  email = jmaguire@mdsol.com
+	name = jm96441n
+	email = jmaguire@mdsol.com
 [push]
   default = current
 [filter "lfs"]
@@ -96,6 +96,6 @@
   process = git-lfs filter-process
   required = true
 [credential]
-  helper = osxkeychain
+	helper = osxkeychain
 [grep]
   linenumber = true
