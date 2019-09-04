@@ -42,22 +42,41 @@ inoremap <right> <nop>
 " Plugins!
 call plug#begin('~/.vim/plugged')
 
+" Multi language linter
 Plug 'w0rp/ale'
-Plug 'christoomey/vim-tmux-navigator'
-Plug 'vim-ruby/vim-ruby'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'mechatroner/rainbow_csv'
-Plug 'tpope/vim-sensible'
-Plug 'tpope/vim-rails'
-Plug 'dracula/vim', { 'as': 'dracula' }
-Plug '/usr/local/opt/fzf'
-Plug 'morhetz/gruvbox'
-Plug 'junegunn/fzf.vim'
+" All the syntax highlighting
 Plug 'sheerun/vim-polyglot'
-Plug 'tpope/vim-surround'
-Plug 'airblade/vim-gitgutter'
+" All the autocompletion
 Plug 'https://github.com/Valloric/YouCompleteMe'
+" Keybindings for navigating between vim and tmux
+Plug 'christoomey/vim-tmux-navigator'
+" Ruby configs
+Plug 'vim-ruby/vim-ruby'
+" Tabline status
+Plug 'vim-airline/vim-airline'
+" Themes for vim-airline
+Plug 'vim-airline/vim-airline-themes'
+" Colorful CSV highlighting
+Plug 'mechatroner/rainbow_csv'
+" Useful VIM defaults
+Plug 'tpope/vim-sensible'
+" Easy navigation of rails project
+Plug 'tpope/vim-rails'
+" FZF for fuzzy file searching
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf.vim'
+" Dracula theme
+Plug 'dracula/vim', { 'as': 'dracula' }
+" Gruvbox theme
+Plug 'morhetz/gruvbox'
+" Easily create wrapping tags
+Plug 'tpope/vim-surround'
+" Shows git diff in gutter
+Plug 'airblade/vim-gitgutter'
+" Create text objects -- dependency for vim-textobj-ruby
+Plug 'kana/vim-textobj-user'
+" Quickly edit text objects within ruby
+Plug 'rhysd/vim-textobj-ruby'
 
 call plug#end()
 
