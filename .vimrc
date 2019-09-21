@@ -77,6 +77,8 @@ Plug 'airblade/vim-gitgutter'
 Plug 'kana/vim-textobj-user'
 " Quickly edit text objects within ruby
 Plug 'rhysd/vim-textobj-ruby'
+" Markdown preview
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 
 call plug#end()
 
