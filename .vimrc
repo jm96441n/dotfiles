@@ -11,7 +11,15 @@ filetype plugin indent on
 set autoread
 
 " line numbers
-set number
+" set number
+
+set number relativenumber
+
+augroup numbertoggle
+  autocmd!
+  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+augroup END
 
 " turn off word wrap
 set nowrap
