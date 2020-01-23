@@ -57,10 +57,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
-export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
-export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
 export PATH=/usr/local/opt/mysql@5.7/bin:/usr/local/opt/mysql@5.7/bin:/usr/local/opt/mysql@5.7/bin:/Users/jmaguire/.nvm/versions/node/v8.11.3/bin:/usr/local/opt/asdf/shims:/usr/local/opt/asdf/bin:/usr/local/sbin:/usr/sbin:/sbin:/Users/jmaguire/.dotfiles/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/mysql/bin
-export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
 export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
 export PATH="/snap/bin:$PATH"
 
