@@ -7,6 +7,9 @@ set shiftwidth=2
 set softtabstop=2
 filetype plugin indent on
 
+" set tabs to 8 spaces in go files
+autocmd FileType go setlocal shiftwidth=8 softtabstop=8 expandtab
+
 " live reload files if it changes on disk
 set autoread
 
@@ -104,4 +107,3 @@ set background=dark
 " set column
 set cc=120
 highlight ColorColumn guibg=red
-
