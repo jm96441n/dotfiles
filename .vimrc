@@ -9,6 +9,8 @@ filetype plugin indent on
 
 " set tabs to 8 spaces in go files
 autocmd FileType go setlocal shiftwidth=8 softtabstop=8 expandtab
+" set tabs to 4 spaces in python files
+autocmd FileType py setlocal shiftwidth=4 softtabstop=4 expandtab
 
 " live reload files if it changes on disk
 set autoread
