@@ -12,6 +12,7 @@ brew tap caskroom/fonts
 # Install packages
  apps=(
   alfred
+  franz
   iterm2
   postico
   spotify
@@ -19,7 +20,6 @@ brew tap caskroom/fonts
   spotify
   visual-studio-code
   vlc
-  wavebox
  )
 
 brew cask install "${apps[@]}"
