@@ -85,9 +85,6 @@
 
   # Edit the last commit
   amend= commit --verbose --amend
-[user]
-	name = jm96441n
-	email = jmaguire@mdsol.com
 [push]
   default = current
 [filter "lfs"]
@@ -96,6 +93,13 @@
   process = git-lfs filter-process
   required = true
 [credential]
-	helper = osxkeychain
+  helper = osxkeychain
+[user]
+  name = jm96441n
+  email = jmaguire5588@gmail.com
+[includeIf "gitdir:/Users/john.maguire/"]
+  path = ~/.dotfiles/git/work/.gitconfig
 [grep]
   linenumber = true
+[url "ssh://git@gitlab.cbinsights.com/"]
+	insteadOf = https://gitlab.cbinsights.com/

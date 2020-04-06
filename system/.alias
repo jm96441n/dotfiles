@@ -41,3 +41,9 @@ alias react_server="foreman start -f Procfile.dev"
 
 # Map vim to use neovim
 alias vim="nvim"
+
+# make python3 the default
+alias python="python3.8"
+
+alias pip2="pip"
+alias pip="pip3"
