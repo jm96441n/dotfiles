@@ -96,9 +96,11 @@
   helper = osxkeychain
 [user]
   name = jm96441n
-  email = jmaguire5588@gmail.com
+  email = john@johnmaguirdeveloper.com
 [includeIf "gitdir:/Users/john.maguire/"]
   path = ~/.dotfiles/git/work/.gitconfig
+[includeIf "gitdir:$HOME/.dotfiles"]
+  path = ~/.dotfiles/git/personal/.gitconfig
 [grep]
   linenumber = true
 [url "ssh://git@gitlab.cbinsights.com/"]
