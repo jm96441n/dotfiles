@@ -6,9 +6,26 @@ set expandtab
 set shiftwidth=2
 set softtabstop=2
 filetype plugin indent on
-
+let g:mapleader=" "
 " set tabs to 8 spaces in go files
 autocmd FileType go setlocal shiftwidth=8 softtabstop=8 expandtab
+
+" vim-go related remaps
+autocmd FileType go nmap <leader>r  <Plug>(go-run)
+autocmd FileType go nmap <leader>t  <Plug>(go-test)
+autocmd FileType go nmap <leader>c  <Plug>(go-coverage-toggle)
+" run :GoBuild or :GoTestCompile based on the go file
+function! s:build_go_files()
+  let l:file = expand('%')
+  if l:file =~# '^\f+_test\.go$'
+    call go#test#Test(0, 1)
+  elseif l:file =~# '^\f\+\.go$'
+    call go#cmd#Build(0)
+  endif
+endfunction
+
+autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
+
 " set tabs to 4 spaces in python files
 autocmd FileType py setlocal shiftwidth=4 softtabstop=4 expandtab
 
@@ -65,6 +82,8 @@ Plug 'https://github.com/Valloric/YouCompleteMe'
 Plug 'christoomey/vim-tmux-navigator'
 " Ruby configs
 Plug 'vim-ruby/vim-ruby'
+" Go configs
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 " Tabline status
 Plug 'vim-airline/vim-airline'
 " Themes for vim-airline
