@@ -11,9 +11,9 @@ brew tap caskroom/fonts
 
 # Install packages
  apps=(
+  alacritty
   alfred
   franz
-  iterm2
   postico
   spotify
   spectacle
