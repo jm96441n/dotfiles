@@ -10,6 +10,7 @@ brew update
 brew upgrade
 
 apps=(
+  autojump
   bash-completion2
   # cat clone with syntax highlighting
   bat

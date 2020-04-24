@@ -64,3 +64,6 @@ export NVM_DIR="$HOME/.nvm"
 source /usr/local/bin/virtualenvwrapper_lazy.sh
 
 complete -C /usr/local/bin/vault vault
+
+# for autojump
+[ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
