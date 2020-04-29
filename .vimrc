@@ -94,6 +94,8 @@ Plug 'mechatroner/rainbow_csv'
 Plug 'tpope/vim-sensible'
 " Easy navigation of rails project
 Plug 'tpope/vim-rails'
+" Useful git functionality
+Plug 'tpope/vim-fugitive'
 " FZF for fuzzy file searching
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
