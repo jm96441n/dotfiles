@@ -27,7 +27,7 @@ source "$DOTFILES_DIR"/git/.git-completion.bash
 source "$DOTFILES_DIR"/runcom/tmuxinator.bash
 
 # Finally we can source the dotfiles (order matters)
-for DOTFILE in "$DOTFILES_DIR"/system/.{function,env,path,private_env,alias,private_alias,completion,prompt,custom}; do
+for DOTFILE in "$DOTFILES_DIR"/system/.{function,env,path,private_env,alias,private_alias,completion,webpro_prompt,custom}; do
   [ -f "$DOTFILE" ] && . "$DOTFILE"
 done
 
