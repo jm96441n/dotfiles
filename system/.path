@@ -21,7 +21,7 @@ prepend-path "/usr/local/opt/asdf/bin"
 prepend-path "/usr/local/mysql"
 prepend-path "/usr/local/opt/awscli@1/bin"
 prepend-path "$GOPATH/bin"
-prepend-path "$GOROOT/bin"
+prepend-path "/user/local/go/bin"
 
 # Remove duplicates (preserving prepended items)
 # Source: http://unix.stackexchange.com/a/40755
