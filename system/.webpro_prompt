@@ -50,9 +50,11 @@ _bash_prompt_config() {
   local WHITE_BOLD="${ESC_OPEN}${BOLD}$(_setaf 7)${ESC_CLOSE}"
 
   # Expose the variables we need in prompt command
-  P_USER=${CYAN}${USER_SYMBOL}
+  P_USER=${USER_SYMBOL}
   P_HOST=${CYAN}${HOST_SYMBOL}
+  P_CYAN=${CYAN}
   P_WHITE=${WHITE}
+  P_VIOLET=${VIOLET}
   P_GREEN=${GREEN}
   P_YELLOW=${YELLOW}
   P_RED=${RED}
@@ -63,9 +65,9 @@ _bash_prompt_config() {
 bash_prompt_command() {
 
   local EXIT_CODE=$?
-  local P_EXIT=""
   local MAXLENGTH=35
   local TRUNC_SYMBOL=".."
+  local USER_PROMPT="${P_CYAN}✔ ${P_CYAN}${P_USER}"
   local DIR=${PWD##*/}
   local P_PWD=${PWD/#$HOME/\~}
 
@@ -86,13 +88,15 @@ bash_prompt_command() {
   # Parse Git branch name
   P_GIT="$(parse_git_branch)"
 
+  DIRTY="$(git_dirty)"
   # Exit code
-  if [[ $EXIT_CODE != 0 ]]; then
-    P_EXIT+="${P_RED}✘ "
+  if [[ $EXIT_CODE != 0 ]] || (( $DIRTY != 0 )); then
+    USER_PROMPT="${P_RED}✘ ${P_RED}${P_USER}"
   fi
 
-  PS1="${P_EXIT}${P_USER} ${P_YELLOW}${P_PWD}$(git_color)${P_GIT}${P_YELLOW} ❯ ${P_RESET}"
+  PS1="${USER_PROMPT} ${P_VIOLET}${P_PWD}$(git_color)${P_GIT}${P_YELLOW} ❯ ${P_RESET}"
 }
+
 
 parse_git_branch() {
   local OUT=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
@@ -100,19 +104,27 @@ parse_git_branch() {
 }
 
 git_color() {
-  git_st="$(git status 2> /dev/null)"
-
- 
-  if [[ ! $git_st =~ "working directory clean" ]]; then
+  if [[ "$(git_dirty)" -eq "1" ]]; then
     echo -e $P_RED
-  elif [[ $git_st =~ "Changes to be committed" ]]; then
-    echo "$git_st"
+  elif [[ "$(git_staged)" -eq "1" ]]; then
     echo -e $P_YELLOW
-  elif [[ $git_st =~ "nothing to commit" ]]; then
+  elif [[ "$(git_clean)" -eq "1" ]]; then
     echo -e $P_GREEN
   else
     echo -e $P_WHITE
   fi 
+}
+
+git_dirty() {
+  echo -e "$(git status | ag 'Changes not staged for commit' | wc -l)"
+}
+
+git_staged() {
+  echo -e "$(git status | ag 'Changes to be committed' | wc -l)"
+}
+
+git_clean() {
+  echo -e "$(git status | ag 'nothing to commit' | wc -l)"
 }
 
 _bash_prompt_config
