@@ -88,19 +88,26 @@ bash_prompt_command() {
   # Parse Git branch name
   P_GIT="$(parse_git_branch)"
 
-  DIRTY="$(git_dirty)"
   # Exit code
-  if [[ $EXIT_CODE != 0 ]] || (( $DIRTY != 0 )); then
+  if [[ $EXIT_CODE != 0 ]]; then
     USER_PROMPT="${P_RED}✘ ${P_RED}${P_USER}"
   fi
 
-  PS1="${USER_PROMPT} ${P_VIOLET}${P_PWD}$(git_color)${P_GIT}${P_YELLOW} ❯ ${P_RESET}"
+  PS1="${USER_PROMPT} ${P_VIOLET}${P_PWD}${P_GIT}${P_YELLOW} ❯ ${P_RESET}"
 }
 
+is_git_dir() {
+  return git rev-parse --git-dir > /dev/null 2>&1
+}
 
 parse_git_branch() {
+  if [ ! is_git_dir ]; then
+    return 0
+  fi
+
+  
   local OUT=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
-  if [ "$OUT" != "" ]; then echo " $OUT"; fi
+  if [ "$OUT" != "" ]; then echo " $(git_color)$OUT"; fi
 }
 
 git_color() {
@@ -108,10 +115,8 @@ git_color() {
     echo -e $P_RED
   elif [[ "$(git_staged)" -eq "1" ]]; then
     echo -e $P_YELLOW
-  elif [[ "$(git_clean)" -eq "1" ]]; then
-    echo -e $P_GREEN
   else
-    echo -e $P_WHITE
+    echo -e $P_GREEN
   fi 
 }
 
