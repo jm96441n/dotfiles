@@ -4,6 +4,7 @@
 
   # Sets up NeoVim as the editor
   editor = nvim
+	pager = diff-so-fancy | less --tabs=4 -RFX
 
 # These are custom color options for the console
 [color]
