@@ -60,10 +60,10 @@ export NVM_DIR="$HOME/.nvm"
 
 . $(brew --prefix asdf)/etc/bash_completion.d/asdf.bash
 
+# for autojump
 [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
 
 #source /usr/local/bin/virtualenvwrapper_lazy.sh
 
-#complete -C /usr/local/bin/vault vault
-
 export PATH="$HOME/.cargo/bin:$PATH"
+complete -C /usr/local/bin/vault vault
