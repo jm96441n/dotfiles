@@ -69,6 +69,9 @@ inoremap <down> <nop>
 inoremap <left> <nop>
 inoremap <right> <nop>
 
+" always copy to system clipboard
+set clipboard+=unnamedplus
+
 " Plugins!
 call plug#begin('~/.vim/plugged')
 
