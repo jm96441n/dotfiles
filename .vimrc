@@ -69,6 +69,9 @@ inoremap <down> <nop>
 inoremap <left> <nop>
 inoremap <right> <nop>
 
+" toggle relative line number
+nmap <leader>rn :set rnu!<cr>
+
 " always copy to system clipboard
 set clipboard+=unnamedplus
 
