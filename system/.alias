@@ -1,10 +1,9 @@
 #!/bin/bash
 
 # Shortcuts
-alias reload="source ~/.bash_profile"
+alias reload="source ~/.zshrc"
 alias g="git"
 alias gg="git grep"
-__git_complete g _git
 
 # Directory traversal
 alias ..="cd .."
