@@ -7,8 +7,6 @@ set shiftwidth=2
 set softtabstop=2
 filetype plugin indent on
 let g:mapleader=" "
-" set tabs to 8 spaces in go files
-autocmd FileType go setlocal shiftwidth=8 softtabstop=8 expandtab
 
 " vim-go related remaps
 autocmd FileType go nmap <leader>r  <Plug>(go-run)
@@ -28,6 +26,8 @@ autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
 
 " set tabs to 4 spaces in python files
 autocmd FileType py setlocal shiftwidth=4 softtabstop=4 expandtab
+" set tabs to 8 spaces in go files
+autocmd FileType go setlocal shiftwidth=8 softtabstop=8 expandtab
 
 " live reload files if it changes on disk
 set autoread
