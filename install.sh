@@ -19,6 +19,7 @@ if is-executable git -a -d "$DOTFILES_DIR/.git"; then git --work-tree="$DOTFILES
 
 ln -sfv "$DOTFILES_DIR/runcom/.bash_profile" ~
 ln -sfv "$DOTFILES_DIR/runcom/.zsh" ~
+ln -sfv "$DOTFILES_DIR/runcom/.alacritty.yml" ~
 ln -sfv "$DOTFILES_DIR/runcom/.inputrc" ~
 ln -sfv "$DOTFILES_DIR/runcom/.asdfrc" ~
 ln -sfv "$DOTFILES_DIR/runcom/.gemrc" ~
