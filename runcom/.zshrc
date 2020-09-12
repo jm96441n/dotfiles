@@ -12,6 +12,22 @@ export ZSH="/Users/john.maguire/.oh-my-zsh"
 ZSH_THEME="gruvbox"
 SOLARIZED_THEME="dark"
 
+# Which plugins would you like to load?
+# Standard plugins can be found in $ZSH/plugins/
+# Custom plugins may be added to $ZSH_CUSTOM/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(
+  asdf
+  autojump
+  fzf
+  git
+  git-extras
+  golang
+  python
+  tmux
+  tmuxinator
+)
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
 # a theme from this variable instead of looking in $ZSH/themes/
@@ -64,22 +80,6 @@ SOLARIZED_THEME="dark"
 
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
-
-# Which plugins would you like to load?
-# Standard plugins can be found in $ZSH/plugins/
-# Custom plugins may be added to $ZSH_CUSTOM/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(
-  asdf
-  autojump
-  fzf
-  git
-  golang
-  python
-  tmuxinator
-  tmux
-)
 
 source $ZSH/oh-my-zsh.sh
 
