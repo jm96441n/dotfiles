@@ -23,6 +23,7 @@ plugins=(
   fzf
   git
   git-extras
+  git-prompt
   golang
   python
   tmux
