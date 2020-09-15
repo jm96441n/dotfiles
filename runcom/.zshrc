@@ -18,17 +18,15 @@ SOLARIZED_THEME="dark"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  asdf
   autojump
   fzf
   git
   git-extras
   git-prompt
-  golang
-  python
   tmux
   tmuxinator
   zsh-autosuggestions
+  zsh-syntax-highlighting
 )
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
