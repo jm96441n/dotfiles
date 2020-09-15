@@ -20,6 +20,7 @@ SOLARIZED_THEME="dark"
 plugins=(
   autojump
   fzf
+  fzf-tab
   git
   git-extras
   git-prompt
