@@ -46,3 +46,5 @@ alias python="python3.8"
 
 alias pip2="pip"
 alias pip="pip3"
+
+alias tmux="tmux -2"

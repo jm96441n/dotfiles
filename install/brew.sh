@@ -41,6 +41,7 @@ apps=(
   wifi-password
   wget
   yarn
+  zsh-autosuggestions
 )
 
 brew install "${apps[@]}"
