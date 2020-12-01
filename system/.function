@@ -3,8 +3,22 @@ function rp () {
   bundle exec rake parallel:features[4,${*},'--format progress']
 }
 
+# docker run nats container
+func dnats () {
+  docker run --network=cbi-net --name=nats --rm -p 4222:4222 -p 8222:8222 nats-streaming:latest
+}
+
 function mk() {
     mkdir -p "$@" && cd "$@"
+}
+
+assume() {
+    role=$1
+    local creds=$(aws sts assume-role --role-arn arn:aws:iam::496584544324:role/$role --role-session-name role-assume-test)
+    echo $creds
+    export AWS_SESSION_TOKEN=$(echo $creds|jq -r '.[].SessionToken'|tr -d "\n"|sed 's/null//')
+    export AWS_ACCESS_KEY_ID=$(echo -n $creds|jq -r '.[].AccessKeyId'|tr -d "\n"|sed 's/null//')
+    export AWS_SECRET_ACCESS_KEY=$(echo -n $creds|jq -r '.[].SecretAccessKey'|tr -d "\n"|sed 's/null//')
 }
 
 # \[\e[0m\] resets the color to default color

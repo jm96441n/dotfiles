@@ -72,6 +72,9 @@ inoremap <right> <nop>
 " toggle relative line number
 nmap <leader>rn :set rnu!<cr>
 
+" set YouCompleteMe GoTo<something>
+nnoremap <leader>jd :YcmCompleter GoTo<CR>
+
 " always copy to system clipboard
 set clipboard+=unnamedplus
 
@@ -119,6 +122,8 @@ Plug 'kana/vim-textobj-user'
 Plug 'rhysd/vim-textobj-ruby'
 " Markdown preview
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
+" Delve Debugging
+Plug 'sebdah/vim-delve'
 
 call plug#end()
 
@@ -136,3 +141,9 @@ set background=dark
 " set column
 set cc=120
 highlight ColorColumn guibg=red
+
+" Enable per-command history.
+" CTRL-N and CTRL-P will be automatically bound to next-history and
+" previous-history instead of down and up. If you don't like the change,
+" explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
+let g:fzf_history_dir = '~/.local/share/fzf-history'

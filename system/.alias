@@ -9,7 +9,7 @@ alias gg="git grep"
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
-alias ls='ls -Gh' # Force ls to use colors (G) and use humanized file sizes (h)
+alias ls='colorls -a' # Force ls to use colors (G) and use humanized file sizes (h)
 
 # For better autocomplete
 eval $(thefuck --alias)
@@ -47,4 +47,5 @@ alias python="python3.8"
 alias pip2="pip"
 alias pip="pip3"
 
+# use colorful tmux
 alias tmux="tmux -2"

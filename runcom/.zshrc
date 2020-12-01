@@ -27,6 +27,7 @@ plugins=(
   tmux
   tmuxinator
   zsh-autosuggestions
+  zsh-colorls
   zsh-syntax-highlighting
 )
 # Set list of themes to pick from when loading at random
@@ -132,3 +133,4 @@ if type brew &>/dev/null; then
   compinit
 fi
 autoload -Uz compinit && compinit
+source $(brew --prefix asdf)/asdf.sh
