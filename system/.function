@@ -3,11 +3,6 @@ function rp () {
   bundle exec rake parallel:features[4,${*},'--format progress']
 }
 
-# docker run nats container
-func dnats () {
-  docker run --network=cbi-net --name=nats --rm -p 4222:4222 -p 8222:8222 nats-streaming:latest
-}
-
 function mk() {
     mkdir -p "$@" && cd "$@"
 }
