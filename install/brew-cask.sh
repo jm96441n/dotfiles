@@ -12,19 +12,28 @@ brew tap homebrew/cask-fonts
  apps=(
   alacritty
   alfred
-  franz
+  ferdi
+  firefox
+  google-chrome
+  lastpass
   postico
+  # Quick Look Plugins (https://github.com/sindresorhus/quick-look-plugins)
+  qlcolorcode
+  qlimagesize
+  quicklook-json
+  qlmarkdown
+  qlstephen
+  qlvideo
   spotify
   spectacle
   spotify
+  suspicious-package
   visual-studio-code
   vlc
+  webpquicklook
  )
 
-brew cask install "${apps[@]}"
-
-# Quick Look Plugins (https://github.com/sindresorhus/quick-look-plugins)
-brew cask install qlcolorcode qlstephen qlmarkdown quicklook-json qlimagesize webpquicklook suspicious-package qlvideo firefox google-chrome
+brew cask install "${apps[@]}" --cask
 
 # Install fonts
 fonts=(
@@ -34,4 +43,4 @@ fonts=(
   font-space-mono-nerd-font
 )
 
-brew cask install "${fonts[@]}"
+brew install "${fonts[@]}" --cask
