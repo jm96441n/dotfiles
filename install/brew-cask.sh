@@ -32,6 +32,7 @@ fonts=(
   font-hack-nerd-font
   font-roboto-mono-nerd-font
   font-space-mono-nerd-font
+  font-meslo-lg-nerd-font
 )
 
 brew cask install "${fonts[@]}"

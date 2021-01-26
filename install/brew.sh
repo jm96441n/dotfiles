@@ -27,6 +27,7 @@ apps=(
   imagemagick
   jq
   mysql
+  neofetch
   neovim
   postgis
   postgresql
