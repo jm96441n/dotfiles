@@ -9,9 +9,9 @@ export ZSH=~"/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="gruvbox"
-SOLARIZED_THEME="dark"
-
+#ZSH_THEME="gruvbox"
+#SOLARIZED_THEME="dark"
+ZSH_THEME="powerlevel10k/powerlevel10k"
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
@@ -134,3 +134,7 @@ if type brew &>/dev/null; then
 fi
 autoload -Uz compinit && compinit
 source $(brew --prefix asdf)/asdf.sh
+
+neofetch
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

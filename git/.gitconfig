@@ -102,6 +102,8 @@
   path = ~/.dotfiles/git/work/.gitconfig
 [includeIf "gitdir:$HOME/.dotfiles"]
   path = ~/.dotfiles/git/personal/.gitconfig
+[includeIf "gitdir:$HOME/AdventOfCode"]
+  path = ~/.dotfiles/git/personal/.gitconfig
 [grep]
   linenumber = true
 [url "ssh://git@gitlab.cbinsights.com/"]
