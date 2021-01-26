@@ -3,8 +3,7 @@ if ! is-macos -o ! is-executable ruby -o ! is-executable curl -o ! is-executable
   echo "Skipped: Homebrew (missing: ruby, curl and/or git)"
   return
 fi
-
-ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 brew update
 brew upgrade
@@ -12,9 +11,6 @@ brew upgrade
 apps=(
   autojump
   bash-completion2
-  # cat clone with syntax highlighting
-  bat
-  bats
   coreutils
   diff-so-fancy
   fzf
@@ -22,6 +18,7 @@ apps=(
   # https://github.com/tj/git-extras/blob/master/Commands.md
   git-extras
   grep
+  gpg2
   geckodriver
   hub
   imagemagick
@@ -42,6 +39,7 @@ apps=(
   wifi-password
   wget
   yarn
+  xz
   zsh-autosuggestions
 )
 

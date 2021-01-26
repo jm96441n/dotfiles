@@ -3,7 +3,7 @@
 # Get current dir (so run this script from anywhere)
 
 export DOTFILES_DIR DOTFILES_CACHE DOTFILES_EXTRA_DIR
-DOTFILES_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+DOTFILES_DIR="$( cd "$( dirname "~/.dotfiles" )" && pwd )"
 DOTFILES_CACHE="$DOTFILES_DIR/.cache.sh"
 DOTFILES_EXTRA_DIR="$HOME/.extra"
 
@@ -17,8 +17,9 @@ if is-executable git -a -d "$DOTFILES_DIR/.git"; then git --work-tree="$DOTFILES
 
 # Bunch of symlinks
 
+mkdir -p ~/.config/
 ln -sfv "$DOTFILES_DIR/runcom/.bash_profile" ~
-ln -sfv "$DOTFILES_DIR/runcom/.zsh" ~
+ln -sfv "$DOTFILES_DIR/runcom/.zshrc" ~
 ln -sfv "$DOTFILES_DIR/runcom/.alacritty.yml" ~
 ln -sfv "$DOTFILES_DIR/runcom/.inputrc" ~
 ln -sfv "$DOTFILES_DIR/runcom/.asdfrc" ~
@@ -28,22 +29,20 @@ ln -sfv "$DOTFILES_DIR/git/.gitconfig" ~
 ln -sfv "$DOTFILES_DIR/git/.githelpers" ~
 ln -sfv "$DOTFILES_DIR/git/.git-completion.bash" ~
 ln -sfv "$DOTFILES_DIR/git/.gitignore_global" ~
-ln -sfv "$DOTFILES_DIR/ruby/.default_gems" ~
-ln -sfv "$DOTFILES_DIR/javascript/.default_npm_packages" ~
+ln -sfv "$DOTFILES_DIR/lang_defaults/.default_gems" ~
+ln -sfv "$DOTFILES_DIR/lang_defaults/.default_npm_packages" ~
+ln -sfv "$DOTFILES_DIR/lang_defaults/.default-python-packages" ~
+ln -sfv "$DOTFILES_DIR/.vimrc" ~/.config/nvim/init.vim
 
-# Package managers & packages
+# Package managers & pagkages
 
 . "$DOTFILES_DIR/install/brew.sh"
-. "$DOTFILES_DIR/install/bash.sh"
+# . "$DOTFILES_DIR/install/bash.sh"
 . "$DOTFILES_DIR/install/brew-cask.sh"
-. "$DOTFILES_DIR/install/gem.sh"
+. "$DOTFILES_DIR/install/asdf_install.sh"
+. "$DOTFILES_DIR/install/zsh_install.sh"
+. "$DOTFILES_DIR/install/projects.sh"
 
-mkdir ~/.config/
-mkdir ~/.config/nvim/
-ln -sfv "$DOTFILES_DIR/.vimrc" ~/.config/nvim/init.vim
-# Run tests
-
-if is-executable bats; then bats test/*.bats; else echo "Skipped: tests (missing: bats)"; fi
 
 # Install extra stuff
 
