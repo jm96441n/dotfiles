@@ -25,9 +25,15 @@ endfunction
 autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
 
 " set tabs to 4 spaces in python files
-autocmd FileType py setlocal shiftwidth=4 softtabstop=4 expandtab
-" set tabs to 8 spaces in go files
-autocmd FileType go setlocal shiftwidth=8 softtabstop=8 expandtab
+autocmd FileType py setlocal shiftwidth=4 softtabstop=4
+" set tab width to 8 spaces in go files
+autocmd FileType go setlocal shiftwidth=4 softtabstop=4
+
+if executable('go')
+  let g:go_jump_to_error = 0 " don't autojump to errors on :Go* commands
+  let g:go_addtags_transform = 'snakecase'  " :GoAddTags on struct will transform as snake_case
+  let g:go_fmt_command = 'goimports' " auto import on save
+endif
 
 " live reload files if it changes on disk
 set autoread
@@ -111,7 +117,9 @@ Plug 'tpope/vim-rails'
 " Useful git functionality
 Plug 'tpope/vim-fugitive'
 " FZF for fuzzy file searching
-Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+" Plug 'junegunn/fzf.vim'
+" Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 " Dracula theme
 Plug 'dracula/vim', { 'as': 'dracula' }

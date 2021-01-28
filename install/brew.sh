@@ -26,6 +26,7 @@ apps=(
   jq
   lazydocker
   mysql
+  neofetch
   neovim
   postgis
   postgresql
