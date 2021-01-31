@@ -11,6 +11,7 @@ brew upgrade
 apps=(
   autojump
   bash-completion2
+  cmake
   coreutils
   diff-so-fancy
   fzf
@@ -23,6 +24,7 @@ apps=(
   hub
   imagemagick
   jq
+  lazydocker
   mysql
   neofetch
   neovim

@@ -12,20 +12,23 @@ brew tap homebrew/cask-fonts
  apps=(
   alacritty
   alfred
+  chai
+  docker
   ferdi
   firefox
   google-chrome
   lastpass
+  notion
   postico
+  rectangle
   # Quick Look Plugins (https://github.com/sindresorhus/quick-look-plugins)
   qlcolorcode
   qlimagesize
   quicklook-json
   qlmarkdown
   qlstephen
-  qlvideo
+  signal
   spotify
-  spectacle
   spotify
   suspicious-package
   visual-studio-code
