@@ -78,3 +78,8 @@ colors() {
 prepend-path() {
   [ -d $1 ] && PATH="$1:$PATH"
 }
+
+# only run black on python files
+gblack() {
+    git diff --name-only $(git branch --show-current) $(git merge-base $(git branch --show-current) master) | xargs -I{} find {} -name "*.py" -exec black -l 120 {} \;
+}

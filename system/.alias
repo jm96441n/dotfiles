@@ -43,3 +43,7 @@ alias vim="nvim"
 
 # use colorful tmux
 alias tmux="tmux -2"
+alias vr="vim ~/.dotfiles/.vimrc"
+alias zr="vim ~/.dotfiles/runcom/.zshrc"
+alias tr="vim ~/.dotfiles/runcom/.tmux.conf"
+alias ar="vim ~/.dotfiles/runcom/.alacritty.yml"
