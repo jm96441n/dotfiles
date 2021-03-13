@@ -24,6 +24,9 @@ endfunction
 
 autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
 
+" set textwidth only on markdown files
+au BufRead,BufNewFile *.md setlocal textwidth=120
+
 " set tabs to 4 spaces in python files
 autocmd FileType py setlocal shiftwidth=4 softtabstop=4
 " set tab width to 8 spaces in go files
@@ -137,6 +140,8 @@ Plug 'rhysd/vim-textobj-ruby'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 " Delve Debugging
 Plug 'sebdah/vim-delve'
+" Grammar checking for posts
+Plug 'rhysd/vim-grammarous'
 
 call plug#end()
 
