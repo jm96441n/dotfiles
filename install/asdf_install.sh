@@ -1,9 +1,10 @@
 if ! is-macos -o ! is-executable brew; then
-  echo "Skipped: gem"
-  return
+  git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.8.0
+else
+  # asdf for version management
+  brew install asdf
 fi
-# asdf for version management
-brew install asdf
+
 
 # Ruby
 asdf plugin-add ruby
