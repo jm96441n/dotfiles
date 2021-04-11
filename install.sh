@@ -3,13 +3,14 @@
 # Get current dir (so run this script from anywhere)
 
 export DOTFILES_DIR DOTFILES_CACHE DOTFILES_EXTRA_DIR
-DOTFILES_DIR="$( cd "$( dirname "~/.dotfiles" )" && pwd )"
+DOTFILES_DIR="$HOME/.dotfiles"
 DOTFILES_CACHE="$DOTFILES_DIR/.cache.sh"
 DOTFILES_EXTRA_DIR="$HOME/.extra"
 
 # Make utilities available
 
 PATH="$DOTFILES_DIR/bin:$PATH"
+export $PATH
 
 # Update dotfiles itself first
 
@@ -17,20 +18,20 @@ if is-executable git -a -d "$DOTFILES_DIR/.git"; then git --work-tree="$DOTFILES
 
 # Bunch of symlinks
 
-mkdir -p ~/.config/
-ln -sfv "$DOTFILES_DIR/runcom/.zshrc" ~
-ln -sfv "$DOTFILES_DIR/runcom/.alacritty.yml" ~
-ln -sfv "$DOTFILES_DIR/runcom/.inputrc" ~
-ln -sfv "$DOTFILES_DIR/runcom/.asdfrc" ~
-ln -sfv "$DOTFILES_DIR/runcom/.gemrc" ~
-ln -sfv "$DOTFILES_DIR/runcom/.tmux.conf" ~
-ln -sfv "$DOTFILES_DIR/git/.gitconfig" ~
-ln -sfv "$DOTFILES_DIR/git/.githelpers" ~
-ln -sfv "$DOTFILES_DIR/git/.git-completion.bash" ~
-ln -sfv "$DOTFILES_DIR/git/.gitignore_global" ~
-ln -sfv "$DOTFILES_DIR/lang_defaults/.default_gems" ~
-ln -sfv "$DOTFILES_DIR/lang_defaults/.default_npm_packages" ~
-ln -sfv "$DOTFILES_DIR/lang_defaults/.default-python-packages" ~
+mkdir -p $HOME/.config/
+ln -sfv "$DOTFILES_DIR/runcom/.zshrc" $HOME
+ln -sfv "$DOTFILES_DIR/runcom/.alacritty.yml" $HOME
+ln -sfv "$DOTFILES_DIR/runcom/.inputrc" $HOME
+ln -sfv "$DOTFILES_DIR/runcom/.asdfrc" $HOME
+ln -sfv "$DOTFILES_DIR/runcom/.gemrc" $HOME
+ln -sfv "$DOTFILES_DIR/runcom/.tmux.conf" $HOME
+ln -sfv "$DOTFILES_DIR/git/.gitconfig" $HOME
+ln -sfv "$DOTFILES_DIR/git/.githelpers" $HOME
+ln -sfv "$DOTFILES_DIR/git/.git-completion.bash" $HOME
+ln -sfv "$DOTFILES_DIR/git/.gitignore_global" $HOME
+ln -sfv "$DOTFILES_DIR/lang_defaults/.default_gems" $HOME
+ln -sfv "$DOTFILES_DIR/lang_defaults/.default_npm_packages" $HOME
+ln -sfv "$DOTFILES_DIR/lang_defaults/.default-python-packages" $HOME
 ln -sfv "$DOTFILES_DIR/.vimrc" ~/.config/nvim/init.vim
 
 # Package managers & pagkages
@@ -41,7 +42,7 @@ if [[ is-macos ]]; then
   . "$DOTFILES_DIR/install/brew-cask.sh"
 else
   . "$DOTFILES_DIR/install/apt-get.sh"
-if
+fi
 
 . "$DOTFILES_DIR/install/asdf_install.sh"
 . "$DOTFILES_DIR/install/zsh_install.sh"
