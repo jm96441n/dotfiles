@@ -30,7 +30,6 @@ apps=(
   neovim
   postgis
   postgresql
-  python
   readline
   ssh-copy-id
   the_silver_searcher

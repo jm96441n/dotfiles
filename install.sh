@@ -18,7 +18,6 @@ if is-executable git -a -d "$DOTFILES_DIR/.git"; then git --work-tree="$DOTFILES
 # Bunch of symlinks
 
 mkdir -p ~/.config/
-ln -sfv "$DOTFILES_DIR/runcom/.bash_profile" ~
 ln -sfv "$DOTFILES_DIR/runcom/.zshrc" ~
 ln -sfv "$DOTFILES_DIR/runcom/.alacritty.yml" ~
 ln -sfv "$DOTFILES_DIR/runcom/.inputrc" ~
@@ -36,31 +35,21 @@ ln -sfv "$DOTFILES_DIR/.vimrc" ~/.config/nvim/init.vim
 
 # Package managers & pagkages
 
-. "$DOTFILES_DIR/install/brew.sh"
-# . "$DOTFILES_DIR/install/bash.sh"
-. "$DOTFILES_DIR/install/brew-cask.sh"
+if [[ is-macos ]]; then
+  . "$DOTFILES_DIR/install/brew.sh"
+  # . "$DOTFILES_DIR/install/bash.sh"
+  . "$DOTFILES_DIR/install/brew-cask.sh"
+else
+  . "$DOTFILES_DIR/install/apt-get.sh"
+if
+
 . "$DOTFILES_DIR/install/asdf_install.sh"
 . "$DOTFILES_DIR/install/zsh_install.sh"
+. "$DOTFILES_DIR/install/oh-my-zsh-install.sh"
 . "$DOTFILES_DIR/install/projects.sh"
-
 
 # Install extra stuff
 
 if [ -d "$DOTFILES_EXTRA_DIR" -a -f "$DOTFILES_EXTRA_DIR/install.sh" ]; then
   . "$DOTFILES_EXTRA_DIR/install.sh"
 fi
-
-# Oh My Zsh
-curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
-# Gruvbox Theme
-curl -L https://raw.githubusercontent.com/sbugzu/gruvbox-zsh/master/gruvbox.zsh-theme > ~/.oh-my-zsh/custom/themes/gruvbox.zsh-theme
-# zsh autosuggestions
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-# fzf-tab
-git clone https://github.com/Aloxaf/fzf-tab ~ZSH_CUSTOM/plugins/fzf-tab
-# zsh syntax highlightin
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-# color ls
-git clone https://github.com/Kallahan23/zsh-colorls ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-colorls
-# powerlink10k
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k

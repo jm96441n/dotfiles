@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
+unameOut="$(uname -s)"
 
-if [[ "$OSTYPE" =~ ^darwin ]]; then
+if [[ "${unameOut}" == "Darwin" ]]; then
   exit 0
 else
   exit 1
