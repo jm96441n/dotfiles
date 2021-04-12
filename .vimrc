@@ -115,6 +115,8 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'mechatroner/rainbow_csv'
 " Useful VIM defaults
 Plug 'tpope/vim-sensible'
+" Surround things
+Plug 'tpope/vim-surround'
 " Easy navigation of rails project
 Plug 'tpope/vim-rails'
 " Useful git functionality
