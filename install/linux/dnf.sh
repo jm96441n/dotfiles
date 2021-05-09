@@ -1,5 +1,5 @@
 sudo dnf update
-curl -sL https://dl.yarnpkg.com/rpm/yarn.repo -o /etc/yum.repos.d/yarn.repo
+curl -o- -L https://yarnpkg.com/install.sh | bash
 
 function install {
   which $1 &> /dev/null
