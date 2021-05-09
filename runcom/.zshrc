@@ -132,8 +132,13 @@ if type brew &>/dev/null; then
   autoload -Uz compinit
   compinit
 fi
-autoload -Uz compinit && compinit
-source $(brew --prefix asdf)/asdf.sh
+
+if [[ $(is-macos) == 0 ]]; then
+  autoload -Uz compinit && compinit
+  source $(brew --prefix asdf)/asdf.sh
+else
+  . $HOME/.asdf/asdf.sh
+fi
 
 neofetch
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
