@@ -1,4 +1,6 @@
 sudo dnf update
+
+# install yarn
 curl -o- -L https://yarnpkg.com/install.sh | bash
 
 function install {
@@ -52,7 +54,6 @@ install thefuck
 install tmux
 install tree
 install wget
-install yarn
 install xz
 install zlib
 install zlib-devel
