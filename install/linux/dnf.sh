@@ -1,5 +1,7 @@
 sudo dnf update
 
+sudo dnf install 
+
 # install yarn
 curl -o- -L https://yarnpkg.com/install.sh | bash
 
@@ -13,6 +15,10 @@ function install {
     echo "Already installed: ${1}"
   fi
 }
+
+# enable rpm fusion repo
+install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
+install https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
 install awscli
 install alacritty
@@ -38,6 +44,7 @@ install jq
 install lastpass-cli
 install libyaml-devel
 install libffi-devel
+install lpf-spotify-client
 install make
 install ncurses-devel
 install neofetch
@@ -58,3 +65,5 @@ install xz
 install zlib
 install zlib-devel
 install zsh-autosuggestions
+
+lpf update
