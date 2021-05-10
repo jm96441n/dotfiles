@@ -38,6 +38,7 @@ ln -sfv "$DOTFILES_DIR/.vimrc" ~/.config/nvim/init.vim
 . "$DOTFILES_DIR/install/packages.sh"
 . "$DOTFILES_DIR/install/asdf_install.sh"
 . "$DOTFILES_DIR/install/projects.sh"
+. "$DOTFILES_DIR/install/linux/build_signal.sh"
 
 # Install extra stuff
 

@@ -32,6 +32,7 @@ install curl
 install firefox
 install fzf
 install gcc
+install gcc-c++
 install git
 # https://github.com/tj/git-extras/blob/master/Commands.md
 install git-extras
@@ -44,10 +45,12 @@ install jq
 install lastpass-cli
 install libyaml-devel
 install libffi-devel
+install libXScrnSaver
 install lpf-spotify-client
 install make
 install ncurses-devel
 install neofetch
+install npm
 install neovim
 install openssl
 install openssl-devel
