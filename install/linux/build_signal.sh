@@ -1,7 +1,7 @@
 function build_signal() {
   . /etc/os-release
   OS=$NAME
-  if [[ $(is-macos) == 0 && $OS == "Fedora" ]]; then
+  if [[ $(is-macos) == 0 ]]  && [[ $OS == "Fedora" ]]; then
     git clone https://github.com/signalapp/Signal-Desktop.git ~/.gitware/SignalDesktop
     cd Signal-Desktop
     git checkout tags/v1.12.0
