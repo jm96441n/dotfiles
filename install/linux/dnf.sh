@@ -46,7 +46,6 @@ install lastpass-cli
 install libyaml-devel
 install libffi-devel
 install libXScrnSaver
-install lpf-spotify-client
 install make
 install ncurses-devel
 install neofetch
