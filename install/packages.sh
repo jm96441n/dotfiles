@@ -7,6 +7,7 @@ function linux_install() {
     . "$DOTFILES_DIR/install/linux/dnf.sh"
     . "$DOTFILES_DIR/install/linux/flatpak.sh"
   fi
+  . "$DOTFILES_DIR/install/fonts.sh"
 }
 
 function macos_install() {
