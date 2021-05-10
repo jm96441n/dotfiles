@@ -8,3 +8,4 @@ function install {
 install com.getferdi.Ferdi
 install org.signal.Signal
 install com.spotify.Client
+install flathub us.zoom.Zoom
