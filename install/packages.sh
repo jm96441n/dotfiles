@@ -5,6 +5,7 @@ function linux_install() {
     . "$DOTFILES_DIR/install/linux/apt-get.sh"
   elif [[ $OS == "Fedora" ]]; then
     . "$DOTFILES_DIR/install/linux/dnf.sh"
+    . "$DOTFILES_DIR/install/linux/flatpak.sh"
   fi
 }
 
