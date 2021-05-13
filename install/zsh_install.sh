@@ -1,4 +1,6 @@
-grep "/usr/local/bin/zsh" /private/etc/shells &>/dev/null || sudo zsh -c "echo /usr/local/bin/zsh >> /private/etc/shells"
+if [[ $(is-macos) == 0 ]]; then
+  grep "/usr/local/bin/zsh" /private/etc/shells &>/dev/null || sudo zsh -c "echo /usr/local/bin/zsh >> /private/etc/shells"
+fi
 # Oh My Zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 # Gruvbox Theme

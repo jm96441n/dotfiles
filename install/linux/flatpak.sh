@@ -6,6 +6,7 @@ function install {
 }
 
 install com.getferdi.Ferdi
-install org.signal.Signal
 install com.spotify.Client
-install flathub us.zoom.Zoom
+install io.github.trytonvanmeer.DungeonJournal
+install org.signal.Signal
+install us.zoom.Zoom
