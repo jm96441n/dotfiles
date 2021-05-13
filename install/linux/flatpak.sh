@@ -7,6 +7,5 @@ function install {
 
 install com.getferdi.Ferdi
 install com.spotify.Client
-install io.github.trytonvanmeer.DungeonJournal
 install org.signal.Signal
 install us.zoom.Zoom

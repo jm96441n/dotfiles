@@ -17,7 +17,7 @@ function install {
 
 # enable albert to be installed
 sudo rpm --import "https://build.opensuse.org/projects/home:manuelschneid3r/public_key"
-dnf config-manager --add-repo https://download.opensuse.org/repositories/home:manuelschneid3r/Fedora_33/home:manuelschneid3r.repo
+sudo dnf config-manager --add-repo https://download.opensuse.org/repositories/home:manuelschneid3r/Fedora_33/home:manuelschneid3r.repo
 
 # enable rpm fusion repo
 install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
@@ -37,7 +37,6 @@ install firefox
 install fzf
 install gcc
 install gcc-c++
-install geckodriver
 install git
 install gpg2
 # https://github.com/tj/git-extras/blob/master/Commands.md
@@ -49,7 +48,6 @@ install ImageMagick
 install jemalloc-devel
 install jq
 install lastpass-cli
-install lazydocker
 install libyaml-devel
 install libffi-devel
 install libXScrnSaver
