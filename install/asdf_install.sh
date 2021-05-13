@@ -1,4 +1,4 @@
-if ! is-macos -o ! is-executable brew; then
+if [[ $(is-macos) == 1 ]]; then
   git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.8.0
   . $HOME/.asdf/asdf.sh
 else

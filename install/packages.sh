@@ -1,13 +1,14 @@
 function linux_install() {
   . /etc/os-release
   OS=$NAME
+  LINUX_DIR="$DOTFILES_DIR/install/linux"
   if [[ $OS == "Ubuntu" ]]; then
-    . "$DOTFILES_DIR/install/linux/apt-get.sh"
+    . "$LINUX_DIR/apt-get.sh"
   elif [[ $OS == "Fedora" ]]; then
-    . "$DOTFILES_DIR/install/linux/dnf.sh"
-    . "$DOTFILES_DIR/install/linux/flatpak.sh"
+    . "$LINUX_DIR/linux/dnf.sh"
+    . "$LINUX_DIR/flatpak.sh"
   fi
-  . "$DOTFILES_DIR/install/fonts.sh"
+  . "$LINUX_DIR/fonts.sh"
 }
 
 function macos_install() {
