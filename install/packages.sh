@@ -5,8 +5,9 @@ function linux_install() {
   if [[ $OS == "Ubuntu" ]]; then
     . "$LINUX_DIR/apt-get.sh"
   elif [[ $OS == "Fedora" ]]; then
-    . "$LINUX_DIR/linux/dnf.sh"
+    . "$LINUX_DIR/dnf.sh"
     . "$LINUX_DIR/flatpak.sh"
+    git clone https://github.com/so-fancy/diff-so-fancy.git ~/.diff-so-fancy
   fi
   . "$LINUX_DIR/fonts.sh"
 }
