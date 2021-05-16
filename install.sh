@@ -15,11 +15,13 @@ PATH="$DOTFILES_DIR/bin:$PATH"
 
 if is-executable git -a -d "$DOTFILES_DIR/.git"; then git --work-tree="$DOTFILES_DIR" --git-dir="$DOTFILES_DIR/.git" pull origin master; fi
 
-# Bunch of symlinks
+mkdir -p "$HOME/i3"
 
+# Bunch of symlinks
 mkdir -p $HOME/.config/
 mkdir -p $HOME/.config/nvim
 ln -sfv "$DOTFILES_DIR/runcom/.zshrc" $HOME
+ln -sfv "$DOTFILES_DIR/runcom/.p10k.zsh" $HOME
 ln -sfv "$DOTFILES_DIR/runcom/.alacritty.yml" $HOME
 ln -sfv "$DOTFILES_DIR/runcom/.inputrc" $HOME
 ln -sfv "$DOTFILES_DIR/runcom/.asdfrc" $HOME
@@ -33,6 +35,7 @@ ln -sfv "$DOTFILES_DIR/lang_defaults/.default-gems" $HOME
 ln -sfv "$DOTFILES_DIR/lang_defaults/.default_npm_packages" $HOME
 ln -sfv "$DOTFILES_DIR/lang_defaults/.default-python-packages" $HOME
 ln -sfv "$DOTFILES_DIR/.vimrc" ~/.config/nvim/init.vim
+ln -sfv "$DOTFILES_DIR/i3/config" "$HOME/.config/i3"
 
 # Package managers & pagkages
 . "$DOTFILES_DIR/install/packages.sh"
