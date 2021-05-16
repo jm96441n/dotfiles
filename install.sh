@@ -35,7 +35,7 @@ ln -sfv "$DOTFILES_DIR/lang_defaults/.default-gems" $HOME
 ln -sfv "$DOTFILES_DIR/lang_defaults/.default_npm_packages" $HOME
 ln -sfv "$DOTFILES_DIR/lang_defaults/.default-python-packages" $HOME
 ln -sfv "$DOTFILES_DIR/.vimrc" ~/.config/nvim/init.vim
-ln -sfv "$DOTFILES_DIR/i3/config" "$HOME/.config/i3"
+ln -sfv "$DOTFILES_DIR/i3/" "$HOME/.config/i3"
 
 # Package managers & pagkages
 . "$DOTFILES_DIR/install/packages.sh"
