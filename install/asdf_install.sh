@@ -17,11 +17,10 @@ asdf global ruby 2.7.2
 # Python
 asdf plugin-add python
 
-asdf install python 3.8.6
-asdf install python 3.9.0
+env PYTHON_CONFIGURE_OPTS="--enable-framework" asdf install python 3.8.6
+env PYTHON_CONFIGURE_OPTS="--enable-framework" asdf install python 3.9.0
 
 asdf global python 3.9.0
-
 # Golang
 asdf plugin-add golang
 
