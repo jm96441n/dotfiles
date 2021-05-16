@@ -1,6 +1,6 @@
 sudo dnf update
 
-sudo dnf install 
+sudo dnf install
 
 # install yarn
 curl -o- -L https://yarnpkg.com/install.sh | bash
@@ -19,20 +19,26 @@ function install {
 sudo rpm --import "https://build.opensuse.org/projects/home:manuelschneid3r/public_key"
 sudo dnf config-manager --add-repo https://download.opensuse.org/repositories/home:manuelschneid3r/Fedora_33/home:manuelschneid3r.repo
 
+# enable i3-gaps
+sudo dnf remove i3
+sudo dnf copr enable fuhrmann/i3-gaps
+
 # enable rpm fusion repo
 install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
 install https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-
 install albert
 install awscli
 install alacritty
-install autoconf 
+install autoconf
 install autojump
 install bison
 install bzip2
 install docker
+install dmenu
 install cmake
 install curl
+install conky
+install feh
 install firefox
 install fzf
 install gcc
@@ -45,6 +51,9 @@ install gdbm-devel
 install hub
 install htop
 install ImageMagick
+install i3-gaps
+install i3lock
+install i3status
 install jemalloc-devel
 install jq
 install lastpass-cli
@@ -70,6 +79,7 @@ install tmux
 install tree
 install wget
 install xz
+install xbacklight
 install zlib
 install zlib-devel
 install zsh-autosuggestions
