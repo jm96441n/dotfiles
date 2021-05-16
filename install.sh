@@ -49,3 +49,7 @@ echo "Installing zsh"
 
 . "$DOTFILES_DIR/install/zsh_install.sh"
 . "$DOTFILES_DIR/install/oh-my-zsh-install.sh"
+
+rm ~/.zshrc
+mv ~/.zshrc.pre-oh-my-zsh ~/.zshrc
+
