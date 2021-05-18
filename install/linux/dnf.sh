@@ -34,7 +34,7 @@ install autojump
 install bison
 install bzip2
 install docker
-install dmenu
+install rofi
 install cmake
 install curl
 install conky
@@ -68,6 +68,7 @@ install neovim
 install openssl
 install openssl-devel
 install python3-neovim
+install polybar
 install postgresql
 install readline
 install readline-devel

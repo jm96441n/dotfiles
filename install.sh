@@ -18,8 +18,6 @@ if is-executable git -a -d "$DOTFILES_DIR/.git"; then git --work-tree="$DOTFILES
 mkdir -p "$HOME/i3"
 
 # Bunch of symlinks
-mkdir -p $HOME/.config/
-mkdir -p $HOME/.config/nvim
 ln -sfv "$DOTFILES_DIR/runcom/.zshrc" $HOME
 ln -sfv "$DOTFILES_DIR/runcom/.p10k.zsh" $HOME
 ln -sfv "$DOTFILES_DIR/runcom/.alacritty.yml" $HOME
@@ -34,8 +32,7 @@ ln -sfv "$DOTFILES_DIR/git/.gitignore_global" $HOME
 ln -sfv "$DOTFILES_DIR/lang_defaults/.default-gems" $HOME
 ln -sfv "$DOTFILES_DIR/lang_defaults/.default_npm_packages" $HOME
 ln -sfv "$DOTFILES_DIR/lang_defaults/.default-python-packages" $HOME
-ln -sfv "$DOTFILES_DIR/.vimrc" ~/.config/nvim/init.vim
-ln -sfv "$DOTFILES_DIR/i3/" "$HOME/.config/i3"
+ln -sfv "$DOTFILES_DIR/.config" $HOME
 
 # Package managers & pagkages
 . "$DOTFILES_DIR/install/packages.sh"
