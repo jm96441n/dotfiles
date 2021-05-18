@@ -1,9 +1,10 @@
 /** Configured For Applets **/
 
 configuration {
+  modi: "window,run,drun,ssh,file-browser";
   show-icons:         true;
   icon-theme:         "Newatita";
-  location: 5;
-  yoffset: -50;
-  xoffset: -20;
+  location: 0;
+  yoffset: 50;
+  xoffset: 20;
 }

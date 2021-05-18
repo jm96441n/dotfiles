@@ -14,4 +14,4 @@
 
 style="blurry_full"
 
-rofi -no-lazy-grab -show drun -theme launchers-git/"$style".rasi
+rofi -no-lazy-grab -show drun -theme $HOME/.config/rofi/themes/colorschemes/gruvbox.rasi
