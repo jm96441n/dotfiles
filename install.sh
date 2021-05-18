@@ -32,7 +32,10 @@ ln -sfv "$DOTFILES_DIR/git/.gitignore_global" $HOME
 ln -sfv "$DOTFILES_DIR/lang_defaults/.default-gems" $HOME
 ln -sfv "$DOTFILES_DIR/lang_defaults/.default_npm_packages" $HOME
 ln -sfv "$DOTFILES_DIR/lang_defaults/.default-python-packages" $HOME
-ln -sfv "$DOTFILES_DIR/.config" $HOME
+ln -sfv "$DOTFILES_DIR/.config/nvim" "$HOME/.config"
+ln -sfv "$DOTFILES_DIR/.config/rofi" "$HOME/.config"
+ln -sfv "$DOTFILES_DIR/.config/polybar" "$HOME/.config"
+ln -sfv "$DOTFILES_DIR/.config/i3" "$HOME/.config"
 
 # Package managers & pagkages
 . "$DOTFILES_DIR/install/packages.sh"
