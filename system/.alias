@@ -20,13 +20,6 @@ alias yolo="be rake db:drop;be rake db:create;"
 alias cuke="be cucumber"
 alias coverage="be rake ci:coverage"
 
-# Balance Aliases
-alias cw="clockwork"
-alias balance="cd /Users/jmaguire/balance"
-alias nudge="GITHUB_AUTH_TOKEN='$GITHUB_AUTH_TOKEN' bundle exec rake ci:nudge_travis"
-alias init="be rake ci:initialize"
-alias sync_release="git branch -D merge_release ; git checkout release && git pull && git checkout develop && git pull && git checkout -b merge_release && git merge release"
-
 # Personal Aliases
 alias projects="cd /Users/johnmaguire/Projects"
 
@@ -35,15 +28,12 @@ alias grep="grep -nr --color=auto"
 alias fgrep="fgrep --color=auto"
 alias egrep="egrep --color=auto"
 
-# React on Rails Aliases
-alias react_server="foreman start -f Procfile.dev"
-
 # Map vim to use neovim
 alias vim="nvim"
 
 # use colorful tmux
 alias tmux="tmux -2"
-alias vr="vim ~/.dotfiles/.vimrc"
+alias vr="vim ~/.dotfiles/.config/nvim/init.vim"
 alias zr="vim ~/.dotfiles/runcom/.zshrc"
 alias tr="vim ~/.dotfiles/runcom/.tmux.conf"
 alias ar="vim ~/.dotfiles/runcom/.alacritty.yml"
