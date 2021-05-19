@@ -51,7 +51,6 @@ fi
 echo "Installing zsh"
 
 . "$DOTFILES_DIR/install/zsh_install.sh"
-. "$DOTFILES_DIR/install/oh-my-zsh-install.sh"
 
 if ! test -f .zshrc.pre-oh-my-zsh; then
   rm ~/.zshrc
