@@ -6,8 +6,8 @@ bottom                   = true
 #module-margin-left       = 1
 #module-margin-right      = 1
 
-font-0 = "Hack Nerd Font:size=10;2"
-font-1 = "icomoon\-feather:size=10;2"
+font-0 = "Hack Nerd Font:size=18;2"
+font-1 = "icomoon\-feather:size=18;2"
 
 override-redirect = false
 ;offset-x = 1%

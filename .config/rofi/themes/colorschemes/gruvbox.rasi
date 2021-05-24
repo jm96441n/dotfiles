@@ -5,4 +5,5 @@
   foreground:       #ebdbb2;
   on:               #44ad4d;
   off:              #fb4934;
+  font:             "Hack Nerd Font 20";
 }
