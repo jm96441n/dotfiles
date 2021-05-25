@@ -1,13 +1,13 @@
 width                    = 100%
-height                   = 28
+height                   = 35
 radius                   = 0
 line-size                = 0
 bottom                   = true
 #module-margin-left       = 1
 #module-margin-right      = 1
 
-font-0 = "Hack Nerd Font:size=18;2"
-font-1 = "icomoon\-feather:size=18;2"
+font-0 = "Hack Nerd Font:size=24;2"
+font-1 = "icomoon\-feather:size=24;2"
 
 override-redirect = false
 ;offset-x = 1%

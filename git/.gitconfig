@@ -96,8 +96,6 @@
   smudge = git-lfs smudge -- %f
   process = git-lfs filter-process
   required = true
-[credential]
-  helper = osxkeychain
 [user]
   name = jm96441n
   email = john@johnmaguirdeveloper.com
