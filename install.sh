@@ -25,6 +25,7 @@ ln -sfv "$DOTFILES_DIR/runcom/.inputrc" $HOME
 ln -sfv "$DOTFILES_DIR/runcom/.asdfrc" $HOME
 ln -sfv "$DOTFILES_DIR/runcom/.gemrc" $HOME
 ln -sfv "$DOTFILES_DIR/runcom/.tmux.conf" $HOME
+ln -sfv "$DOTFILES_DIR/runcom/.tmux.conf.local" $HOME
 ln -sfv "$DOTFILES_DIR/git/.gitconfig" $HOME
 ln -sfv "$DOTFILES_DIR/git/.githelpers" $HOME
 ln -sfv "$DOTFILES_DIR/git/.git-completion.bash" $HOME
@@ -36,6 +37,10 @@ ln -sfv "$DOTFILES_DIR/.config/nvim" "$HOME/.config"
 ln -sfv "$DOTFILES_DIR/.config/rofi" "$HOME/.config"
 ln -sfv "$DOTFILES_DIR/.config/polybar" "$HOME/.config"
 ln -sfv "$DOTFILES_DIR/.config/i3" "$HOME/.config"
+ln -sfv "$DOTFILES_DIR/.config/ranger" "$HOME/.config"
+ln -sfv "$DOTFILES_DIR/.config/compton" "$HOME/.config"
+ln -sfv "$DOTFILES_DIR/.config/.xinitrc" $HOME
+ln -sfv "$DOTFILES_DIR/.config/.Xresources" $HOME
 
 # Package managers & pagkages
 . "$DOTFILES_DIR/install/packages.sh"

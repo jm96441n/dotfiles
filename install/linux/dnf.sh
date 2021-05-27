@@ -72,8 +72,9 @@ install polybar
 install postgresql
 install readline
 install readline-devel
-install ruby
+install ruby-devel
 install sqlite3
+install strace
 install the_silver_searcher
 install thefuck
 install tmux
@@ -81,6 +82,7 @@ install tree
 install wget
 install xz
 install xbacklight
+install xclip
 install zlib
 install zlib-devel
 install zsh-autosuggestions

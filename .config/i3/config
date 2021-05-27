@@ -214,6 +214,12 @@ bindsym $mod+r mode "resize"
         #binding_mode       #2F343A #900000 #FFFFFF
        #}
 #}
+for_window [window_role="pop-up"] floating enable, move absolute position 5 5, resize 320 240
+for_window [window_role="task_dialog"] floating enable, move absolute position 5 5, resize 320 240 
+for_window [window_role="bubble"] floating enable, move absolute position 5 5, resize 320 240
+for_window [window_role="Preferences"] floating enable, move absolute position 5 5, resize 320 240
+for_window [window_type="dialog"] floating enable, move absolute position 5 5, resize 320 240
+for_window [window_type="menu"] floating enable, move absolute position 5 5, resize 320 240
 
 workspace_auto_back_and_forth yes
 
@@ -241,21 +247,20 @@ client.focused_inactive #32302f #32302f #dfbf8e #32302f   #32302f
 # Status bar
 exec ~/.config/polybar/launch.sh
 # Compositor
-exec ~/Github/compton/compton --config ~/.config/compton/compton.conf
+exec compton --config ~/.config/compton/compton.conf -b --logpath /tmp/compton.log
 # Wallpaper 
-#exec feh --bg-fill /home/devops/Pictures/1920x1080-4539903-minimalism-gruvbox.png  
-# Birghtness
+exec feh --bg-fill /home/johnmaguire/Downloads/3840x2160-dark-linux.png
+# Brightness
 exec xrandr --output LVDS-0 --brightness .6
 
 # Notification
 #exec dunst
 # Battery low warning
-exec ~/Github/i3-battery-popup/i3-battery-popup -m "Low battery" -s ~/Github/i3-battery-popup/i3-battery-popup.wav -n -i ~/.local/share/icons/Newaita-dark/status/48/battery-low.svg &
+#exec ~/Github/i3-battery-popup/i3-battery-popup -m "Low battery" -s ~/Github/i3-battery-popup/i3-battery-popup.wav -n -i ~/.local/share/icons/Newaita-dark/status/48/battery-low.svg &
 # Auto usb mounting
 #exec udiskie &
 # A better notification
 #exec /home/devops/.local/bin/deadd-notification-center &
 # Enable tap to touch (Only laptop)
-exec ~/.config/i3/scripts/xinput.sh
+#exec ~/.config/i3/scripts/xinput.sh
 
-exec --no-startup-id /usr/bin/setxbkmap -option "ctrl:nocaps"
