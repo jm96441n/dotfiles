@@ -29,7 +29,6 @@ brew tap homebrew/cask-fonts
   qlstephen
   signal
   spotify
-  spotify
   suspicious-package
   visual-studio-code
   vlc
