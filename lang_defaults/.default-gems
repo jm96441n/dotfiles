@@ -1,8 +1,6 @@
 bundler
 pry
 rubocop
-pronto
-pronto-rubocop
 tmuxinator
 rails
 neovim

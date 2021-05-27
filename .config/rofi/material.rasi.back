@@ -1,0 +1,60 @@
+configuration {
+    display-drun:    "";
+    display-window:    "";
+	display-ssh:       "";
+    show-icons:      true;
+	drun-display-format: "{icon} {name}";
+}
+
+* {
+    font: "icomoon\-feather 14";
+	icon-font: "icomoon\-feather 24";
+    padding: 3px 5px;
+    background-color: rgba(0,0,0,0);
+    color: #fff;
+}
+
+
+window {
+    background-color: rgba(0,0,0,0.5);
+    transparency: "real";
+	x-offset: -25%;
+	y-offset: -25%;
+	height: 50%;
+    width: 50%;
+
+}
+
+listview {
+    padding: 0px 5px 0px 5px;
+    spacing: 0.2em;
+}
+
+#element {
+    padding: 5px 0px 5px 0px;
+}
+
+element-icon {
+    size:                           32px;
+    border:                         0px;
+}
+
+element-text {
+    expand:                         true;
+    vertical-align:                 0.5;
+}
+
+#element selected {
+  border-radius: 2px;
+  background-color: rgba(50,50,50,0.5);
+}
+
+inputbar {
+   border-bottom: 1px;
+   border-color: #fff;
+}
+
+
+
+/* vim:ft=css 
+

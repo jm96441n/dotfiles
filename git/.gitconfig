@@ -96,8 +96,6 @@
   smudge = git-lfs smudge -- %f
   process = git-lfs filter-process
   required = true
-[credential]
-  helper = osxkeychain
 [user]
   name = jm96441n
   email = john@johnmaguirdeveloper.com
@@ -108,7 +106,7 @@
 [includeIf "gitdir:$HOME/AdventOfCode"]
   path = ~/.dotfiles/git/personal/.gitconfig
 [includeIf "gitdir:$HOME/omscs"]
-  path = ~/.dotfiles/git/personal/.gitconfig
+  path = ~/.dotfiles/git/omscs/.gitconfig
 [grep]
   linenumber = true
 [url "ssh://git@gitlab.cbinsights.com/"]

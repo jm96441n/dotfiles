@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
-unameOut="$(uname -s)"
+
+
+unameOut=`uname -s`
 
 if [[ "${unameOut}" == "Darwin" ]]; then
-  exit 0
+  echo 0
 else
-  exit 1
+  echo 1
 fi
