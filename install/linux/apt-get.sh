@@ -16,6 +16,7 @@ install autojump
 install bzip2
 install cmake
 install curl
+install exa
 install fzf
 install git
 # https://github.com/tj/git-extras/blob/master/Commands.md

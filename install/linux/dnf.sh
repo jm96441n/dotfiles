@@ -38,6 +38,7 @@ install rofi
 install cmake
 install curl
 install conky
+install exa
 install feh
 install firefox
 install fzf
@@ -86,4 +87,3 @@ install xclip
 install zlib
 install zlib-devel
 install zsh-autosuggestions
-

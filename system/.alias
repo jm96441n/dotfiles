@@ -9,7 +9,12 @@ alias gg="git grep"
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
-alias ls='colorls -a' # Force ls to use colors (G) and use humanized file sizes (h)
+
+# exa
+alias ls='exa --icons -x -a'
+alias ll='ls -l'
+alias lt='ls --tree'
+alias lr='ls --recurse'
 
 # For better autocomplete
 eval $(thefuck --alias)
