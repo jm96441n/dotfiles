@@ -27,7 +27,6 @@ plugins=(
   tmux
   tmuxinator
   zsh-autosuggestions
-  zsh-colorls
   zsh-syntax-highlighting
 )
 # Set list of themes to pick from when loading at random
