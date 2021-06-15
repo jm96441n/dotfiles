@@ -2,7 +2,7 @@ width                    = 100%
 height                   = 35
 radius                   = 0
 line-size                = 0
-bottom                   = true
+bottom                      = true
 #module-margin-left       = 1
 #module-margin-right      = 1
 
@@ -10,7 +10,6 @@ font-0 = "Hack Nerd Font:size=24;2"
 font-1 = "icomoon\-feather:size=24;2"
 
 override-redirect = false
-;offset-x = 1%
 ;offset-y = 5
 screenchange-reload      = true
 throttle-output          = 5
