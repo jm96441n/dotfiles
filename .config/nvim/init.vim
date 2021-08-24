@@ -97,11 +97,18 @@ endif
 let g:ale_disable_lsp = 1
 let g:ale_python_flake8_options = '--max-line-length=120'
 let g:ale_python_black_options = '-l 120'
-let g:ale_fixers = { 
+let g:ale_fixers = {
 \  '*': ['remove_trailing_lines', 'trim_whitespace'],
 \  'python': ['black'],
 \}
 let g:ale_fix_on_save = 1
+
+" Vim test plugins
+nmap <silent> t<C-n> :TestNearest<CR>
+nmap <silent> t<C-f> :TestFile<CR>
+nmap <silent> t<C-s> :TestSuite<CR>
+nmap <silent> t<C-l> :TestLast<CR>
+nmap <silent> t<C-g> :TestVisit<CR>
 
 " Plugins!
 call plug#begin('~/.vim/plugged')
@@ -155,6 +162,8 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 Plug 'sebdah/vim-delve'
 " Grammar checking for posts
 Plug 'rhysd/vim-grammarous'
+" Run tests!
+Plug 'vim-test/vim-test'
 
 call plug#end()
 
