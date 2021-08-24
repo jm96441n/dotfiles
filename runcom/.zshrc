@@ -116,7 +116,7 @@ DOTFILES_DIR="$HOME/.dotfiles"
 source "$DOTFILES_DIR"/runcom/tmuxinator.zsh
 
 # Finally we can source the dotfiles (order matters)
-for DOTFILE in "$DOTFILES_DIR"/system/.{function,env,path,private_env,alias,private_alias,completion,custom}; do
+for DOTFILE in "$DOTFILES_DIR"/system/.{function,private_function,env,path,private_env,alias,private_alias,completion,custom}; do
   [ -f "$DOTFILE" ] && . "$DOTFILE"
 done
 
