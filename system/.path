@@ -15,14 +15,13 @@ prepend-path "/sbin"
 prepend-path "/usr/sbin"
 prepend-path "/usr/local/sbin"
 prepend-path "/usr/local/heroku/"
-prepend-path "$HOME/.nvm/versions/node/v8.11.3/bin"
 prepend-path "/usr/local/opt/asdf/shims"
 prepend-path "/usr/local/opt/asdf/bin"
 prepend-path "/usr/local/mysql"
 prepend-path "/usr/local/opt/awscli@1/bin"
 prepend-path "$GOPATH/bin"
 prepend-path "/user/local/go/bin"
-prepend-path "$HOME/.diff-so-fancy/diff-so-fancy"
+prepend-path "$HOME/.diff-so-fancy/"
 
 # Remove duplicates (preserving prepended items)
 # Source: http://unix.stackexchange.com/a/40755
