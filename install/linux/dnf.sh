@@ -57,7 +57,6 @@ install i3lock
 install i3status
 install jemalloc-devel
 install jq
-install lastpass-cli
 install libyaml-devel
 install libffi-devel
 install libXScrnSaver

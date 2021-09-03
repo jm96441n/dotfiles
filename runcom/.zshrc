@@ -122,7 +122,7 @@ done
 
 export DOTFILES_DIR
 
-export PATH="$HOME/.cargo/bin:$PATH"
+#export PATH="$HOME/.cargo/bin:$PATH"
 complete -C /usr/local/bin/vault vault
 
 if type brew &>/dev/null; then

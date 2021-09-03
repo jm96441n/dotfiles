@@ -12,7 +12,7 @@ set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:Hack Nerd Font 14 
+font pango:Hack Nerd Font 14
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -195,7 +195,7 @@ bindsym $mod+r mode "resize"
 #
 #bar {
     #status_command i3status
-	#font pango: EnvyCodeR Nerd Font 10 
+	#font pango: EnvyCodeR Nerd Font 10
 	#colors {
            #background #212121
         #statusline #ffffff
@@ -205,7 +205,7 @@ bindsym $mod+r mode "resize"
         ##inactive_workspace #fde76e #fde76e #212121
         ##urgent_workspace   #e14245 #e14245 #ffffff
         ##binding_mode       #e14245 #e14245 #ffffff
-		
+
 		## Default color
 		##focused_workspace  #4C7899 #285577 #FFFFFF
         #active_workspace   #333333 #222222 #FFFFFF
@@ -215,7 +215,7 @@ bindsym $mod+r mode "resize"
        #}
 #}
 for_window [window_role="pop-up"] floating enable, move absolute position 5 5, resize 320 240
-for_window [window_role="task_dialog"] floating enable, move absolute position 5 5, resize 320 240 
+for_window [window_role="task_dialog"] floating enable, move absolute position 5 5, resize 320 240
 for_window [window_role="bubble"] floating enable, move absolute position 5 5, resize 320 240
 for_window [window_role="Preferences"] floating enable, move absolute position 5 5, resize 320 240
 for_window [window_type="dialog"] floating enable, move absolute position 5 5, resize 320 240
@@ -248,7 +248,7 @@ client.focused_inactive #32302f #32302f #dfbf8e #32302f   #32302f
 exec ~/.config/polybar/launch.sh
 # Compositor
 exec compton --config ~/.config/compton/compton.conf -b --logpath /tmp/compton.log
-# Wallpaper 
+# Wallpaper
 exec feh --bg-fill /home/johnmaguire/Downloads/3840x2160-dark-linux.png
 # Brightness
 exec xrandr --output LVDS-0 --brightness .6
@@ -263,4 +263,3 @@ exec xrandr --output LVDS-0 --brightness .6
 #exec /home/devops/.local/bin/deadd-notification-center &
 # Enable tap to touch (Only laptop)
 #exec ~/.config/i3/scripts/xinput.sh
-
