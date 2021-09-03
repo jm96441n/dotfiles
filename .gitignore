@@ -1,4 +1,5 @@
 system/.private_env
 system/.private_alias
+system/.private_function
 
 **/__pycache__/**
