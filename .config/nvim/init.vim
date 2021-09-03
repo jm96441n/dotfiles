@@ -84,6 +84,9 @@ nmap <leader>rn :set rnu!<cr>
 " set YouCompleteMe GoTo<something>
 nnoremap <leader>jd :YcmCompleter GoTo<CR>
 
+" toggle between files
+nmap <leader>bb <c-^><cr>
+
 " always copy to system clipboard
 set clipboard+=unnamedplus
 
@@ -102,6 +105,27 @@ let g:ale_fixers = {
 \  'python': ['black'],
 \}
 let g:ale_fix_on_save = 1
+
+" Vim test plugins
+nmap <silent> t<C-n> :TestNearest<CR>
+nmap <silent> t<C-f> :TestFile<CR>
+nmap <silent> t<C-s> :TestSuite<CR>
+nmap <silent> t<C-l> :TestLast<CR>
+nmap <silent> t<C-g> :TestVisit<CR>
+
+ function! CBIStrategy(cmd)
+   let cmds = split(a:cmd)
+   let filename = split(cmds[-1], "/")[-1]
+   let pytest_matcher = split(filename, "::")[-1]
+   let args = "-k  '" . pytest_matcher . "'"
+   -tabnew
+   call termopen('make unit args="' . args . '"')
+   startinsert
+ endfunction
+
+let g:test#custom_strategies = {'cbi': function('CBIStrategy')}
+let g:test#strategy = 'cbi'
+
 
 " Plugins!
 call plug#begin('~/.vim/plugged')
@@ -155,6 +179,10 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 Plug 'sebdah/vim-delve'
 " Grammar checking for posts
 Plug 'rhysd/vim-grammarous'
+" Run tests!
+Plug 'vim-test/vim-test'
+" Indent highlighting
+Plug 'Yggdroot/indentLine'
 
 call plug#end()
 
