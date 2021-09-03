@@ -10,3 +10,4 @@ install com.spotify.Client
 install org.signal.Signal
 install us.zoom.Zoom
 install flathub com.todoist.Todoist
+install flathub com.bitwarden.desktop
