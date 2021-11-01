@@ -9,7 +9,7 @@ brew upgrade
 
 apps=(
   autojump
-  bash-completion2
+  cheatsheet
   cmake
   coreutils
   diff-so-fancy
