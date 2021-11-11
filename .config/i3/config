@@ -41,7 +41,6 @@ bindsym $mod+Shift+q kill
 
 # start rofi (a program launcher)
 bindsym $mod+d exec ~/.config/rofi/launchers-git/launcher.sh
-bindsym F8 exec rofi -show window -theme material.rasi
 # Lockscreen
 bindsym $mod+Shift+x exec mantablockscreen
 # There also is the (new) i3-dmenu-desktop which only displays applications
@@ -85,8 +84,6 @@ bindsym $mod+v split v
 bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
@@ -252,6 +249,14 @@ exec compton --config ~/.config/compton/compton.conf -b --logpath /tmp/compton.l
 exec feh --bg-fill /home/johnmaguire/Downloads/3840x2160-dark-linux.png
 # Brightness
 exec xrandr --output LVDS-0 --brightness .6
+
+exec xrdb -merge ~/.Xresources
+# Turn off caps lock for ctrl
+exec setxkbmap -option "ctrl:nocaps"
+# Set mouse speed
+exec xinput set-prop 'SynPS/2 Synaptics TouchPad' 'libinput Accel Speed' 1.0
+exec xset r rate 200 25
+
 
 # Notification
 #exec dunst
