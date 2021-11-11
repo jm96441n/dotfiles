@@ -12,8 +12,10 @@ brew tap homebrew/cask-fonts
  apps=(
   alacritty
   alfred
+  bitwarden
   chai
   docker
+  dteoh-devdocs
   ferdi
   firefox
   google-chrome
