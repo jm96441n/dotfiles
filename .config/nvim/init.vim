@@ -29,7 +29,7 @@ au BufRead,BufNewFile *.md setlocal textwidth=120
 
 " set tabs to 4 spaces in python files
 autocmd FileType py setlocal shiftwidth=4 softtabstop=4
-" set tab width to 8 spaces in go files
+" set tab width to 4 spaces in go files
 autocmd FileType go setlocal shiftwidth=4 softtabstop=4
 
 if executable('go')

@@ -58,7 +58,7 @@
   #   hp = head with patch
   #   r = recent commits, only current branch
   #   ra = recent commits, all reachable refs
-  #   l = all commits, only current branch
+  #   l = all commits, only current branc
   #   la = all commits, all reachable refs
   head = !git l -1
   h = !git head
@@ -110,7 +110,9 @@
 [grep]
   linenumber = true
 [url "ssh://git@gitlab.cbinsights.com/"]
-	insteadOf = https://gitlab.cbinsights.com/
+  insteadOf = https://gitlab.cbinsights.com/
+[url "ssh://git@github.com/"]
+	insteadOf = https://github.com/
 [init]
 	defaultBranch = main
 [credential]

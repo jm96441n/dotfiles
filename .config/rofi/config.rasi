@@ -1,7 +1,7 @@
 /** Configured For Applets **/
 
 configuration {
-  modi: "window,run,drun,ssh,file-browser";
+  modi: "window,drun,combi,search:~/.config/rofi/launchers-git/web-search.sh";
   show-icons:         true;
   icon-theme:         "Newatita";
   location: 0;

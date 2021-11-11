@@ -10,7 +10,7 @@ set -g @continuum-save-interval '5'
 set -g status-right 'Continuum status: #{continuum_status}'
 set -g @resurrect-capture-pane-contents 'on'
 set -g default-terminal "screen-256color"
-set -g default-shell /usr/local/bin/zsh
+set -g default-shell "which zsh"
 # easier config reloads
 bind r source-file ~/.tmux.conf
 
