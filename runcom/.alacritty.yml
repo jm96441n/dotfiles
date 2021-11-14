@@ -451,9 +451,9 @@ live_config_reload: true
 #   - (Linux/BSD) user login shell
 #   - (Windows) powershell
 shell:
-  program: /usr/local/bin/zsh
-#  args:
-#    - --login
+  program: $ZSH_PATH
+  args:
+    - --login
 
 # Startup directory
 #
