@@ -1,6 +1,8 @@
 " turn off mouse mode
 set mouse=c
 
+command! Scratch lua require'tools'.makeScratch()
+
 " tabs to 2 spaces
 set expandtab
 set shiftwidth=2
@@ -25,7 +27,7 @@ endfunction
 autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
 
 " set textwidth only on markdown files
-au BufRead,BufNewFile *.md setlocal textwidth=120
+autocmd BufRead,BufNewFile *.md setlocal textwidth=120
 
 " set tabs to 4 spaces in python files
 autocmd FileType py setlocal shiftwidth=4 softtabstop=4
