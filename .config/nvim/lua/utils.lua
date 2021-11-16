@@ -1,7 +1,6 @@
 local vim = vim
 local opt = vim.opt
 local api = vim.api
-local call = vim.call
 
 local M = {}
 
@@ -17,17 +16,6 @@ function M.reloadConfig()
     if hls_status == 0 then
         opt.hlsearch = false
     end
-end
-
-function M.BuildGoFiles()
-  local file = api.buf_get_name(0)
-  local testEnding = "_test.go"
-  local goEnding = ".go"
-  if file:sub(-#testEnding) == testEnding then
-    call("go#cmd#Build(0)")
-  elseif file:sub(-#goEnding) == goEnding then
-    call("go#cmd#Build(0)")
-  end
 end
 
 function M.GoImports(timeout_ms)
@@ -63,16 +51,16 @@ end
 -- taken from https://github.com/voyeg3r/nvim/blob/master/lua/utils.lua
 -- used to trim trailing whitespace
 function M.preserve(arguments)
-    local arguments = string.format('keepjumps keeppatterns execute %q', arguments)
+    local args = string.format('keepjumps keeppatterns execute %q', arguments)
     -- local original_cursor = vim.fn.winsaveview()
     local line, col = table.unpack(api.nvim_win_get_cursor(0))
-    vim.api.nvim_command(arguments)
+    vim.api.nvim_command(args)
 	local lastline = vim.fn.line('$')
     -- vim.fn.winrestview(original_cursor)
 	if line > lastline then
 		line = lastline
 	end
-	vim.api.nvim_win_set_cursor({0}, {line , col})
+	api.nvim_win_set_cursor({0}, {line , col})
 end
 
 return M
