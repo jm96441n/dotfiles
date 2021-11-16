@@ -24,20 +24,20 @@ local autoCommands = {
         -- Reload vim config automatically
         {"BufWritePre", "$MYVIMRC", "lua require('utils').reloadConfig()"};
     };
-    go_run = {
-      {"Filetype", "go", "nmap", "leader<r>", "<Plug>(go-run)"}
-    };
-    go_tests = {
-      {"Filetype", "go", "nmap", "leader<t>", "<Plug>(go-test)"}
-    };
-    go_coverage_toggle = {
-      {"Filetype", "go", "nmap", "leader<c>", "<Plug>(go-coverage-toggle)"}
-    };
-    go_build = {
-      {"Filetype", "go", "nmap", "<leader>b", "lua BuilGoFiles()"}
-    };
+    --go_run = {
+    --  {"Filetype", "go", "nmap", "leader<r>", "<Plug>(go-run)"}
+   -- };
+   -- go_tests = {
+   --   {"Filetype", "go", "nmap", "leader<t>", "<Plug>(go-test)"}
+   -- };
+   -- go_coverage_toggle = {
+   --   {"Filetype", "go", "nmap", "leader<c>", "<Plug>(go-coverage-toggle)"}
+   -- };
+   -- go_build = {
+   --   {"Filetype", "go", "nmap", "<leader>b", [[lua require("utils").BuildGoFiles()]]}
+   -- };
     go_imports = {
-        {"BufWritePre", "*.go", "lua GoImports()"}
+        {"BufWritePre", "*.go", [[lua require("utils").GoImports(1000)]]}
     };
     mkdown_file_width = {
         {"BufRead,BufNewFile", "*.md", "setlocal textwidth=120"}

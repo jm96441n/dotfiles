@@ -45,8 +45,6 @@ Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
 -- Useful git functionality
 Plug 'tpope/vim-fugitive'
--- vim-go for some niceties around running go_tests
-Plug('fatih/vim-go', { ['do'] = fn["GoUpdateBinaries"] })
 -- FZF for fuzzy file searching
 Plug ('junegunn/fzf', { ['do'] = fn['fzf#install'] })
 -- Plug '/usr/local/opt/fzf'
