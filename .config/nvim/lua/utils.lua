@@ -51,10 +51,11 @@ end
 -- taken from https://github.com/voyeg3r/nvim/blob/master/lua/utils.lua
 -- used to trim trailing whitespace
 function M.preserve(arguments)
-    local args = string.format('keepjumps keeppatterns execute %q', arguments)
+    local arguments = string.format('keepjumps keeppatterns execute %q', arguments)
     -- local original_cursor = vim.fn.winsaveview()
-    local line, col = table.unpack(api.nvim_win_get_cursor(0))
-    vim.api.nvim_command(args)
+    local unpack = table.unpack or unpack
+    local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+    vim.api.nvim_command(arguments)
 	local lastline = vim.fn.line('$')
     -- vim.fn.winrestview(original_cursor)
 	if line > lastline then
