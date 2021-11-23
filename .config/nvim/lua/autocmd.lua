@@ -22,11 +22,8 @@ end
 local autoCommands = {
     reload_vimrc = {
         -- Reload vim config automatically
-        {"BufWritePre", "$MYVIMRC", "lua require('utils').reloadConfig()"};
+        {"BufWritePre", "$MYVIMRC/../*", "lua require('utils').reloadConfig()"};
     };
-    --go_run = {
-    --  {"Filetype", "go", "nmap", "leader<r>", "<Plug>(go-run)"}
-   -- };
    -- go_tests = {
    --   {"Filetype", "go", "nmap", "leader<t>", "<Plug>(go-test)"}
    -- };
@@ -36,6 +33,10 @@ local autoCommands = {
    -- go_build = {
    --   {"Filetype", "go", "nmap", "<leader>b", [[lua require("utils").BuildGoFiles()]]}
    -- };
+    go_run = {
+      {"Filetype", "*.go", [[lua.require('mappings').map("n", "g<C-r>", "<cmd>lua require('utils').GoRun()<CR>", {silent=true, noremap=true})]]}
+    };
+
     go_imports = {
         {"BufWritePre", "*.go", [[lua require("utils").GoImports(1000)]]}
     };

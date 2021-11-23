@@ -65,6 +65,8 @@ Plug 'rhysd/vim-grammarous'
 Plug 'Yggdroot/indentLine'
 -- Run tests from vim
 Plug 'vim-test/vim-test'
+-- treesitter for better syntax highlighting
+Plug('nvim-treesitter/nvim-treesitter', {['do'] = fn['TSUpdate']})
 
 call('plug#end')
 
