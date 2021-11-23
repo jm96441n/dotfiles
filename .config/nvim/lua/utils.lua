@@ -1,6 +1,7 @@
 local vim = vim
 local opt = vim.opt
 local api = vim.api
+local fn = vim.fn
 
 local M = {}
 
@@ -46,6 +47,40 @@ function M.GoImports(timeout_ms)
     else
         vim.lsp.buf.execute_command(action)
     end
+end
+
+local function GetFileExtension(filename)
+  return filename:match("[^.]+$")
+end
+
+function M.RunScript()
+    local height = 20
+    local width = 75
+
+    local ui = vim.api.nvim_list_uis()[1]
+    local opts = {
+        relative = 'cursor',
+        width = width,
+        height = height,
+        col = (ui["width"] / 2) - (width / 2),
+        row = (ui["height"] / 2) - (height / 2),
+        anchor = 'NW',
+        style = 'minimal'
+    }
+    local file = fn.expand("%")
+    local buf = api.nvim_create_buf(false, true)
+    api.nvim_open_win(buf, 1, opts)
+    local filetype = GetFileExtension(file)
+    local cmd = ""
+    if filetype == "go" then
+        cmd = "go run " .. file
+    elseif filetype == "py" then
+        cmd  = "python " .. file
+    elseif filetype == "rb" then
+        cmd  = "ruby " .. file
+    end
+    fn["termopen"](cmd)
+
 end
 
 -- taken from https://github.com/voyeg3r/nvim/blob/master/lua/utils.lua

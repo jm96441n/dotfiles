@@ -63,7 +63,7 @@ local requestedLSPServers = {
     bashls = {},
     sumneko_lua = {},
     phpactor = {},
-    pyright = {},
+    jedi_language_server = {},
     sqlls = {},
     tflint = {},
     jsonls = {},
@@ -78,7 +78,7 @@ for lsp, opts in pairs(requestedLSPServers) do
     opts["on_attach"] = on_attach
     opts["capabilities"] = capabilities
     opts["flags"] = { debounce_text_changes = 150 }
-    if available then
+    if available and not lsp_server:is_installed() then
         lsp_server:install()
     end
     lsp_server:on_ready(function()

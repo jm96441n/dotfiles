@@ -451,7 +451,7 @@ live_config_reload: true
 #   - (Linux/BSD) user login shell
 #   - (Windows) powershell
 shell:
-  program: $ZSH_PATH
+  program: /usr/bin/zsh
   args:
     - --login
 
