@@ -23,8 +23,8 @@ opt.background='dark' -- highlight Normal ctermbg=None
 
 -- tabs to 4 spaces
 opt.expandtab = true
-opt.shiftwidth=4
-opt.softtabstop=4
+opt.shiftwidth=2
+opt.softtabstop=2
 
 -- set bash like file autocompletion
 opt.wildmode='longest,list,full'
