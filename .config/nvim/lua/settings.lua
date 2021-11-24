@@ -20,11 +20,24 @@ opt.autoread=true -- autoread files when they change
 opt.number = true -- line numbers
 opt.wrap = false -- turn off word wrap
 opt.background='dark' -- highlight Normal ctermbg=None
+opt.autoindent=true -- turn on autoindent
+opt.timeout=true -- turn on timeout
+opt.timeoutlen=1000 -- set timeout to 1000
+opt.smarttab=true -- turn on smarttab
+opt.incsearch=true -- turn on incremental search
+opt.laststatus=2 -- always turn on status bar
+opt.ruler=true -- show ruler on page
+opt.relativenumber=true -- set relative line numbers
+opt.display=(opt.display + 'lastline') -- include as much as possible of the line on the screen
+opt.autoread=true -- automatically detect changes to files
+opt.sessionoptions=(opt.sessionoptions - 'options')
+opt.viewoptions=(opt.viewoptions - 'option')
+
 
 -- tabs to 4 spaces
-opt.expandtab = true
-opt.shiftwidth=2
-opt.softtabstop=2
+opt.expandtab=true
+opt.shiftwidth=4
+opt.softtabstop=4
 
 -- set bash like file autocompletion
 opt.wildmode='longest,list,full'
