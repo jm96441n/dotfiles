@@ -39,20 +39,12 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 -- Colorful CSV highlighting
 Plug 'mechatroner/rainbow_csv'
--- Useful VIM defaults
-Plug 'tpope/vim-sensible'
--- Surround things
-Plug 'tpope/vim-surround'
--- Useful git functionality
-Plug 'tpope/vim-fugitive'
 -- FZF for fuzzy file searching
 Plug ('junegunn/fzf', { ['do'] = fn['fzf#install'] })
 -- Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 -- Gruvbox theme
 Plug 'morhetz/gruvbox'
--- Easily create wrapping tags
-Plug 'tpope/vim-surround'
 -- Shows git diff in gutter
 Plug 'airblade/vim-gitgutter'
 -- Markdown preview
