@@ -37,15 +37,16 @@ local autoCommands = {
       {"Filetype", "*.go", [[lua.require('mappings').map("n", "g<C-r>", "<cmd>lua require('utils').GoRun()<CR>", {silent=true, noremap=true})]]}
     };
 
-    go_imports = {
-        {"BufWritePre", "*.go", [[lua require("utils").GoImports(1000)]]}
-    };
     mkdown_file_width = {
         {"BufRead,BufNewFile", "*.md", "setlocal textwidth=120"}
     };
     clean_trailing_spaces = {
         {"BufWritePre", "*", [[lua require("utils").preserve('%s/\\s\\+$//ge')]]}
     };
+    format = {
+        {"BufWritePre", "*", [[lua vim.lsp.buf.formatting_sync()]]}
+    };
+
 }
 
 M.nvim_create_augroups(autoCommands)
