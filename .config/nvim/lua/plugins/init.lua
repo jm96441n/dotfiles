@@ -59,6 +59,10 @@ Plug 'Yggdroot/indentLine'
 Plug 'vim-test/vim-test'
 -- treesitter for better syntax highlighting
 Plug('nvim-treesitter/nvim-treesitter', {['do'] = fn['TSUpdate']})
+-- null-ls
+Plug('jose-elias-alvarez/null-ls.nvim', {branch = "main"})
+-- plenary
+Plug('nvim-lua/plenary.nvim')
 
 call('plug#end')
 
