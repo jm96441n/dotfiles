@@ -137,7 +137,7 @@ font:
     #style: Bold Italic
 
   # Point size
-  size: 10.0
+  size: 16.0
 
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
@@ -451,7 +451,7 @@ live_config_reload: true
 #   - (Linux/BSD) user login shell
 #   - (Windows) powershell
 shell:
-  program: /usr/bin/zsh
+  program: /usr/local/bin/zsh
   args:
     - --login
 
