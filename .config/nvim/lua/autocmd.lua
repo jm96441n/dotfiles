@@ -44,7 +44,7 @@ local autoCommands = {
         {"BufWritePre", "*", [[lua require("utils").preserve('%s/\\s\\+$//ge')]]}
     };
     format = {
-        {"BufWritePre", "*", [[lua vim.lsp.buf.formatting_sync()]]}
+        {"BufWritePre", "*", "undojoin | Neoformat"}
     };
 
 }

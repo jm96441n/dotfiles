@@ -1,5 +1,4 @@
 local vim = vim
-local null_ls = require("null-ls")
 local lsp_installer = require("nvim-lsp-installer")
 local cmp_lsp = require('cmp_nvim_lsp')
 local lsp_installer_servers = require'nvim-lsp-installer.servers'
@@ -43,23 +42,6 @@ local on_attach = function(_, bufnr)
     buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
     buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 
-    local sources = {
-        null_ls.builtins.formatting.gofumpt,
-        null_ls.builtins.formatting.goimports,
-        null_ls.builtins.formatting.isort,
-        null_ls.builtins.formatting.black.with({
-            extra_args = { "-l 120" }
-        }),
-        null_ls.builtins.diagnostics.flake8.with({
-            extrA_args =  { "--max-line-length=120" }
-        }),
-        null_ls.builtins.formatting.rubocop,
-        null_ls.builtins.formatting.rustfmt,
-        null_ls.builtins.diagnostics.shellcheck,
-        null_ls.builtins.formatting.stylua,
-    }
-
-    null_ls.config({sources = sources })
 end
 
 
@@ -86,7 +68,7 @@ local requestedLSPServers = {
     jsonls = {},
     eslint = {},
     clangd = {},
-    rust_analyzer = {}
+    rust_analyzer = {},
 }
 
 for lsp, opts in pairs(requestedLSPServers) do
@@ -102,5 +84,3 @@ for lsp, opts in pairs(requestedLSPServers) do
         lsp_server:setup(opts)
     end)
 end
-
-
