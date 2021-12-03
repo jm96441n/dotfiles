@@ -246,7 +246,7 @@ exec ~/.config/polybar/launch.sh
 # Compositor
 exec compton --config ~/.config/compton/compton.conf -b --logpath /tmp/compton.log
 # Wallpaper
-exec feh --bg-fill /home/johnmaguire/Downloads/3840x2160-dark-linux.png
+exec feh --bg-fill /home/johnmaguire/.dotfiles/wallpaper/gruvbox_buildings.jpg
 # Brightness
 exec xrandr --output LVDS-0 --brightness .6
 
