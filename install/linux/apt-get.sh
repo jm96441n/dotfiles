@@ -12,9 +12,9 @@ function install {
 }
 
 # set up i3
-/usr/lib/apt/apt-helper download-file https://debian.sur5r.net/i3/pool/main/s/sur5r-keyring/sur5r-keyring_2021.02.02_all.deb keyring.deb SHA256:cccfb1dd7d6b1b6a137bb96ea5b5eef18a0a4a6df1d6c0c37832025d2edaa710
-dpkg -i ./keyring.deb
-echo "deb http://debian.sur5r.net/i3/ $(grep '^DISTRIB_CODENAME=' /etc/lsb-release | cut -f2 -d=) universe" >> /etc/apt/sources.list.d/sur5r-i3.list
+curl https://baltocdn.com/i3-window-manager/signing.asc | sudo apt-key add -
+sudo apt install apt-transport-https --yes
+echo "deb https://baltocdn.com/i3-window-manager/i3/i3-autobuild-ubuntu/ all main" | sudo tee /etc/apt/sources.list.d/i3-autobuild.list
 
 # setup i3-gaps
 sudo add-apt-repository -y ppa:regolith-linux/stable
@@ -59,7 +59,7 @@ install sqlite3
 install strace
 install libsqlite3-dev
 install thefuck
-install the_silver_searcher
+install silversearcher-ag
 install tmux
 install tree
 install wget
@@ -70,3 +70,5 @@ install xz
 install zlib
 install zlib-devel
 install zsh-autosuggestions
+
+sudo apt install --reinstall ca-certificates
