@@ -15,10 +15,6 @@ function install {
   fi
 }
 
-# enable albert to be installed
-sudo rpm --import "https://build.opensuse.org/projects/home:manuelschneid3r/public_key"
-sudo dnf config-manager --add-repo https://download.opensuse.org/repositories/home:manuelschneid3r/Fedora_33/home:manuelschneid3r.repo
-
 # enable i3-gaps
 sudo dnf remove i3
 sudo dnf copr enable fuhrmann/i3-gaps
@@ -26,7 +22,6 @@ sudo dnf copr enable fuhrmann/i3-gaps
 # enable rpm fusion repo
 install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
 install https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-install albert
 install awscli
 install alacritty
 install autoconf
