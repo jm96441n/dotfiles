@@ -46,6 +46,7 @@ ln -sfv "$DOTFILES_DIR/.config/jrnl" "$HOME/.config"
 # Package managers & pagkages
 . "$DOTFILES_DIR/install/packages.sh"
 . "$DOTFILES_DIR/install/asdf_install.sh"
+. "$DOTFILES_DIR/install/autokey-github.sh"
 . "$DOTFILES_DIR/install/projects.sh"
 
 # Install extra stuff
