@@ -122,9 +122,6 @@ source $ZSH/oh-my-zsh.sh
 # If not running interactively, don't do anything
 DOTFILES_DIR="$HOME/.dotfiles"
 
-# source tmuxinator completions
-source "$DOTFILES_DIR"/runcom/tmuxinator.zsh
-
 # Finally we can source the dotfiles (order matters)
 for DOTFILE in "$DOTFILES_DIR"/system/.{function,private_function,env,path,private_env,alias,private_alias,completion,custom}; do
   [ -f "$DOTFILE" ] && . "$DOTFILE"
@@ -149,6 +146,7 @@ else
   . $HOME/.asdf/asdf.sh
 fi
 
+POWERLEVEL9K_INSTANT_PROMPT=quiet
 neofetch
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

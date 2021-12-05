@@ -11,8 +11,8 @@ set -g @continuum-boot-options 'iterm'
 set -g @continuum-save-interval '5'
 set -g status-right 'Continuum status: #{continuum_status}'
 set -g @resurrect-capture-pane-contents 'on'
-set -g default-terminal "screen-256color"
 set-option -g default-shell "$ZSH_PATH"
+set-option -sa terminal-overrides ',xterm-256color:RGB'
 # easier config reloads
 bind r source-file ~/.tmux.conf
 
