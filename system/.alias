@@ -37,7 +37,6 @@ alias egrep="egrep --color=auto"
 alias vim="nvim"
 
 # use colorful tmux
-alias tmux="tmux -2"
 alias vr="vim ~/.dotfiles/.config/nvim/init.vim"
 alias zr="vim ~/.dotfiles/runcom/.zshrc"
 alias tr="vim ~/.dotfiles/runcom/.tmux.conf"
