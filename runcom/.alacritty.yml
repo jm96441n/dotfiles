@@ -305,7 +305,7 @@ schemes:
       white:   '0xe6d5ae'
 
 # Apply the color scheme.
-colors: *gruvbox_material_hard_dark
+colors: *gruvbox_material_soft_light
 # Colors (Tomorrow Night Bright)
 #colors:
   # Default colors
@@ -451,7 +451,7 @@ live_config_reload: true
 #   - (Linux/BSD) user login shell
 #   - (Windows) powershell
 shell:
-  program: /usr/local/bin/zsh
+  program: /usr/bin/zsh
   args:
     - --login
 

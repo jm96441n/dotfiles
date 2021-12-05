@@ -39,6 +39,7 @@ ln -sfv "$DOTFILES_DIR/.config/polybar" "$HOME/.config"
 ln -sfv "$DOTFILES_DIR/.config/i3" "$HOME/.config"
 ln -sfv "$DOTFILES_DIR/.config/ranger" "$HOME/.config"
 ln -sfv "$DOTFILES_DIR/.config/compton" "$HOME/.config"
+ln -sfv "$DOTFILES_DIR/.config/bat" "$HOME/.config"
 ln -sfv "$DOTFILES_DIR/.config/.xinitrc" $HOME
 ln -sfv "$DOTFILES_DIR/.config/.Xresources" $HOME
 ln -sfv "$DOTFILES_DIR/.config/jrnl" "$HOME/.config"
