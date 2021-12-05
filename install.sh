@@ -26,10 +26,6 @@ ln -sfv "$DOTFILES_DIR/runcom/.asdfrc" $HOME
 ln -sfv "$DOTFILES_DIR/runcom/.gemrc" $HOME
 ln -sfv "$DOTFILES_DIR/runcom/.tmux.conf" $HOME
 ln -sfv "$DOTFILES_DIR/runcom/.tmux.conf.local" $HOME
-ln -sfv "$DOTFILES_DIR/git/.gitconfig" $HOME
-ln -sfv "$DOTFILES_DIR/git/.githelpers" $HOME
-ln -sfv "$DOTFILES_DIR/git/.git-completion.bash" $HOME
-ln -sfv "$DOTFILES_DIR/git/.gitignore_global" $HOME
 ln -sfv "$DOTFILES_DIR/lang_defaults/.default-gems" $HOME
 ln -sfv "$DOTFILES_DIR/lang_defaults/.default_npm_packages" $HOME
 ln -sfv "$DOTFILES_DIR/lang_defaults/.default-python-packages" $HOME
@@ -48,6 +44,12 @@ ln -sfv "$DOTFILES_DIR/.config/jrnl" "$HOME/.config"
 . "$DOTFILES_DIR/install/packages.sh"
 . "$DOTFILES_DIR/install/asdf_install.sh"
 . "$DOTFILES_DIR/install/autokey-github.sh"
+
+ln -sfv "$DOTFILES_DIR/git/.gitconfig" $HOME
+ln -sfv "$DOTFILES_DIR/git/.githelpers" $HOME
+ln -sfv "$DOTFILES_DIR/git/.gitignore_global" $HOME
+
+
 . "$DOTFILES_DIR/install/projects.sh"
 
 # Install extra stuff
