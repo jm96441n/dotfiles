@@ -17,9 +17,10 @@
 set -e
 
 npm install -g @bitwarden/cli
-bw login
-# Generate SSH Key and Deploy to Github
+bw login --apikey
+export BW_SESSION=$( bw unlock --passwordenv BW_PW --raw )
 
+# Generate SSH Key and Deploy to Github
 TOKEN=$(bw get item github.com | jq -r '.fields[0].value')
 
 ssh-keygen -q -b 4096 -t rsa -N "" -f ~/.ssh/github_rsa
