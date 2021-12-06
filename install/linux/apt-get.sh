@@ -19,6 +19,9 @@ echo "deb https://baltocdn.com/i3-window-manager/i3/i3-autobuild-ubuntu/ all mai
 # setup i3-gaps
 sudo add-apt-repository -y ppa:regolith-linux/stable
 
+# setup for alacritty
+sudo add-apt-repository ppa:mmstick76/alacritty
+
 install alacritty
 install awscli
 install autojump
@@ -43,7 +46,6 @@ install i3status
 install jq
 install libreadline-dev
 install libssl-dev
-install libffi-devel
 install make
 install neofetch
 install neovim
