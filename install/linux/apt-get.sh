@@ -11,10 +11,7 @@ function install {
   fi
 }
 
-# set up i3
-curl https://baltocdn.com/i3-window-manager/signing.asc | sudo apt-key add -
-sudo apt install apt-transport-https --yes
-echo "deb https://baltocdn.com/i3-window-manager/i3/i3-autobuild-ubuntu/ all main" | sudo tee /etc/apt/sources.list.d/i3-autobuild.list
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 361FA511F8F5E4DE
 
 # setup i3-gaps
 sudo add-apt-repository -y ppa:regolith-linux/stable
@@ -40,6 +37,7 @@ install git-extras
 install hub
 install htop
 install imagemagick
+install i3
 install i3-gaps
 install i3lock
 install i3status
