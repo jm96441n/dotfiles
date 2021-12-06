@@ -16,6 +16,7 @@
 
 set -e
 
+npm install -g @bitwarden/cli
 bw login
 # Generate SSH Key and Deploy to Github
 
