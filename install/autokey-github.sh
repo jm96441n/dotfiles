@@ -16,6 +16,7 @@
 
 set -e
 
+bw login
 # Generate SSH Key and Deploy to Github
 
 TOKEN=$(bw get item github.com | jq -r '.fields[0].value')
@@ -29,6 +30,7 @@ RESPONSE=`curl -s -H "Authorization: token ${TOKEN}" \
   -X POST --data-binary "{\"title\":\"${TITLE}\",\"key\":\"${PUBKEY}\"}" \
   https://api.github.com/user/keys`
 
+echo $RESPONSE
 KEYID=`echo $RESPONSE \
   | grep -o '\"id.*' \
   | grep -o "[0-9]*" \
