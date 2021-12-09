@@ -22,6 +22,7 @@ sudo add-apt-repository ppa:mmstick76/alacritty
 install alacritty
 install awscli
 install autojump
+install bat
 install bzip2
 install cmake
 install curl
@@ -44,6 +45,7 @@ install i3status
 install jq
 install libreadline-dev
 install libssl-dev
+install libffi-dev
 install make
 install neofetch
 install neovim
@@ -62,6 +64,7 @@ install yarn
 install xbacklight
 install xclip
 install xz
+install zlib1g-dev
 install zsh-autosuggestions
 
 sudo apt install --reinstall ca-certificates
