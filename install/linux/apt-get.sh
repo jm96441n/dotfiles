@@ -19,6 +19,13 @@ sudo add-apt-repository -y ppa:regolith-linux/stable
 # setup for alacritty
 sudo add-apt-repository ppa:mmstick76/alacritty
 
+# setup for docker
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+
 install alacritty
 install awscli
 install autojump
@@ -26,7 +33,9 @@ install bat
 install bzip2
 install cmake
 install curl
-install docker
+install docker-ce
+install docker-ce-cli
+install containerd.io
 install exa
 install flatpak
 install feh
@@ -46,6 +55,7 @@ install jq
 install libreadline-dev
 install libssl-dev
 install libffi-dev
+install lsb-release
 install make
 install neofetch
 install neovim
@@ -68,3 +78,6 @@ install zlib1g-dev
 install zsh-autosuggestions
 
 sudo apt install --reinstall ca-certificates
+
+# docker-compose
+sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
