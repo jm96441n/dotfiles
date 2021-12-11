@@ -4,7 +4,7 @@ local call = vim.call
 local fn = vim.fn
 
 -- install vim-plug if it's not installed
-local plugFile = io.open('~/.vim/autoload/plug.vim', 'w')
+local plugFile = io.open('~/.local/share/autoload/plug.vim', 'w')
 if plugFile~=nil then
     local http = require('socket.http')
     local body = http.request('https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim')
@@ -18,7 +18,7 @@ end
 -- Plugins
 local Plug = fn['plug#']
 
-call('plug#begin', '~/.vim/plugged')
+call('plug#begin', '~/.nvim/plugged')
 -- neovim lsp
 Plug 'neovim/nvim-lspconfig'
 Plug 'williamboman/nvim-lsp-installer'

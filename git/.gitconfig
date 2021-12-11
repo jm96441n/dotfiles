@@ -99,7 +99,7 @@
 [user]
   name = jm96441n
   email = john@johnmaguirdeveloper.com
-[includeIf "gitdir:/Users/john.maguire/"]
+[includeIf "gitdir:/home/john.maguire/"]
   path = ~/.dotfiles/git/work/.gitconfig
 [includeIf "gitdir:$HOME/.dotfiles"]
   path = ~/.dotfiles/git/personal/.gitconfig
