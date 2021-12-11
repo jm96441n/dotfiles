@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ -n "$1" ]; then
-  python ~/.config/rofi/launchers-git/web-search.py "$1"
+  open "https://www.google.com"
   exit 0
 fi
 
