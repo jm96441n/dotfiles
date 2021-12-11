@@ -16,8 +16,11 @@
 
 set -e
 
-# Generate SSH Key and Deploy to Github
+npm install -g @bitwarden/cli
+bw login --apikey
+export BW_SESSION=$( bw unlock --passwordenv BW_PW --raw )
 
+# Generate SSH Key and Deploy to Github
 TOKEN=$(bw get item github.com | jq -r '.fields[0].value')
 
 ssh-keygen -q -b 4096 -t rsa -N "" -f ~/.ssh/github_rsa
@@ -29,6 +32,7 @@ RESPONSE=`curl -s -H "Authorization: token ${TOKEN}" \
   -X POST --data-binary "{\"title\":\"${TITLE}\",\"key\":\"${PUBKEY}\"}" \
   https://api.github.com/user/keys`
 
+echo $RESPONSE
 KEYID=`echo $RESPONSE \
   | grep -o '\"id.*' \
   | grep -o "[0-9]*" \
