@@ -1,10 +1,12 @@
 /** Configured For Applets **/
 
 configuration {
-  modi: "window,drun,combi,search:~/.config/rofi/launchers-git/web-search.sh";
+  modi: "github:~/.config/rofi/launchers-git/github.sh,gitlab:~/.config/rofi/launchers-git/gitlab.sh,drun,window";
   show-icons:         true;
   icon-theme:         "Newatita";
   location: 0;
   yoffset: 50;
   xoffset: 20;
+  cycle: true;
+  sidebar-mode: true;
 }
