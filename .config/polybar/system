@@ -4,7 +4,7 @@
 ; Look for network: "ls -l /sys/class/net"
 
 [system]
-adapter = ACAD
+adapter = AC
 battery = BAT0
 graphics_card = intel_backlight
-network_interface = wlp3s0
+network_interface = wlp0s20f3
