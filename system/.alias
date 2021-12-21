@@ -29,9 +29,9 @@ alias coverage="be rake ci:coverage"
 alias projects="cd /Users/johnmaguire/Projects"
 
 # Fix grep to use color and show line numbers
-alias grep="grep -nr --color=auto"
-alias fgrep="fgrep --color=auto"
-alias egrep="egrep --color=auto"
+#alias grep="grep -nr --color=auto"
+#alias fgrep="fgrep --color=auto"
+#alias egrep="egrep --color=auto"
 
 # Map vim to use neovim
 alias vim="nvim"
@@ -40,5 +40,5 @@ alias vim="nvim"
 alias vr="vim ~/.dotfiles/.config/nvim/init.vim"
 alias zr="vim ~/.dotfiles/runcom/.zshrc"
 alias tr="vim ~/.dotfiles/runcom/.tmux.conf"
-alias ar="vim ~/.dotfiles/runcom/.alacritty.yml"
+alias kr="vim ~/.dotfiles/.config/kitty/kitty.conf"
 alias ir="vim ~/.dotfiles/.config/i3/config"

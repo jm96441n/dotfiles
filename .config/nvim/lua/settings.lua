@@ -13,7 +13,7 @@ g.go_gopls_enabled = 0
 -- explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
 g.fzf_history_dir = '~/.local/share/fzf-history'
 
-g.gruvbox_contrast_light='medium'
+g.everforest_background = 'hard'
 
 opt.termguicolors=true
 opt.mouse = 'c' -- turn off mouse
@@ -21,7 +21,7 @@ opt.clipboard='unnamedplus' -- always default to system clipboard
 opt.autoread=true -- autoread files when they change
 opt.number = true -- line numbers
 opt.wrap = false -- turn off word wrap
-opt.background='light' -- highlight Normal ctermbg=None
+opt.background='dark' -- highlight Normal ctermbg=None
 opt.autoindent=true -- turn on autoindent
 opt.timeout=true -- turn on timeout
 opt.timeoutlen=1000 -- set timeout to 1000
