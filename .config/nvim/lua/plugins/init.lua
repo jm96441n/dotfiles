@@ -45,6 +45,8 @@ Plug ('junegunn/fzf', { ['do'] = fn['fzf#install'] })
 Plug 'junegunn/fzf.vim'
 -- Gruvbox theme
 Plug 'morhetz/gruvbox'
+-- everforest theme
+Plug 'sainnhe/everforest'
 -- Shows git diff in gutter
 Plug 'airblade/vim-gitgutter'
 -- Markdown preview
@@ -63,4 +65,4 @@ Plug('nvim-treesitter/nvim-treesitter', {['do'] = fn['TSUpdate']})
 Plug('sbdchd/neoformat')
 call('plug#end')
 
-cmd('colorscheme gruvbox')
+cmd('colorscheme everforest')

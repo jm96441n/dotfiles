@@ -43,8 +43,9 @@ ln -sfv "$DOTFILES_DIR/.config/i3" "$HOME/.config"
 ln -sfv "$DOTFILES_DIR/.config/ranger" "$HOME/.config"
 ln -sfv "$DOTFILES_DIR/.config/compton" "$HOME/.config"
 ln -sfv "$DOTFILES_DIR/.config/bat" "$HOME/.config"
-ln -sfv "$DOTFILES_DIR/.config/.xinitrc" $HOME
+ln -sfv "$DOTFILES_DIR/.config/.Xinitrc" $HOME
 ln -sfv "$DOTFILES_DIR/.config/.Xresources" $HOME
+ln -sfv "$DOTFILES_DIR/.config/kitty" "$HOME/.config/kitty"
 ln -sfv "$DOTFILES_DIR/.config/jrnl" "$HOME/.config"
 
 # Package managers & pagkages
@@ -56,20 +57,29 @@ ln -sfv "$DOTFILES_DIR/git/.gitconfig" $HOME
 ln -sfv "$DOTFILES_DIR/git/.githelpers" $HOME
 ln -sfv "$DOTFILES_DIR/git/.gitignore_global" $HOME
 
-
 . "$DOTFILES_DIR/install/projects.sh"
 
 # Install extra stuff
 
 if [ -d "$DOTFILES_EXTRA_DIR" -a -f "$DOTFILES_EXTRA_DIR/install.sh" ]; then
-  . "$DOTFILES_EXTRA_DIR/install.sh"
+    . "$DOTFILES_EXTRA_DIR/install.sh"
 fi
+
+# add theme for bat
+mkdir -p "$(bat --config-dir)/themes"
+cd "$(bat --config-dir)/themes"
+
+# Download a theme in '.tmTheme' format, for example:
+git clone https://github.com/mhanberg/forest-night-textmate.git
+
+# Update the binary cache
+bat cache --build
 
 echo "Installing zsh"
 
 . "$DOTFILES_DIR/install/zsh_install.sh"
 
 if test -f .zshrc.pre-oh-my-zsh; then
-  rm .zshrc
-  mv .zshrc.pre-oh-my-zsh .zshrc
+    rm .zshrc
+    mv .zshrc.pre-oh-my-zsh .zshrc
 fi
