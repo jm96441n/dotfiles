@@ -242,7 +242,7 @@ client.focused_inactive #32302f #32302f #dfbf8e #32302f   #32302f
 # Auto startup #####
 ####################
 # Status bar
-exec ~/.config/polybar/launch.sh
+exec ~/.config/polybar/launch-bar.sh
 # Compositor
 exec compton --config ~/.config/compton/compton.conf -b --logpath /tmp/compton.log
 # Wallpaper
