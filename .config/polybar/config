@@ -1,7 +1,7 @@
 
 
 [bar/fullbar]
-monitor = 
+monitor =
 include-file = ~/.config/polybar/fullbar
 
 ; Material theme color
@@ -11,7 +11,7 @@ include-file = ~/.config/polybar/fullbar
 ; Gruvbox material theme
 background = #bb32302f
 foreground = #dfbf83
-modules-left = i3 title 
+modules-left =i3 title
 modules-center =
 modules-right = memory cpu volume battery updates notifications date powermenu
 
@@ -47,8 +47,8 @@ battery = BAT0
 adapter = ACAD
 poll-interval = 2
 format-discharging =  <label-discharging>%
-format-full =  <label-full>% 
-format-charging =   <label-charging>% 
+format-full =  <label-full>%
+format-charging =   <label-charging>%
 label-charging = %percentage%
 label-discharging =  %percentage%
 label-full =  Fully Charged
@@ -58,7 +58,7 @@ time-format = %H:%M
 type = internal/network
 interface = wlp7s0
 interval = 5
-label-connected =  %essid% 
+label-connected =  %essid%
 label-disconnected = 
 
 [module/volume]
@@ -152,7 +152,7 @@ label-urgent-padding = 3
 type = internal/xwindow
 format = <label>
 label =  %title%
-label-maxlen = 20
+label-maxlen = 50
 
 
 [module/notifications]
@@ -174,7 +174,7 @@ interval = 5
 
 [module/separator]
 type = custom/text
-content =  
+content =
 content-padding = 1
 
 [module/powermenu]
@@ -190,7 +190,7 @@ menu-0-2 =  Poweroff
 menu-0-2-exec = poweroff
 menu-0-3 =   Reboot
 menu-0-3-exec = reoot
-format-spacing = 1 
+format-spacing = 1
 format-padding = 2
 
 label-open = 
