@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/usr/bin/zsh
+
+. ~/.dotfiles/system/.private_env
 
 BASE_URL="https://gitlab.cbinsights.com"
 
