@@ -52,7 +52,7 @@ font-2 = "Fira Code Nerd Font Mono:size=15;4"
 font-3 = "Fira Code Nerd Font Mono:size=18;4"
 
 # Default
-modules-left = RLD battery RRD dot GLD volume YPL brightness YRD dot MLD network MRD spacing
+modules-left = RLD battery RRD dot GLD volume GRD dot MLD network MRD spacing
 modules-center = LD i3 RD
 modules-right = spacing BLD launcher BRD dot GLD cpu YPL memory CPL filesystem CRD dot BLD time BRD
 
@@ -72,6 +72,9 @@ enable-ipc = true
 
 cursor-click =
 cursor-scroll =
+
+dpi-x=144
+dpi-y=144
 
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
