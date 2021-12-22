@@ -40,7 +40,7 @@ bindsym $mod+Return exec alacritty
 bindsym $mod+Shift+q kill
 
 # start rofi (a program launcher)
-bindsym $mod+d exec ~/.config/rofi/launchers-git/launcher.sh
+bindsym $mod+d exec "~/.config/rofi/launchers-git/launcher.sh"
 # Lockscreen
 bindsym $mod+Shift+x exec mantablockscreen
 # There also is the (new) i3-dmenu-desktop which only displays applications
@@ -148,7 +148,7 @@ bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -f 'EnvyCodeR Nerd Font' -m 'Please select' -B 'Logout' 'i3-msg exit' -B 'Suspend' 'systemctl suspend' -B 'Restart' 'restart' -B 'Shutdown' 'poweroff'"
+bindsym $mod+Shift+e exec ~/.config/polybar/launch-shutdown-bar.sh
 
 #bindsym $mod+Shift+e qdbus org.kde.ksmserver/KSMServer org.kde.KSMServerInterface.logout -1 -1 -1
 

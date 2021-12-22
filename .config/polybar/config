@@ -11,6 +11,69 @@ include-file = $HOME/.config/polybar/system
 
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
+[bar/power]
+monitor =
+monitor-fallback =
+monitor-strict = false
+
+override-redirect = false
+
+bottom = false
+fixed-center = true
+
+width = 100%
+height = 25
+
+offset-x = 0%
+offset-y = 0%
+
+background = ${color.background}
+foreground = ${color.foreground}
+
+radius-top = 0.0
+radius-bottom = 0.0
+
+line-size = 2
+line-color = ${color.blue}
+
+border-size = 6
+border-color = ${color.background}
+
+padding = 0
+
+module-margin-left = 0
+module-margin-right = 0
+
+
+# font-0 = "Source Code Pro:size=11;3"
+font-0 = "Fira Code Mono:size=11;3"
+# font-0 = "Cozette Vector:size=12.5;3"
+font-1 = "Fira Code Nerd Font Mono:size=16;3"
+font-2 = "Fira Code Nerd Font Mono:size=15;4"
+font-3 = "Fira Code Nerd Font Mono:size=18;4"
+
+modules-right = spacing YLD reboot YRD dot RLD shutdown RRD
+
+spacing = 0
+dim-value = 1.0
+
+tray-position = right
+tray-detached = false
+tray-maxsize = 16
+tray-background = ${color.background}
+tray-offset-x = 0
+tray-offset-y = 0
+tray-padding = 0
+tray-scale = 1.0
+
+enable-ipc = true
+
+cursor-click =
+cursor-scroll =
+
+;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+
+
 [bar/main]
 monitor =
 monitor-fallback =
@@ -72,9 +135,6 @@ enable-ipc = true
 
 cursor-click =
 cursor-scroll =
-
-dpi-x=144
-dpi-y=144
 
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 

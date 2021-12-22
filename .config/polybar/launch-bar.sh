@@ -41,11 +41,14 @@ launch_bar() {
     fi
 
     if [[ ! $(pidof polybar) ]]; then
+        polybar -q power -c "$DIR"/config &
         polybar -q main -c "$DIR"/config &
+        polybar-msg -p $(xprop -name "polybar-power_DP-2" _NET_WM_PID | cut -d ' ' -f 3) cmd toggle
     else
         killall -q polybar
         # Wait until the processes have been shut down
         while pgrep -u $USER -x polybar >/dev/null; do sleep 1; done
+        polybar -q power -c "$DIR"/config &
         polybar -q main -c "$DIR"/config &
     fi
 }

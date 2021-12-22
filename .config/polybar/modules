@@ -338,3 +338,23 @@ ramp-signal-4 = " "
 ramp-signal-foreground = ${color.background}
 ramp-signal-background = ${color.magenta}
 ramp-signal-font = 2
+
+[module/reboot]
+type = custom/text
+content = " reboot"
+content-font = 1
+content-foreground= ${color.background}
+content-background = ${color.yellow}
+content-padding=1
+click-left=systemctl reboot
+
+
+[module/shutdown]
+type = custom/text
+content = " shutdown"
+content-font = 1
+content-foreground= ${color.background}
+content-background = ${color.red}
+content-padding=1
+click-left=systemctl poweroff
+
