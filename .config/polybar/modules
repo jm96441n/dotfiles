@@ -60,8 +60,6 @@ ramp-foreground = ${color.background}
 [module/volume]
 type = internal/pulseaudio
 
-sink = alsa_output.pci-0000_12_00.3.analog-stereo
-
 use-ui-max = false
 
 interval = 5
