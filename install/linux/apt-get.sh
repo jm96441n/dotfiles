@@ -1,14 +1,14 @@
 sudo apt update
 
 function install {
-  which $1 &> /dev/null
+    which $1 &>/dev/null
 
-  if [ $? -ne 0 ]; then
-    echo "Installing: ${1}..."
-    sudo apt install -y $1
-  else
-    echo "Already installed: ${1}"
-  fi
+    if [ $? -ne 0 ]; then
+        echo "Installing: ${1}..."
+        sudo apt install -y $1
+    else
+        echo "Already installed: ${1}"
+    fi
 }
 
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 361FA511F8F5E4DE
@@ -22,9 +22,8 @@ sudo add-apt-repository ppa:mmstick76/alacritty
 # setup for docker
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
 echo \
-  "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
-  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-
+    "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list >/dev/null
 
 install alacritty
 install awscli
@@ -56,6 +55,7 @@ install libreadline-dev
 install libssl-dev
 install libffi-dev
 install lsb-release
+install lxappearance
 install make
 install neofetch
 install neovim
