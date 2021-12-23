@@ -186,7 +186,7 @@ label-mode-background = ${color.altblack}
 label-mode-foreground = ${color.yellow}
 
 label-focused = %icon%
-label-focused-foreground = ${color.blue}
+label-focused-foreground = ${color.altred}
 label-focused-background = ${color.altblack}
 
 label-unfocused = %icon%
