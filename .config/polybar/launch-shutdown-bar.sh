@@ -8,7 +8,7 @@ MFILE="$DIR/.module"
 
 ## Launch Polybar with selected style
 launch_bar() {
-    if [[ ! $(pidof polybar) && $(pidof polybar | wc -w) -lt 2 ]]; then
+    if [[ $(pidof polybar) && $(pidof polybar | wc -w) -lt 2 ]]; then
         polybar -q power -c "$DIR"/config &
     else
         polybar-msg -p $(xprop -name "polybar-power_DP-2" _NET_WM_PID | cut -d ' ' -f 3) cmd toggle
