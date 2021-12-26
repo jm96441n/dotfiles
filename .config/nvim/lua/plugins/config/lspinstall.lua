@@ -65,6 +65,7 @@ local requestedLSPServers = {
     jedi_language_server = {},
     sqlls = {},
     tflint = {},
+    tsserver = {},
     jsonls = {},
     eslint = {},
     clangd = {},

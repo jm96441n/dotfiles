@@ -5,6 +5,7 @@
     xfg:#d3c6aa;
     prompt: #e69875;
     entry: #d3c6aa;
+    font: "FiraCode Nerd Font 20";
 }
 * {
     columns: 1;

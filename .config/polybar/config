@@ -45,14 +45,12 @@ module-margin-left = 0
 module-margin-right = 0
 
 
-# font-0 = "Source Code Pro:size=11;3"
 font-0 = "Fira Code Mono:size=11;3"
-# font-0 = "Cozette Vector:size=12.5;3"
 font-1 = "Fira Code Nerd Font Mono:size=16;3"
 font-2 = "Fira Code Nerd Font Mono:size=15;4"
 font-3 = "Fira Code Nerd Font Mono:size=18;4"
 
-modules-right = spacing YLD reboot YRD dot RLD shutdown RRD
+modules-right = spacing CLD logout CRD dot GLD suspend GRD dot YLD reboot YRD dot RLD shutdown RRD
 
 spacing = 0
 dim-value = 1.0
@@ -107,17 +105,15 @@ padding = 0
 module-margin-left = 0
 module-margin-right = 0
 
-# font-0 = "Source Code Pro:size=11;3"
-font-0 = "Fira Code Mono:size=11;3"
-# font-0 = "Cozette Vector:size=12.5;3"
-font-1 = "Fira Code Nerd Font Mono:size=16;3"
-font-2 = "Fira Code Nerd Font Mono:size=15;4"
-font-3 = "Fira Code Nerd Font Mono:size=18;4"
+font-0 = "FiraCode Mono:size=11;3"
+font-1 = "FiraCode Nerd Font Mono:size=16;3"
+font-2 = "FiraCode Nerd Font Mono:size=15;4"
+font-3 = "FiraCode Nerd Font Mono:size=18;4"
 
 # Default
 modules-left = RLD battery RRD dot GLD volume GRD dot MLD network MRD spacing
 modules-center = LD i3 RD
-modules-right = spacing BLD launcher BRD dot GLD cpu YPL memory CPL filesystem CRD dot BLD time BRD
+modules-right = spacing GLD cpu YPL memory CPL filesystem CRD dot BLD time BRD
 
 spacing = 0
 dim-value = 1.0

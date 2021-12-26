@@ -81,6 +81,9 @@ label-muted-background = ${color.green}
 label-volume-foreground = ${color.background}
 label-muted-foreground = ${color.background}
 
+label-volume-font = 4
+label-muted-font = 4
+
 ramp-volume-0 = " "
 ramp-volume-1 = " "
 ramp-volume-2 = " "
@@ -91,7 +94,7 @@ ramp-volume-6 = " "
 ramp-volume-7 = " "
 ramp-volume-8 = " "
 ramp-volume-9 = " "
-ramp-volume-font = 2
+ramp-volume-font = 4
 ramp-volume-foreground = ${color.background}
 ramp-volume-background = ${color.green}
 
@@ -133,6 +136,14 @@ label-full-background = ${color.red}
 label-charging-foreground = ${color.background}
 label-discharging-foreground = ${color.background}
 label-full-foreground = ${color.background}
+
+label-charging-font = 4
+label-discharging-font = 4
+label-full-font = 4
+
+content-charging-font = 4
+content-discharging-font = 4
+content-full-font = 4
 
 ramp-capacity-0 = " "
 ramp-capacity-1 = " "
@@ -206,6 +217,8 @@ label-unfocused-padding = 1
 label-visible-padding = 1
 label-urgent-padding = 1
 
+label-font = 4
+content-font = 4
 ;label-separator = |
 ;label-separator-padding = 0
 ;label-separator-foreground = ${color.foreground}
@@ -222,6 +235,7 @@ format-prefix-foreground = ${color.background}
 format-foreground = ${color.background}
 format-background = ${color.green}
 label = "%{A1:terminal -e gtop &:}%percentage%% %{A}"
+label-font = 4
 
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
@@ -240,6 +254,7 @@ label = %time%
 label-foreground = ${color.background}
 label-background = ${color.blue}
 label-padding = 1
+label-font = 4
 
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
@@ -267,6 +282,9 @@ label-mounted-foreground = ${color.background}
 label-mounted-background = ${color.cyan}
 label-unmounted-background = ${color.cyan}
 
+label-mounted-font = 4
+label-unmounted-font = 4
+
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
 [module/memory]
@@ -281,6 +299,7 @@ format-foreground = ${color.background}
 format-background = ${color.yellow}
 
 label = "%{A1:terminal -e htop &:} %mb_used% %{A}"
+label-font = 4
 
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
@@ -292,6 +311,7 @@ content-foreground= ${color.background}
 content-background = ${color.blue}
 content-padding=1
 click-left=def-dmenu
+label-font = 4
 
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
@@ -328,6 +348,9 @@ label-disconnected-foreground = ${color.background}
 label-connected-background = ${color.magenta}
 label-disconnected-background = ${color.magenta}
 
+label-connected-font = 4
+label-disconnected-font = 4
+
 ramp-signal-0 = " "
 ramp-signal-1 = " "
 ramp-signal-2 = " "
@@ -337,22 +360,42 @@ ramp-signal-foreground = ${color.background}
 ramp-signal-background = ${color.magenta}
 ramp-signal-font = 2
 
+[module/logout]
+type = custom/text
+content = "logout"
+content-font = 4
+content-foreground= ${color.background}
+content-background = ${color.cyan}
+content-padding=1
+click-left=i3-msg exit
+
+[module/suspend]
+type = custom/text
+content = "suspend"
+content-font = 4
+content-foreground= ${color.background}
+content-background = ${color.green}
+content-padding=1
+click-left=suspend
+
+
 [module/reboot]
 type = custom/text
 content = " reboot"
-content-font = 1
+content-font = 4
 content-foreground= ${color.background}
 content-background = ${color.yellow}
 content-padding=1
-click-left=systemctl reboot
+click-left=reboot
 
 
 [module/shutdown]
 type = custom/text
 content = " shutdown"
-content-font = 1
+content-font = 4
 content-foreground= ${color.background}
 content-background = ${color.red}
 content-padding=1
-click-left=systemctl poweroff
+click-left=poweroff
+
 

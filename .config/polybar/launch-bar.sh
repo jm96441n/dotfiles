@@ -42,7 +42,6 @@ launch_bar() {
 
     if [[ ! $(pidof polybar) ]]; then
         polybar -q main -c "$DIR"/config &
-        polybar-msg -p $(xprop -name "polybar-power_DP-2" _NET_WM_PID | cut -d ' ' -f 3) cmd toggle
     else
         killall -q polybar
         # Wait until the processes have been shut down
