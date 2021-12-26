@@ -35,6 +35,8 @@ opt.autoread=true -- automatically detect changes to files
 opt.sessionoptions=(opt.sessionoptions - 'options')
 opt.viewoptions=(opt.viewoptions - 'option')
 
+opt.list = true
+opt.listchars:append("eol:↴")
 
 -- tabs to 4 spaces
 opt.expandtab=true

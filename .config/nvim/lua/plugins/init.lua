@@ -63,6 +63,8 @@ Plug 'vim-test/vim-test'
 Plug('nvim-treesitter/nvim-treesitter', {['do'] = fn['TSUpdate']})
 -- neoformat to format on save
 Plug('sbdchd/neoformat')
+-- show character on end of lines
+Plug 'lukas-reineke/indent-blankline.nvim'
 call('plug#end')
 
 cmd('colorscheme everforest')
