@@ -75,6 +75,11 @@ git clone https://github.com/mhanberg/forest-night-textmate.git
 # Update the binary cache
 bat cache --build
 
+cd ~
+
+mkdir ~/.themes
+git clone https://github.com/theory-of-everything/everforest-gtk ~/.themes/everforest-gtk
+
 echo "Installing zsh"
 
 . "$DOTFILES_DIR/install/zsh_install.sh"

@@ -39,6 +39,6 @@ alias vim="nvim"
 # use colorful tmux
 alias vr="vim ~/.dotfiles/.config/nvim/init.vim"
 alias zr="vim ~/.dotfiles/runcom/.zshrc"
-alias tr="vim ~/.dotfiles/runcom/.tmux.conf"
+alias txr="vim ~/.dotfiles/runcom/.tmux.conf"
 alias kr="vim ~/.dotfiles/.config/kitty/kitty.conf"
 alias ir="vim ~/.dotfiles/.config/i3/config"

@@ -97,16 +97,18 @@
   process = git-lfs filter-process
   required = true
 [user]
-  name = jm96441n
-  email = john@johnmaguirdeveloper.com
+    name = jm96441n
+    email = john@johnmaguirdeveloper.com
+[includeIf "gitdir:~/cbi/"]
+    path = ~/.dotfiles/git/work/.gitconfig
 [includeIf "gitdir:/home/john.maguire/"]
-  path = ~/.dotfiles/git/work/.gitconfig
+    path = ~/.dotfiles/git/work/.gitconfig
 [includeIf "gitdir:$HOME/.dotfiles"]
-  path = ~/.dotfiles/git/personal/.gitconfig
+    path = ~/.dotfiles/git/personal/.gitconfig
 [includeIf "gitdir:$HOME/AdventOfCode"]
-  path = ~/.dotfiles/git/personal/.gitconfig
+    path = ~/.dotfiles/git/personal/.gitconfig
 [includeIf "gitdir:$HOME/omscs"]
-  path = ~/.dotfiles/git/omscs/.gitconfig
+    path = ~/.dotfiles/git/omscs/.gitconfig
 [grep]
   linenumber = true
 [url "ssh://git@gitlab.cbinsights.com/"]
