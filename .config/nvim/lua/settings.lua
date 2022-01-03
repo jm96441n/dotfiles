@@ -27,6 +27,7 @@ opt.timeout=true -- turn on timeout
 opt.timeoutlen=1000 -- set timeout to 1000
 opt.smarttab=true -- turn on smarttab
 opt.incsearch=true -- turn on incremental search
+opt.inccommand='nosplit'-- turn on incremental substitution
 opt.laststatus=2 -- always turn on status bar
 opt.ruler=true -- show ruler on page
 opt.relativenumber=true -- set relative line numbers

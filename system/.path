@@ -23,6 +23,7 @@ prepend-path "$GOPATH/bin"
 prepend-path "/user/local/go/bin"
 prepend-path "$HOME/.diff-so-fancy/"
 prepend-path "$HOME/.local/bin"
+prepend-path "$SPICETIFY_INSTALL:$PATH"
 
 # Remove duplicates (preserving prepended items)
 # Source: http://unix.stackexchange.com/a/40755
