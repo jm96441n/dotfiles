@@ -1,0 +1,19 @@
+name: <%= @args[0] %>
+root: ~/
+
+windows:
+  - editor:
+      layout: 1278,381x72,0,0{126x72,0,0,32,127x72,127,0,33,126x72,255,0,34}
+      # Synchronize all panes of this window, can be enabled before or after the pane commands run.
+      # 'before' represents legacy functionality and will be deprecated in a future release, in favour of 'after'
+      # synchronize: after
+      panes:
+        - terminal:
+          - j <%= @args[0] %>
+        - vim:
+          - j <%= @args[0] %>
+          - vim
+        - server:
+          - j <%= @args[0] %>
+          - g fetch origin
+          - myarr=("master" "staging" "develop"); if [[ ${myarr[(ie)$(git rev-parse --abbrev-ref HEAD)]} -ge ${#myarr} ]]; then; git rebase master; fi;

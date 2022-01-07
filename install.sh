@@ -45,8 +45,9 @@ ln -sfv "$DOTFILES_DIR/.config/compton" "$HOME/.config"
 ln -sfv "$DOTFILES_DIR/.config/bat" "$HOME/.config"
 ln -sfv "$DOTFILES_DIR/.config/.Xinitrc" $HOME
 ln -sfv "$DOTFILES_DIR/.config/.Xresources" $HOME
-ln -sfv "$DOTFILES_DIR/.config/kitty" "$HOME/.config/kitty"
+ln -sfv "$DOTFILES_DIR/.config/kitty" "$HOME/.config"
 ln -sfv "$DOTFILES_DIR/.config/jrnl" "$HOME/.config"
+ln -sfv "$DOTFILES_DIR/.config/.tmuxinator" "$HOME/.config"
 
 # Package managers & pagkages
 . "$DOTFILES_DIR/install/packages.sh"
