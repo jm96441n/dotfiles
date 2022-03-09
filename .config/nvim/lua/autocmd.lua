@@ -46,7 +46,9 @@ local autoCommands = {
     format = {
         {"BufWritePre", "*", "Neoformat"}
     };
-
+    open_folds = {
+        {"BufReadPost,FileReadPost", "*", "normal zR"}
+    }
 }
 
 M.nvim_create_augroups(autoCommands)

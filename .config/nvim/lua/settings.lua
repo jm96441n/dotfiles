@@ -36,6 +36,9 @@ opt.autoread=true -- automatically detect changes to files
 opt.sessionoptions=(opt.sessionoptions - 'options')
 opt.viewoptions=(opt.viewoptions - 'option')
 
+opt.foldmethod='expr'
+opt.foldexpr='nvim_treesitter#foldexpr()'
+
 opt.list = true
 opt.listchars:append("eol:↴")
 

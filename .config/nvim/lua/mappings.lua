@@ -47,5 +47,6 @@ M.map('n', 'g<C-r>', "<cmd>lua require('utils').RunScript()<CR>", {silent=true, 
 -- If in git directory, show only files that are committed, staged, or unstaged
 -- else use regular :Files
 M.map('n', '<C-p>', '(len(system(\'git rev-parse\')) ? \':Files\' : \':GFiles --exclude-standard --others --cached\')."<cr>"', {noremap = true, expr = true})
+M.map('n', '<leader>b', '(\':Buffers\')."<cr>"', {noremap=true, expr = true})
 
 return M

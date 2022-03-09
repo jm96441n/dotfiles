@@ -80,7 +80,6 @@ function M.RunScript()
         cmd  = "ruby " .. file
     end
     fn["termopen"](cmd)
-
 end
 
 -- taken from https://github.com/voyeg3r/nvim/blob/master/lua/utils.lua
