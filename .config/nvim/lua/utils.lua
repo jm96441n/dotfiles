@@ -98,4 +98,11 @@ function M.preserve(arguments)
 	api.nvim_win_set_cursor({0}, {line , col})
 end
 
+function M.AgSearch()
+    local word = fn.expand('<cword>')
+
+    api.nvim_command(':Ag! '..word)
+end
+
+
 return M

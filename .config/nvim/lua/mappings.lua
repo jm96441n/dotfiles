@@ -33,6 +33,9 @@ M.map('i', '<right>', '<nop>', {noremap=true})
 ---- toggle between files
 M.map('n', '<leader>bb', '<c-^><cr>')
 
+--- Call :Ag on the word under the cursor
+M.map('n', '<leader>a', '<cmd>lua require("utils").AgSearch()<CR>', {noremap=true})
+
 -- vim-test mappings
 M.map('n', 't<C-n>', '<cmd>TestNearest<CR>', {silent=true})
 M.map('n', 't<C-f>', '<cmd>TestFile<CR>', {silent=true})
