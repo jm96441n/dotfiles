@@ -244,7 +244,7 @@ client.focused_inactive #32302f #32302f #dfbf8e #32302f   #32302f
 # Status bar
 exec ~/.config/polybar/launch-bar.sh
 # Compositor
-exec compton --config ~/.config/compton/compton.conf -b --logpath /tmp/compton.log
+exec picom --config ~/.config/compton/compton.conf -b --log-file /tmp/compton.log --experimental-backends
 # Wallpaper
 exec feh --bg-fill ~/.dotfiles/wallpaper/wave_wallpaper.png
 # Brightness
