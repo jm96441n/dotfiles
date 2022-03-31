@@ -246,7 +246,7 @@ exec ~/.config/polybar/launch-bar.sh
 # Compositor
 exec compton --config ~/.config/compton/compton.conf -b --logpath /tmp/compton.log
 # Wallpaper
-exec feh --bg-fill ~/.dotfiles/wallpaper/themer-wallpaper-block-wave-dark-1869x1924.png
+exec feh --bg-fill ~/.dotfiles/wallpaper/wave_wallpaper.png
 # Brightness
 exec xrandr --output LVDS-0 --brightness .6
 
