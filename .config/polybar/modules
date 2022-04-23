@@ -369,14 +369,14 @@ content-background = ${color.cyan}
 content-padding=1
 click-left=i3-msg exit
 
-[module/suspend]
+[module/lock]
 type = custom/text
-content = "suspend"
+content = "lock"
 content-font = 4
 content-foreground= ${color.background}
 content-background = ${color.green}
 content-padding=1
-click-left=suspend
+click-left=i3lock --image ~/.dotfiles/wallpaper/back2everforest.png --show-failed-attempts
 
 
 [module/reboot]

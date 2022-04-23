@@ -234,7 +234,7 @@ for_window [class=".*"] title_format "<b> %title</b>"
 #client.focused_inactive #333333 #222222 #ffffff #212121   #212121
 
 # class                 border  backgr  text    indicator child_border
-client.focused          #a9b665 #a9b665 #32302f #a9b665   #a9b665
+client.focused          #7fbbb3 #d36c6aa #2b3339 #7fbbb3   #7fbbb3
 client.unfocused        #32302f #32302f #dfbf8e #32302f   #32302f
 client.focused_inactive #32302f #32302f #dfbf8e #32302f   #32302f
 
@@ -246,7 +246,7 @@ exec ~/.config/polybar/launch-bar.sh
 # Compositor
 exec picom --config ~/.config/compton/compton.conf -b --log-file /tmp/compton.log --experimental-backends
 # Wallpaper
-exec feh --bg-fill ~/.dotfiles/wallpaper/wave_wallpaper.png
+exec feh --bg-fill ~/.dotfiles/wallpaper/back2everforest.png
 # Brightness
 exec xrandr --output LVDS-0 --brightness .6
 

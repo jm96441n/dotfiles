@@ -145,6 +145,6 @@ else
 fi
 
 POWERLEVEL9K_INSTANT_PROMPT=quiet
-neofetch
+neofetch --kitty --source "~/.dotfiles/wallpaper/wave_wallpaper.png" --crop_mode fit
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
