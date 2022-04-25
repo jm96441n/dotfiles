@@ -376,7 +376,7 @@ content-font = 4
 content-foreground= ${color.background}
 content-background = ${color.green}
 content-padding=1
-click-left=i3lock --image ~/.dotfiles/wallpaper/back2everforest.png --show-failed-attempts
+click-left=loginctl lock-session
 
 
 [module/reboot]

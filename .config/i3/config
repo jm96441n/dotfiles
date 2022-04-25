@@ -23,7 +23,7 @@ font pango:FiraCode Nerd Font 48
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --image ~/.dotfiles/wallpaper/back2everforest.png --show-failed-attempts --nofork
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
@@ -257,10 +257,10 @@ exec setxkbmap -option "ctrl:nocaps"
 exec xinput set-prop 'SynPS/2 Synaptics TouchPad' 'libinput Accel Speed' 1.0
 exec xset r rate 200 25
 
-exec --no-startup-id i3-msg 'workspace 1:term; exec kitty'
-exec --no-startup-id i3-msg 'workspace 2:web; exec firefox'
-exec --no-startup-id i3-msg 'workspace 3:chat; exec "flatpak run com.getferdi.Ferdi"'
-exec --no-startup-id i3-msg 'workspace 4:spotify; exec "flatpak run com.spotify.Client"'
+exec --no-startup-id i3-msg 'workspace 1: term; exec kitty'
+exec --no-startup-id i3-msg 'workspace 2: web; exec firefox'
+exec --no-startup-id i3-msg 'workspace 3: chat; exec "flatpak run com.getferdi.Ferdi"'
+exec --no-startup-id i3-msg 'workspace 4: spotify; exec "flatpak run com.spotify.Client"'
 
 
 # Notification
@@ -271,5 +271,4 @@ exec --no-startup-id i3-msg 'workspace 4:spotify; exec "flatpak run com.spotify.
 #exec udiskie &
 # A better notification
 #exec /home/devops/.local/bin/deadd-notification-center &
-# Enable tap to touch (Only laptop)
-#exec ~/.config/i3/scripts/xinput.sh
+
