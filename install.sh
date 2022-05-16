@@ -9,10 +9,10 @@ DOTFILES_EXTRA_DIR="$HOME/.extra"
 
 export $BW_CLIENTSECRET
 export $BW_CLIENTID
-export $BW_PW
+export $BW_PASSWORD
 read -p "Bitwarden client secret: " BW_CLIENTSECRET
 read -p "Bitwarden client id: " BW_CLIENTID
-read -p "Bitwarden password: " BW_PW
+read -p "Bitwarden password: " BW_PASSWORD
 
 # Make utilities available
 

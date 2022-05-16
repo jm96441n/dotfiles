@@ -2,9 +2,9 @@ function linux_install() {
   . /etc/os-release
   OS=$NAME
   LINUX_DIR="$DOTFILES_DIR/install/linux"
-  if [[ $OS == "Ubuntu" ]]; then
+  if [[ $OS == *"Ubuntu"* ]]; then
     . "$LINUX_DIR/apt-get.sh"
-  elif [[ $OS == "Fedora" ]]; then
+  elif [[ $OS == *"Fedora"* ]]; then
     . "$LINUX_DIR/dnf.sh"
   fi
   . "$LINUX_DIR/flatpak.sh"

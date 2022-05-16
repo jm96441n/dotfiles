@@ -24,8 +24,10 @@ install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm
 install https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 install awscli
 install alacritty
+install akmod-nvidia
 install autoconf
 install autojump
+install bat
 install bison
 install bzip2
 install dbus-devel
@@ -64,6 +66,7 @@ install libXext-devel
 install libxcb-devel
 install libXScrnSaver
 install libyaml-devel
+install lxappearance
 install make
 install mesa-libGL-devel
 install meson
@@ -95,6 +98,8 @@ install xcb-util-renderutil-devel
 install xorg-x11-proto-devel
 install xz
 install xclip
+install xinput
+install xset
 install zlib
 install zlib-devel
 install zsh-autosuggestions

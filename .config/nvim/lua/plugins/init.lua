@@ -40,7 +40,7 @@ Plug 'vim-airline/vim-airline-themes'
 -- Colorful CSV highlighting
 Plug 'mechatroner/rainbow_csv'
 -- FZF for fuzzy file searching
-Plug ('junegunn/fzf', { ['do'] = fn['fzf#install'] })
+Plug ('junegunn/fzf', { ['do'] = fn['fzf#install()'] })
 -- Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 -- Gruvbox theme

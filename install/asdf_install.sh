@@ -10,23 +10,22 @@ fi
 # Ruby
 asdf plugin-add ruby
 
-asdf install ruby 2.7.2
+asdf install ruby 3.1.0
 
-asdf global ruby 2.7.2
+asdf global ruby 3.1.0
 
 # Python
 asdf plugin-add python
 
-env PYTHON_CONFIGURE_OPTS="--enable-framework" asdf install python 3.8.6
 env PYTHON_CONFIGURE_OPTS="--enable-framework" asdf install python 3.9.0
 
 asdf global python 3.9.0
 # Golang
 asdf plugin-add golang
 
-asdf install golang 1.15.6
+asdf install golang 1.18.2
 
-asdf global golang 1.15.6
+asdf global golang 1.18.2
 
 # nodejs
 asdf plugin-add nodejs
