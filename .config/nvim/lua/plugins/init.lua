@@ -65,6 +65,8 @@ Plug('nvim-treesitter/nvim-treesitter', {['do'] = fn['TSUpdate']})
 Plug('sbdchd/neoformat')
 -- show character on end of lines
 Plug 'lukas-reineke/indent-blankline.nvim'
+-- vim-fugitive for git in vim
+Plug 'tpope/vim-fugitive'
 call('plug#end')
 
 cmd('colorscheme everforest')

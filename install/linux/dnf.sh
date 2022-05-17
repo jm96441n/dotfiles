@@ -83,7 +83,6 @@ install polybar
 install postgresql
 install readline
 install readline-devel
-install ruby-devel
 install sqlite3
 install strace
 install the_silver_searcher
