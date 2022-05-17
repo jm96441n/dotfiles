@@ -12,6 +12,7 @@ launch_bar() {
         polybar -q power -c "$DIR"/config &
     else
         polybar-msg -p $(xprop -name "polybar-power_DP-2" _NET_WM_PID | cut -d ' ' -f 3) cmd toggle
+        polybar-msg -p $(xprop -name "polybar-power_HDMI-1" _NET_WM_PID | cut -d ' ' -f 3) cmd toggle
     fi
 }
 
