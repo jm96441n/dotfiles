@@ -83,7 +83,7 @@ install polybar
 install postgresql
 install readline
 install readline-devel
-install sqlite3
+install sqlite
 install strace
 install the_silver_searcher
 install thefuck
