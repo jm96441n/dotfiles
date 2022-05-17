@@ -84,6 +84,7 @@ install postgresql
 install readline
 install readline-devel
 install sqlite
+install sqlite-devel
 install strace
 install the_silver_searcher
 install thefuck
