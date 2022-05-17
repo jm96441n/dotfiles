@@ -62,6 +62,7 @@ install neovim
 install npm
 install polybar
 install postgresql
+install ranger
 install sqlite3
 install strace
 install libsqlite3-dev
