@@ -100,6 +100,7 @@ install xz
 install xclip
 install xinput
 install xset
+install xss-lock
 install zlib
 install zlib-devel
 install zsh-autosuggestions
