@@ -81,6 +81,7 @@ install pixman-devel
 install python3-neovim
 install polybar
 install postgresql
+install ranger
 install readline
 install readline-devel
 install sqlite
