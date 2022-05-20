@@ -5,8 +5,6 @@ local cmd = vim.cmd
 
 -- set leader to space
 g.mapleader = " "
--- turn off gopls for vim-go, let native lsp handle it
-g.go_gopls_enabled = 0
 -- Enable per-command history.
 -- CTRL-N and CTRL-P will be automatically bound to next-history and
 -- previous-history instead of down and up. If you don't like the change,

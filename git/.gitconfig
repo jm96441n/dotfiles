@@ -4,48 +4,13 @@
 
   # Sets up NeoVim as the editor
   editor = nvim
-	pager = diff-so-fancy | less --tabs=4 -RFX
+  pager = diff-so-fancy | less --tabs=4 -RFX
 
-# These are custom color options for the console
-#[color]
-#    branch = auto
-#    diff = auto
-#    status = auto
-#[color "branch"]
-#    current = yellow reverse
-#    local = yellow
-#    remote = green
-#[color "diff"]
-#    meta = yellow bold
-#    frag = magenta bold
-#    old = red bold
-#    new = green bold
-#[color "status"]
-#    added = yellow
-#    changed = green
-#    untracked = cyan
 ## Aliases are command shortcuts
 [alias]
   rb  = !git for-each-ref --sort=-committerdate --format='%(refname:short)' refs/heads/ | head -20
   rbr = !git for-each-ref --sort=-committerdate --format='%(refname:short)' refs/remotes/ | head -20
   cof = !git checkout $(git for-each-ref --sort=-committerdate --format='%(refname:short)' refs/heads/ | head -20 | fzf)
-#  co = checkout
-#  di = diff
-#  dc = diff --cached
-#  aa = add --all
-  aap = add --all -p
-#  ff = merge --ff-only
-#  pullff = pull --ff-only
-#  noff = merge --no-ff
-#  fa = fetch --all
-#  pom = push origin master
-#  b = branch
-#  ds = diff --stat=160,120
-#  dh1 = diff HEAD~1
-#  st = status
-#  rc = rebase --continue
-#  rs = rebase --skip
-
   # Divergence (commits we added and commits remote added)
   div = divergence
 
@@ -90,7 +55,11 @@
   # Edit the last commit
   amend= commit --verbose --amend
 [push]
-  default = current
+    default = current
+[pull]
+    rebase = true
+[fetch]
+    prune = true
 [filter "lfs"]
   clean = git-lfs clean -- %f
   smudge = git-lfs smudge -- %f
