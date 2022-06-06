@@ -34,6 +34,7 @@ install cmake
 install curl
 install docker-ce
 install docker-ce-cli
+install direnv
 install containerd.io
 install exa
 install flatpak

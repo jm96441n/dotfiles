@@ -5,14 +5,14 @@ sudo dnf install
 # install yarn
 curl -o- -L https://yarnpkg.com/install.sh | bash
 function install {
-  which $1 &> /dev/null
+    which $1 &>/dev/null
 
-  if [ $? -ne 0 ]; then
-    echo "Installing: ${1}..."
-    sudo dnf install -y $1
-  else
-    echo "Already installed: ${1}"
-  fi
+    if [ $? -ne 0 ]; then
+        echo "Installing: ${1}..."
+        sudo dnf install -y $1
+    else
+        echo "Already installed: ${1}"
+    fi
 }
 
 # enable i3-gaps
@@ -32,6 +32,7 @@ install bison
 install bzip2
 install dbus-devel
 install docker
+install direnv
 install rofi
 install cmake
 install curl
@@ -105,5 +106,3 @@ install xss-lock
 install zlib
 install zlib-devel
 install zsh-autosuggestions
-
-
