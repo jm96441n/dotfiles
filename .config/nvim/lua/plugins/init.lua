@@ -67,6 +67,7 @@ Plug('sbdchd/neoformat')
 Plug 'lukas-reineke/indent-blankline.nvim'
 -- vim-fugitive for git in vim
 Plug 'tpope/vim-fugitive'
+Plug 'shumphrey/fugitive-gitlab.vim'
 call('plug#end')
 
 cmd('colorscheme everforest')
