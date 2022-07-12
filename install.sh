@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/zsh
 
 # Get current dir (so run this script from anywhere)
 
@@ -63,7 +63,7 @@ ln -sfv "$DOTFILES_DIR/git/.gitignore_global" $HOME
 # Install extra stuff
 
 if [ -d "$DOTFILES_EXTRA_DIR" -a -f "$DOTFILES_EXTRA_DIR/install.sh" ]; then
-    . "$DOTFILES_EXTRA_DIR/install.sh"
+  . "$DOTFILES_EXTRA_DIR/install.sh"
 fi
 
 # add theme for bat
@@ -86,6 +86,6 @@ echo "Installing zsh"
 . "$DOTFILES_DIR/install/zsh_install.sh"
 
 if test -f .zshrc.pre-oh-my-zsh; then
-    rm .zshrc
-    mv .zshrc.pre-oh-my-zsh .zshrc
+  rm .zshrc
+  mv .zshrc.pre-oh-my-zsh .zshrc
 fi

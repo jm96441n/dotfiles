@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/zsh
 branch=$1
 commit_message=$2
 test -z $branch && echo "Branch name required" 1>&2 && exit 1

@@ -9,7 +9,7 @@ brew tap homebrew/cask
 brew tap homebrew/cask-fonts
 
 # Install packages
- apps=(
+apps=(
   alacritty
   alfred
   bitwarden
@@ -35,7 +35,7 @@ brew tap homebrew/cask-fonts
   visual-studio-code
   vlc
   webpquicklook
- )
+)
 
 brew cask install "${apps[@]}" --cask
 

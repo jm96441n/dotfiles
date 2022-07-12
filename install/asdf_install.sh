@@ -6,7 +6,6 @@ else
   brew install asdf
 fi
 
-
 # Ruby
 asdf plugin-add ruby
 

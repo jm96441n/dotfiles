@@ -6,7 +6,7 @@ KEY="$3"
 VALUE="$4"
 
 if [ -f "$HOME/Library/Preferences/${PLIST}.plist" ]; then
-	/usr/libexec/PlistBuddy -c "$ACTION $KEY $VALUE" "$HOME/Library/Preferences/${PLIST}.plist"
+  /usr/libexec/PlistBuddy -c "$ACTION $KEY $VALUE" "$HOME/Library/Preferences/${PLIST}.plist"
 fi
 
 unset PLIST ACTION KEY VALUE

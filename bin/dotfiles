@@ -4,7 +4,7 @@ BIN_NAME=$(basename "$0")
 COMMAND_NAME=$1
 SUB_COMMAND_NAME=$2
 
-sub_help () {
+sub_help() {
   echo "Usage: $BIN_NAME <command>"
   echo
   echo "Commands:"
@@ -16,12 +16,12 @@ sub_help () {
   echo "   update           Update packages and pkg managers (OS, brew, gem, asdf)"
 }
 
-sub_edit () {
+sub_edit() {
   sh -c "$DOTFILES_IDE $DOTFILES_DIR"
   sh -c "$DOTFILES_GIT_GUI $DOTFILES_DIR"
 }
 
-sub_update () {
+sub_update() {
   sudo softwareupdate -i -a
   brew update
   brew upgrade
@@ -30,27 +30,27 @@ sub_update () {
   asdf update
 }
 
-sub_clean () {
+sub_clean() {
   brew cleanup
   brew cask cleanup
   gem cleanup
   asdf cleanup
 }
 
-sub_macos () {
+sub_macos() {
   for DEFAULTS_FILE in "${DOTFILES_DIR}"/macos/defaults*.sh; do
     echo "Applying ${DEFAULTS_FILE}" && . "${DEFAULTS_FILE}"
   done
   echo "Done. Some changes may require a logout/restart to take effect."
 }
 
-sub_dock () {
+sub_dock() {
   . "${DOTFILES_DIR}/macos/dock.sh" && echo "Dock reloaded."
 }
 
 # Make sure to keep this in sync with the available public commands
 
-sub_completion () {
+sub_completion() {
   echo "clean dock edit help macos update"
 }
 

@@ -8,8 +8,7 @@ urls=(
 
 mkdir -p ~/Projects
 cd ~/Projects
-for url in "${urls[@]}"
-do
+for url in "${urls[@]}"; do
   if [ ! -d "$HOME/Projects/$url" ]; then
     git clone "https://github.com/jm96441n/$url.git"
   fi

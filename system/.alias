@@ -1,9 +1,7 @@
-#!/bin/bash
+#!/usr/bin/zsh
 
 # Shortcuts
 alias reload="exec zsh"
-alias g="git"
-alias gg="git grep"
 
 # Directory traversal
 alias ..="cd .."
@@ -12,8 +10,9 @@ alias ....="cd ../../.."
 
 # exa
 alias ls='exa --icons -x -a'
-alias ll='ls -l'
+alias ll='exa --icons -a -l'
 alias lt='ls --tree'
+alias ltl='ls --tree -L'
 alias lr='ls --recurse'
 
 # For better autocomplete
@@ -22,23 +21,35 @@ eval $(thefuck --alias)
 # Rails Aliases
 alias be="bundle exec"
 alias yolo="be rake db:drop;be rake db:create;"
-alias cuke="be cucumber"
-alias coverage="be rake ci:coverage"
 
-# Personal Aliases
-alias projects="cd /Users/johnmaguire/Projects"
 
 # Fix grep to use color and show line numbers
-#alias grep="grep -nr --color=auto"
-#alias fgrep="fgrep --color=auto"
-#alias egrep="egrep --color=auto"
+alias grep="grep -nr --color=auto"
+alias fgrep="fgrep --color=auto"
+alias egrep="egrep --color=auto"
 
 # Map vim to use neovim
 alias vim="nvim"
 
-# use colorful tmux
+# useful shortcuts for editing config files
 alias vr="vim ~/.dotfiles/.config/nvim/init.vim"
 alias zr="vim ~/.dotfiles/runcom/.zshrc"
 alias txr="vim ~/.dotfiles/runcom/.tmux.conf"
 alias kr="vim ~/.dotfiles/.config/kitty/kitty.conf"
 alias ir="vim ~/.dotfiles/.config/i3/config"
+
+
+# Named Directories
+hash -d gsu=$HOME/cbi/utils/go-service-utils
+hash -d psu=$HOME/cbi/utils/python-service-utils
+hash -d gst=$HOME/cbi/templates/go-service
+hash -d pst=$HOME/cbi/templates/python-service
+hash -d projects=$HOME/Projects
+hash -d dot=$HOME/.dotfiles
+
+alias gsu=~gsu
+alias psu=~psu
+alias gt=~gst
+alias pt=~pst
+alias projects=~projects
+alias dot=~dot
