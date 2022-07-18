@@ -13,6 +13,7 @@ apps=(
   cmake
   coreutils
   diff-so-fancy
+  exa
   fzf
   git
   # https://github.com/tj/git-extras/blob/master/Commands.md

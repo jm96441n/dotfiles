@@ -5,7 +5,7 @@ function install {
   flatpak install flathub $1 -y
 }
 
-install com.getferdi.Ferdi
+install org.ferdium.Ferdium
 install com.spotify.Client
 install org.signal.Signal
 install us.zoom.Zoom
