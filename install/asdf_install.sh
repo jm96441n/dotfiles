@@ -29,6 +29,6 @@ asdf global golang 1.18.2
 # nodejs
 asdf plugin-add nodejs
 
-asdf install nodejs 16.1.0
+asdf install nodejs 18.5.0
 
-asdf global nodejs 16.1.0
+asdf global nodejs 18.5.0

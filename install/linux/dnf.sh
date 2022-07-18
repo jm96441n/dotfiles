@@ -33,6 +33,7 @@ install bzip2
 install dbus-devel
 install docker
 install direnv
+install dunst
 install rofi
 install cmake
 install curl

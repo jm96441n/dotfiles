@@ -1,38 +1,50 @@
-#!/usr/bin/env bash
+#!/usr/bin/zsh
 
+. /etc/os-release
 BIN_NAME=$(basename "$0")
 COMMAND_NAME=$1
 SUB_COMMAND_NAME=$2
+DOTFILES_IDE="/usr/bin/nvim"
+OS=$NAME
 
 sub_help() {
   echo "Usage: $BIN_NAME <command>"
   echo
   echo "Commands:"
-  echo "   clean            Clean up caches (brew, asdf, gem)"
-  echo "   dock             Apply macOS Dock settings"
-  echo "   edit             Open dotfiles in IDE ($DOTFILES_IDE) and Git GUI ($DOTFILES_GIT_GUI)"
+  echo "   clean            Clean up caches (apt/dnf, asdf, gem)"
+  echo "   edit             Open dotfiles in vim"
   echo "   help             This help message"
-  echo "   macos            Apply macOS system defaults"
-  echo "   update           Update packages and pkg managers (OS, brew, gem, asdf)"
+  echo "   update           Update packages and pkg managers (packages, pip, gem, asdf)"
 }
 
-sub_edit() {
-  sh -c "$DOTFILES_IDE $DOTFILES_DIR"
-  sh -c "$DOTFILES_GIT_GUI $DOTFILES_DIR"
+sub_edit () {
+  /usr/bin/zsh -c "$DOTFILES_IDE $DOTFILES_DIR"
 }
 
-sub_update() {
-  sudo softwareupdate -i -a
-  brew update
-  brew upgrade
-  gem update --system
+
+sub_update () {
+  if [[ $OS == *"Ubuntu"* ]]; then
+    sudo apt update && apt upgrade
+  elif [[ $OS == *"Fedora"* ]]; then
+    sudo dnf upgrade
+  fi
+
+  flatpak update
   gem update
+  pip install --upgrade pip
+  pip list --outdated --format=freeze | grep -v '^\-e' | cut -d = -f 1 | xargs -n1 pip install -U
   asdf update
+  asdf plugin update --all
 }
 
-sub_clean() {
-  brew cleanup
-  brew cask cleanup
+sub_clean () {
+  if [[ $OS == *"Ubuntu"* ]]; then
+    sudo apt clean
+    sudo apt autoremove
+  elif [[ $OS == *"Fedora"* ]]; then
+    sudo dnf clean all
+  fi
+
   gem cleanup
   asdf cleanup
 }
@@ -44,14 +56,10 @@ sub_macos() {
   echo "Done. Some changes may require a logout/restart to take effect."
 }
 
-sub_dock() {
-  . "${DOTFILES_DIR}/macos/dock.sh" && echo "Dock reloaded."
-}
-
 # Make sure to keep this in sync with the available public commands
 
-sub_completion() {
-  echo "clean dock edit help macos update"
+sub_completion () {
+  echo "clean edit help update"
 }
 
 case $COMMAND_NAME in
