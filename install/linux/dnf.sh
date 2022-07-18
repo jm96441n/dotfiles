@@ -38,7 +38,6 @@ install rofi
 install cmake
 install curl
 install conky
-install compton
 install exa
 install feh
 install firefox
@@ -79,6 +78,7 @@ install neovim
 install openssl
 install openssl-devel
 install pcre-devel
+install picom
 install pixman-devel
 install python3-neovim
 install polybar
