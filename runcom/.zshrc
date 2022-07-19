@@ -60,3 +60,4 @@ neofetch --kitty --source "~/.dotfiles/wallpaper/wave_wallpaper.png" --crop_mode
 eval "$(starship init zsh)"
 
 eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/github_rsa
