@@ -32,3 +32,9 @@ asdf plugin-add nodejs
 asdf install nodejs 18.5.0
 
 asdf global nodejs 18.5.0
+
+asdf plugin-add rust https://github.com/asdf-community/asdf-rust.git
+
+asdf install rust 1.62.0
+
+asdf global rust 1.62.0

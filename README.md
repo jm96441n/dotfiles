@@ -5,7 +5,7 @@ This is a collection of useful functions, aliases, git configurations, and easy 
 ### Linux
   * Core
     * [i3](https://i3wm.org/) + [i3-gaps](https://github.com/Airblader/i3) + [polybar](https://github.com/polybar/polybar) + [rofi](https://github.com/davatorium/rofi) + [picom](https://github.com/yshui/picom)
-    * [ZSH](https://www.zsh.org/) + [Oh-My-ZSH](https://ohmyz.sh/) + [Powerline10k](https://github.com/romkatv/powerlevel10k)
+    * [ZSH](https://www.zsh.org/) + [Oh-My-ZSH](https://ohmyz.sh/) + [starship.rs](https://starship.rs/)
     * [kitty](https://sw.kovidgoyal.net/kitty/)
     * [neovim](https://neovim.io/)
   * Terminal Utilities (for full list see [dnf](./install/linux/dnf.sh), [apt-get](./install/linux/apt-get.sh))
@@ -32,7 +32,7 @@ This is a collection of useful functions, aliases, git configurations, and easy 
 
 ### MacOS
   * Core
-    * [ZSH](https://www.zsh.org/) + [Oh-My-ZSH](https://ohmyz.sh/) + [Powerline10k](https://github.com/romkatv/powerlevel10k)
+    * [ZSH](https://www.zsh.org/) + [Oh-My-ZSH](https://ohmyz.sh/)  + [starship.rs](https://starship.rs/)
     * [Homebrew](https://brew.sh/) + [Homebrew Cask](https://caskroom.github.io/)
     * [kitty](https://sw.kovidgoyal.net/kitty/) + [tmux](https://github.com/tmux/tmux/wiki) + [tmuxinator](https://github.com/tmuxinator/tmuxinator)
     * [neovim](https://neovim.io/)

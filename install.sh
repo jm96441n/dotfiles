@@ -36,6 +36,8 @@ ln -sfv "$DOTFILES_DIR/runcom/.tmux.conf.local" $HOME
 ln -sfv "$DOTFILES_DIR/lang_defaults/.default-gems" $HOME
 ln -sfv "$DOTFILES_DIR/lang_defaults/.default_npm_packages" $HOME
 ln -sfv "$DOTFILES_DIR/lang_defaults/.default-python-packages" $HOME
+ln -sfv "$DOTFILES_DIR/lang_defaults/.default-cargo-crates" $HOME
+ln -sfv "$DOTFILES_DIR/lang_defaults/.default-golang-pkgs" $HOME
 ln -sfv "$DOTFILES_DIR/.config/nvim" "$HOME/.config"
 ln -sfv "$DOTFILES_DIR/.config/rofi" "$HOME/.config"
 ln -sfv "$DOTFILES_DIR/.config/polybar" "$HOME/.config"
