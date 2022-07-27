@@ -61,6 +61,8 @@ Plug 'Yggdroot/indentLine'
 Plug 'vim-test/vim-test'
 -- treesitter for better syntax highlighting
 Plug('nvim-treesitter/nvim-treesitter', {['do'] = fn['TSUpdate']})
+-- neovim treesitter context
+Plug 'nvim-treesitter/nvim-treesitter-context'
 -- neoformat to format on save
 Plug('sbdchd/neoformat')
 -- show character on end of lines
@@ -68,6 +70,8 @@ Plug 'lukas-reineke/indent-blankline.nvim'
 -- vim-fugitive for git in vim
 Plug 'tpope/vim-fugitive'
 Plug 'shumphrey/fugitive-gitlab.vim'
+-- vim-projectionist to jump between related files
+Plug 'tpope/vim-projectionist'
 call('plug#end')
 
 cmd('colorscheme everforest')

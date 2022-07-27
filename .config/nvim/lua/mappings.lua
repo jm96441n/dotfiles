@@ -52,4 +52,10 @@ M.map('n', 'g<C-r>', "<cmd>lua require('utils').RunScript()<CR>", {silent=true, 
 M.map('n', '<C-p>', '(len(system(\'git rev-parse\')) ? \':Files\' : \':GFiles --exclude-standard --others --cached\')."<cr>"', {noremap = true, expr = true})
 M.map('n', '<leader>b', '(\':Buffers\')."<cr>"', {noremap=true, expr = true})
 
+-- move back and forth between projections
+M.map('n', '<leader>aa', ':A<CR>', { silent = true })
+M.map('n', '<leader>av', ':AV<CR>', { silent = true })
+
+
+
 return M
