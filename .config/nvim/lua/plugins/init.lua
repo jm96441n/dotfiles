@@ -1,77 +1,82 @@
 local vim = vim
-local cmd = vim.cmd
+local vcmd = vim.cmd
 local call = vim.call
 local fn = vim.fn
 
--- install vim-plug if it's not installed
-local plugFile = io.open('~/.local/share/autoload/plug.vim', 'w')
-if plugFile~=nil then
-    local http = require('socket.http')
-    local body = http.request('https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim')
-    plugFile:write(body)
-    local autoCommand = { auto_install_plugs = {{"VimEnter", "*", "PlugInstall --sync | source $MYVIMRC"}}}
-    require ('autocmd').nvim_create_augroups(autoCommand)
-    io.close(plugFile)
+local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+if fn.empty(fn.glob(install_path)) > 0 then
+  packer_bootstrap = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+  vim.cmd [[packadd packer.nvim]]
 end
 
 
--- Plugins
-local Plug = fn['plug#']
+vcmd [[packadd packer.nvim]]
 
-call('plug#begin', '~/.nvim/plugged')
--- neovim lsp
-Plug 'neovim/nvim-lspconfig'
-Plug 'williamboman/nvim-lsp-installer'
--- autocomplete with nvmp-cmp
-Plug 'hrsh7th/cmp-nvim-lsp'
-Plug 'hrsh7th/cmp-buffer'
-Plug 'hrsh7th/cmp-path'
-Plug 'hrsh7th/cmp-cmdline'
-Plug 'hrsh7th/nvim-cmp'
--- luasnip
-Plug 'L3MON4D3/LuaSnip'
-Plug 'saadparwaiz1/cmp_luasnip'
--- Keybindings for navigating between vim and tmux
-Plug 'christoomey/vim-tmux-navigator'
--- Tabline status
-Plug 'vim-airline/vim-airline'
--- Themes for vim-airline
-Plug 'vim-airline/vim-airline-themes'
--- Colorful CSV highlighting
-Plug 'mechatroner/rainbow_csv'
--- FZF for fuzzy file searching
-Plug ('junegunn/fzf', { ['do'] = fn['fzf#install()'] })
--- Plug '/usr/local/opt/fzf'
-Plug 'junegunn/fzf.vim'
--- Gruvbox theme
-Plug 'morhetz/gruvbox'
--- everforest theme
-Plug 'sainnhe/everforest'
--- Shows git diff in gutter
-Plug 'airblade/vim-gitgutter'
--- Markdown preview
-Plug ('iamcco/markdown-preview.nvim', { ['do'] = 'cd app & yarn install' })
--- Delve Debugging
-Plug 'sebdah/vim-delve'
--- Grammar checking for posts
-Plug 'rhysd/vim-grammarous'
--- Indent highlighting
-Plug 'Yggdroot/indentLine'
--- Run tests from vim
-Plug 'vim-test/vim-test'
--- treesitter for better syntax highlighting
-Plug('nvim-treesitter/nvim-treesitter', {['do'] = fn['TSUpdate']})
--- neovim treesitter context
-Plug 'nvim-treesitter/nvim-treesitter-context'
--- neoformat to format on save
-Plug('sbdchd/neoformat')
--- show character on end of lines
-Plug 'lukas-reineke/indent-blankline.nvim'
--- vim-fugitive for git in vim
-Plug 'tpope/vim-fugitive'
-Plug 'shumphrey/fugitive-gitlab.vim'
--- vim-projectionist to jump between related files
-Plug 'tpope/vim-projectionist'
-call('plug#end')
+return require('packer').startup(function(use)
+    -- Packer can manage itself
+    use 'wbthomason/packer.nvim'
+    -- neovim lsp
+    use 'neovim/nvim-lspconfig'
+    use 'williamboman/nvim-lsp-installer'
+    -- get some nicer UI around lsp issues
+    use "https://git.sr.ht/~whynothugo/lsp_lines.nvim"
+    -- autocomplete with nvmp-cmp
+    use 'hrsh7th/cmp-nvim-lsp'
+    use 'hrsh7th/cmp-buffer'
+    use 'hrsh7th/cmp-path'
+    use 'hrsh7th/cmp-cmdline'
+    use 'hrsh7th/nvim-cmp'
+    -- luasnip
+    use 'L3MON4D3/LuaSnip'
+    use 'saadparwaiz1/cmp_luasnip'
+    -- Keybindings for navigating between vim and tmux
+    use 'christoomey/vim-tmux-navigator'
+    -- Tabline status
+    use 'vim-airline/vim-airline'
+    -- Themes for vim-airline
+    use 'vim-airline/vim-airline-themes'
+    -- Colorful CSV highlighting
+    use 'mechatroner/rainbow_csv'
+    -- FZF for fuzzy file searching
+    use { 'junegunn/fzf', run = (function() vim.fn['fzf#install()'](0) end) }
+    -- use '/usr/local/opt/fzf'
+    use 'junegunn/fzf.vim'
+    -- Gruvbox theme
+    use 'morhetz/gruvbox'
+    -- everforest theme
+    use 'sainnhe/everforest'
+    -- Shows git diff in gutter
+    use 'airblade/vim-gitgutter'
+    -- Markdown preview
+    use {'iamcco/markdown-preview.nvim', run = 'cd app & yarn install', cmd = 'MarkdownPreview'}
+    -- Delve Debugging
+    use 'sebdah/vim-delve'
+    -- Grammar checking for posts
+    use 'rhysd/vim-grammarous'
+    -- Indent highlighting
+    use 'Yggdroot/indentLine'
+    -- Run tests from vim
+    use 'vim-test/vim-test'
+    -- treesitter for better syntax highlighting
+    use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
+    -- neovim treesitter context
+    use 'nvim-treesitter/nvim-treesitter-context'
+    -- neoformat to format on save
+    use 'sbdchd/neoformat'
+    -- show character on end of lines
+    use 'lukas-reineke/indent-blankline.nvim'
+    -- vim-fugitive for git in vim
+    use 'tpope/vim-fugitive'
+    use 'shumphrey/fugitive-gitlab.vim'
+    -- vim-projectionist to jump between related files
+    use 'tpope/vim-projectionist'
 
-cmd('colorscheme everforest')
+    -- Automatically set up your configuration after cloning packer.nvim
+    -- Put this at the end after all plugins
+    if packer_bootstrap then
+      require('packer').sync()
+    end
+
+    vcmd('colorscheme everforest')
+end)
+

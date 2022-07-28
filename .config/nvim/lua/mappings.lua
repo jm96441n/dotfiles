@@ -10,6 +10,15 @@ function M.map(mode, lhs, rhs, opts)
   api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
+local virtual_lines_enabled = true
+local function toggleVirtualLines()
+    virtual_lines_enabled = not virtual_lines_enabled
+    vim.diagnostic.config({
+        virtual_lines = virtual_lines_enabled,
+        virtual_text = not virtual_lines_enabled,
+    })
+end
+
 -- mappings
 ---- save and exit
 M.map('', '<C-s>', '<esc>:w<CR>')
@@ -56,6 +65,7 @@ M.map('n', '<leader>b', '(\':Buffers\')."<cr>"', {noremap=true, expr = true})
 M.map('n', '<leader>aa', ':A<CR>', { silent = true })
 M.map('n', '<leader>av', ':AV<CR>', { silent = true })
 
-
+-- toggle virtual lines
+M.map('n', '<leader>lt', '', { callback = toggleVirtualLines })
 
 return M

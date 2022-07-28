@@ -86,3 +86,10 @@ for lsp, opts in pairs(requestedLSPServers) do
         lsp_server:setup(opts)
     end)
 end
+
+require("lsp_lines").setup()
+vim.diagnostic.config({
+    virtual_text = false,  -- removes duplication of diagnostic messages due to lsp_lines
+    virtual_lines = true
+})
+
