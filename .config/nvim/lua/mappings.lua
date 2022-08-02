@@ -1,6 +1,5 @@
 local vim = vim
 local api = vim.api
-local fn = vim.fn
 
 local M = {}
 -- map helper

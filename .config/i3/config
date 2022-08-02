@@ -150,8 +150,6 @@ bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec ~/.config/polybar/launch-shutdown-bar.sh
 
-#bindsym $mod+Shift+e qdbus org.kde.ksmserver/KSMServer org.kde.KSMServerInterface.logout -1 -1 -1
-
 # read 1 character and mark the current window with this character
 bindsym $mod+m exec i3-input -F 'mark %s' -l 1 -P 'Mark: '
 # read 1 character and go to the window with the character
