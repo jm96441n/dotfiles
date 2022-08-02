@@ -2,4 +2,6 @@ system/.private_env
 system/.private_alias
 system/.private_function
 
+**/packer_compiled.lua
+
 **/__pycache__/**
