@@ -83,6 +83,10 @@ cd ~
 mkdir ~/.themes
 git clone https://github.com/theory-of-everything/everforest-gtk ~/.themes/everforest-gtk
 
+# tell flatpak to use everforest-gtk theme
+sudo flatpak override --filesystem=$HOME/.themes
+sudo flatpak override --env=GTK_THEME=everforest-gtk
+
 echo "Installing zsh"
 
 . "$DOTFILES_DIR/install/zsh_install.sh"
