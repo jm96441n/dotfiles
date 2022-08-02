@@ -45,6 +45,7 @@ install fzf
 install gcc
 install gcc-c++
 install git
+install git-delta
 install gpg2
 # https://github.com/tj/git-extras/blob/master/Commands.md
 install git-extras

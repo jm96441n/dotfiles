@@ -20,6 +20,7 @@ plugins=(
   git
   git-extras
   git-prompt
+  kubectl
   tmux
   tmuxinator
   zsh-autosuggestions

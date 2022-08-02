@@ -9,7 +9,6 @@ function linux_install() {
   fi
   . "$LINUX_DIR/flatpak.sh"
   . "$LINUX_DIR/fonts.sh"
-  git clone https://github.com/so-fancy/diff-so-fancy.git ~/.diff-so-fancy
   fc-cache -fv
 }
 
