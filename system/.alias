@@ -44,7 +44,9 @@ hash -d gsu=$HOME/cbi/utils/go-service-utils
 hash -d psu=$HOME/cbi/utils/python-service-utils
 hash -d gst=$HOME/cbi/templates/go-service
 hash -d pst=$HOME/cbi/templates/python-service
-hash -d cbi=$HOME/cbi/cli/cbi
+hash -d puts=$HOME/cbi/services/python-utils-test-service
+hash -d cli=$HOME/cbi/cli/cbi
+
 hash -d projects=$HOME/Projects
 hash -d dot=$HOME/.dotfiles
 
@@ -54,4 +56,5 @@ alias gt=~gst
 alias pt=~pst
 alias projects=~projects
 alias dot=~dot
-alias cbi=~cbi
+alias cli=~cli
+alias puts=~puts
