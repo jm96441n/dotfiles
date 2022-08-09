@@ -60,8 +60,8 @@ return require('packer').startup(function(use)
     use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
     -- neovim treesitter context
     use 'nvim-treesitter/nvim-treesitter-context'
-    -- neoformat to format on save
-    use 'sbdchd/neoformat'
+    -- formatter to format on save
+    use 'mhartington/formatter.nvim'
     -- show character on end of lines
     use 'lukas-reineke/indent-blankline.nvim'
     -- vim-fugitive for git in vim

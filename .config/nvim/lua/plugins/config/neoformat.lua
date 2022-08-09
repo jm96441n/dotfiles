@@ -1,6 +1,8 @@
 local vim = vim
 local g = vim.g
 
+g["neoformat_python_black"] = {exe="black -l 120", replace=1}
+
 g["neoformat_enabled_python"] = {"black", "isort"}
 g["neoformat_enabled_go"] = {"gofumpt", "goimports"}
 g["neoformat_enabled_ruby"] = {"rubocop"}

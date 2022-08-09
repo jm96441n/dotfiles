@@ -1,6 +1,6 @@
 echo "Loading ~/.zshrc a shell script that runs in every new terminal you open"
 if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
-  exec startx
+    exec startx
 fi
 # Path to your oh-my-zsh installation.
 export ZSH=~"/.oh-my-zsh"
@@ -13,18 +13,18 @@ export SHELL=$(which zsh)
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  autojump
-  direnv
-  fzf
-  fzf-tab
-  git
-  git-extras
-  git-prompt
-  kubectl
-  tmux
-  tmuxinator
-  zsh-autosuggestions
-  zsh-syntax-highlighting
+    autojump
+    direnv
+    fzf
+    fzf-tab
+    git
+    git-extras
+    git-prompt
+    kubectl
+    tmux
+    tmuxinator
+    zsh-autosuggestions
+    zsh-syntax-highlighting
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -34,7 +34,7 @@ DOTFILES_DIR="$HOME/.dotfiles"
 
 # Finally we can source the dotfiles (order matters)
 for DOTFILE in "$DOTFILES_DIR"/system/.{function,private_function,env,path,private_env,alias,private_alias,completion,custom}; do
-  [ -f "$DOTFILE" ] && . "$DOTFILE"
+    [ -f "$DOTFILE" ] && . "$DOTFILE"
 done
 
 export DOTFILES_DIR
@@ -43,17 +43,17 @@ export DOTFILES_DIR
 complete -C /usr/local/bin/vault vault
 
 if type brew &>/dev/null; then
-  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+    FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
 
-  autoload -Uz compinit
-  compinit
+    autoload -Uz compinit
+    compinit
 fi
 
 if [[ $(is-macos) == 0 ]]; then
-  autoload -Uz compinit && compinit
-  source $(brew --prefix asdf)/asdf.sh
+    autoload -Uz compinit && compinit
+    source $(brew --prefix asdf)/asdf.sh
 else
-  . $HOME/.asdf/asdf.sh
+    . $HOME/.asdf/asdf.sh
 fi
 
 neofetch --kitty --source "~/.dotfiles/wallpaper/wave_wallpaper.png" --crop_mode fit
@@ -62,3 +62,5 @@ eval "$(starship init zsh)"
 
 eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/github_rsa
+
+eval $(thefuck --alias)
