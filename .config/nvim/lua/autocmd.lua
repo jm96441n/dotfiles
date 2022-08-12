@@ -24,15 +24,6 @@ local autoCommands = {
         -- Reload vim config automatically
         {"BufWritePre", "$MYVIMRC/../*", "lua require('utils').reloadConfig()"};
     };
-   -- go_tests = {
-   --   {"Filetype", "go", "nmap", "leader<t>", "<Plug>(go-test)"}
-   -- };
-   -- go_coverage_toggle = {
-   --   {"Filetype", "go", "nmap", "leader<c>", "<Plug>(go-coverage-toggle)"}
-   -- };
-   -- go_build = {
-   --   {"Filetype", "go", "nmap", "<leader>b", [[lua require("utils").BuildGoFiles()]]}
-   -- };
     go_run = {
       {"Filetype", "*.go", [[lua.require('mappings').map("n", "g<C-r>", "<cmd>lua require('utils').GoRun()<CR>", {silent=true, noremap=true})]]}
     };
@@ -40,11 +31,9 @@ local autoCommands = {
     mkdown_file_width = {
         {"BufRead,BufNewFile", "*.md", "setlocal textwidth=120"}
     };
-    clean_trailing_spaces = {
-        {"BufWritePre", "*", [[lua require("utils").preserve('%s/\\s\\+$//ge')]]}
-    };
+
     format = {
-        {"BufWritePre", "*", "Neoformat"}
+        {"BufWritePost", "*", "FormatWrite"}
     };
     open_folds = {
         {"BufReadPost,FileReadPost", "*", "normal zR"}
