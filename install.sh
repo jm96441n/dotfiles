@@ -29,6 +29,8 @@ ln -sfv "$DOTFILES_DIR/.config/zsh/.zshrc" $HOME
 ln -sfv "$DOTFILES_DIR/.config/.inputrc" $HOME
 ln -sfv "$DOTFILES_DIR/.config/tmux/.tmux.conf" $HOME
 ln -sfv "$DOTFILES_DIR/.config/tmux/.tmux.conf.local" $HOME
+ln -sfv "$DOTFILES_DIR/.config/tmux/.tmux-cht-commands" $HOME
+ln -sfv "$DOTFILES_DIR/.config/tmux/.tmux-cht-languages" $HOME
 ln -sfv "$DOTFILES_DIR/lang_defaults/.default-gems" $HOME
 ln -sfv "$DOTFILES_DIR/lang_defaults/.default_npm_packages" $HOME
 ln -sfv "$DOTFILES_DIR/lang_defaults/.default-python-packages" $HOME
