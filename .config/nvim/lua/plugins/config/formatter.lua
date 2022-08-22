@@ -9,8 +9,7 @@ require("formatter").setup({
 	filetype = {
 		go = {
 			require("formatter.filetypes.go").gofumpt,
-			require("formatter.filetypes.go").gofumports,
-			require("formatter.filetypes.go").golines,
+			require("formatter.filetypes.go").goimports,
 		},
 		lua = {
 			require("formatter.filetypes.lua").stylua,

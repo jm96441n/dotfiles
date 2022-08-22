@@ -64,3 +64,5 @@ eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/github_rsa
 
 eval $(thefuck --alias)
+
+bindkey -s ^f "tmux-sessionizer\n"

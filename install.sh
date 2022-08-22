@@ -25,14 +25,10 @@ if is-executable git -a -d "$DOTFILES_DIR/.git"; then git --work-tree="$DOTFILES
 mkdir -p "$HOME/i3"
 
 # Bunch of symlinks
-ln -sfv "$DOTFILES_DIR/runcom/.zshrc" $HOME
-ln -sfv "$DOTFILES_DIR/runcom/.p10k.zsh" $HOME
-ln -sfv "$DOTFILES_DIR/runcom/.alacritty.yml" $HOME
-ln -sfv "$DOTFILES_DIR/runcom/.inputrc" $HOME
-ln -sfv "$DOTFILES_DIR/runcom/.asdfrc" $HOME
-ln -sfv "$DOTFILES_DIR/runcom/.gemrc" $HOME
-ln -sfv "$DOTFILES_DIR/runcom/.tmux.conf" $HOME
-ln -sfv "$DOTFILES_DIR/runcom/.tmux.conf.local" $HOME
+ln -sfv "$DOTFILES_DIR/.config/zsh/.zshrc" $HOME
+ln -sfv "$DOTFILES_DIR/.config/.inputrc" $HOME
+ln -sfv "$DOTFILES_DIR/.config/tmux/.tmux.conf" $HOME
+ln -sfv "$DOTFILES_DIR/.config/tmux/.tmux.conf.local" $HOME
 ln -sfv "$DOTFILES_DIR/lang_defaults/.default-gems" $HOME
 ln -sfv "$DOTFILES_DIR/lang_defaults/.default_npm_packages" $HOME
 ln -sfv "$DOTFILES_DIR/lang_defaults/.default-python-packages" $HOME
