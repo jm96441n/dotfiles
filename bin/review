@@ -1,6 +1,7 @@
 #! /usr/bin/zsh
 
 BRANCH=$1
+git fetch origin/$BRANCH
 git switch $BRANCH
 git heatmap
 vared -p "Press (c) to continue reviewing: " -c tmp
