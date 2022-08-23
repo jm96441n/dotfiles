@@ -30,6 +30,9 @@
   rb  = !git for-each-ref --sort=-committerdate --format='%(refname:short)' refs/heads/ | head -20
   rbr = !git for-each-ref --sort=-committerdate --format='%(refname:short)' refs/remotes/ | head -20
   cof = !git checkout $(git for-each-ref --sort=-committerdate --format='%(refname:short)' refs/heads/ | head -20 | fzf)
+  stat = !git diff --stat $(git merge-base HEAD $REVIEW_BASE)
+  heatmap = git-heatmap
+
   # Divergence (commits we added and commits remote added)
   div = divergence
 

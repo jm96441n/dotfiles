@@ -1,0 +1,15 @@
+#! /usr/bin/zsh
+
+BRANCH=$1
+git switch $BRANCH
+git heatmap
+vared -p "Press (c) to continue reviewing: " -c tmp
+
+echo "git stat"
+git stat
+vared -p "Press (c) to continue reviewing: " -c tmp
+
+git reset --soft master
+git reset  # to make everything unstaged
+nvim -c :G # to use fugitive for the review
+git reset --hard origin/$BRANCH
