@@ -10,7 +10,8 @@ echo "git stat"
 git stat
 vared -p "Press (c) to continue reviewing: " -c tmp
 
-git reset --soft master
+merge_commit=$(git merge-base HEAD origin/master)
+git reset --soft $merge_commit
 git reset  # to make everything unstaged
 nvim -c :G # to use fugitive for the review
 git reset --hard origin/$BRANCH
