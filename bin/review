@@ -1,7 +1,7 @@
 #! /usr/bin/zsh
 
-BRANCH=$1
-git fetch origin/$BRANCH
+git fetch origin
+BRANCH=$(git branch | fzf)
 git switch $BRANCH
 git heatmap
 vared -p "Press (c) to continue reviewing: " -c tmp
@@ -13,5 +13,5 @@ vared -p "Press (c) to continue reviewing: " -c tmp
 merge_commit=$(git merge-base HEAD origin/master)
 git reset --soft $merge_commit
 git reset  # to make everything unstaged
-nvim -c :G # to use fugitive for the review
+git review
 git reset --hard origin/$BRANCH

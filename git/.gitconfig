@@ -30,15 +30,12 @@
   rb  = !git for-each-ref --sort=-committerdate --format='%(refname:short)' refs/heads/ | head -20
   rbr = !git for-each-ref --sort=-committerdate --format='%(refname:short)' refs/remotes/ | head -20
   cof = !git checkout $(git for-each-ref --sort=-committerdate --format='%(refname:short)' refs/heads/ | head -20 | fzf)
-  stat = !git diff --stat $(git merge-base HEAD $REVIEW_BASE)
+
+  # for doing local code reviews
+  stat = !git diff --stat $(git merge-base HEAD \"$REVIEW_BASE\")
   heatmap = git-heatmap
-
-  # Divergence (commits we added and commits remote added)
-  div = divergence
-
-  # Goodness (summary of diff lines added/removed/total)
-  gn = goodness
-  gnc = goodness --cached
+  files = !git diff --name-only $(git merge-base HEAD \"$REVIEW_BASE\")
+  review = !nvim -p $(git files) +\"tabdo Gvdiffsplit $REVIEW_BASE\" +\"let g:gitgutter_diff_base = '$REVIEW_BASE'\"
 
   # Fancy logging.
   #   h = head
@@ -66,13 +63,6 @@
 
   # Shorthand for commit, also enforces diff display in editor before commit
   ci = commit --verbose
-
-  # Shorthand for a less noisy status
-  s = commit --dry-run --short
-
-  # More sensible names for adding and removing files from the readme
-  stage = add
-  unstage = reset HEAD
 
   # Edit the last commit
   amend= commit --verbose --amend
