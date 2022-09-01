@@ -1,7 +1,12 @@
 #! /usr/bin/zsh
 
+set -e
+
 git fetch origin
-BRANCH=$(git branch | fzf)
+REMOTE_BRANCH=$(git branch -r | fzf)
+SPLITS=("${(@s|/|)REMOTE_BRANCH}")
+BRANCH=$SPLITS[2]
+echo $BRANCH
 git switch $BRANCH
 git heatmap
 vared -p "Press (c) to continue reviewing: " -c tmp
