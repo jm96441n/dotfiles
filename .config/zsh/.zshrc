@@ -1,4 +1,3 @@
-echo "Loading ~/.zshrc a shell script that runs in every new terminal you open"
 if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
     exec startx
 fi
@@ -60,9 +59,11 @@ neofetch --kitty --source "~/.dotfiles/wallpaper/wave_wallpaper.png" --crop_mode
 
 eval "$(starship init zsh)"
 
-eval "$(ssh-agent -s)"
-ssh-add ~/.ssh/github_rsa
+eval "$(ssh-agent -s)" &>/dev/null
+ssh-add ~/.ssh/github_rsa &>/dev/null
 
 eval $(thefuck --alias)
 
 bindkey -s ^f "tmux-sessionizer\n"
+
+welcome

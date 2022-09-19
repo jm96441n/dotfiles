@@ -15,9 +15,6 @@ alias lt='ls --tree'
 alias ltl='ls --tree -L'
 alias lr='ls --recurse'
 
-# For better autocomplete
-eval $(thefuck --alias)
-
 # Rails Aliases
 alias be="bundle exec"
 alias yolo="be rake db:drop;be rake db:create;"
