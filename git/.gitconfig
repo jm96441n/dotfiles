@@ -34,7 +34,7 @@
   # for doing local code reviews
   stat = !git diff --stat $(git merge-base HEAD \"$REVIEW_BASE\")
   heatmap = git-heatmap
-  files = !git diff --name-only $(git merge-base HEAD \"$REVIEW_BASE\")
+  files = !git diff --name-only $(git merge-base HEAD \"$REVIEW_BASE\") -- :^vendor
   review = !nvim -p $(git files) +\"tabdo Gvdiffsplit $REVIEW_BASE\" +\"let g:gitgutter_diff_base = '$REVIEW_BASE'\"
 
   # Fancy logging.

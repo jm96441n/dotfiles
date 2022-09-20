@@ -40,3 +40,9 @@ gblack() {
 aliases() {
     bat $HOME/.dotfiles/system/.alias
 }
+
+create_venv() {
+    python -m venv .
+    echo "layout python" >> .envrc
+    direnv allow
+}

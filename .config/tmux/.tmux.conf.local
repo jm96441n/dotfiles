@@ -22,7 +22,7 @@ bind-key -T copy-mode-vi C-k select-pane -U
 bind-key -T copy-mode-vi C-l select-pane -R
 bind-key -T copy-mode-vi C-\\ select-pane -l
 bind-key -r i run-shell "tmux neww tmux-cht"
-bind-key -r d run-shell "tmux-sessionizer ~/.dotfiles"
+bind-key -r . run-shell "tmux-sessionizer ~/.dotfiles"
 bind -r n next-window
 bind -r p previous-window
 

@@ -66,4 +66,6 @@ eval $(thefuck --alias)
 
 bindkey -s ^f "tmux-sessionizer\n"
 
+eval "$(direnv hook zsh)"
 welcome
+

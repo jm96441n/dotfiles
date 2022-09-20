@@ -18,6 +18,10 @@ function install {
 # enable i3-gaps
 sudo dnf remove i3
 sudo dnf copr enable fuhrmann/i3-gaps
+sudo dnf -y install dnf-plugins-core
+sudo dnf config-manager \
+    --add-repo \
+    https://download.docker.com/linux/fedora/docker-ce.repo
 
 # enable rpm fusion repo
 install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
@@ -31,7 +35,10 @@ install bat
 install bison
 install bzip2
 install dbus-devel
-install docker
+install docker-ce
+install docker-ce-cli
+install containerd.io
+install docker-compose-plugin
 install direnv
 install dunst
 install rofi
