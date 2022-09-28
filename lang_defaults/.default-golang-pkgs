@@ -3,3 +3,4 @@ honnef.co/go/tools/cmd/staticcheck@latest
 mvdan.cc/sh/v3/cmd/shfmt@latest
 mvdan.cc/gofumpt@latest
 golang.org/x/tools/cmd/goimports@latest
+github.com/haveyoudebuggedit/gotestfmt/v2/cmd/gotestfmt@latest
