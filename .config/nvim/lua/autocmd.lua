@@ -18,7 +18,7 @@ api.nvim_create_autocmd(
 	{ "BufReadPost", "FileReadPost" },
 	{ pattern = "*", command = "normal zR", group = format_group }
 )
-api.nvim_create_autocmd("BufWritePost", {
+api.nvim_create_autocmd({ "BufReadPost", "FileReadPost", "BufWritePost" }, {
 	callback = function()
 		require("lint").try_lint()
 	end,

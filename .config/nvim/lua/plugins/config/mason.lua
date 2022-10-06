@@ -46,6 +46,7 @@ require("mason-tool-installer").setup({
 		"black",
 		"isort",
 		"mypy",
+		"pylint",
 		-- terraform
 		"tflint",
 		"terraform-ls",
