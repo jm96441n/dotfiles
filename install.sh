@@ -43,7 +43,6 @@ ln -sfv "$DOTFILES_DIR/.config/i3" "$HOME/.config"
 ln -sfv "$DOTFILES_DIR/.config/ranger" "$HOME/.config"
 ln -sfv "$DOTFILES_DIR/.config/compton" "$HOME/.config"
 ln -sfv "$DOTFILES_DIR/.config/bat" "$HOME/.config"
-ln -sfv "$DOTFILES_DIR/.config/flake8" "$HOME/.config"
 ln -sfv "$DOTFILES_DIR/.config/.Xinitrc" $HOME
 ln -sfv "$DOTFILES_DIR/.config/.Xresources" $HOME
 ln -sfv "$DOTFILES_DIR/.config/kitty" "$HOME/.config"
