@@ -46,3 +46,11 @@ create_venv() {
     echo "layout python" >> .envrc
     direnv allow
 }
+
+cgls () {
+    gcl $1 ~/cbi/services/
+}
+
+cglj () {
+    gcl $1 ~/cbi/jobs/
+}
