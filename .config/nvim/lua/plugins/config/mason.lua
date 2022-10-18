@@ -53,6 +53,8 @@ require("mason-tool-installer").setup({
 		-- javascript
 		"eslint-lsp",
 		"prettier",
+		"eslint_d",
+		"deno",
 		-- lua
 		"lua-language-server",
 		"stylua",
@@ -99,4 +101,5 @@ require("lsp_lines").setup()
 vim.diagnostic.config({
 	virtual_text = false, -- removes duplication of diagnostic messages due to lsp_lines
 	virtual_lines = true,
+	float = { source = "always" },
 })
