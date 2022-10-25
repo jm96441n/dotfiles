@@ -9,7 +9,7 @@ alias ...="cd ../.."
 alias ....="cd ../../.."
 
 # exa
-alias ls='exa --icons -x -a'
+alias ls='exa --icons -x -a --group-directories-first'
 alias ll='exa --icons -a -l'
 alias lt='ls --tree'
 alias ltl='ls --tree -L'
