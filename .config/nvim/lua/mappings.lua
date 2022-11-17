@@ -95,5 +95,8 @@ M.map("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
 M.map("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
 M.map("n", "<space>q", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>", opts)
 M.map("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-
+-- press <Tab> to expand or jump in a snippet. These can also be mapped separately
+-- via <Plug>luasnip-expand-snippet and <Plug>luasnip-jump-next.
+M.map("i", "<c-j>", "<cmd>lua require('luasnip').jump(1)<CR>", opts)
+M.map("i", "<c-k>", "<cmd>lua require('luasnip').jump(-1)<CR>", opts)
 return M

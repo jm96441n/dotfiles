@@ -45,7 +45,7 @@ function M.RunScript()
 	if filetype == "go" then
 		cmd = "go run " .. file
 	elseif filetype == "py" then
-		cmd = "python -m grind2"
+		cmd = "python -m grind3"
 	elseif filetype == "rb" then
 		cmd = "ruby " .. file
 	end

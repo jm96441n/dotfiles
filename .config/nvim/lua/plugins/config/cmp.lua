@@ -1,5 +1,11 @@
 local vim = vim
 local cmp = require("cmp")
+local luasnip = require("luasnip")
+
+local has_words_before = function()
+	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+	return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+end
 
 cmp.setup({
 	snippet = {
@@ -9,7 +15,28 @@ cmp.setup({
 		end,
 	},
 	mapping = {
-		["<tab>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+		["<Tab>"] = cmp.mapping(function(fallback)
+			if cmp.visible() then
+				cmp.select_next_item()
+			elseif luasnip.expand_or_jumpable() then
+				luasnip.expand_or_jump()
+			elseif has_words_before() then
+				cmp.complete()
+			else
+				fallback()
+			end
+		end, { "i", "s" }),
+
+		["<S-Tab>"] = cmp.mapping(function(fallback)
+			if cmp.visible() then
+				cmp.select_prev_item()
+			elseif luasnip.jumpable(-1) then
+				luasnip.jump(-1)
+			else
+				fallback()
+			end
+		end, { "i", "s" }),
+		-- ["<tab>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
 		["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
 		["<Down>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
 		["<Up>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
@@ -23,6 +50,7 @@ cmp.setup({
 		}),
 	},
 	sources = cmp.config.sources({
+		{ name = "luasnip" },
 		{ name = "nvim_lsp" },
 	}),
 })
@@ -43,4 +71,30 @@ cmp.setup.cmdline(":", {
 	}, {
 		{ name = "cmdline" },
 	}),
+})
+
+local ls = require("luasnip")
+-- some shorthands...
+local snip = ls.snippet
+local node = ls.snippet_node
+local text = ls.text_node
+local insert = ls.insert_node
+local func = ls.function_node
+local choice = ls.choice_node
+local dynamicn = ls.dynamic_node
+
+local date = function()
+	return { os.date("%Y-%m-%d") }
+end
+
+ls.add_snippets(nil, {
+	all = {
+		snip({
+			trig = "date",
+			namr = "Date",
+			dscr = "Date in the form of YYYY-MM-DD",
+		}, {
+			func(date, {}),
+		}),
+	},
 })

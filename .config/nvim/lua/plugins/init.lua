@@ -28,7 +28,11 @@ return require("packer").startup(function(use)
 	use("hrsh7th/cmp-cmdline")
 	use("hrsh7th/nvim-cmp")
 	-- luasnip
-	use("L3MON4D3/LuaSnip")
+	use({
+		"L3MON4D3/LuaSnip",
+	})
+	use("rafamadriz/friendly-snippets")
+	use("molleweide/LuaSnip-snippets.nvim")
 	use("saadparwaiz1/cmp_luasnip")
 	-- Keybindings for navigating between vim and tmux
 	use("christoomey/vim-tmux-navigator")
