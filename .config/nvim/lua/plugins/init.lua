@@ -19,6 +19,12 @@ return require("packer").startup(function(use)
 	use("neovim/nvim-lspconfig")
 	use("WhoIsSethDaniel/mason-tool-installer.nvim")
 	use("mfussenegger/nvim-lint")
+
+	-- DAP debugging
+	use("mfussenegger/nvim-dap")
+	use("leoluz/nvim-dap-go")
+	use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } })
+
 	-- get some nicer UI around lsp issues
 	use("https://git.sr.ht/~whynothugo/lsp_lines.nvim")
 	-- autocomplete with nvmp-cmp
@@ -78,6 +84,7 @@ return require("packer").startup(function(use)
 	-- vim-fugitive for git in vim
 	use("tpope/vim-fugitive")
 	use("shumphrey/fugitive-gitlab.vim")
+	use("tpope/vim-rhubarb")
 	-- vim-projectionist to jump between related files
 	use("tpope/vim-projectionist")
 
