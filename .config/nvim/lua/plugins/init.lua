@@ -23,6 +23,7 @@ return require("packer").startup(function(use)
 	-- DAP debugging
 	use("mfussenegger/nvim-dap")
 	use("leoluz/nvim-dap-go")
+	use("mfussenegger/nvim-dap-python")
 	use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } })
 
 	-- get some nicer UI around lsp issues

@@ -64,7 +64,6 @@ M.map(
 	"(len(system('git rev-parse')) ? ':Files' : ':GFiles --exclude-standard --others --cached').\"<cr>\"",
 	{ noremap = true, expr = true }
 )
-M.map("n", "<leader>b", "(':Buffers').\"<cr>\"", { noremap = true, expr = true })
 
 -- move back and forth between projections
 M.map("n", "<leader>aa", ":A<CR>", { silent = true })
