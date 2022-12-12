@@ -39,6 +39,9 @@ bindsym $mod+Return exec kitty
 # kill focused window
 bindsym $mod+Shift+q kill
 
+# flameshot gui for screenshots
+bindsym $mod+Shift+s exec flameshot gui
+
 # start rofi (a program launcher)
 bindsym $mod+d exec "~/.config/rofi/launchers-git/launcher.sh"
 # Lockscreen

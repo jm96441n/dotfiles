@@ -1,8 +1,3 @@
-# rp - rake parallel tasks
-function rp () {
-  bundle exec rake parallel:features[4,${*},'--format progress']
-}
-
 function mk() {
     mkdir -p "$@" && cd "$@"
 }

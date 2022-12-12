@@ -33,7 +33,6 @@
     padding: 20px 20px;
     border-radius: 5px;
     border: 1px;
-    border-color: @base0D;
 }
 
 

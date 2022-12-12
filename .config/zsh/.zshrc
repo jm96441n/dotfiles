@@ -65,6 +65,7 @@ ssh-add ~/.ssh/github_rsa &>/dev/null
 eval $(thefuck --alias)
 
 bindkey -s ^f "tmux-sessionizer\n"
+bindkey -s ^bd "tmux-sessionizer ~/.dotfiles\n"
 
 eval "$(direnv hook zsh)"
 welcome
