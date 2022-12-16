@@ -1,7 +1,8 @@
 /** Configured For Applets **/
 
 configuration {
-  modi: "github:~/.config/rofi/launchers-git/github.sh,gitlab:~/.config/rofi/launchers-git/gitlab.sh,drun,window";
+  modi: "github:~/.config/rofi/launchers-git/github.sh,gitlab:~/.config/rofi/launchers-git/gitlab.sh,bluetooth:~/.config/rofi/launchers-git/bluetooth,drun,window";
+
   show-icons:         true;
   icon-theme:         "Newatita";
   location: 0;

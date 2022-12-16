@@ -1,0 +1,157 @@
+#!/usr/bin/python
+
+import subprocess
+import sys
+
+DIVIDER = "----------------------------------------------------"
+
+POWER_ON = "Power: on"
+POWER_OFF = "Power: off"
+
+DEVICE_STATUS = {
+    "connected": "Connected: yes",
+    "not_connected": "Connected: no",
+    "paired": "Paired: yes",
+    "not_paired": "Paired: no",
+    "trusted": "Trusted: yes",
+    "not_trusted": "Trusted: no",
+}
+
+###################################################
+##                                               ##
+##              Main Menu                        ##
+##                                               ##
+###################################################
+
+
+def menu(input=None, state_file=None):
+    devices = get_devices()
+    if input == POWER_ON or input == POWER_OFF:
+        toggle_power()
+    elif input in devices:
+        state_file.write(input)
+        device_menu(input, devices)
+    elif input in DEVICE_STATUS.values():
+        device = state_file.readline()
+        toggle_device_status(input, device, devices, state_file)
+    elif is_power_on():
+        power = POWER_ON
+        devices = get_devices()
+        print("".join(f"{devices}\n{DIVIDER}\n{power}\n"))
+    else:
+        power = POWER_OFF
+        print("".join(f"{power}\n"))
+
+
+def toggle_power():
+    if is_power_on():
+        proc = subprocess.Popen(["/usr/bin/bluetoothctl", "power", "off"], stdout=subprocess.PIPE)
+    else:
+        proc = subprocess.Popen(["/usr/bin/bluetoothctl", "power", "on"], stdout=subprocess.PIPE)
+
+    proc.wait()
+
+
+def get_devices() -> str:
+    with subprocess.Popen(["/usr/bin/bluetoothctl", "devices", "Paired"], stdout=subprocess.PIPE) as proc:
+        lines = stdout_from_proc(proc).split("\n")
+        output = "\n".join(list(map(lambda x: " ".join(x.split(" ")[2:]), lines)))
+        return output
+
+
+def is_power_on() -> bool:
+    with subprocess.Popen(["/usr/bin/bluetoothctl", "show"], stdout=subprocess.PIPE) as proc:
+        return "Powered: yes" in stdout_from_proc(proc)
+
+
+###################################################
+##                                               ##
+##              Device Menu                      ##
+##                                               ##
+###################################################
+
+
+def device_menu(device: str, devices: list[str]):
+    selected = next(filter(lambda x: device in x, devices), "")
+    connected = DEVICE_STATUS["not_connected"]
+    paired = DEVICE_STATUS["not_paired"]
+    trusted = DEVICE_STATUS["not_trusted"]
+    if is_device_connected(selected):
+        connected = DEVICE_STATUS["connected"]
+
+    if is_device_paired(selected):
+        paired = DEVICE_STATUS["paired"]
+
+    if is_device_trusted(selected):
+        trusted = DEVICE_STATUS["trusted"]
+
+    choices = "\n".join([device, DIVIDER, connected, paired, trusted, DIVIDER, "Back"])
+    print(choices)
+
+
+def toggle_device_status(input, device, devices, file):
+    selected = next(filter(lambda x: device in x, devices), "")
+    if "Connected" in input:
+        toggle_connected(selected)
+        device_menu(device, devices)
+    elif "Trusted" in input:
+        toggle_trusted(selected)
+        device_menu()
+    elif "Paired" in input:
+        toggle_paired(selected)
+        device_menu()
+
+
+def is_device_connected(device: str) -> bool:
+    with subprocess.Popen(["/usr/bin/bluetoothctl", "info", device], stdout=subprocess.PIPE) as proc:
+        output = stdout_from_proc(proc)
+        return "Connected: yes" in output
+
+
+def is_device_paired(device: str) -> bool:
+    with subprocess.Popen(["/usr/bin/bluetoothctl", "info", device], stdout=subprocess.PIPE) as proc:
+        output = stdout_from_proc(proc)
+        return "Paired: yes" in output
+
+
+def is_device_trusted(device: str) -> bool:
+    with subprocess.Popen(["/usr/bin/bluetoothctl", "info", device], stdout=subprocess.PIPE) as proc:
+        output = stdout_from_proc(proc)
+        return "Trusted: yes" in output
+
+
+def toggle_connected(device: str):
+    if is_device_connected(device):
+        proc = subprocess.Popen(["/usr/bin/bluetoothctl", "disconnect", device], stdout=subprocess.PIPE)
+    else:
+        proc = subprocess.Popen(["/usr/bin/bluetoothctl", "connect", device], stdout=subprocess.PIPE)
+
+    proc.wait()
+
+
+def toggle_paired(device: str):
+    if is_device_paired(device):
+        proc = subprocess.Popen(["/usr/bin/bluetoothctl", "remove", device], stdout=subprocess.PIPE)
+    else:
+        proc = subprocess.Popen(["/usr/bin/bluetoothctl", "pair", device], stdout=subprocess.PIPE)
+
+    proc.wait()
+
+
+def toggle_trusted(device: str):
+    if is_device_trusted(device):
+        proc = subprocess.Popen(["/usr/bin/bluetoothctl", "untrust", device], stdout=subprocess.PIPE)
+    else:
+        proc = subprocess.Popen(["/usr/bin/bluetoothctl", "trust", device], stdout=subprocess.PIPE)
+
+    proc.wait()
+
+
+def stdout_from_proc(proc) -> str:
+    return proc.stdout.read().decode("utf-8")
+
+
+if __name__ == "__main__":
+    with open("/home/johnmaguire/.rofi_status", "w+") as f:
+        f.seek(0)
+        menu(sys.argv[-1], f)
