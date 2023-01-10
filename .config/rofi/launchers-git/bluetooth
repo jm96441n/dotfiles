@@ -29,6 +29,7 @@ def menu(input=None, state_file=None):
     if input == POWER_ON or input == POWER_OFF:
         toggle_power()
     elif input in devices:
+        state_file.truncate(0)
         state_file.write(input)
         device_menu(input, devices)
     elif input in DEVICE_STATUS.values():
@@ -96,10 +97,10 @@ def toggle_device_status(input, device, devices, file):
         device_menu(device, devices)
     elif "Trusted" in input:
         toggle_trusted(selected)
-        device_menu()
+        device_menu(device, devices)
     elif "Paired" in input:
         toggle_paired(selected)
-        device_menu()
+        device_menu(device, devices)
 
 
 def is_device_connected(device: str) -> bool:
@@ -152,6 +153,6 @@ def stdout_from_proc(proc) -> str:
 
 
 if __name__ == "__main__":
-    with open("/home/johnmaguire/.rofi_status", "w+") as f:
+    with open("/home/johnmaguire/.rofi_status", "r+") as f:
         f.seek(0)
         menu(sys.argv[-1], f)

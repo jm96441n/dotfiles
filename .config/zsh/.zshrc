@@ -67,6 +67,7 @@ eval $(thefuck --alias)
 bindkey -s ^f "tmux-sessionizer\n"
 bindkey -s ^bd "tmux-sessionizer ~/.dotfiles\n"
 
+source <(kubectl completion zsh)
+
 eval "$(direnv hook zsh)"
 welcome
-

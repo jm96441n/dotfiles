@@ -72,8 +72,14 @@ return require("packer").startup(function(use)
 	use("rhysd/vim-grammarous")
 	-- Indent highlighting
 	use("Yggdroot/indentLine")
+
 	-- Run tests from vim
-	use("vim-test/vim-test")
+	use({
+		"klen/nvim-test",
+		config = function()
+			require("nvim-test").setup()
+		end,
+	})
 	-- treesitter for better syntax highlighting
 	use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
 	-- neovim treesitter context

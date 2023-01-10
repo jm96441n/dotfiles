@@ -58,12 +58,7 @@ M.map("n", "g<C-r>", "<cmd>lua require('utils').RunScript()<CR>", { silent = tru
 -- fzf file fuzzy search that respects .gitignore
 -- If in git directory, show only files that are committed, staged, or unstaged
 -- else use regular :Files
-M.map(
-	"n",
-	"<C-p>",
-	"(len(system('git rev-parse')) ? ':Files' : ':GFiles --exclude-standard --others --cached').\"<cr>\"",
-	{ noremap = true, expr = true }
-)
+M.map("n", "<C-p>", "<cmd>Files<CR>", { noremap = true })
 
 -- move back and forth between projections
 M.map("n", "<leader>aa", ":A<CR>", { silent = true })
