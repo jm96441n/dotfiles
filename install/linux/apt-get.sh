@@ -96,7 +96,7 @@ install wget
 install yarn
 install xbacklight
 install xclip
-install xz
+install xz-utils
 install zlib1g-dev
 install zsh-autosuggestions
 
