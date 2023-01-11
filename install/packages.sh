@@ -23,6 +23,10 @@ else
   linux_install
 fi
 
-# install plug install for nvim
-sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+# install kitty
+curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
+
+# install neovim as app image
+curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
+chmod u+x nvim.appimage
+./nvim.appimage

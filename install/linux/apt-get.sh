@@ -85,6 +85,7 @@ install picom
 install polybar
 install postgresql
 install ranger
+install rofi
 install sqlite3
 install strace
 install libsqlite3-dev

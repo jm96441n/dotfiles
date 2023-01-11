@@ -397,5 +397,3 @@ content-foreground= ${color.background}
 content-background = ${color.red}
 content-padding=1
 click-left=poweroff
-
-
