@@ -1,5 +1,7 @@
 #!/usr/bin/zsh
 
+set -eEuo pipefail
+
 # Get current dir (so run this script from anywhere)
 
 export DOTFILES_DIR DOTFILES_CACHE DOTFILES_EXTRA_DIR
@@ -7,12 +9,17 @@ DOTFILES_DIR="$HOME/.dotfiles"
 DOTFILES_CACHE="$DOTFILES_DIR/.cache.sh"
 DOTFILES_EXTRA_DIR="$HOME/.extra"
 
-export $BW_CLIENTSECRET
-export $BW_CLIENTID
-export $BW_PASSWORD
-read -p "Bitwarden client secret: " BW_CLIENTSECRET
-read -p "Bitwarden client id: " BW_CLIENTID
-read -p "Bitwarden password: " BW_PASSWORD
+echo "Bitwarden client secret: " 
+read -n BW_CLIENTSECRET
+echo "Bitwarden client id: " 
+read -n BW_CLIENTID
+echo "Bitwarden password: " 
+read -n BW_PASSWORD
+
+export BW_CLIENTSECRET="$BW_CLIENTSECRET"
+export BW_CLIENTID="$BW_CLIENTID"
+export BW_PASSWORD="$BW_PASSWORD"
+
 
 # Make utilities available
 
