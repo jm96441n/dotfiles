@@ -10,14 +10,14 @@ else
 fi
 
 # Ruby
-asdf plugin-add ruby
+asdf plugin-add ruby || true
 
 asdf install ruby 3.1.0
 
 asdf global ruby 3.1.0
 
 # Python
-asdf plugin-add python
+asdf plugin-add python || true
 
 
 if [[ $(is-macos) == 1 ]]; then
