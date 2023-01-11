@@ -1,4 +1,7 @@
-git clone --depth=1 https://github.com/ryanoasis/nerd-fonts ~/.nerd-fonts
+if [ ! -d ~/.nerd-fonts ]; then
+	git clone --depth=1 https://github.com/ryanoasis/nerd-fonts ~/.nerd-fonts
+fi
+
 cd ~/.nerd-fonts
 sudo .install-sh
 cd ~
