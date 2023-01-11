@@ -1,14 +1,10 @@
 #! /usr/bin/zsh
 
-sudo apt update && sudo apt upgrade
+sudo apt update && sudo apt upgrade -y
 
 function install() {
-  echo "in function"
-  which $1
-  which $1 &>/dev/null
-
-  echo "in function 2"
-  if [ $? -ne 0 ]; then
+  INSTALLED=$(dpkg-query -W -f='${Status}' nano 2>/dev/null | grep -c "ok installed")
+  if [ $INSTALLED -ne 0 ]; then
     echo "Installing: ${1}..."
     sudo apt install -y $1
   else
