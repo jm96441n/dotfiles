@@ -4,6 +4,7 @@ sudo apt update && sudo apt upgrade
 
 function install() {
   echo "in function"
+  which $1
   which $1 &>/dev/null
 
   echo "in function 2"
