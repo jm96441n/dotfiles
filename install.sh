@@ -9,16 +9,21 @@ DOTFILES_DIR="$HOME/.dotfiles"
 DOTFILES_CACHE="$DOTFILES_DIR/.cache.sh"
 DOTFILES_EXTRA_DIR="$HOME/.extra"
 
-echo "Bitwarden client secret: " 
-read -n BW_CLIENTSECRET
-echo "Bitwarden client id: " 
-read -n BW_CLIENTID
-echo "Bitwarden password: " 
-read -n BW_PASSWORD
-
-export BW_CLIENTSECRET="$BW_CLIENTSECRET"
-export BW_CLIENTID="$BW_CLIENTID"
-export BW_PASSWORD="$BW_PASSWORD"
+if [[ -z "${BW_CLIENTSECRET}" ]]; then
+	echo "Bitwarden client secret: " 
+	read -n BW_CLIENTSECRET
+	export BW_CLIENTSECRET="$BW_CLIENTSECRET"
+fi
+if [[ -z "${BW_CLIENTID}" ]]; then
+	echo "Bitwarden client id: " 
+	read -n BW_CLIENTID
+	export BW_CLIENTID="$BW_CLIENTID"
+fi
+if [[ -z "${BW_PASSWORD}" ]]; then
+	echo "Bitwarden password: " 
+	read -n BW_PASSWORD
+	export BW_PASSWORD="$BW_PASSWORD"
+fi
 
 
 # Make utilities available
