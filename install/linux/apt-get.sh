@@ -1,6 +1,6 @@
 #! /usr/bin/zsh
 
-sudo apt update
+sudo apt update && sudo apt upgrade
 
 function install() {
   which $1 &>/dev/null
