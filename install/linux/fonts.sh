@@ -3,7 +3,7 @@ if [ ! -d ~/.nerd-fonts ]; then
 fi
 
 cd ~/.nerd-fonts
-sudo .install-sh
+sudo ./install-sh
 cd ~
 
 sudo ln -sfv $HOME/.dotfiles/system/fonts/icomoon-feather.ttf /usr/share/fonts
