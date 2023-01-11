@@ -13,12 +13,6 @@ function install {
 
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 361FA511F8F5E4DE
 
-# setup i3-gaps
-sudo add-apt-repository -y ppa:regolith-linux/stable
-
-# setup for alacritty
-sudo add-apt-repository ppa:mmstick76/alacritty
-
 # setup for docker
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
 echo \
@@ -48,7 +42,6 @@ install hub
 install htop
 install imagemagick
 install i3
-install i3-gaps
 install i3lock
 install i3status
 install jq
