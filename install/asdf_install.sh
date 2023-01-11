@@ -1,6 +1,6 @@
 if [[ $(is-macos) == 1 ]]; then
   if [ ! -d ~/.asdf ]; then
-	git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.8.0
+	git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.10.2
   fi
   . $HOME/.asdf/asdf.sh
 else
@@ -24,9 +24,9 @@ asdf global python 3.10.4
 # Golang
 asdf plugin-add golang
 
-asdf install golang 1.18.2
+asdf install golang 1.19.5
 
-asdf global golang 1.18.2
+asdf global golang 1.19.5
 
 # nodejs
 asdf plugin-add nodejs
@@ -37,6 +37,6 @@ asdf global nodejs 18.5.0
 
 asdf plugin-add rust https://github.com/asdf-community/asdf-rust.git
 
-asdf install rust 1.62.0
+asdf install rust 1.66.0
 
-asdf global rust 1.62.0
+asdf global rust 1.66.0
