@@ -3,6 +3,7 @@ if [ ! -d ~/.nerd-fonts ]; then
 fi
 
 cd ~/.nerd-fonts
+echo $PWD
 sudo ./install-sh
 cd ~
 
