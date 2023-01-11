@@ -19,7 +19,12 @@ asdf global ruby 3.1.0
 # Python
 asdf plugin-add python
 
-env PYTHON_CONFIGURE_OPTS="--enable-framework" asdf install python 3.10.4
+
+if [[ $(is-macos) == 1 ]]; then
+	env PYTHON_CONFIGURE_OPTS="--enable-framework" asdf install python 3.10.4
+else
+ asdf install python 3.10.4
+fi
 
 asdf global python 3.10.4
 # Golang
