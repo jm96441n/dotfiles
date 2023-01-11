@@ -101,4 +101,5 @@ install xz
 install zlib1g-dev
 install zsh-autosuggestions
 
+echo "installed"
 sudo apt install --reinstall ca-certificates
