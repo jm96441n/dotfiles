@@ -6,6 +6,7 @@ function install() {
   echo "in function"
   which $1 &>/dev/null
 
+  echo "in function 2"
   if [ $? -ne 0 ]; then
     echo "Installing: ${1}..."
     sudo apt install -y $1
