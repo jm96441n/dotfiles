@@ -1,5 +1,7 @@
 if [[ $(is-macos) == 1 ]]; then
-  git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.8.0
+  if [ ! -d ~/.asdf ]; then
+	git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.8.0
+  fi
   . $HOME/.asdf/asdf.sh
 else
   # asdf for version management
