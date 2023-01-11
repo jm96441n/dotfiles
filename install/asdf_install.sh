@@ -21,9 +21,9 @@ asdf plugin-add python || true
 
 
 if [[ $(is-macos) == 1 ]]; then
-	env PYTHON_CONFIGURE_OPTS="--enable-framework" asdf install python 3.10.4
-else
  asdf install python 3.10.4
+else
+  env PYTHON_CONFIGURE_OPTS="--enable-framework" asdf install python 3.10.4
 fi
 
 asdf global python 3.10.4
