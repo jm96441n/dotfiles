@@ -21,7 +21,7 @@ echo \
   $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list >/dev/null
 
 sudo apt update
-
+echo "installing packages"
 install awscli
 install autojump
 install bat
