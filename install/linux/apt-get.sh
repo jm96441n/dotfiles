@@ -11,7 +11,7 @@ function install {
   fi
 }
 
-sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 361FA511F8F5E4DE
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 361FA511F8F5E4DE
 
 # setup for docker
 sudo mkdir -p /etc/apt/keyrings
