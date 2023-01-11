@@ -1,6 +1,8 @@
+#! /usr/bin/zsh
+
 sudo apt update
 
-function install {
+function install() {
   which $1 &>/dev/null
 
   if [ $? -ne 0 ]; then
