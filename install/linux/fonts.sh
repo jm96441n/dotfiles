@@ -4,7 +4,7 @@ fi
 
 cd ~/.nerd-fonts
 echo $PWD
-sudo ./install-sh
+./install-sh
 cd ~
 
 sudo ln -sfv $HOME/.dotfiles/system/fonts/icomoon-feather.ttf /usr/share/fonts
