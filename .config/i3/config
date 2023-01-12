@@ -272,4 +272,3 @@ exec --no-startup-id i3-msg 'workspace 4: spotify; exec "flatpak run com.spotify
 #exec udiskie &
 # A better notification
 #exec /home/devops/.local/bin/deadd-notification-center &
-

@@ -1,9 +1,11 @@
 #! /usr/bin/zsh
 
+set -eEuo pipefail
+
 sudo apt update && sudo apt upgrade -y
 
 function install() {
-  INSTALLED=$(dpkg-query -W -f='${Status}' nano 2>/dev/null | grep -c "ok installed")
+  INSTALLED=$(apt list -a "$1" | grep -i "$1")
   if [ $INSTALLED -ne 0 ]; then
     echo "Installing: ${1}..."
     sudo apt install -y $1
@@ -12,17 +14,28 @@ function install() {
   fi
 }
 
-#sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 361FA511F8F5E4DE
-
 # setup for docker
-sudo mkdir -p /etc/apt/keyrings
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
-echo \
-  "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
-  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list >/dev/null
+if [ ! -f /etc/apt/keyrings/docker.gpg ]; then
+    sudo mkdir -p /etc/apt/keyrings
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+    echo \
+      "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
+      $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list >/dev/null
+fi
+
+# setup for kubectl
+sudo curl -fsSLo /etc/apt/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+echo "deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+
+# setup helm
+curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null
+sudo apt-get install apt-transport-https --yes
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
 
 sudo apt update
-echo "installing packages"
+
+sudo apt install --reinstall ca-certificates
+
 install awscli
 install autojump
 install bat
@@ -41,6 +54,7 @@ install gcc
 install git
 # https://github.com/tj/git-extras/blob/master/Commands.md
 install git-extras
+install helm
 install hub
 install htop
 install imagemagick
@@ -48,6 +62,7 @@ install i3
 install i3lock
 install i3status
 install jq
+install kubectl
 install libreadline-dev
 install libssl-dev
 install libffi-dev
@@ -79,7 +94,6 @@ install lxappearance
 install make
 install meson
 install neofetch
-install neovim
 install npm
 install picom
 install polybar
@@ -102,4 +116,3 @@ install zlib1g-dev
 install zsh-autosuggestions
 
 echo "installed"
-sudo apt install --reinstall ca-certificates

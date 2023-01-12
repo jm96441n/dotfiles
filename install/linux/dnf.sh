@@ -5,11 +5,11 @@ sudo dnf install
 # install yarn
 curl -o- -L https://yarnpkg.com/install.sh | bash
 function install {
-    which $1 &>/dev/null
+    which "$1" &>/dev/null
 
     if [ $? -ne 0 ]; then
         echo "Installing: ${1}..."
-        sudo dnf install -y $1
+        sudo dnf install -y "$1"
     else
         echo "Already installed: ${1}"
     fi
@@ -23,9 +23,19 @@ sudo dnf config-manager \
     --add-repo \
     https://download.docker.com/linux/fedora/docker-ce.repo
 
+# setup kubectl
+cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
+[kubernetes]
+name=Kubernetes
+baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-\$basearch
+enabled=1
+gpgcheck=1
+gpgkey=https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+EOF
+
 # enable rpm fusion repo
-install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
-install https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+install "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm"
+install "https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm"
 install awscli
 install alacritty
 install akmod-nvidia
@@ -58,6 +68,7 @@ install gpg2
 # https://github.com/tj/git-extras/blob/master/Commands.md
 install git-extras
 install gdbm-devel
+install helm
 install hub
 install htop
 install ImageMagick
@@ -66,6 +77,7 @@ install i3lock
 install i3status
 install jemalloc-devel
 install jq
+install kubectl
 install libconfig-devel
 install libffi-devel
 install libdrm-devel

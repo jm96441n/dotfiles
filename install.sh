@@ -10,17 +10,17 @@ DOTFILES_CACHE="$DOTFILES_DIR/.cache.sh"
 DOTFILES_EXTRA_DIR="$HOME/.extra"
 
 if [[ -z "${BW_CLIENTSECRET}" ]]; then
-	echo "Bitwarden client secret: " 
+	echo "Bitwarden client secret: "
 	read -n BW_CLIENTSECRET
 	export BW_CLIENTSECRET="$BW_CLIENTSECRET"
 fi
 if [[ -z "${BW_CLIENTID}" ]]; then
-	echo "Bitwarden client id: " 
+	echo "Bitwarden client id: "
 	read -n BW_CLIENTID
 	export BW_CLIENTID="$BW_CLIENTID"
 fi
 if [[ -z "${BW_PASSWORD}" ]]; then
-	echo "Bitwarden password: " 
+	echo "Bitwarden password: "
 	read -n BW_PASSWORD
 	export BW_PASSWORD="$BW_PASSWORD"
 fi
@@ -60,7 +60,7 @@ ln -sfv "$DOTFILES_DIR/.config/.Xresources" $HOME
 ln -sfv "$DOTFILES_DIR/.config/kitty" "$HOME/.config"
 ln -sfv "$DOTFILES_DIR/.config/jrnl" "$HOME/.config"
 ln -sfv "$DOTFILES_DIR/.config/.tmuxinator" "$HOME/.config"
-ln -sfv "$DOTFILES_DIR/.config/autorandr/postswitch" "$HOME/.config/autorandr"
+ln -sfv "$DOTFILES_DIR/.config/autorandr/postswitch" "$HOME/.config/autorandr/postswtich"
 
 # Package managers & pagkages
 . "$DOTFILES_DIR/install/packages.sh"
