@@ -1,13 +1,13 @@
 #! /bin/bash
-GH_USER="jm96441n"
-BASE_URL="https://github.com/jm96441n"
+BASE_URL="https://github.com"
 
 if [ -z "$1" ]; then
     echo "Begin with '!' to search"
 elif [ "${1::1}" == "!" ]; then
-    GH_USER="jm96441n"
-    term="dot"
-    arr=$(curl -s https://api.github.com/search/repositories\?per_page\=1000\&q\=$term+in:name+user:$GH_USER | jq "(.items[].name)")
+    term=$(echo "${1:1}" | xargs)
+    arr=$(gh search repos "$term" --owner=jm96441n --json=fullName | jq "(.[].fullName)")
+    arr+=$(gh search repos "$term" --owner=hashicorp --json=fullName | jq "(.[].fullName)")
+
     arr="${arr//\"/}"
     echo "$arr"
 else

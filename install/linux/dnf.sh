@@ -1,3 +1,6 @@
+#! /usr/bin/zsh
+
+set -eEuo pipefail
 sudo dnf update
 
 sudo dnf install
@@ -33,6 +36,10 @@ gpgcheck=1
 gpgkey=https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 EOF
 
+# setup github cli
+sudo dnf install 'dnf-command(config-manager)'
+sudo dnf config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo
+
 # enable rpm fusion repo
 install "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm"
 install "https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm"
@@ -60,6 +67,7 @@ install feh
 install firefox
 install fd-find
 install fzf
+install gh
 install gcc
 install gcc-c++
 install git

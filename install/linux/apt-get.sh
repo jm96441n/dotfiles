@@ -32,6 +32,12 @@ curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share
 sudo apt-get install apt-transport-https --yes
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
 
+# setup github cli
+type -p curl >/dev/null || sudo apt install curl -y
+curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
+&& sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
+&& echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+
 sudo apt update
 
 sudo apt install --reinstall ca-certificates
@@ -51,6 +57,7 @@ install flatpak
 install feh
 install fzf
 install gcc
+install gh
 install git
 # https://github.com/tj/git-extras/blob/master/Commands.md
 install git-extras
