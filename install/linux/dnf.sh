@@ -3,14 +3,16 @@
 set -eEuo pipefail
 sudo dnf update
 
-sudo dnf install
+#sudo dnf install
 
 # install yarn
-curl -o- -L https://yarnpkg.com/install.sh | bash
-function install {
-    which "$1" &>/dev/null
+if [[ $(which yarn &>/dev/null) -ne 0 ]]; then
+    curl -o- -L https://yarnpkg.com/install.sh | bash
+fi
 
-    if [ $? -ne 0 ]; then
+function install {
+
+    if [[ $(which "$1" &>/dev/null) -ne 0 ]]; then
         echo "Installing: ${1}..."
         sudo dnf install -y "$1"
     else
@@ -18,9 +20,6 @@ function install {
     fi
 }
 
-# enable i3-gaps
-sudo dnf remove i3
-sudo dnf copr enable fuhrmann/i3-gaps
 sudo dnf -y install dnf-plugins-core
 sudo dnf config-manager \
     --add-repo \
@@ -80,7 +79,7 @@ install helm
 install hub
 install htop
 install ImageMagick
-install i3-gaps
+install i3
 install i3lock
 install i3status
 install jemalloc-devel
