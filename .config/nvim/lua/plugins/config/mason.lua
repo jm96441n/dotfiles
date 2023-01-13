@@ -58,8 +58,8 @@ require("mason-tool-installer").setup({
 		-- lua
 		"lua-language-server",
 		"stylua",
-		-- proto
-		--"buf",
+		"proto",
+		"buf",
 		-- misc
 		"editorconfig-checker",
 		"codespell",
@@ -67,7 +67,6 @@ require("mason-tool-installer").setup({
 		"gitlint",
 		"json-lsp",
 		"sqls",
-		"vale",
 	},
 
 	-- if set to true this will check each tool for updates. If updates
