@@ -65,7 +65,15 @@ return require("packer").startup(function(use)
 	-- Shows git diff in gutter
 	use("airblade/vim-gitgutter")
 	-- Markdown preview
-	use({ "iamcco/markdown-preview.nvim", run = "cd app & yarn install", cmd = "MarkdownPreview" })
+	use({
+		"iamcco/markdown-preview.nvim",
+		run = "cd app & yarn install",
+		cmd = "MarkdownPreview",
+		setup = function()
+			vim.g.mkdp_filetypes = { "markdown" }
+		end,
+		ft = { "markdown" },
+	})
 	-- Delve Debugging
 	use("sebdah/vim-delve")
 	-- Grammar checking for posts
