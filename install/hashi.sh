@@ -1,3 +1,5 @@
+#! /usr/bin/zsh
+
 urls=(
     consul
     consul-k8s
