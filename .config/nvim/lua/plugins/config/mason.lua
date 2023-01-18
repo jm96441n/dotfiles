@@ -58,7 +58,7 @@ require("mason-tool-installer").setup({
 		-- lua
 		"lua-language-server",
 		"stylua",
-		"proto",
+		-- "proto",
 		"buf",
 		-- misc
 		"editorconfig-checker",

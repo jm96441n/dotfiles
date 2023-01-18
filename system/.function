@@ -1,14 +1,20 @@
+#! /usr/bin/zsh
+
 function mk() {
-    mkdir -p "$@" && cd "$@"
+    mkdir -p "$@"
 }
 
-assume() {
-    role=$1
-    local creds=$(aws sts assume-role --role-arn arn:aws:iam::496584544324:role/$role --role-session-name role-assume-test)
-    echo $creds
-    export AWS_SESSION_TOKEN=$(echo $creds|jq -r '.[].SessionToken'|tr -d "\n"|sed 's/null//')
-    export AWS_ACCESS_KEY_ID=$(echo -n $creds|jq -r '.[].AccessKeyId'|tr -d "\n"|sed 's/null//')
-    export AWS_SECRET_ACCESS_KEY=$(echo -n $creds|jq -r '.[].SecretAccessKey'|tr -d "\n"|sed 's/null//')
+function mkcd() {
+    mkdir -p "$@" && cd "$@"
+
+}
+
+function gotest() {
+    if [ -z "$1" ]; then
+        go test ./... -v -json | gotestfmt -hide empty-packages
+    else
+        go test -run "$@" -v -json | gotestfmt -hide empty-packages
+    fi
 }
 
 # Show 256 TERM colors
@@ -40,12 +46,4 @@ create_venv() {
     python -m venv .
     echo "layout python" >> .envrc
     direnv allow
-}
-
-cgls () {
-    gcl $1 ~/cbi/services/
-}
-
-cglj () {
-    gcl $1 ~/cbi/jobs/
 }

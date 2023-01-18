@@ -37,24 +37,8 @@ alias ir="vim ~/.dotfiles/.config/i3/config"
 
 
 # Named Directories
-hash -d gsu=$HOME/cbi/utils/go-service-utils
-hash -d psu=$HOME/cbi/utils/python-service-utils
-hash -d gt=$HOME/cbi/templates/go-service
-hash -d pst=$HOME/cbi/templates/python-service
-hash -d pjt=$HOME/cbi/templates/python-job
-hash -d puts=$HOME/cbi/services/python-utils-test-service
-hash -d cli=$HOME/cbi/cli/cbi
-
 hash -d projects=$HOME/Projects
 hash -d dot=$HOME/.dotfiles
-
-alias gsu=~gsu
-alias psu=~psu
-alias gt=~gt
-alias pst=~pst
-alias pjt=~pjt
-alias cli=~cli
-alias puts=~puts
 
 alias projects=~projects
 alias dot=~dot
