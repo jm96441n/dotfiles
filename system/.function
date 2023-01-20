@@ -11,9 +11,9 @@ function mkcd() {
 
 function gotest() {
     if [ -z "$1" ]; then
-        go test ./... -v -json | gotestfmt -hide empty-packages
+        go test ./... -v -json -cover | gotestfmt -hide empty-packages
     else
-        go test -run "$@" -v -json | gotestfmt -hide empty-packages
+        go test "$@" -v -json -cover | gotestfmt -hide empty-packages
     fi
 }
 
