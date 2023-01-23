@@ -79,21 +79,9 @@
   required = true
 [user]
     name = jm96441n
-    email = john@johnmaguirdeveloper.com
-[includeIf "gitdir:~/cbi/"]
-    path = ~/.dotfiles/git/work/.gitconfig
-[includeIf "gitdir:/home/john.maguire/"]
-    path = ~/.dotfiles/git/work/.gitconfig
-[includeIf "gitdir:$HOME/.dotfiles"]
-    path = ~/.dotfiles/git/personal/.gitconfig
-[includeIf "gitdir:$HOME/AdventOfCode"]
-    path = ~/.dotfiles/git/personal/.gitconfig
-[includeIf "gitdir:$HOME/omscs"]
-    path = ~/.dotfiles/git/omscs/.gitconfig
+    email = john@jmaguire.tech
 [grep]
   linenumber = true
-[url "ssh://git@gitlab.cbinsights.com/"]
-  insteadOf = https://gitlab.cbinsights.com/
 [url "ssh://git@github.com/"]
 	insteadOf = https://github.com/
 [init]
