@@ -21,7 +21,6 @@ alias yolo="be rake db:drop;be rake db:create;"
 
 
 # Fix grep to use color and show line numbers
-alias grep="grep -nr --color=auto"
 alias fgrep="fgrep --color=auto"
 alias egrep="egrep --color=auto"
 

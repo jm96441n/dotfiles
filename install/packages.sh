@@ -1,3 +1,5 @@
+#! /usr/bin/zsh
+
 function linux_install() {
     . /etc/os-release
     OS=$NAME
@@ -12,6 +14,10 @@ function linux_install() {
     fc-cache -fv
     # install kitty
     curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
+
+    # install k9s
+    sudo wget -qO- https://github.com/derailed/k9s/releases/download/v0.26.7/k9s_Linux_x86_64.tar.gz | tar zxvf -  -C /tmp/
+    sudo mv /tmp/k9s /usr/local/bin
 
 }
 
