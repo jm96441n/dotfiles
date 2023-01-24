@@ -60,7 +60,7 @@ ln -sfv "$DOTFILES_DIR/.config/.Xresources" $HOME
 ln -sfv "$DOTFILES_DIR/.config/kitty" "$HOME/.config"
 ln -sfv "$DOTFILES_DIR/.config/jrnl" "$HOME/.config"
 ln -sfv "$DOTFILES_DIR/.config/.tmuxinator" "$HOME/.config"
-ln -sfv "$DOTFILES_DIR/.config/autorandr/postswitch" "$HOME/.config/autorandr/postswtich"
+ln -sfv "$DOTFILES_DIR/.config/autorandr/postswitch" "$HOME/.config/autorandr/postswitch"
 
 # Package managers & pagkages
 . "$DOTFILES_DIR/install/packages.sh"
