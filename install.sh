@@ -35,6 +35,8 @@ PATH="$DOTFILES_DIR/bin:$PATH"
 if is-executable git -a -d "$DOTFILES_DIR/.git"; then git --work-tree="$DOTFILES_DIR" --git-dir="$DOTFILES_DIR/.git" pull origin master; fi
 
 mkdir -p "$HOME/i3"
+mkdir -p "$HOME/.config/autorandr"
+mkdir -p "$HOME/.config/k9s"
 
 # Bunch of symlinks
 ln -sfv "$DOTFILES_DIR/.config/zsh/.zshrc" $HOME
@@ -61,6 +63,7 @@ ln -sfv "$DOTFILES_DIR/.config/kitty" "$HOME/.config"
 ln -sfv "$DOTFILES_DIR/.config/jrnl" "$HOME/.config"
 ln -sfv "$DOTFILES_DIR/.config/.tmuxinator" "$HOME/.config"
 ln -sfv "$DOTFILES_DIR/.config/autorandr/postswitch" "$HOME/.config/autorandr/postswitch"
+ln -sfv "$DOTFILES_DIR/.config/k9s/skin.yml" "$HOME/.config/k9s/skin.yml"
 
 # Package managers & pagkages
 . "$DOTFILES_DIR/install/packages.sh"
