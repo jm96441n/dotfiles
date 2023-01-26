@@ -5,13 +5,8 @@ set -eEuo pipefail
 sudo apt update && sudo apt upgrade -y
 
 function install() {
-  INSTALLED=$(apt list -a "$1" | grep -i "$1")
-  if [ $INSTALLED -ne 0 ]; then
     echo "Installing: ${1}..."
     sudo apt install -y $1
-  else
-    echo "Already installed: ${1}"
-  fi
 }
 
 # setup for docker
@@ -19,7 +14,7 @@ if [ ! -f /etc/apt/keyrings/docker.gpg ]; then
     sudo mkdir -p /etc/apt/keyrings
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
     echo \
-      "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
+      "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
       $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list >/dev/null
 fi
 

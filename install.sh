@@ -82,20 +82,27 @@ if [ -d "$DOTFILES_EXTRA_DIR" -a -f "$DOTFILES_EXTRA_DIR/install.sh" ]; then
     . "$DOTFILES_EXTRA_DIR/install.sh"
 fi
 
+
+PATH="$HOME/.cargo/bin:$PATH"
+
 # add theme for bat
 mkdir -p "$(bat --config-dir)/themes"
 cd "$(bat --config-dir)/themes"
 
-# Download a theme in '.tmTheme' format, for example:
-git clone https://github.com/mhanberg/forest-night-textmate.git
+if [ ! -d "$(bat --config-dir)/themes/forest-night-textmate" ]; then
+    # Download a theme in '.tmTheme' format, for example:
+    git clone https://github.com/mhanberg/forest-night-textmate.git
+fi
 
 # Update the binary cache
 bat cache --build
 
 cd ~
 
-mkdir ~/.themes
-git clone https://github.com/theory-of-everything/everforest-gtk ~/.themes/everforest-gtk
+mkdir -p ~/.themes
+if [ ! -d "$HOME/.themes/everforest-gt" ]; then
+    git clone https://github.com/theory-of-everything/everforest-gtk ~/.themes/everforest-gtk
+fi
 
 # tell flatpak to use everforest-gtk theme
 sudo flatpak override --filesystem=$HOME/.themes
