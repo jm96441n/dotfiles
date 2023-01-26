@@ -242,6 +242,8 @@ client.focused_inactive #32302f #32302f #dfbf8e #32302f   #32302f
 ####################
 # Auto startup #####
 ####################
+# handle if starting with external monitor attached
+exec autorandr -c
 # Status bar
 exec ~/.config/polybar/launch-bar.sh
 # Compositor
@@ -257,6 +259,7 @@ exec setxkbmap -option "ctrl:nocaps"
 # Set mouse speed
 exec xinput set-prop 'SynPS/2 Synaptics TouchPad' 'libinput Accel Speed' 1.0
 exec xset r rate 200 25
+
 
 exec --no-startup-id i3-msg 'workspace 1: term; exec kitty'
 exec --no-startup-id i3-msg 'workspace 2: web; exec firefox'
