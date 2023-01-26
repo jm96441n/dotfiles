@@ -68,15 +68,15 @@ ln -sfv "$DOTFILES_DIR/.config/autorandr/postswitch" "$HOME/.config/autorandr/po
 ln -sfv "$DOTFILES_DIR/.config/k9s/skin.yml" "$HOME/.config/k9s/skin.yml"
 
 # Package managers & pagkages
-. "$DOTFILES_DIR/install/packages.sh"
-. "$DOTFILES_DIR/install/asdf_install.sh"
-. "$DOTFILES_DIR/install/autokey-github.sh"
+#. "$DOTFILES_DIR/install/packages.sh"
+#. "$DOTFILES_DIR/install/asdf_install.sh"
+#. "$DOTFILES_DIR/install/autokey-github.sh"
 
 ln -sfv "$DOTFILES_DIR/git/.gitconfig" $HOME
 ln -sfv "$DOTFILES_DIR/git/.githelpers" $HOME
 ln -sfv "$DOTFILES_DIR/git/.gitignore_global" $HOME
 
-. "$DOTFILES_DIR/install/projects.sh"
+#. "$DOTFILES_DIR/install/projects.sh"
 
 # Install extra stuff
 

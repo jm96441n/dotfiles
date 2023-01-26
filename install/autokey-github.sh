@@ -5,7 +5,6 @@
 # Usage
 #   chmod +x autokey-github.sh
 #   ./autokey-github.sh <YOUR-GITHUB-ACCESS-TOKEN>
-
 # Reference
 #   https://gist.github.com/petersellars/c6fff3657d53d053a15e57862fc6f567
 #   https://nathanielhoag.com/blog/2014/05/26/automate-ssh-key-generation-and-deployment/
@@ -17,7 +16,7 @@
 set -e
 
 npm install -g @bitwarden/cli
-bw login --apikey
+bw login --apikey || true
 echo "Logged in!"
 
 export BW_SESSION=$(bw unlock --passwordenv BW_PASSWORD --raw)

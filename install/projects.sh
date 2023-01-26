@@ -1,3 +1,5 @@
+#! /usr/bin/zsh
+
 urls=(
     AdventOfCode
     TheRustBook

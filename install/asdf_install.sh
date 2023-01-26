@@ -41,7 +41,8 @@ asdf install nodejs 18.5.0
 asdf global nodejs 18.5.0
 
 # install rust
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+# curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+export PATH="$HOME/.cargo/bin:$PATH"
 install_default_cargo_crates() {
     local default_cargo_crates="${HOME}/.default-cargo-crates"
 
@@ -56,7 +57,7 @@ install_default_cargo_crates() {
 
         if [ -z "$name" ]; then continue; fi
         echo -ne "\nInstalling \033[33m${name}\033[39m cargo crate... "
-        PATH="$ASDF_INSTALL_PATH/bin:$PATH" cargo install "$name" >/dev/null && rc=$? || rc=$?
+        cargo install "$name" >/dev/null && rc=$? || rc=$?
         if [[ $rc -eq 0 ]]; then
             echo -e "\033[32mSUCCESS\033[39m"
         else
