@@ -2,3 +2,5 @@ starship
 stylua
 ripgrep
 fd-find
+bat
+git-delta
