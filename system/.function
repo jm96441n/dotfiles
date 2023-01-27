@@ -6,8 +6,13 @@ function mk() {
 
 function mkcd() {
     mkdir -p "$@" && cd "$@"
-
 }
+
+function mkfile() {
+    mkdir -p "$(dirname $1)" && touch "$1"
+}
+
+
 
 function gotest() {
     if [ -z "$1" ]; then

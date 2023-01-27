@@ -80,6 +80,8 @@
 [user]
     name = jm96441n
     email = john@jmaguire.tech
+[includeIf "gitdir:~/hashi/"]
+    path = ~/.dotfiles/git/hashi/.gitconfig
 [grep]
   linenumber = true
 [url "ssh://git@github.com/"]
