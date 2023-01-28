@@ -1,4 +1,4 @@
-#!/usr/bin/zsh
+#!/usr/bin/bash
 # Requirements
 #   You will need to have created a GitHub Access Token with admin:public_key permissions
 

@@ -1,4 +1,4 @@
-#! /usr/bin/zsh
+#! /usr/bin/bash
 
 function linux_install() {
     . /etc/os-release
