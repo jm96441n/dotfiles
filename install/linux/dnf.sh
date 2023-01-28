@@ -85,6 +85,7 @@ install i3status
 install jemalloc-devel
 install jq
 install kubectl
+install k9s
 install libconfig-devel
 install libffi-devel
 install libdrm-devel

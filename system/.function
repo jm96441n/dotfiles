@@ -1,20 +1,19 @@
 #! /usr/bin/zsh
 
-function mk() {
+# useful file/directory creation
+mk() {
     mkdir -p "$@"
 }
 
-function mkcd() {
+mkcd() {
     mkdir -p "$@" && cd "$@"
 }
 
-function mkfile() {
-    mkdir -p "$(dirname $1)" && touch "$1"
+mkfile() {
+    mkdir -p $(dirname "$1") && touch "$1"
 }
 
-
-
-function gotest() {
+gotest() {
     if [ -z "$1" ]; then
         go test ./... -v -json -cover | gotestfmt -hide empty-packages
     else
