@@ -53,6 +53,7 @@ install direnv
 install containerd.io
 install exa
 install flatpak
+install flameshot
 install feh
 install fzf
 install gcc
