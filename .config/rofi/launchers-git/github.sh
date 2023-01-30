@@ -11,5 +11,5 @@ elif [ "${1::1}" == "!" ]; then
     arr="${arr//\"/}"
     echo "$arr"
 else
-    xdg-open "$BASE_URL/$1"
+    xdg-open "$BASE_URL/$1" >/dev/null 2>&1
 fi
