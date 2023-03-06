@@ -1,6 +1,7 @@
 #! /bin/bash
 
-echo $(python "$HOME/.dotfiles/.config/rofi/launchers-git/github.py" "$@")
+. "$HOME/.dotfiles/system/.private_env"
+$HOME/.asdf/shims/python "$HOME/.dotfiles/.config/rofi/launchers-git/github.py" "$@"
 
 #BASE_URL="https://github.com"
 #if [ -z "$1" ]; then
