@@ -27,7 +27,14 @@ return require("packer").startup(function(use)
 	use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } })
 
 	-- get some nicer UI around lsp issues
-	use("https://git.sr.ht/~whynothugo/lsp_lines.nvim")
+	-- use("https://git.sr.ht/~whynothugo/lsp_lines.nvim")
+	use({
+		"folke/trouble.nvim",
+		requires = "nvim-tree/nvim-web-devicons",
+		config = function()
+			require("trouble").setup()
+		end,
+	})
 	-- autocomplete with nvmp-cmp
 	use("hrsh7th/cmp-nvim-lsp")
 	use("hrsh7th/cmp-buffer")
@@ -65,15 +72,6 @@ return require("packer").startup(function(use)
 	-- Shows git diff in gutter
 	use("airblade/vim-gitgutter")
 	-- Markdown preview
-	use({
-		"iamcco/markdown-preview.nvim",
-		run = "cd app & yarn install",
-		cmd = "MarkdownPreview",
-		setup = function()
-			vim.g.mkdp_filetypes = { "markdown" }
-		end,
-		ft = { "markdown" },
-	})
 	-- Delve Debugging
 	use("sebdah/vim-delve")
 	-- Grammar checking for posts
@@ -102,6 +100,54 @@ return require("packer").startup(function(use)
 	use("tpope/vim-rhubarb")
 	-- vim-projectionist to jump between related files
 	use("tpope/vim-projectionist")
+	-- vim-surround to more easily quote stuff
+	use("tpope/vim-surround")
+	-- hop for better navigation
+	use({
+		"phaazon/hop.nvim",
+		branch = "v2", -- optional but strongly recommended
+	})
+
+	-- which key to get better
+	use({
+		"folke/which-key.nvim",
+		config = function()
+			vim.o.timeout = true
+			vim.o.timeoutlen = 300
+			require("which-key").setup()
+		end,
+	})
+
+	use({
+		"RRethy/vim-illuminate",
+		event = { "BufReadPost", "BufNewFile" },
+		opts = { delay = 200 },
+		config = function(_, opts)
+			require("illuminate").configure(opts)
+
+			local function map(key, dir, buffer)
+				vim.keymap.set("n", key, function()
+					require("illuminate")["goto_" .. dir .. "_reference"](false)
+				end, { desc = dir:sub(1, 1):upper() .. dir:sub(2) .. " Reference", buffer = buffer })
+			end
+
+			map("]]", "next")
+			map("[[", "prev")
+
+			-- also set it after loading ftplugins, since a lot overwrite [[ and ]]
+			vim.api.nvim_create_autocmd("FileType", {
+				callback = function()
+					local buffer = vim.api.nvim_get_current_buf()
+					map("]]", "next", buffer)
+					map("[[", "prev", buffer)
+				end,
+			})
+		end,
+		keys = {
+			{ "]]", desc = "Next Reference" },
+			{ "[[", desc = "Prev Reference" },
+		},
+	})
 
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins

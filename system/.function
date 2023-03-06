@@ -13,6 +13,14 @@ mkfile() {
     mkdir -p $(dirname "$1") && touch "$1"
 }
 
+extract() {
+    tar -xvf "$1"
+}
+
+compress() {
+    tar -czvf "$1" "$2"
+}
+
 gotest() {
     if [ -z "$1" ]; then
         go test ./... -v -json -cover | gotestfmt -hide empty-packages

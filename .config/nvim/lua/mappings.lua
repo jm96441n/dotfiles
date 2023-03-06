@@ -1,5 +1,4 @@
 local vim = vim
-local api = vim.api
 
 local M = {}
 -- map helper
@@ -8,17 +7,17 @@ function M.map(mode, lhs, rhs, opts)
 	if opts then
 		options = vim.tbl_extend("force", options, opts)
 	end
-	api.nvim_set_keymap(mode, lhs, rhs, options)
+	vim.keymap.set(mode, lhs, rhs, options)
 end
 
-local virtual_lines_enabled = true
-local function toggleVirtualLines()
-	virtual_lines_enabled = not virtual_lines_enabled
-	vim.diagnostic.config({
-		virtual_lines = virtual_lines_enabled,
-		virtual_text = not virtual_lines_enabled,
-	})
-end
+--local virtual_lines_enabled = true
+--local function toggleVirtualLines()
+--	virtual_lines_enabled = not virtual_lines_enabled
+--	vim.diagnostic.config({
+--		virtual_lines = virtual_lines_enabled,
+--		virtual_text = not virtual_lines_enabled,
+--	})
+--end
 
 -- mappings
 ---- save and exit
@@ -65,7 +64,7 @@ M.map("n", "<leader>aa", ":A<CR>", { silent = true })
 M.map("n", "<leader>av", ":AV<CR>", { silent = true })
 
 -- toggle virtual lines
-M.map("n", "<leader>lt", "", { callback = toggleVirtualLines })
+-- M.map("n", "<leader>lt", "", { callback = toggleVirtualLines })
 
 --tmux sessionizer
 M.map("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
@@ -93,4 +92,11 @@ M.map("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
 -- via <Plug>luasnip-expand-snippet and <Plug>luasnip-jump-next.
 M.map("i", "<c-j>", "<cmd>lua require('luasnip').jump(1)<CR>", opts)
 M.map("i", "<c-k>", "<cmd>lua require('luasnip').jump(-1)<CR>", opts)
+
+M.map("n", "<leader>xx", "<cmd>TroubleToggle<cr>", { silent = true, noremap = true })
+M.map("n", "<leader>xw", "<cmd>TroubleToggle workspace_diagnostics<cr>", { silent = true, noremap = true })
+M.map("n", "<leader>xd", "<cmd>TroubleToggle document_diagnostics<cr>", { silent = true, noremap = true })
+M.map("n", "<leader>xl", "<cmd>TroubleToggle loclist<cr>", { silent = true, noremap = true })
+M.map("n", "<leader>xq", "<cmd>TroubleToggle quickfix<cr>", { silent = true, noremap = true })
+M.map("n", "gR", "<cmd>TroubleToggle lsp_references<cr>", { silent = true, noremap = true })
 return M

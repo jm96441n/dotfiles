@@ -49,7 +49,7 @@ require("mason-tool-installer").setup({
 		"pylint",
 		-- terraform
 		"tflint",
-		"terraform-ls",
+		--"terraform-ls",
 		-- javascript
 		"eslint-lsp",
 		"prettier",
@@ -96,9 +96,9 @@ mason_lsp_config.setup_handlers({
 	end,
 })
 
-require("lsp_lines").setup()
-vim.diagnostic.config({
-	virtual_text = false, -- removes duplication of diagnostic messages due to lsp_lines
-	virtual_lines = true,
-	float = { source = "always" },
-})
+--require("lsp_lines").setup()
+--vim.diagnostic.config({
+--	virtual_text = false, -- removes duplication of diagnostic messages due to lsp_lines
+--	virtual_lines = true,
+--	float = { source = "always" },
+--})

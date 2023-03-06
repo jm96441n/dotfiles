@@ -10,6 +10,21 @@ require("formatter").setup({
 		go = {
 			require("formatter.filetypes.go").gofumpt,
 			require("formatter.filetypes.go").goimports,
+			function()
+				return {
+					exe = "goimports",
+					args = { "--local github.com/hashicorp" },
+					stdin = true,
+				}
+			end,
+
+			function()
+				return {
+					exe = "gofmt",
+					args = { "-s" },
+					stdin = true,
+				}
+			end,
 		},
 		lua = {
 			require("formatter.filetypes.lua").stylua,

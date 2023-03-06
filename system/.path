@@ -4,7 +4,6 @@
 PATH=$(`command -v getconf` PATH)
 
 # Prepend new items to path (if directory exists)
-
 prepend-path "/bin"
 prepend-path "/usr/bin"
 prepend-path "/snap/bin"

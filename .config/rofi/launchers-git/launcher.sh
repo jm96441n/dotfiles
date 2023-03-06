@@ -1,5 +1,3 @@
 #!/bin/bash
 
-style="blurry_full"
-
-zsh -c "rofi -show drun -theme $HOME/.config/rofi/themes/everforest-dark.rasi"
+zsh -c "source $HOME/.dotfiles/system/.private_env && rofi -show github -theme $HOME/.config/rofi/themes/everforest-dark.rasi -log $HOME/rofi.log"
