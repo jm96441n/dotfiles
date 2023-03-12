@@ -29,9 +29,9 @@ asdf global python 3.10.4
 # Golang
 asdf plugin-add golang
 
-asdf install golang 1.19.5
+asdf install golang 1.20.2
 
-asdf global golang 1.19.5
+asdf global golang 1.20.2
 
 # nodejs
 asdf plugin-add nodejs
@@ -41,14 +41,14 @@ asdf install nodejs 18.5.0
 asdf global nodejs 18.5.0
 
 # install rust
-# curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 export PATH="$HOME/.cargo/bin:$PATH"
 install_default_cargo_crates() {
     local default_cargo_crates="${HOME}/.default-cargo-crates"
 
     if [ ! -f "$default_cargo_crates" ]; then return; fi
 
-    cat "$default_cargo_crates" | while read -r line; do
+    while read -r line <"$default_cargo_crates"; do
         name=$(
             echo "$line" |
                 sed 's|\(.*\) //.*$|\1|' |

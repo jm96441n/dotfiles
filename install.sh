@@ -71,7 +71,6 @@ ln -sfv "$DOTFILES_DIR/.config/k9s/skin.yml" "$HOME/.config/k9s/skin.yml"
 
 ln -sfv "$DOTFILES_DIR/git/.gitconfig" "$HOME"
 ln -sfv "$DOTFILES_DIR/git/.githelpers" "$HOME"
-ln -sfv "$DOTFILES_DIR/git/.gitignore_global" "$HOME"
 
 . "$DOTFILES_DIR/install/projects.sh"
 
