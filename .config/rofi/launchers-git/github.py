@@ -19,7 +19,6 @@ def main():
         "Authorization": f"Bearer {token}",
         "X-GitHub-Api-Version": "2022-11-28",
     }
-
     args = sys.argv[-1]
     if args[0] == "-":
         term = args[1:]
