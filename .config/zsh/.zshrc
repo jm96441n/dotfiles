@@ -61,6 +61,7 @@ eval "$(starship init zsh)"
 
 eval "$(ssh-agent -s)" &>/dev/null
 ssh-add ~/.ssh/github_rsa &>/dev/null
+ssh-add ~/.ssh/hashi &>/dev/null
 
 eval $(thefuck --alias)
 

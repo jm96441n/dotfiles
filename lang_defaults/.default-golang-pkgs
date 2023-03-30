@@ -6,3 +6,4 @@ golang.org/x/tools/cmd/goimports@latest
 github.com/gotesttools/gotestfmt/v2/cmd/gotestfmt@latest
 sigs.k8s.io/kind@latest
 github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+gotest.tools/gotestsum@latest
