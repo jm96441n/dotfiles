@@ -118,6 +118,12 @@ return require("packer").startup(function(use)
 		end,
 	})
 
+	-- toggleterm to open terminals
+	use({
+		"akinsho/toggleterm.nvim",
+		tag = "*",
+	})
+
 	use({
 		"RRethy/vim-illuminate",
 		event = { "BufReadPost", "BufNewFile" },
@@ -148,6 +154,12 @@ return require("packer").startup(function(use)
 			{ "[[", desc = "Prev Reference" },
 		},
 	})
+
+	use("chrisbra/Colorizer")
+
+	use({ "ThePrimeagen/harpoon", requires = "nvim-lua/plenary.nvim" })
+
+	use("stevearc/aerial.nvim")
 
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins

@@ -43,7 +43,7 @@ M.map("i", "<right>", "<nop>", { noremap = true })
 M.map("n", "<leader>bb", "<c-^><cr>")
 
 --- Call :Rg on the word under the cursor
-M.map("n", "<leader>a", '<cmd>lua require("utils").RgSearch()<CR>', { noremap = true })
+M.map("n", "<leader>s", '<cmd>lua require("utils").RgSearch()<CR>', { noremap = true })
 
 -- vim-test mappings
 M.map("n", "t<C-n>", "<cmd>TestNearest<CR>", { silent = true })
@@ -93,10 +93,18 @@ M.map("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
 M.map("i", "<c-j>", "<cmd>lua require('luasnip').jump(1)<CR>", opts)
 M.map("i", "<c-k>", "<cmd>lua require('luasnip').jump(-1)<CR>", opts)
 
+-- trouble
 M.map("n", "<leader>xx", "<cmd>TroubleToggle<cr>", { silent = true, noremap = true })
 M.map("n", "<leader>xw", "<cmd>TroubleToggle workspace_diagnostics<cr>", { silent = true, noremap = true })
 M.map("n", "<leader>xd", "<cmd>TroubleToggle document_diagnostics<cr>", { silent = true, noremap = true })
 M.map("n", "<leader>xl", "<cmd>TroubleToggle loclist<cr>", { silent = true, noremap = true })
 M.map("n", "<leader>xq", "<cmd>TroubleToggle quickfix<cr>", { silent = true, noremap = true })
 M.map("n", "gR", "<cmd>TroubleToggle lsp_references<cr>", { silent = true, noremap = true })
+
+-- harpoon
+M.map("n", "ha", "<cmd>lua require('harpoon.mark').add_file()<cr>", { silent = true, noremap = true })
+M.map("n", "hm", "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>", { silent = true, noremap = true })
+
+-- aerial
+M.map("n", "<leader>at", "<cmd>AerialToggle<cr>", { silent = true, noremap = true })
 return M

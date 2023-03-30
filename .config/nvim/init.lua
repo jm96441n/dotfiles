@@ -17,3 +17,6 @@ require("plugins.config.vimtest")
 require("settings")
 require("mappings")
 require("autocmd")
+
+require("toggleterm").setup()
+require("aerial").setup()
