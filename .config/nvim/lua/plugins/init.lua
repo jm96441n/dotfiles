@@ -102,6 +102,9 @@ return require("packer").startup(function(use)
 	use("tpope/vim-projectionist")
 	-- vim-surround to more easily quote stuff
 	use("tpope/vim-surround")
+	-- vim-commentary to more easily comment stuff
+	use("tpope/vim-commentary")
+
 	-- hop for better navigation
 	use({
 		"phaazon/hop.nvim",

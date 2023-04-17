@@ -111,6 +111,24 @@ mason_lsp_config.setup_handlers({
 		else
 			lspconfig[server_name].setup({})
 		end
+		if server_name == "yamlls" then
+			local util = require("lspconfig/util")
+			lspconfig.yamlls.setup({
+				cmd = { "yaml-language-server", "--stdio" },
+				filetypes = { "yaml", "yaml.docker-compose" },
+				root_dir = util.find_git_ancestor,
+				single_file_support = true,
+				settings = {
+					-- https://github.com/redhat-developer/vscode-redhat-telemetry#how-to-disable-telemetry-reporting
+					redhat = { telemetry = { enabled = false } },
+					yaml = {
+						keyOrdering = false,
+					},
+				},
+			})
+		else
+			lspconfig[server_name].setup({})
+		end
 	end,
 })
 

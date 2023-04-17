@@ -1,6 +1,11 @@
 if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
     exec startx
 fi
+
+eval "$(ssh-agent -s)" &>/dev/null
+ssh-add ~/.ssh/github_rsa &>/dev/null
+ssh-add ~/.ssh/hashi &>/dev/null
+
 # Path to your oh-my-zsh installation.
 export ZSH=~"/.oh-my-zsh"
 export ZSH_PATH=$(which zsh)
@@ -58,10 +63,6 @@ fi
 neofetch --kitty --source "~/.dotfiles/wallpaper/wave_wallpaper.png" --crop_mode fit
 
 eval "$(starship init zsh)"
-
-eval "$(ssh-agent -s)" &>/dev/null
-ssh-add ~/.ssh/github_rsa &>/dev/null
-ssh-add ~/.ssh/hashi &>/dev/null
 
 eval $(thefuck --alias)
 

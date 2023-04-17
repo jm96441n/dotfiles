@@ -242,17 +242,6 @@ client.focused_inactive #32302f #32302f #dfbf8e #32302f   #32302f
 ####################
 # Auto startup #####
 ####################
-# handle if starting with external monitor attached
-exec autorandr -c
-# Status bar
-exec ~/.config/polybar/launch-bar.sh
-# Compositor
-exec picom --config ~/.config/compton/compton.conf -b --log-file /tmp/compton.log --experimental-backends
-# Wallpaper
-exec feh --bg-fill ~/.dotfiles/wallpaper/jacob-everforest.jpg
-# Brightness
-exec xrandr --output LVDS-0 --brightness .6
-
 exec xrdb -merge ~/.Xresources
 # Turn off caps lock for ctrl
 exec setxkbmap -option "ctrl:nocaps"
@@ -266,6 +255,16 @@ exec --no-startup-id i3-msg 'workspace 2: web; exec firefox'
 exec --no-startup-id i3-msg 'workspace 3: chat; exec "flatpak run org.ferdium.Ferdium"'
 exec --no-startup-id i3-msg 'workspace 4: spotify; exec "flatpak run com.spotify.Client"'
 
+# Status bar
+exec ~/.config/polybar/launch-bar.sh
+# Compositor
+exec picom --config ~/.config/compton/compton.conf -b --log-file /tmp/compton.log --experimental-backends
+# Wallpaper
+exec feh --bg-fill ~/.dotfiles/wallpaper/jacob-everforest.jpg
+# Brightness
+exec xrandr --output LVDS-0 --brightness .6
+# handle if starting with external monitor attached
+exec autorandr -c
 
 # Notification
 #exec dunst
