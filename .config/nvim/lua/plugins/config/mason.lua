@@ -93,24 +93,6 @@ mason_lsp_config.setup()
 
 mason_lsp_config.setup_handlers({
 	function(server_name)
-		if server_name == "gopls" then
-			local util = require("lspconfig/util")
-			lspconfig.gopls.setup({
-				cmd = { "gopls", "serve" },
-				filetypes = { "go", "gomod" },
-				root_dir = util.root_pattern("go.work", "go.mod", ".git"),
-				settings = {
-					gopls = {
-						analyses = {
-							unusedparams = true,
-						},
-						staticcheck = true,
-					},
-				},
-			})
-		else
-			lspconfig[server_name].setup({})
-		end
 		if server_name == "yamlls" then
 			local util = require("lspconfig/util")
 			lspconfig.yamlls.setup({

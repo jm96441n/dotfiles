@@ -163,7 +163,10 @@ return require("packer").startup(function(use)
 	use({ "ThePrimeagen/harpoon", requires = "nvim-lua/plenary.nvim" })
 
 	use("stevearc/aerial.nvim")
+	use("ray-x/go.nvim")
+	use("ray-x/guihua.lua")
 
+	-- nvim-go
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins
 	if packer_bootstrap then

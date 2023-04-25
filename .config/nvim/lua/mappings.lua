@@ -102,8 +102,8 @@ M.map("n", "<leader>xq", "<cmd>TroubleToggle quickfix<cr>", { silent = true, nor
 M.map("n", "gR", "<cmd>TroubleToggle lsp_references<cr>", { silent = true, noremap = true })
 
 -- harpoon
-M.map("n", "ha", "<cmd>lua require('harpoon.mark').add_file()<cr>", { silent = true, noremap = true })
-M.map("n", "hm", "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>", { silent = true, noremap = true })
+M.map("n", "<leader>ha", "<cmd>lua require('harpoon.mark').add_file()<cr>", { silent = true, noremap = true })
+M.map("n", "<leader>hm", "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>", { silent = true, noremap = true })
 
 -- aerial
 M.map("n", "<leader>at", "<cmd>AerialToggle<cr>", { silent = true, noremap = true })
