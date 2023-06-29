@@ -12,6 +12,7 @@ g.mapleader = " "
 g.fzf_history_dir = "~/.local/share/fzf-history"
 
 g.everforest_background = "hard"
+g.everforest_transparent_background = 1
 
 g.indentLine_setConceal = 1
 

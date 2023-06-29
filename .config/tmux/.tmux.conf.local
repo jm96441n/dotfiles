@@ -1,4 +1,8 @@
 set -g @plugin 'chritoomey/vim-tmux-navigator'
+set -g @plugin 'tmux-plugins/tmux-resurrect'
+set -g @plugin 'tmux-plugins/tmux-continuum'
+
+set -g @continuum-restore 'on'
 
 set -g mouse on
 set-option -g default-shell "$ZSH_PATH"
@@ -52,5 +56,4 @@ tmux_conf_theme_right_separator_sub='\uE0B3'
 
 
 tmux_conf_theme_status_right=' #{prefix}#{?battery_status, #{battery_status},}#{?battery_bar, #{battery_bar},}#{?battery_percentage, #{battery_percentage},} , %R , %d %b | #{username}#{root} | #{hostname} '
-
-
+run '~/.tmux/plugins/tpm/tpm'
