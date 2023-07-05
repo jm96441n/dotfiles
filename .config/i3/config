@@ -23,7 +23,7 @@ font pango:FiraCode Nerd Font 48
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --image ~/.dotfiles/wallpaper/jacob-everforest.jpg --show-failed-attempts --nofork
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --image ~/.dotfiles/wallpaper/space.png --show-failed-attempts --nofork
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
@@ -260,7 +260,7 @@ exec ~/.config/polybar/launch-bar.sh
 # Compositor
 exec picom --config ~/.config/compton/compton.conf -b --log-file /tmp/compton.log --experimental-backends
 # Wallpaper
-exec feh --bg-fill ~/.dotfiles/wallpaper/jacob-everforest.jpg
+exec feh --bg-fill ~/.dotfiles/wallpaper/space.png
 # Brightness
 exec xrandr --output LVDS-0 --brightness .6
 # handle if starting with external monitor attached
