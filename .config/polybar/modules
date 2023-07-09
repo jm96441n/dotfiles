@@ -360,6 +360,15 @@ ramp-signal-foreground = ${color.background}
 ramp-signal-background = ${color.magenta}
 ramp-signal-font = 2
 
+[module/suspend]
+type = custom/text
+content = "suspend"
+content-font = 4
+content-foreground= ${color.background}
+content-background = ${color.cyan}
+content-padding=1
+click-left=systemctl suspend
+
 [module/logout]
 type = custom/text
 content = "logout"

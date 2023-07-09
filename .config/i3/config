@@ -249,6 +249,8 @@ exec setxkbmap -option "ctrl:nocaps"
 exec xinput set-prop 'SynPS/2 Synaptics TouchPad' 'libinput Accel Speed' 1.0
 #exec xinput set-prop 'VEN_04F3:00 04F3:311C Touchpad' 'libinput Click Method Enabled' 0, 1
 #exec xinput set-prop 'VEN_04F3:00 04F3:311C Touchpad' 'libinput Tapping Enabled' 1
+exec xinput set-prop 'Synaptics TM3625-010' 'libinput Accel Speed' 1.0
+
 exec xset r rate 200 25
 
 

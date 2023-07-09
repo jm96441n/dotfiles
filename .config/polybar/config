@@ -50,7 +50,7 @@ font-1 = "Fira Code Nerd Font Mono:size=16;3"
 font-2 = "Fira Code Nerd Font Mono:size=15;4"
 font-3 = "Fira Code Nerd Font Mono:size=18;4"
 
-modules-right = spacing CLD logout CRD dot GLD lock GRD dot YLD reboot YRD dot RLD shutdown RRD
+modules-right = spacing CLD suspend CRD dot CLD logout CRD dot GLD lock GRD dot YLD reboot YRD dot RLD shutdown RRD
 
 spacing = 0
 dim-value = 1.0
@@ -149,4 +149,3 @@ compositing-border = over
 pseudo-transparency = false
 
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
-
