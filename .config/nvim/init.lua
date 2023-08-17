@@ -1,6 +1,5 @@
 require("utils")
 require("plugins")
---require("go.format").goimport()
 
 require("plugins.config.mason")
 require("plugins.config.ag")
@@ -22,13 +21,4 @@ require("autocmd")
 
 require("toggleterm").setup()
 require("aerial").setup()
-require("go").setup({
-	luasnip = true,
-	trouble = true,
-	run_in_floaterm = true,
-	floaterm = { -- position
-		posititon = "auto", -- one of {`top`, `bottom`, `left`, `right`, `center`, `auto`}
-		width = 0.45, -- width of float window if not auto
-		height = 0.98, -- height of float window if not auto
-	},
-})
+require("plugins.config.go")

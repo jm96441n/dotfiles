@@ -1,0 +1,21 @@
+k9s:
+  views:
+    # Alters the pod view column layout. Uses GVR as key
+    v1/pods:
+      columns:
+        - AGE
+        - NAME
+        - NAMESPACE
+        - READY
+        - NODE
+        - STATUS
+        - IP
+
+    # Alters the service view column layout
+    v1/services:
+      columns:
+        - AGE
+        - NAME
+        - NAMESPACE
+        - TYPE
+        - CLUSTER-IP

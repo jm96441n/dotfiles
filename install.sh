@@ -63,6 +63,7 @@ ln -sfv "$DOTFILES_DIR/.config/jrnl" "$HOME/.config"
 ln -sfv "$DOTFILES_DIR/.config/.tmuxinator" "$HOME/.config"
 ln -sfv "$DOTFILES_DIR/.config/autorandr" "$HOME/.config/"
 ln -sfv "$DOTFILES_DIR/.config/k9s/skin.yml" "$HOME/.config/k9s/skin.yml"
+ln -sfv "$DOTFILES_DIR/.config/k9s/views.yml" "$HOME/.config/k9s/views.yml"
 
 # Package managers & pagkages
 . "$DOTFILES_DIR/install/packages.sh"

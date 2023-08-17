@@ -15,7 +15,7 @@ echo "git stat"
 git stat
 vared -p "Press (c) to continue reviewing: " -c tmp
 
-merge_commit=$(git merge-base HEAD origin/master)
+merge_commit=$(git merge-base HEAD origin/main)
 git reset --soft $merge_commit
 git reset  # to make everything unstaged
 git review
