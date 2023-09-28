@@ -13,6 +13,16 @@ api.nvim_create_autocmd(
 	{ "BufRead", "BufNewFile" },
 	{ pattern = "*.md", command = "setlocal textwidth=120", group = format_group }
 )
+
+api.nvim_create_autocmd(
+	{ "BufRead", "BufNewFile" },
+	{ pattern = "*.tsx", command = "setlocal shiftwidth=2 tabstop=2", group = format_group }
+)
+
+api.nvim_create_autocmd(
+	{ "BufRead", "BufNewFile" },
+	{ pattern = "*.jsx", command = "setlocal shiftwidth=2 tabstop=2", group = format_group }
+)
 api.nvim_create_autocmd("BufWritePost", { pattern = "*", command = "FormatWrite", group = format_group })
 api.nvim_create_autocmd(
 	{ "BufReadPost", "FileReadPost" },
@@ -26,7 +36,6 @@ api.nvim_create_autocmd({ "BufReadPost", "FileReadPost", "BufWritePost" }, {
 })
 
 -- Run gofmt + goimport on save
-
 local format_sync_grp = vim.api.nvim_create_augroup("GoImport", {})
 vim.api.nvim_create_autocmd("BufWritePre", {
 	pattern = "*.go",
