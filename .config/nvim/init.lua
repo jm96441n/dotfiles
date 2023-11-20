@@ -6,7 +6,6 @@ require("plugins.config.ag")
 require("plugins.config.cmp")
 require("plugins.config.context")
 require("plugins.config.dap")
-require("plugins.config.hop")
 require("plugins.config.formatter")
 require("plugins.config.fugitive")
 require("plugins.config.indentBlankline")
@@ -21,4 +20,9 @@ require("autocmd")
 
 require("toggleterm").setup()
 require("aerial").setup()
+require("flash").setup()
 require("plugins.config.go")
+--require("hardtime").setup()
+require('glow').setup({
+  -- your override config
+})

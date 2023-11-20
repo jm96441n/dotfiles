@@ -25,6 +25,7 @@ plugins=(
     git-extras
     git-prompt
     kubectl
+    terraform
     tmux
     tmuxinator
     zsh-autosuggestions

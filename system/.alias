@@ -29,7 +29,7 @@ alias fgrep="fgrep --color=auto"
 alias egrep="egrep --color=auto"
 
 # Map vim to use neovim
-alias vim="nvim"
+alias v="nvim"
 
 # useful shortcuts for editing config files
 alias vr="vim ~/.dotfiles/.config/nvim/init.vim"

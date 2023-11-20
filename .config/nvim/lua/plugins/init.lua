@@ -76,8 +76,6 @@ return require("packer").startup(function(use)
 	use("sebdah/vim-delve")
 	-- Grammar checking for posts
 	use("rhysd/vim-grammarous")
-	-- Indent highlighting
-	use("Yggdroot/indentLine")
 
 	-- Run tests from vim
 	use({
@@ -105,10 +103,8 @@ return require("packer").startup(function(use)
 	-- vim-commentary to more easily comment stuff
 	use("tpope/vim-commentary")
 
-	-- hop for better navigation
 	use({
-		"phaazon/hop.nvim",
-		branch = "v2", -- optional but strongly recommended
+            'folke/flash.nvim',
 	})
 
 	-- which key to get better
@@ -165,6 +161,12 @@ return require("packer").startup(function(use)
 	use("stevearc/aerial.nvim")
 	use("ray-x/go.nvim")
 	use("ray-x/guihua.lua")
+
+        use {
+            "m4xshen/hardtime.nvim",
+            requires = { 'MunifTanjim/nui.nvim', "nvim-lua/plenary.nvim" }
+        }
+        use {"ellisonleao/glow.nvim", config = function() require("glow").setup() end}
 
 	-- nvim-go
 	-- Automatically set up your configuration after cloning packer.nvim

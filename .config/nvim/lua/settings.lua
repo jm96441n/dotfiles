@@ -14,7 +14,7 @@ g.fzf_history_dir = "~/.local/share/fzf-history"
 g.everforest_background = "hard"
 g.everforest_transparent_background = 1
 
-g.indentLine_setConceal = 1
+--g.indentLine_setConceal = 1
 
 opt.termguicolors = true
 opt.mouse = "c" -- turn off mouse
@@ -41,7 +41,7 @@ opt.foldmethod = "expr"
 opt.foldexpr = "nvim_treesitter#foldexpr()"
 
 opt.list = true
-opt.listchars:append("eol:↴")
+-- opt.listchars:append("eol:↴")
 
 -- tabs to 4 spaces
 opt.expandtab = true

@@ -66,7 +66,7 @@ require("mason-tool-installer").setup({
 		"css-lsp",
 		"gitlint",
 		"json-lsp",
-		"sqls",
+                "sqlls",
 		"yaml-language-server",
 	},
 
