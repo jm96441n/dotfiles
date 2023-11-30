@@ -41,4 +41,20 @@ ls.add_snippets(nil, {
 			text({ "", '\t"""', "pass" }),
 		}),
 	},
+	gohtmltmpl = {
+		snip({
+			trig = "{{",
+			namr = "GoHTML template block",
+			dscr = "GoHTML template block",
+		}, {
+			text({ "{{ " }),
+			insert(1),
+			text({ " }}", "" }),
+			text({ "" }),
+			insert(2),
+			text({ "", "{{ end }}" }),
+		}),
+	},
 })
+
+ls.filetype_extend("gohtmltmpl", { "html" })
