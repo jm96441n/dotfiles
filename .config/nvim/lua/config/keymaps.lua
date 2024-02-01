@@ -46,3 +46,32 @@ M.map("t", "<C-h>", [[<C-\><C-n><C-W>h]], { noremap = true })
 M.map("t", "<C-j>", [[<C-\><C-n><C-W>j]], { noremap = true })
 M.map("t", "<C-k>", [[<C-\><C-n><C-W>k]], { noremap = true })
 M.map("t", "<C-l>", [[<C-\><C-n><C-W>l]], { noremap = true })
+
+-- harpoon keyamps
+local harpoon = require("harpoon")
+local conf = require("telescope.config").values
+local function toggle_telescope(harpoon_files)
+  local file_paths = {}
+  for _, item in ipairs(harpoon_files.items) do
+    table.insert(file_paths, item.value)
+  end
+
+  require("telescope.pickers")
+    .new({}, {
+      prompt_title = "Harpoon",
+      finder = require("telescope.finders").new_table({
+        results = file_paths,
+      }),
+      previewer = conf.file_previewer({}),
+      sorter = conf.generic_sorter({}),
+    })
+    :find()
+end
+
+M.map("n", "<C-e>", function()
+  toggle_telescope(harpoon:list())
+end, { desc = "Open harpoon window" })
+
+M.map("n", "<leader>ha", function()
+  harpoon:list():append()
+end, { desc = "Mark file" })
