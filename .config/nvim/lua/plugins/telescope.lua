@@ -9,7 +9,7 @@ return {
     end,
   },
   keys = {
-    { "<C-p>", Util.telescope("files"), desc = "Find Files" },
+    { "<C-p>", Util.telescope("files", { cwd = false }), desc = "Find Files" },
   },
   config = function()
     local telescope = require("telescope")
