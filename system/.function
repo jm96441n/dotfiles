@@ -21,6 +21,18 @@ compress() {
     tar -czvf "$1" "$2"
 }
 
+cp_token() {
+  token=$(kubectl get --namespace consul secrets/consul-bootstrap-acl-token --template={{.data.token}} 2> /dev/null || true)
+  if [ -z "$token" ]; then
+    token=$(kubectl get --namespace consul secrets/consul-consul-bootstrap-acl-token --template={{.data.token}})
+  fi
+  echo $token | base64 -d | xsel --clipboard 
+}
+
+connect_logs() {
+  kl -n consul $(kgp -n consul --no-headers -o custom-columns=":metadata.name" | rg "consul-connect" | head -n 1) $1
+}
+
 gotest() {
     if [ -z "$1" ]; then
         go test ./... -v -json -cover | gotestfmt -hide empty-packages
@@ -72,4 +84,8 @@ newgke() {
     --num-nodes 4 \
     --zone $ZONE \
     --project $PROJECT_ID
+}
+
+kill_cpk() {
+  kill $(ps aux | grep "[c]loud-provider-kind" | awk -F ' ' '{print $2}')
 }

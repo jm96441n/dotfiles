@@ -73,5 +73,5 @@ M.map("n", "<C-e>", function()
 end, { desc = "Open harpoon window" })
 
 M.map("n", "<leader>ha", function()
-  harpoon:list():append()
+  harpoon:list():add()
 end, { desc = "Mark file" })
