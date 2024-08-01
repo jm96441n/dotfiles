@@ -1,4 +1,3 @@
-local Util = require("lazyvim.util")
 return {
   "nvim-telescope/telescope.nvim",
   dependencies = {
@@ -9,7 +8,7 @@ return {
     end,
   },
   keys = {
-    { "<C-p>", Util.telescope("files", { cwd = false }), desc = "Find Files" },
+    { "<C-p>", LazyVim.pick("files", { cwd = vim.uv.cwd() }), desc = "Find Files" },
   },
   config = function()
     local telescope = require("telescope")

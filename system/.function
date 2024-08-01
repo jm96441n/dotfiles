@@ -89,3 +89,10 @@ newgke() {
 kill_cpk() {
   kill $(ps aux | grep "[c]loud-provider-kind" | awk -F ' ' '{print $2}')
 }
+
+cvars() {
+  export CONSUL_HTTP_ADDR="127.0.0.1:8501"
+  export CONSUL_HTTP_TOKEN=$(kubectl get --namespace consul secrets/consul-consul-bootstrap-acl-token --template={{.data.token}} | base64 -d)
+  export CONSUL_HTTP_SSL=true
+  export CONSUL_HTTP_SSL_VERIFY=false
+}
