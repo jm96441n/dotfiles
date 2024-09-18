@@ -1,98 +1,137 @@
 #! /usr/bin/zsh
 
-# useful file/directory creation
+# mk will create directories that don't exist yet, the only arg necessary is the directory path
 mk() {
-    mkdir -p "$@"
+	mkdir -p "$@"
 }
 
+# mkcd will create directories that don't exist yet, the only arg necessary is the file path and cd to the newly created directory
 mkcd() {
-    mkdir -p "$@" && cd "$@"
+	mkdir -p "$@" && cd "$@"
 }
 
+# mkfile will create a file if it doesn't exist yet and create required directories if they don't exist, the only arg necessary is the file path
 mkfile() {
-    mkdir -p $(dirname "$1") && touch "$1"
+	mkdir -p $(dirname "$1") && touch "$1"
 }
 
+# extract will extract the contents of an archive file, the only arg necessary is the file path
 extract() {
-    tar -xvf "$1"
+	tar -xvf "$1"
 }
 
+# compress will compress the contents of a directory, the first arg is the output file and the second arg is the directory to compress
 compress() {
-    tar -czvf "$1" "$2"
+	tar -czvf "$1" "$2"
 }
 
+# cp_token will copy the Consul ACL token to the clipboard, if the namespace is not provided it will default to "consul"
 cp_token() {
-  token=$(kubectl get --namespace consul secrets/consul-bootstrap-acl-token --template={{.data.token}} 2> /dev/null || true)
-  if [ -z "$token" ]; then
-    token=$(kubectl get --namespace consul secrets/consul-consul-bootstrap-acl-token --template={{.data.token}})
-  fi
-  echo $token | base64 -d | xsel --clipboard 
+	ns="$1"
+	if [ -z "$ns" ]; then
+		ns="consul"
+	fi
+
+	token=$(kubectl get --namespace "$ns" secrets/consul-bootstrap-acl-token --template={{.data.token}} 2>/dev/null || true)
+	if [ -z "$token" ]; then
+		token=$(kubectl get --namespace "$ns" secrets/consul-consul-bootstrap-acl-token --template={{.data.token}})
+	fi
+	echo $token | base64 -d | xsel --clipboard
 }
 
+# connect_logs will connect to the Consul Connect logs, the argument is optional and allows you to follow the logs by passing "-f"
 connect_logs() {
-  kl -n consul $(kgp -n consul --no-headers -o custom-columns=":metadata.name" | rg "consul-connect" | head -n 1) $1
+	kl -n consul $(kgp -n consul --no-headers -o custom-columns=":metadata.name" | rg "consul-connect" | head -n 1) $1
 }
 
-gotest() {
-    if [ -z "$1" ]; then
-        go test ./... -v -json -cover | gotestfmt -hide empty-packages
-    else
-        go test "$@" -v -json -cover | gotestfmt -hide empty-packages
-    fi
-}
 
 # Show 256 TERM colors
 colors() {
-  local X=$(tput op)
-  local Y=$(printf %$((COLUMNS-6))s)
-  for i in {0..256}; do
-  o=00$i;
-  echo -e ${o:${#o}-3:3} $(tput setaf $i;tput setab $i)${Y// /=}$X;
-  done
+	local X=$(tput op)
+	local Y=$(printf %$((COLUMNS - 6))s)
+	for i in {0..256}; do
+		o=00$i
+		echo -e ${o:${#o}-3:3} $(
+			tput setaf $i
+			tput setab $i
+		)${Y// /=}$X
+	done
 }
 
 # Add to path
 prepend-path() {
-  [ -d $1 ] && PATH="$1:$PATH"
+	[ -d $1 ] && PATH="$1:$PATH"
 }
 
 # only run black on python files
 gblack() {
-    git diff --name-only $(git branch --show-current) $(git merge-base $(git branch --show-current) master) | xargs -I{} find {} -name "*.py" -exec black -l 120 {} \;
+	git diff --name-only $(git branch --show-current) $(git merge-base $(git branch --show-current) master) | xargs -I{} find {} -name "*.py" -exec black -l 120 {} \;
 }
 
 # print all aliases
 aliases() {
-    bat $HOME/.dotfiles/system/.alias
+	bat $HOME/.dotfiles/system/.alias
 }
 
+# creates venv using direnv
 create_venv() {
-    python -m venv .
-    echo "layout python" >> .envrc
-    direnv allow
+	python -m venv .
+	echo "layout python" >>.envrc
+	direnv allow
 }
 
+# creates a gke cluster capabalbe of running consul
 newgke() {
-    export PROJECT_ID=`gcloud config get-value project` && \
-    export M_TYPE=n1-standard-2 && \
-    export ZONE=us-west2-a && \
-    export CLUSTER_NAME=${PROJECT_ID}-${RANDOM} && \
-    gcloud services enable container.googleapis.com && \
-    gcloud container clusters create $CLUSTER_NAME \
-    --cluster-version latest \
-    --machine-type=$M_TYPE \
-    --num-nodes 4 \
-    --zone $ZONE \
-    --project $PROJECT_ID
+    echo "creating variables"
+	  export PROJECT_ID=$(gcloud config get-value project) &&
+		export M_TYPE=n1-standard-2 &&
+		export ZONE=us-west2-a &&
+		export CLUSTER_NAME=${PROJECT_ID}-${RANDOM}
+    echo "enabling services"
+		gcloud services enable container.googleapis.com
+    echo "creating cluster"
+		gcloud container clusters create $CLUSTER_NAME \
+			--cluster-version latest \
+			--machine-type=$M_TYPE \
+			--num-nodes 4 \
+			--zone $ZONE \
+			--project $PROJECT_ID
 }
 
 kill_cpk() {
-  kill $(ps aux | grep "[c]loud-provider-kind" | awk -F ' ' '{print $2}')
+	kill $(ps aux | grep "[c]loud-provider-kind" | awk -F ' ' '{print $2}')
 }
 
+# exports relevant consul env vars for interacting via the command line
 cvars() {
-  export CONSUL_HTTP_ADDR="127.0.0.1:8501"
-  export CONSUL_HTTP_TOKEN=$(kubectl get --namespace consul secrets/consul-consul-bootstrap-acl-token --template={{.data.token}} | base64 -d)
-  export CONSUL_HTTP_SSL=true
-  export CONSUL_HTTP_SSL_VERIFY=false
+	export CONSUL_HTTP_ADDR="127.0.0.1:8501"
+	export CONSUL_HTTP_TOKEN=$(kubectl get --namespace consul secrets/consul-consul-bootstrap-acl-token --template={{.data.token}} | base64 -d)
+	export CONSUL_HTTP_SSL=true
+	export CONSUL_HTTP_SSL_VERIFY=false
+}
+
+# tags and pushes an image to ttl.sh
+ttlit() {
+  img=$1
+  duration=$2
+
+  if [ -z "$img" ]; then
+    echo "image is required"
+    exit 1
+  fi
+
+  if [ -z "$duration" ]; then
+    duration=30m
+  fi
+
+  ttl_img_name=$(uuidgen)
+
+  docker tag "$img" "ttl.sh/$ttl_img_name:$duration"
+  docker push "ttl.sh/$ttl_img_name:$duration"
+
+  echo "Created image at: ttl.sh/$ttl_img_name:$duration"
+}
+
+myhelp() {
+  # print out all functions
 }

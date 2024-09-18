@@ -1,0 +1,52 @@
+gtk-titlebar = false
+
+font-family = FiraCode Nerd Font Mono
+
+shell-integration = zsh
+
+command = /usr/bin/zsh
+
+## color theme - everforest
+
+foreground = #d8cacc
+background = #323d43
+
+selection_foreground = #3c474d
+selection_background = #525c62
+
+cursor-color = #7fbbb3
+
+# black
+palette = 0=#4a555b
+palette = 8=#525c62
+
+# red
+palette = 1=#e68183
+palette = 9=#e68183
+
+# green
+palette = 2=#a7c080
+palette = 10=#a7c080
+
+# yellow
+palette = 3=#dbbc7f
+palette = 11=#dbbc7f
+
+# blue
+palette = 4=#7fbbb3
+palette = 12=#7fbbb3
+
+# magenta
+palette = 5=#d699b6
+palette = 13=#d699b6
+
+# cyan
+palette = 6=#83c092
+palette = 14=#83c092
+
+# white
+palette = 7=#d8caac
+palette = 15=#d8caac
+
+
+bold-is-bright = true
