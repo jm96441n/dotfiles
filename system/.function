@@ -132,6 +132,20 @@ ttlit() {
   echo "Created image at: ttl.sh/$ttl_img_name:$duration"
 }
 
+tmpgo() {
+  tempdir=$(mktemp -d)
+  (cd "$tempdir" && go mod init "github.com/jm96441n/tempdir" && touch "main.go" && go mod tidy)
+  echo "package main
+
+import \"fmt\"
+
+func main() {
+  fmt.Println(\"Hello, World!\")
+}
+" > "$tempdir/main.go"
+  tmux-sessionizer "$tempdir"
+}
+
 myhelp() {
   # print out all functions
 }

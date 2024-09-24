@@ -11,8 +11,8 @@ command = /usr/bin/zsh
 foreground = #d8cacc
 background = #323d43
 
-selection_foreground = #3c474d
-selection_background = #525c62
+selection-foreground = #3c474d
+selection-background = #525c62
 
 cursor-color = #7fbbb3
 

@@ -34,7 +34,7 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --image ~/.dotfile
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec kitty
+bindsym $mod+Return exec ghostty
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -254,7 +254,7 @@ exec xinput set-prop 'Synaptics TM3625-010' 'libinput Accel Speed' 1.0
 exec xset r rate 200 25
 
 
-exec --no-startup-id i3-msg 'workspace 1: term; exec kitty'
+exec --no-startup-id i3-msg 'workspace 1: term; exec ghostty'
 exec --no-startup-id i3-msg 'workspace 2: web; exec firefox'
 exec --no-startup-id i3-msg 'workspace 2: web; exec "flatpak run ms.obsidian.Obsidian"'
 exec --no-startup-id i3-msg 'workspace 3: chat; exec "flatpak run com.slack.Slack"'
