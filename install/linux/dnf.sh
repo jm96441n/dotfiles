@@ -7,23 +7,23 @@ sudo dnf update
 
 # install yarn
 if [[ $(which yarn &>/dev/null) -ne 0 ]]; then
-    curl -o- -L https://yarnpkg.com/install.sh | bash
+  curl -o- -L https://yarnpkg.com/install.sh | bash
 fi
 
 function install {
 
-    if [[ $(which "$1" &>/dev/null) -ne 0 ]]; then
-        echo "Installing: ${1}..."
-        sudo dnf install -y "$1"
-    else
-        echo "Already installed: ${1}"
-    fi
+  if [[ $(which "$1" &>/dev/null) -ne 0 ]]; then
+    echo "Installing: ${1}..."
+    sudo dnf install -y "$1"
+  else
+    echo "Already installed: ${1}"
+  fi
 }
 
 sudo dnf -y install dnf-plugins-core
 sudo dnf config-manager \
-    --add-repo \
-    https://download.docker.com/linux/fedora/docker-ce.repo
+  --add-repo \
+  https://download.docker.com/linux/fedora/docker-ce.repo
 
 # setup kubectl
 cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
@@ -71,6 +71,7 @@ install gpg2
 # https://github.com/tj/git-extras/blob/master/Commands.md
 install git-extras
 install gdbm-devel
+install gtk4-devel
 install helm
 install hub
 install htop
@@ -82,6 +83,7 @@ install jemalloc-devel
 install jq
 install kubectl
 install k9s
+install libadwaita-devel
 install libconfig-devel
 install libffi-devel
 install libdrm-devel
@@ -131,4 +133,5 @@ install xset
 install xss-lock
 install zlib
 install zlib-devel
+install zig
 install zsh-autosuggestions
