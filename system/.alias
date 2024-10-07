@@ -45,3 +45,6 @@ hash -d dot=$HOME/.dotfiles
 
 alias projects=~projects
 alias dot=~dot
+
+alias mkchlog='touch .changelog/$(gh pr list -H "$(git rev-parse --abbrev-ref HEAD)" --json "number" | jq ".[].number").txt'
+
