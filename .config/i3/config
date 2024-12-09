@@ -115,7 +115,7 @@ set $term "1: term"
 set $web "2: web"
 set $chat "3: chat"
 set $spotify "4: spotify"
-set $notion "5: notion"
+set $notes "5: notes"
 set $ws6 "6: "
 set $ws7 "7: "
 set $ws8 "8: "
@@ -127,7 +127,7 @@ bindsym $mod+1 workspace number $term
 bindsym $mod+2 workspace number $web
 bindsym $mod+3 workspace number $chat
 bindsym $mod+4 workspace number $spotify
-bindsym $mod+5 workspace number $notion
+bindsym $mod+5 workspace number $notes
 bindsym $mod+6 workspace number $ws6
 bindsym $mod+7 workspace number $ws7
 bindsym $mod+8 workspace number $ws8
@@ -139,7 +139,7 @@ bindsym $mod+Shift+1 move container to workspace $term
 bindsym $mod+Shift+2 move container to workspace $web
 bindsym $mod+Shift+3 move container to workspace $chat
 bindsym $mod+Shift+4 move container to workspace $spotify
-bindsym $mod+Shift+5 move container to workspace $notion
+bindsym $mod+Shift+5 move container to workspace $notes
 bindsym $mod+Shift+6 move container to workspace $ws6
 bindsym $mod+Shift+7 move container to workspace $ws7
 bindsym $mod+Shift+8 move container to workspace $ws8
@@ -256,9 +256,9 @@ exec xset r rate 200 25
 
 exec --no-startup-id i3-msg 'workspace 1: term; exec ghostty'
 exec --no-startup-id i3-msg 'workspace 2: web; exec firefox'
-exec --no-startup-id i3-msg 'workspace 2: web; exec "flatpak run ms.obsidian.Obsidian"'
 exec --no-startup-id i3-msg 'workspace 3: chat; exec "flatpak run com.slack.Slack"'
 exec --no-startup-id i3-msg 'workspace 4: spotify; exec "flatpak run com.spotify.Client"'
+exec --no-startup-id i3-msg 'workspace 5: notes; exec "flatpak run md.obsidian.Obsidian"'
 
 # Status bar
 exec --no-startup-id ~/.config/polybar/launch-bar.sh

@@ -34,20 +34,20 @@ return {
     },
   },
 
-  -- configure copilot
-  {
-    "zbirenbaum/copilot.lua",
-    cmd = "Copilot",
-    build = ":Copilot auth",
-    opts = {
-      suggestion = { enabled = true },
-      panel = { enabled = false },
-      filetypes = {
-        markdown = true,
-        help = true,
-      },
-    },
-  },
+  -- -- configure copilot
+  -- {
+  --   "zbirenbaum/copilot.lua",
+  --   cmd = "Copilot",
+  --   build = ":Copilot auth",
+  --   opts = {
+  --     suggestion = { enabled = true },
+  --     panel = { enabled = false },
+  --     filetypes = {
+  --       markdown = true,
+  --       help = true,
+  --     },
+  --   },
+  -- },
 
   -- easy alternate file switching
   {
