@@ -33,6 +33,16 @@ return {
       colorscheme = "everforest",
     },
   },
+  {
+    "stevearc/conform.nvim",
+    opts = {
+      formatters_by_ft = {
+        sh = { "shfmt" },
+        gohtml = { "prettier" },
+        gotmpl = { "prettier" },
+      },
+    },
+  },
 
   -- -- configure copilot
   -- {
