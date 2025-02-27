@@ -1,33 +1,5 @@
-[core]
-  # Excludesfiles allows us to set a global list of things to ignore
-  excludesfile = ~/.gitignore_global
-
-  # Sets up Neovim as the editor
-  editor = nvim
-  pager = delta
-
-[interactive]
-  diffFilter = delta --color-only
-
 [add.interactive]
   useBuiltin = false # required for git 2.37.0
-
-[delta]
-  navigate = true    # use n and N to move between diff sections
-  light = false      # set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
-
-[merge]
-  conflictstyle = diff3
-
-[diff]
-  colorMoved = default
-
-[submodule]
-  recursive = true
-
-[delta]
-  side-by-side = true
-  syntax-theme = "Forest Night"
 
 ## Aliases are command shortcuts
 [alias]
@@ -71,14 +43,42 @@
   # Edit the last commit
   amend= commit --verbose --amend
 
-[push]
-  default = current
+[branch]
+	sort = -committerdate
 
-[pull]
-  rebase = true
+[column]
+  ui = auto
+
+[commit]
+  verbose = true
+
+[core]
+  # Excludesfiles allows us to set a global list of things to ignore
+  excludesfile = ~/.gitignore_global
+
+  # Sets up Neovim as the editor
+  editor = nvim
+  pager = delta
+
+[credential]
+	helper = cache --timeout=3600
+
+[delta]
+  navigate = true    # use n and N to move between diff sections
+  light = false      # set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
+  side-by-side = true
+  syntax-theme = "everforest-soft"
+
+[diff]
+	colorMoved = plain
+	mnemonicPrefix = true
+	renames = true
+	algorithm = histogram
 
 [fetch]
   prune = true
+  pruneTags = true
+  all = true
 
 [filter "lfs"]
   clean = git-lfs clean -- %f
@@ -86,20 +86,46 @@
   process = git-lfs filter-process
   required = true
 
-[user]
-    name = jm96441n
-    email = john@jmaguire.tech
-[includeIf "gitdir:~/hashi/"]
-    path = ~/.dotfiles/git/hashi/.gitconfig
-
 [grep]
   linenumber = true
 
-[url "ssh://git@github.com/"]
-	insteadOf = https://github.com/
+[help]
+  autocorrect = prompt
 
 [init]
 	defaultBranch = main
 
-[credential]
-	helper = cache --timeout=3600
+[interactive]
+  diffFilter = delta --color-only
+
+[merge]
+  conflictstyle = diff3
+
+[push]
+  default = current
+  autoSetupRemote = true
+  followTags = true
+
+[pull]
+  rebase = true
+
+[rerere]
+  enabled = true
+  autoupdate = true
+
+[rebase]
+  autoSquash = true
+  autoStash = true
+  updateRefs = true
+[submodule]
+  recursive = true
+
+[user]
+    name = jm96441n
+    email = john@jmaguire.tech
+
+[includeIf "gitdir:~/hashi/"]
+    path = ~/.dotfiles/git/hashi/.gitconfig
+
+[url "ssh://git@github.com/"]
+	insteadOf = https://github.com/
