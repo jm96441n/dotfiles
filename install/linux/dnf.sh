@@ -74,6 +74,7 @@ install dracut-live
 install dunst
 install exa
 install eza
+install fastfetch
 install fd-find
 install fedora-workstation-repositories
 install feh
@@ -148,7 +149,6 @@ install make
 install mesa-libGL-devel
 install meson
 install ncurses-devel
-install neofetch
 install neovim
 install nmap
 install nodejs-npm

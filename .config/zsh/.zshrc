@@ -61,7 +61,7 @@ else
     . $HOME/.asdf/asdf.sh
 fi
 
-neofetch --kitty --source "~/.dotfiles/wallpaper/wave_wallpaper.png" --crop_mode fit
+fastfetch # --logo "~/.dotfiles/wallpaper/wave_wallpaper.png" --crop_mode fit
 
 eval "$(starship init zsh)"
 
