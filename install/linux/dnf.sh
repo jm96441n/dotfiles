@@ -19,11 +19,8 @@ function install {
     echo "Already installed: ${1}"
   fi
 }
-
 sudo dnf -y install dnf-plugins-core
-sudo dnf config-manager \
-  --add-repo \
-  https://download.docker.com/linux/fedora/docker-ce.repo
+sudo dnf-3 config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
 sudo dnf copr enable pgdev/ghostty
 
 # setup kubectl
@@ -68,6 +65,7 @@ install containerd.io
 install curl
 install dbus-devel
 install direnv
+install docker-buildx-plugin
 install docker-ce
 install docker-ce-cli
 install docker-compose-plugin
