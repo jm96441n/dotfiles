@@ -5,7 +5,8 @@ function install {
   flatpak install flathub "$1" -y
 }
 
-install org.ferdium.Ferdium
+install com.discordapp.Discord
+install md.obsidian.Obsidian
 install com.spotify.Client
 install org.signal.Signal
 install us.zoom.Zoom
