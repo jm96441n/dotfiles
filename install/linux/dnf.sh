@@ -157,6 +157,7 @@ install npm
 install openssl
 install openssl-devel
 install packer
+install perl-core
 install pcre-devel
 install peek
 install pgadmin4
