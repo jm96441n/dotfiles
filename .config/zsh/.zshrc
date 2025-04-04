@@ -65,8 +65,6 @@ fastfetch # --logo "~/.dotfiles/wallpaper/wave_wallpaper.png" --crop_mode fit
 
 eval "$(starship init zsh)"
 
-eval $(thefuck --alias)
-
 bindkey -s ^f "tmux-sessionizer\n"
 bindkey -s ^bd "tmux-sessionizer ~/.dotfiles\n"
 
