@@ -2,7 +2,7 @@
 
 set -eEuo pipefail
 
-sudo apt install curl
+# sudo  install curl
 
 # Get current dir (so run this script from anywhere)
 
@@ -35,7 +35,7 @@ PATH="$DOTFILES_DIR/bin:$PATH"
 if is-executable git -a -d "$DOTFILES_DIR/.git"; then git --work-tree="$DOTFILES_DIR" --git-dir="$DOTFILES_DIR/.git" pull origin master; fi
 
 mkdir -p "$HOME/i3"
-mkdir -p "$HOME/.config/k9s"
+mkdir -p "$HOME/.config/k9s/skins"
 mkdir -p "$HOME/.config/ghostty"
 
 # Bunch of symlinks
