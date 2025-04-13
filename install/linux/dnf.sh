@@ -219,3 +219,19 @@ install zlib
 install zlib-devel
 install zlib-ng-compat-devel
 install zsh-autosuggestions
+
+### wayland/sway
+install sway
+install swayidle
+install swaylock
+install swaybg
+install wl-clipboard
+install waybar
+install grim
+install slurp
+install grimshot
+install wofi
+install kanshi
+install mako
+install wev
+install xdg-desktop-portal-wlr

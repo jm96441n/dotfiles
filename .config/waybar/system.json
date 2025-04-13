@@ -1,0 +1,6 @@
+{
+  "battery": "BAT0",
+  "adapter": "AC",
+  "graphics_card": "nvidia_0",
+  "network_interface": "wlp0s20f3\ndocker0\nveth1538b4e@if2"
+}

@@ -1,0 +1,83 @@
+/* Wofi style - place at ~/.config/wofi/style.css */
+
+/* Variables - Everforest Dark colors */
+* {
+  --xbs: #374247;
+  --xfs: #a7c080;
+  --xbg: #2f383e;
+  --xfg: #d3c6aa;
+  --prompt: #e69875;
+  --entry: #d3c6aa;
+}
+
+/* Global styles */
+window {
+  border: 0;
+  border-radius: 2px;
+  padding: 40px;
+  background-color: var(--xbg);
+  color: var(--xfg);
+}
+
+#input {
+  border: none;
+  background-color: transparent;
+  color: var(--entry);
+  margin: 5px;
+  padding: 5px;
+}
+
+#inner-box {
+  margin: 20px;
+  padding: 10px;
+  background-color: transparent;
+}
+
+#outer-box {
+  margin: 20px;
+  padding: 20px;
+  background-color: transparent;
+}
+
+#text {
+  padding: 3px;
+  color: var(--xfg);
+}
+
+#entry {
+  padding: 3px 0 3px 4px;
+  border-radius: 4px;
+}
+
+#entry:selected {
+  background-color: var(--xbs);
+  color: var(--xfs);
+}
+
+/* Prompt styling */
+#input > image {
+  color: var(--prompt);
+}
+
+/* Scrollbar */
+scrolledwindow {
+  background-color: transparent;
+}
+
+scrolledwindow undershoot.top,
+scrolledwindow undershoot.bottom,
+scrolledwindow undershoot.left,
+scrolledwindow undershoot.right {
+  background-color: transparent;
+}
+
+scrollbar {
+  background-color: transparent;
+  border-radius: 0;
+}
+
+/* Font settings */
+* {
+  font-family: "FiraCode Nerd Font";
+  font-size: 20px;
+}

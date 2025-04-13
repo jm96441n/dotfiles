@@ -1,0 +1,155 @@
+{
+  "layer": "top",
+  "position": "bottom",
+  "height": 30,
+  "spacing": 0,
+  "modules-left": [
+    "tray",
+    "sway/workspaces",
+    "sway/mode",
+    "custom/launcher"
+  ],
+  "modules-center": [],
+  "modules-right": [
+    "cpu",
+    "memory",
+    "pulseaudio",
+    "backlight",
+    "battery",
+    "network",
+    "custom/clock"
+  ],
+  "sway/workspaces": {
+    "format": "{icon}",
+    "on-click": "activate",
+    "format-icons": {
+      "1: term": "",
+      "2: web": "",
+      "3: chat": "",
+      "4: spotify": "",
+      "5: notes": "",
+      "6": "",
+      "7": "漣",
+      "urgent": "",
+      "default": ""
+    }
+  },
+  "sway/mode": {
+    "format": "<span style=\"italic\">{}</span>"
+  },
+  "battery": {
+    "bat": "BAT0",
+    "adapter": "AC",
+    "interval": 60,
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "BAT: {icon} {capacity}%",
+    "format-charging": "BAT: {capacity}%",
+    "format-plugged": "BAT: {capacity}%",
+    "format-full": "BAT: {capacity}%",
+    "format-icons": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  "cpu": {
+    "format": "CPU: {usage}%",
+    "tooltip": true,
+    "on-click": "foot -e gtop"
+  },
+  "memory": {
+    "format": "MEM: {}%",
+    "on-click": "foot -e htop"
+  },
+  "network": {
+    "format-wifi": " {essid}",
+    "format-ethernet": " {ifname}",
+    "format-linked": " {ifname} (No IP)",
+    "format-disconnected": "睊 Offline",
+    "format-alt": "{ifname}: {ipaddr}/{cidr}",
+    "on-click": "foot -e nmtui"
+  },
+  "pulseaudio": {
+    "format": "{icon} {volume}%",
+    "format-bluetooth": "{icon} {volume}%",
+    "format-bluetooth-muted": " {icon}",
+    "format-muted": " Mute",
+    "format-icons": {
+      "headphone": "",
+      "hands-free": "",
+      "headset": "",
+      "phone": "",
+      "portable": "",
+      "car": "",
+      "default": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    "on-click": "pavucontrol"
+  },
+  "custom/clock": {
+    "exec": "date +'%I:%M %p'",
+    "interval": 60,
+    "format": " {}",
+    "tooltip": false,
+    "on-click": "date +'%A, %m/%d/%y'"
+  },
+  "custom/launcher": {
+    "format": "",
+    "on-click": "wofi --show drun"
+  },
+  "tray": {
+    "icon-size": 21,
+    "spacing": 10
+  },
+  "custom/separator": {
+    "format": "|",
+    "interval": "once",
+    "tooltip": false
+  },
+  "custom/dot": {
+    "format": "•",
+    "interval": "once",
+    "tooltip": false
+  },
+  "custom/poweroff": {
+    "format": " ",
+    "on-click": "poweroff",
+    "tooltip": false
+  },
+  "custom/reboot": {
+    "format": " ",
+    "on-click": "reboot",
+    "tooltip": false
+  },
+  "custom/lock": {
+    "format": " ",
+    "on-click": "loginctl lock-session",
+    "tooltip": false
+  },
+  "custom/suspend": {
+    "format": "鈴 ",
+    "on-click": "systemctl suspend",
+    "tooltip": false
+  },
+  "custom/logout": {
+    "format": " ",
+    "on-click": "swaymsg exit",
+    "tooltip": false
+  },
+  "brightness": null
+}

@@ -1,0 +1,162 @@
+* {
+  border: none;
+  border-radius: 0;
+  font-family: "FiraCode Nerd Font", "Font Awesome 5 Free";
+  font-size: 14px;
+  min-height: 0;
+}
+
+window#waybar {
+  background: #24283b;
+  color: #c0caf5;
+}
+
+#workspaces {
+  background-color: #414868;
+  margin: 0 4px;
+}
+
+#workspaces button {
+  padding: 0 5px;
+  background-color: #2e3440;
+  color: #d8caac;
+  font-size: 18px;
+}
+
+#workspaces button:hover {
+  box-shadow: inherit;
+  text-shadow: inherit;
+  background: #3b4252;
+}
+
+#workspaces button.focused {
+  background-color: #414868;
+  color: #ff7a93;
+  font-size: 18px;
+}
+
+#workspaces button.urgent {
+  background-color: #414868;
+  color: #f7768e;
+}
+
+#mode {
+  background-color: #2e3440;
+  border-bottom: 3px solid #e68183;
+  margin: 0 4px;
+}
+
+#battery,
+#cpu,
+#memory,
+#network,
+#pulseaudio,
+#backlight,
+#custom-clock,
+#custom-launcher {
+  padding: 0 10px;
+  margin: 0 4px;
+}
+
+#custom-launcher {
+  background-color: #7aa2f7;
+  color: #24283b;
+  font-size: 20px;
+}
+
+#battery {
+  background-color: #f7768e;
+  color: #24283b;
+}
+
+#battery.charging {
+  background-color: #f7768e;
+  color: #24283b;
+}
+
+#battery.warning:not(.charging) {
+  background-color: #f7768e;
+  color: #24283b;
+}
+
+#battery.critical:not(.charging) {
+  background-color: #f7768e;
+  color: #24283b;
+  animation-name: blink;
+  animation-duration: 0.5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+#cpu {
+  background-color: #9ece6a;
+  color: #24283b;
+}
+
+#memory {
+  background-color: #e0af68;
+  color: #24283b;
+}
+
+#network {
+  background-color: #ad8ee6;
+  color: #24283b;
+}
+
+#network.disconnected {
+  background-color: #ad8ee6;
+  color: #24283b;
+}
+
+#pulseaudio {
+  background-color: #9ece6a;
+  color: #24283b;
+}
+
+#pulseaudio.muted {
+  background-color: #9ece6a;
+  color: #24283b;
+}
+
+#backlight {
+  background-color: #e0af68;
+  color: #24283b;
+}
+
+#custom-clock {
+  background-color: #7aa2f7;
+  color: #24283b;
+}
+
+/* Add styles for the decorative elements */
+.module-left,
+.module-right {
+  margin: 0 4px;
+}
+
+/* Decorative container for modules */
+.module-container {
+  border-radius: 0;
+  margin: 0 4px;
+}
+
+/* Decorative dividers */
+.separator {
+  color: rgba(0, 0, 0, 0);
+  border-left: 1px solid #414868;
+  margin: 0 10px;
+}
+
+.dot-separator {
+  color: #414868;
+  margin: 0 5px;
+  font-size: 20px;
+}
+
+@keyframes blink {
+  to {
+    background-color: #24283b;
+    color: #f7768e;
+  }
+}

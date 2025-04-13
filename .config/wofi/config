@@ -1,0 +1,23 @@
+# Wofi configuration file
+# Place at ~/.config/wofi/config
+
+# General appearance
+show=drun
+width=30%
+height=50%
+yoffset=50
+xoffset=20
+location=center
+prompt=:
+allow_images=true
+cache_file=/dev/null
+term=ghostty
+allow_markup=true
+always_parse_args=true
+show_all=true
+print_command=true
+layer=top
+insensitive=true
+filter_rate=100
+image_size=24
+icon_theme=Newatita
