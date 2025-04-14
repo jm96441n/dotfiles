@@ -13,7 +13,6 @@ input {
     
     touchpad {
         tap
-        natural-scroll false
         dwt
         middle-emulation
         accel-profile "adaptive"
@@ -37,18 +36,19 @@ layout {
     // Gaps between windows (inner gaps in Sway)
     gaps 20
     
-    // Border width (equivalent to Sway's pixel border)
-    border-width 2
     
     // Focus indication (equivalent to Sway's focused border color)
     focus-ring {
-        enabled
-        color "#7fbbb3"
+        active-color "#7fbbb3"
         width 2
     }
+
+    border {
+        off
+        width 2
+        active-color "#32302f"
+    }
     
-    // Configure colors similar to Sway colors
-    border-color "#32302f"
     
     // No outer gaps in Niri by default
     struts {
@@ -60,159 +60,156 @@ layout {
 }
 
 // Window Rules - similar to Sway's for_window rules
-window-rules {
+window-rule {
     // Floating windows
-    window window-type="dialog" {
-        floating
-        position 5 5
-        size 320 240
-    }
+//    window window-type="dialog" {
+ //       floating
+  //      position 5 5
+   //     size 320 240
+    //}
     
-    window window-type="menu" {
-        floating
-        position 5 5
-        size 320 240
-    }
+//    window window-type="menu" {
+//        floating
+//        position 5 5
+//        size 320 240
+ //   }
     
-    window role="pop-up" {
-        floating
-        position 5 5
-        size 320 240
-    }
-    
-    window role="task_dialog" {
-        floating
-        position 5 5
-        size 320 240
-    }
-    
-    window role="bubble" {
-        floating
-        position 5 5
-        size 320 240
-    }
-    
-    window role="Preferences" {
-        floating
-        position 5 5
-        size 320 240
-    }
+//    window role="pop-up" {
+//        floating
+//        position 5 5
+//        size 320 240
+//    }
+//    
+//    window role="task_dialog" {
+//        floating
+//        position 5 5
+//        size 320 240
+//    }
+//    
+//    window role="bubble" {
+//        floating
+//        position 5 5
+//        size 320 240
+//    }
+//    
+//    window role="Preferences" {
+//        floating
+//        position 5 5
+//        size 320 240
+//    }
 }
 
 // Key bindings - converting Sway bindsym to Niri binds
 binds {
-    // Terminal
-    Mod4+Return { spawn "/usr/bin/ghostty" }
-    
     // Kill window
-    Mod4+Shift+q { action close-window }
+    Mod+Shift+q {  close-window; }
     
+    // Terminal
+    Mod+Return { spawn "ghostty"; }
+
     // Screenshot
-    Mod4+Shift+s { spawn "grim" "-g" "$(slurp)" "-" "|" "wl-copy" }
+    Mod+Shift+s { spawn "grim" "-g" "$(slurp)" "-" "|" "wl-copy"; }
     
     // App launcher
-    Mod4+d { spawn "~/.config/wofi/launcher.sh" }
+    Mod+d { spawn "~/.config/wofi/launcher.sh"; }
     
     // Focus movement - in Niri, navigation is between columns and within columns
-    Mod4+h { action focus-column-left }
-    Mod4+j { action focus-window-down }
-    Mod4+k { action focus-window-up }
-    Mod4+l { action focus-column-right }
+    Mod+h {  focus-column-left; }
+    Mod+j {  focus-window-down; }
+    Mod+k {  focus-window-up; }
+    Mod+l {  focus-column-right; }
     
     // Arrow keys for focus
-    Mod4+Left { action focus-column-left }
-    Mod4+Down { action focus-window-down }
-    Mod4+Up { action focus-window-up }
-    Mod4+Right { action focus-column-right }
+    Mod+Left {  focus-column-left; }
+    Mod+Down {  focus-window-down; }
+    Mod+Up {  focus-window-up; }
+    Mod+Right {  focus-column-right; }
     
     // Moving windows
-    Mod4+Shift+h { action move-window-left }
-    Mod4+Shift+j { action move-window-down }
-    Mod4+Shift+k { action move-window-up }
-    Mod4+Shift+l { action move-window-right }
+    Mod+Shift+h { move-column-left; }
+  //  Mod+Shift+j { move-column-down; }
+   // Mod+Shift+k {  move-column-up; }
+    Mod+Shift+l {  move-column-right; }
     
     // Arrow keys for moving windows
-    Mod4+Shift+Left { action move-window-left }
-    Mod4+Shift+Down { action move-window-down }
-    Mod4+Shift+Up { action move-window-up }
-    Mod4+Shift+Right { action move-window-right }
+    Mod+Shift+Left { move-column-left; }
+  //  Mod+Shift+Down { action move-window-down; }
+//    Mod+Shift+Up { action move-window-up; }
+    Mod+Shift+Right { move-column-right; }
     
     // Layout manipulation
-    Mod4+c { action consume-window-into-column }  // Similar to split h
-    Mod4+v { spawn "notify-send" "Vertical split not applicable in Niri's model" }
+//    Mod+c { action consume-window-into-column; }  // Similar to split h
     
     // Fullscreen
-    Mod4+f { action toggle-fullscreen }
+   // Mod+f { toggle-fullscreen; }
     
-    // Layout toggle - Niri's layout is different from Sway, so this is approximate
-    Mod4+e { action toggle-tabbed-column }
     
     // Floating toggle
-    Mod4+Shift+space { action toggle-floating }
+//    Mod+Shift+space { action toggle-floating; }
     
     // Focus toggle
-    Mod4+space { action toggle-floating-focus }
+//     Mod+space { action toggle-floating-focus; }
     
     // Audio controls
-    XF86AudioRaiseVolume { spawn "pactl" "set-sink-volume" "@DEFAULT_SINK@" "+1%" }
-    XF86AudioLowerVolume { spawn "pactl" "set-sink-volume" "@DEFAULT_SINK@" "-1%" }
-    XF86AudioMute { spawn "pactl" "set-sink-mute" "@DEFAULT_SINK@" "toggle" }
+    XF86AudioRaiseVolume { spawn "pactl" "set-sink-volume" "@DEFAULT_SINK@" "+1%"; }
+    XF86AudioLowerVolume { spawn "pactl" "set-sink-volume" "@DEFAULT_SINK@" "-1%"; }
+    XF86AudioMute { spawn "pactl" "set-sink-mute" "@DEFAULT_SINK@" "toggle"; }
     
     // Workspace switching - Niri uses numeric workspaces
-    Mod4+1 { action workspace-switch 1 }
-    Mod4+2 { action workspace-switch 2 }
-    Mod4+3 { action workspace-switch 3 }
-    Mod4+4 { action workspace-switch 4 }
-    Mod4+5 { action workspace-switch 5 }
-    Mod4+6 { action workspace-switch 6 }
-    Mod4+7 { action workspace-switch 7 }
-    Mod4+8 { action workspace-switch 8 }
-    Mod4+9 { action workspace-switch 9 }
-    Mod4+0 { action workspace-switch 10 }
+//     Mod+1 { action workspace-switch 1; }
+  //   Mod+2 { action workspace-switch 2; }
+//     Mod+3 { action workspace-switch 3; }
+  //   Mod+4 { action workspace-switch 4; }
+//     Mod+5 { action workspace-switch 5; }
+//     Mod+6 { action workspace-switch 6; }
+//     Mod+7 { action workspace-switch 7; }
+//     Mod+8 { action workspace-switch 8; }
+//     Mod+9 { action workspace-switch 9; }
+//     Mod+0 { action workspace-switch 10; }
     
     // Move container to workspace
-    Mod4+Shift+1 { action window-move-to-workspace 1 }
-    Mod4+Shift+2 { action window-move-to-workspace 2 }
-    Mod4+Shift+3 { action window-move-to-workspace 3 }
-    Mod4+Shift+4 { action window-move-to-workspace 4 }
-    Mod4+Shift+5 { action window-move-to-workspace 5 }
-    Mod4+Shift+6 { action window-move-to-workspace 6 }
-    Mod4+Shift+7 { action window-move-to-workspace 7 }
-    Mod4+Shift+8 { action window-move-to-workspace 8 }
-    Mod4+Shift+9 { action window-move-to-workspace 9 }
-    Mod4+Shift+0 { action window-move-to-workspace 10 }
+    // Mod+Shift+1 { action window-move-to-workspace 1; }
+    // Mod+Shift+2 { action window-move-to-workspace 2; }
+    // Mod+Shift+3 { action window-move-to-workspace 3; }
+    // Mod+Shift+4 { action window-move-to-workspace 4; }
+    // Mod+Shift+5 { action window-move-to-workspace 5; }
+    // Mod+Shift+6 { action window-move-to-workspace 6; }
+    // Mod+Shift+7 { action window-move-to-workspace 7; }
+    // Mod+Shift+8 { action window-move-to-workspace 8; }
+    // Mod+Shift+9 { action window-move-to-workspace 9; }
+    // Mod+Shift+0 { action window-move-to-workspace 10; }
     
     // Config reload
-    Mod4+Shift+c { action reload-config }
+    // Mod+Shift+C { action reload-config; }
     
     // Restart - not directly applicable in Niri but reload config is similar
-    Mod4+Shift+r { action reload-config }
+    // Mod+Shift+R { action reload-config; }
     
     // Exit Niri - Niri has a direct quit action
-    Mod4+Shift+e { spawn "~/.config/waybar/launch-shutdown-bar.sh" }
+    Mod+Shift+E { spawn "~/.config/waybar/launch-shutdown-bar.sh"; }
     
     // Resize mode in Niri - there are direct resize actions instead of a mode
-    Mod4+r {
+    Mod+R {
         // This will show a notification instead of entering a resize mode
-        spawn "notify-send" "Niri uses direct resize actions - try Mod4+r+arrow keys"
+        spawn "notify-send" "Niri uses direct resize actions - try Mod+r+arrow keys";
     }
     
     // Resize actions
-    Mod4+r+h { action resize left -10 }
-    Mod4+r+j { action resize down +10 }
-    Mod4+r+k { action resize up -10 }
-    Mod4+r+l { action resize right +10 }
+    //Mod+R+H { action "resize" "left" "-10"; }
+    //Mod+R+J { action "resize" "down" "+10"; }
+    // Mod+r+k { action resize up -10; }
+    // Mod+r+l { action resize right +10; }
     
     // Resize with arrow keys
-    Mod4+r+Left { action resize left -10 }
-    Mod4+r+Down { action resize down +10 }
-    Mod4+r+Up { action resize up -10 }
-    Mod4+r+Right { action resize right +10 }
+    // Mod+r+Left { action resize left -10; }
+    // Mod+r+Down { action resize down +10; }
+    // Mod+r+Up { action resize up -10; }
+    // Mod+r+Right { action resize right +10; }
     
     // Window marking - Using similar approach with Wofi
-    Mod4+m { spawn "swaymsg" "mark" "$(wofi --dmenu -p 'Mark window:' -L 1)" }
-    Mod4+g { spawn "swaymsg" "[con_mark=$(wofi --dmenu -p 'Goto mark:' -L 1)]" "focus" }
-    Mod4+u { spawn "swaymsg" "unmark" "$(wofi --dmenu -p 'Unmark window:' -L 1)" }
+    Mod+m { spawn "" "mark" "$(wofi --dmenu -p 'Mark window:' -L 1)"; }
+    Mod+g { spawn "swaymsg" "[con_mark=$(wofi --dmenu -p 'Goto mark:' -L 1)]" "focus"; }
+    Mod+u { spawn "swaymsg" "unmark" "$(wofi --dmenu -p 'Unmark window:' -L 1)"; }
 }
 
 // Autostart applications
@@ -227,16 +224,16 @@ spawn-at-startup "swayidle" "-w" "timeout" "300" "swaylock -f -i ~/.dotfiles/wal
 
 // Start applications in specific workspaces
 // Note: The syntax below uses a shell script to handle workspace switching with application launching
-spawn-at-startup "sh" "-c" "sleep 1 && niri msg action workspace-switch 1 && /usr/bin/ghostty"
-spawn-at-startup "sh" "-c" "sleep 2 && niri msg action workspace-switch 2 && firefox"
-spawn-at-startup "sh" "-c" "sleep 3 && niri msg action workspace-switch 3 && flatpak run com.slack.Slack"
-spawn-at-startup "sh" "-c" "sleep 4 && niri msg action workspace-switch 4 && flatpak run com.spotify.Client"
-spawn-at-startup "sh" "-c" "sleep 5 && niri msg action workspace-switch 5 && flatpak run md.obsidian.Obsidian"
+// spawn-at-startup "sh" "-c" "sleep 1 && niri msg action workspace-switch 1 && /usr/bin/ghostty"
+// spawn-at-startup "sh" "-c" "sleep 2 && niri msg action workspace-switch 2 && firefox"
+// spawn-at-startup "sh" "-c" "sleep 3 && niri msg action workspace-switch 3 && flatpak run com.slack.Slack"
+// spawn-at-startup "sh" "-c" "sleep 4 && niri msg action workspace-switch 4 && flatpak run com.spotify.Client"
+// spawn-at-startup "sh" "-c" "sleep 5 && niri msg action workspace-switch 5 && flatpak run md.obsidian.Obsidian"
 
 // Animations
-animations {
-    workspace-switch-duration 250
-}
+//animations {
+//    workspace-switch-duration 250
+//}
 
 // Preferences
 prefer-no-csd

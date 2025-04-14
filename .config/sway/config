@@ -210,12 +210,26 @@ input "type:keyboard" {
 output * bg ~/.dotfiles/wallpaper/space.png fill
 output eDP-1 scale 1.5
 
+# Define workspace assignments
+assign [app_id="com.mitchellh.ghostty"] workspace number $term
+assign [app_id="org.mozilla.firefox"] workspace number $web
+assign [class="Slack"] workspace number $chat
+assign [class="Spotify"] workspace number $spotify
+assign [class="obsidian"] workspace number $notes
+
+# Launch applications with slight delays
+exec sleep 1 && /usr/bin/ghostty
+exec sleep 2 && firefox
+exec sleep 3 && slack
+exec sleep 4 && flatpak run com.spotify.Client
+exec sleep 5 && flatpak run md.obsidian.Obsidian
+
 # Autostart applications
-exec swaymsg 'workspace 1: term; exec /usr/bin/ghostty'
-exec swaymsg 'workspace 2: web; exec firefox'
-exec swaymsg 'workspace 3: chat; exec "flatpak run com.slack.Slack"'
-exec swaymsg 'workspace 4: spotify; exec "flatpak run com.spotify.Client"'
-exec swaymsg 'workspace 5: notes; exec "flatpak run md.obsidian.Obsidian"'
+# exec swaymsg 'workspace 1: term; exec /usr/bin/ghostty'
+# exec swaymsg 'workspace 2: web; exec firefox'
+# exec swaymsg 'workspace 3: chat; exec "flatpak run com.slack.Slack"'
+# exec swaymsg 'workspace 4: spotify; exec "flatpak run com.spotify.Client"'
+# exec swaymsg 'workspace 5: notes; exec "flatpak run md.obsidian.Obsidian"'
 
 # Status bar - replace polybar with waybar
 exec_always ~/.config/waybar/launch-bar.sh
