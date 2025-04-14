@@ -238,6 +238,7 @@ exec_always ~/.config/waybar/launch-bar.sh
 exec_always systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
 exec_always dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
 exec_always /usr/libexec/xdg-desktop-portal -r
+exec_always kanshi
 
 # Notification daemon - mako instead of dunst
 exec mako
