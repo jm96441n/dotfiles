@@ -128,7 +128,7 @@ bindsym $mod+Shift+c reload
 # restart sway inplace
 bindsym $mod+Shift+r restart
 # exit sway - show power menu
-bindsym $mod+Shift+e exec ~/.config/waybar/launch-power-menu.sh
+bindsym $mod+Shift+e exec ~/.config/waybar/launch-shutdown-bar.sh
 
 # mark windows (using swaymsg instead of i3-input)
 bindsym $mod+m exec swaymsg mark $(wofi --dmenu -p 'Mark window:' -L 1)

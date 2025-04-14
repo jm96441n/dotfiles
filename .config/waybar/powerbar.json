@@ -1,0 +1,55 @@
+{
+  "layer": "top",
+  "position": "top",
+  "height": 30,
+  "spacing": 0,
+  "modules-left": [],
+  "modules-center": [],
+  "modules-right": [
+    "custom/suspend",
+    "custom/logout",
+    "custom/lock",
+    "custom/reboot",
+    "custom/poweroff"
+  ],
+  "custom/poweroff": {
+    "format": "  shutdown ",
+    "on-click": "poweroff",
+    "tooltip": false
+  },
+  "custom/reboot": {
+    "format": "  reboot ",
+    "on-click": "reboot",
+    "tooltip": false
+  },
+  "custom/lock": {
+    "format": " lock ",
+    "on-click": "loginctl lock-session",
+    "tooltip": false
+  },
+  "custom/suspend": {
+    "format": " suspend ",
+    "on-click": "systemctl suspend",
+    "tooltip": false
+  },
+  "custom/logout": {
+    "format": " logout ",
+    "on-click": "swaymsg exit",
+    "tooltip": false
+  },
+  "tray": {
+    "icon-size": 21,
+    "spacing": 10
+  },
+  "custom/separator": {
+    "format": "|",
+    "interval": "once",
+    "tooltip": false
+  },
+  "custom/dot": {
+    "format": "•",
+    "interval": "once",
+    "tooltip": false
+  },
+  "brightness": null
+}

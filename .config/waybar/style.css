@@ -53,6 +53,10 @@ window#waybar {
 #pulseaudio,
 #backlight,
 #custom-clock,
+#custom-poweroff,
+#custom-reboot,
+#custom-logout,
+#custom-lock,
 #custom-launcher {
   padding: 0 10px;
   margin: 0 4px;
@@ -74,7 +78,8 @@ window#waybar {
   color: #24283b;
 }
 
-#battery.warning:not(.charging) {
+#battery.warning:not(.charging),
+#custom-poweroff {
   background-color: #f7768e;
   color: #24283b;
 }
@@ -89,12 +94,14 @@ window#waybar {
   animation-direction: alternate;
 }
 
-#cpu {
+#cpu,
+#custom-lock {
   background-color: #9ece6a;
   color: #24283b;
 }
 
-#memory {
+#memory,
+#custom-reboot {
   background-color: #e0af68;
   color: #24283b;
 }
@@ -124,7 +131,9 @@ window#waybar {
   color: #24283b;
 }
 
-#custom-clock {
+#custom-clock,
+#custom-suspend,
+#custom-logout {
   background-color: #7aa2f7;
   color: #24283b;
 }
