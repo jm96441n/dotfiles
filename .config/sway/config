@@ -208,6 +208,7 @@ input "type:keyboard" {
 
 # Wallpaper - replace feh with swaybg
 output * bg ~/.dotfiles/wallpaper/space.png fill
+output eDP-1 scale 1.5
 
 # Autostart applications
 exec swaymsg 'workspace 1: term; exec /usr/bin/ghostty'
