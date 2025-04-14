@@ -27,8 +27,8 @@
       "3: chat": "",
       "4: spotify": "",
       "5: notes": "",
-      "6": "",
-      "7": "漣",
+      "6: ": "",
+      "7: ": "漣",
       "urgent": "",
       "default": ""
     }
@@ -123,31 +123,6 @@
   "custom/dot": {
     "format": "•",
     "interval": "once",
-    "tooltip": false
-  },
-  "custom/poweroff": {
-    "format": " ",
-    "on-click": "poweroff",
-    "tooltip": false
-  },
-  "custom/reboot": {
-    "format": " ",
-    "on-click": "reboot",
-    "tooltip": false
-  },
-  "custom/lock": {
-    "format": " ",
-    "on-click": "loginctl lock-session",
-    "tooltip": false
-  },
-  "custom/suspend": {
-    "format": "鈴 ",
-    "on-click": "systemctl suspend",
-    "tooltip": false
-  },
-  "custom/logout": {
-    "format": " ",
-    "on-click": "swaymsg exit",
     "tooltip": false
   },
   "brightness": null
