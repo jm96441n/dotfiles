@@ -1,28 +1,26 @@
 /* Wofi style - place at ~/.config/wofi/style.css */
 
 /* Variables - Everforest Dark colors */
-* {
-  --xbs: #374247;
-  --xfs: #a7c080;
-  --xbg: #2f383e;
-  --xfg: #d3c6aa;
-  --prompt: #e69875;
-  --entry: #d3c6aa;
-}
+@define-color xbs #374247;
+@define-color xfs #a7c080;
+@define-color xbg #2f383e;
+@define-color xfg #d3c6aa;
+@define-color prompt #e69875;
+@define-color entry #d3c6aa;
 
 /* Global styles */
 window {
   border: 0;
   border-radius: 2px;
   padding: 40px;
-  background-color: var(--xbg);
-  color: var(--xfg);
+  background-color: @xbg;
+  color: @xfg;
 }
 
 #input {
   border: none;
   background-color: transparent;
-  color: var(--entry);
+  color: @entry;
   margin: 5px;
   padding: 5px;
 }
@@ -41,7 +39,7 @@ window {
 
 #text {
   padding: 3px;
-  color: var(--xfg);
+  color: @xfg;
 }
 
 #entry {
@@ -50,13 +48,13 @@ window {
 }
 
 #entry:selected {
-  background-color: var(--xbs);
-  color: var(--xfs);
+  background-color: @xbs;
+  color: @xfs;
 }
 
 /* Prompt styling */
 #input > image {
-  color: var(--prompt);
+  color: @prompt;
 }
 
 /* Scrollbar */
