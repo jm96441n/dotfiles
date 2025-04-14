@@ -14,7 +14,6 @@
     "cpu",
     "memory",
     "pulseaudio",
-    "backlight",
     "battery",
     "network",
     "custom/clock"
@@ -45,16 +44,16 @@
       "warning": 30,
       "critical": 15
     },
-    "format": "BAT: {icon} {capacity}%",
-    "format-charging": "BAT: {capacity}%",
-    "format-plugged": "BAT: {capacity}%",
-    "format-full": "BAT: {capacity}%",
+    "format": "{icon} {capacity}%",
+    "format-charging": "{icon} {capacity}%",
+    "format-plugged": "{icon} {capacity}%",
+    "format-full": "{icon} {capacity}%",
     "format-icons": [
-      "",
-      "",
-      "",
-      "",
-      ""
+      "",
+      "",
+      "",
+      "",
+      ""
     ]
   },
   "cpu": {
@@ -67,7 +66,7 @@
     "on-click": "foot -e htop"
   },
   "network": {
-    "format-wifi": " {essid}",
+    "format-wifi": " {essid}",
     "format-ethernet": " {ifname}",
     "format-linked": " {ifname} (No IP)",
     "format-disconnected": "睊 Offline",
@@ -77,8 +76,8 @@
   "pulseaudio": {
     "format": "{icon} {volume}%",
     "format-bluetooth": "{icon} {volume}%",
-    "format-bluetooth-muted": " {icon}",
-    "format-muted": " Mute",
+    "format-bluetooth-muted": "{icon} {icon}",
+    "format-muted": " Mute",
     "format-icons": {
       "headphone": "",
       "hands-free": "",
@@ -87,24 +86,24 @@
       "portable": "",
       "car": "",
       "default": [
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        ""
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
       ]
     },
-    "on-click": "pavucontrol"
+    "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle"
   },
   "custom/clock": {
     "exec": "date +'%I:%M %p'",
     "interval": 60,
-    "format": " {}",
+    "format": " {}",
     "tooltip": false,
     "on-click": "date +'%A, %m/%d/%y'"
   },

@@ -22,7 +22,7 @@ exec swayidle -w \
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec ~/.local/bin/ghostty
+bindsym $mod+Return exec /usr/bin/ghostty
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -194,7 +194,7 @@ input "type:touchpad" {
     accel_profile adaptive
     pointer_accel 1.0
     tap enabled
-    natural_scroll enabled
+    natural_scroll disabled
     dwt enabled
     middle_emulation enabled
 }
@@ -206,20 +206,11 @@ input "type:keyboard" {
     repeat_rate 25
 }
 
-# Specific device configuration (equivalent to your xinput commands)
-input "1:1:SynPS/2_Synaptics_TouchPad" {
-    pointer_accel 1.0
-}
-
-input "1267:12363:DELL097D:00_04F3:311C_Touchpad" {
-    pointer_accel 1.0
-}
-
 # Wallpaper - replace feh with swaybg
 output * bg ~/.dotfiles/wallpaper/space.png fill
 
 # Autostart applications
-exec swaymsg 'workspace 1: term; exec ~/.local/bin/ghostty'
+exec swaymsg 'workspace 1: term; exec /usr/bin/ghostty'
 exec swaymsg 'workspace 2: web; exec firefox'
 exec swaymsg 'workspace 3: chat; exec "flatpak run com.slack.Slack"'
 exec swaymsg 'workspace 4: spotify; exec "flatpak run com.spotify.Client"'
