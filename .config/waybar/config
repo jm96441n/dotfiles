@@ -6,6 +6,8 @@
   "modules-left": [
     "tray",
     "sway/mode",
+    "battery",
+    "pulseaudio",
   ],
   "modules-center": [
     "sway/workspaces",
@@ -13,8 +15,7 @@
   "modules-right": [
     "cpu",
     "memory",
-    "pulseaudio",
-    "battery",
+    "disk",
     "network",
     "custom/vpn",
     "custom/clock"
@@ -56,6 +57,11 @@
       "",
       ""
     ]
+  },
+  "disk": {
+    "interval": 15,
+    "format": "{specific_used:0.2f}/{specific_total:0.2f} GB",
+    "unit": "GB"
   },
   "cpu": {
     "format": "CPU: {usage}%",

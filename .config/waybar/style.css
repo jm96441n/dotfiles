@@ -49,6 +49,7 @@ window#waybar {
 #battery,
 #cpu,
 #memory,
+#disk,
 #network,
 #pulseaudio,
 #backlight,
@@ -72,7 +73,8 @@ window#waybar {
   color: #24283b;
 }
 
-#battery {
+#battery,
+#disk {
   background-color: #f7768e;
   color: #24283b;
 }
