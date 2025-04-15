@@ -57,15 +57,19 @@ window#waybar {
 #custom-reboot,
 #custom-logout,
 #custom-lock,
-#custom-launcher {
+#custom-vpn {
   padding: 0 10px;
   margin: 0 4px;
 }
 
-#custom-launcher {
-  background-color: #7aa2f7;
+#custom-vpn.connected {
+  background-color: #83c092;
   color: #24283b;
-  font-size: 20px;
+}
+
+#custom-vpn.disconnected {
+  background-color: #dbbc7f;
+  color: #24283b;
 }
 
 #battery {

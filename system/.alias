@@ -8,17 +8,15 @@ alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
 
-# exa
-alias ls='exa --icons -x -a --group-directories-first'
-alias ll='exa --icons -a -l'
-alias lt='ls --tree'
-alias ltl='ls --tree -L'
-alias lr='ls --recurse'
+# eza
+alias ls='eza --icons -x -a --group-directories-first'
+alias ll='eza --icons -a -l'
+alias lt='eza --tree'
+alias ltl='eza --tree -L'
+alias lr='eza --recurse'
 
 # Rails Aliases
 alias be="bundle exec"
-alias yolo="be rake db:drop;be rake db:create;"
-
 
 # cht.sh
 alias cht="tmux-cht"
@@ -32,12 +30,8 @@ alias egrep="egrep --color=auto"
 alias v="nvim"
 
 # useful shortcuts for editing config files
-alias vr="vim ~/.dotfiles/.config/nvim/init.vim"
 alias zr="vim ~/.dotfiles/runcom/.zshrc"
 alias txr="vim ~/.dotfiles/runcom/.tmux.conf"
-alias kr="vim ~/.dotfiles/.config/kitty/kitty.conf"
-alias ir="vim ~/.dotfiles/.config/i3/config"
-
 
 # Named Directories
 hash -d projects=$HOME/Projects
@@ -46,5 +40,5 @@ hash -d dot=$HOME/.dotfiles
 alias projects=~projects
 alias dot=~dot
 
-alias mkchlog='touch .changelog/$(gh pr list -H "$(git rev-parse --abbrev-ref HEAD)" --json "number" | jq ".[].number").txt'
-
+# common typos
+alias gaap="gapa"

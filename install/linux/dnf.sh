@@ -72,7 +72,6 @@ install docker-compose-plugin
 install double-conversion
 install dracut-live
 install dunst
-install exa
 install eza
 install fastfetch
 install fd-find

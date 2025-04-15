@@ -5,17 +5,18 @@
   "spacing": 0,
   "modules-left": [
     "tray",
-    "sway/workspaces",
     "sway/mode",
-    "custom/launcher"
   ],
-  "modules-center": [],
+  "modules-center": [
+    "sway/workspaces",
+  ],
   "modules-right": [
     "cpu",
     "memory",
     "pulseaudio",
     "battery",
     "network",
+    "custom/vpn",
     "custom/clock"
   ],
   "sway/workspaces": {
@@ -66,12 +67,18 @@
     "on-click": "foot -e htop"
   },
   "network": {
-    "format-wifi": " {essid}",
+    "format-wifi": " {essid} {bandwidthUpBytes}⏶ {bandwidthDownBytes}▼",
     "format-ethernet": " {ifname}",
     "format-linked": " {ifname} (No IP)",
     "format-disconnected": "睊 Offline",
     "format-alt": "{ifname}: {ipaddr}/{cidr}",
     "on-click": "foot -e nmtui"
+  },
+  "custom/vpn": {
+    "format": "{}",
+    "return-type": "json",
+    "interval": 5,
+    "exec": "vpn_check=$(nmcli -t -f NAME,TYPE connection show --active | grep ':vpn$'); if [ -n \"$vpn_check\" ]; then vpn_name=$(echo \"$vpn_check\" | cut -d':' -f1); echo \"{\\\"text\\\":\\\"$vpn_name 🔒 Connected\\\", \\\"class\\\":\\\"connected\\\"}\"; else echo \"{\\\"text\\\":\\\"🔓 Disconnected\\\", \\\"class\\\":\\\"disconnected\\\"}\"; fi"
   },
   "pulseaudio": {
     "format": "{icon} {volume}%",
@@ -106,10 +113,6 @@
     "format": " {}",
     "tooltip": false,
     "on-click": "date +'%A, %m/%d/%y'"
-  },
-  "custom/launcher": {
-    "format": "",
-    "on-click": "wofi --show drun"
   },
   "tray": {
     "icon-size": 21,
