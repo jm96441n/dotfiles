@@ -67,12 +67,11 @@
     "on-click": "foot -e htop"
   },
   "network": {
-    "format-wifi": " {essid} {bandwidthUpBytes}⏶ {bandwidthDownBytes}▼",
+    "format-wifi": " {essid} {bandwidthDownBytes}▼ {bandwidthUpBytes}⏶",
     "format-ethernet": " {ifname}",
     "format-linked": " {ifname} (No IP)",
     "format-disconnected": "睊 Offline",
     "format-alt": "{ifname}: {ipaddr}/{cidr}",
-    "on-click": "foot -e nmtui"
   },
   "custom/vpn": {
     "format": "{}",
@@ -84,11 +83,11 @@
     "format": "{icon} {volume}%",
     "format-bluetooth": "{icon} {volume}%",
     "format-bluetooth-muted": "{icon} {icon}",
-    "format-muted": " Mute",
+    "format-muted": "  Mute",
     "format-icons": {
-      "headphone": "",
+      "headphone": "🎧",
       "hands-free": "",
-      "headset": "",
+      "headset": "🎧",
       "phone": "",
       "portable": "",
       "car": "",

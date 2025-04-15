@@ -4,6 +4,11 @@ profile {
     output eDP-1 disable
 }
 
+profile {
+    output "DP-4" enable mode 3440x1440 position 0,0
+    output eDP-1 disable
+}
+
 # Profile for when only laptop screen is available
 profile {
     output eDP-1 enable mode 2560x1600 position 0,0
