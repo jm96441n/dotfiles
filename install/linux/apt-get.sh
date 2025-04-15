@@ -32,11 +32,6 @@ curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo 
   sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg &&
   echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list >/dev/null
 
-# setup i3 for gaps
-/usr/lib/apt/apt-helper download-file https://debian.sur5r.net/i3/pool/main/s/sur5r-keyring/sur5r-keyring_2022.02.17_all.deb keyring.deb SHA256:52053550c4ecb4e97c48900c61b2df4ec50728249d054190e8a0925addb12fc6
-sudo apt install ./keyring.deb
-echo "deb http://debian.sur5r.net/i3/ $(grep '^DISTRIB_CODENAME=' /etc/lsb-release | cut -f2 -d=) universe" | sudo tee /etc/apt/sources.list.d/sur5r-i3.list
-
 sudo apt update
 
 sudo apt install --reinstall ca-certificates
@@ -53,8 +48,6 @@ install direnv
 install containerd.io
 install eza
 install flatpak
-install flameshot
-install feh
 install fzf
 install gcc
 install gh
@@ -65,28 +58,12 @@ install helm
 install hub
 install htop
 install imagemagick
-install i3
-install i3lock
-install i3status
 install jq
 install kubectl
 install libreadline-dev
 install libssl-dev
 install libffi-dev
 install lsb-release
-install libxext-dev
-install libxcb1-dev
-install libxcb-damage0-dev
-install libxcb-xfixes0-dev
-install libxcb-shape0-dev
-install libxcb-render-util0-dev
-install libxcb-render0-dev
-install libxcb-randr0-dev
-install libxcb-composite0-dev
-install libxcb-image0-dev
-install libxcb-present-dev
-install libxcb-xinerama0-dev
-install libxcb-glx0-dev
 install libpixman-1-dev
 install libdbus-1-dev
 install libconfig-dev
@@ -96,17 +73,12 @@ install libpcre3-dev
 install libevdev-dev
 install uthash-dev
 install libev-dev
-install libx11-xcb-dev
-install lxappearance
 install make
 install meson
 install neofetch
 install npm
-install picom
-install polybar
 install postgresql
 install ranger
-install rofi
 install sqlite3
 install strace
 install libsqlite3-dev
@@ -116,10 +88,24 @@ install tmux
 install tree
 install wget
 install yarn
-install xbacklight
-install xclip
 install xz-utils
 install zlib1g-dev
 install zsh-autosuggestions
+
+install sway
+install swaylock
+install swayidle
+install wayland-protocols
+install xwayland
+install wl-clipboard
+install waybar
+install wofi
+install mako-notifier
+install grim
+install slurp
+install kanshi
+install brightnessctl
+install swaybg
+install pavucontrol
 
 echo "installed"
