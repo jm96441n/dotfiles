@@ -1,0 +1,5 @@
+[tools]
+node='23.11.0'
+golang='1.24.2'
+python='3.13.3'
+ruby='3.4.3'

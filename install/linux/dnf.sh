@@ -21,6 +21,7 @@ function install {
 }
 sudo dnf -y install dnf-plugins-core
 sudo dnf-3 config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
+sudo dnf config-manager addrepo --from-repofile=https://mise.jdx.dev/rpm/mise.repo
 sudo dnf copr enable pgdev/ghostty
 
 # setup kubectl
@@ -107,6 +108,7 @@ install i3lock
 install i3status
 install initscripts
 install jemalloc-devel
+install jsonnet
 install jq
 install k9s
 install kernel
@@ -147,6 +149,7 @@ install lxappearance
 install make
 install mesa-libGL-devel
 install meson
+install mise
 install ncurses-devel
 install neovim
 install nmap
@@ -213,6 +216,7 @@ install xorg-x11-proto-devel
 install xset
 install xss-lock
 install xz
+install yq
 install zig
 install zlib
 install zlib-devel

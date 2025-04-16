@@ -1,44 +1,6 @@
-if [[ $(is-macos) == 1 ]]; then
-  if [ ! -d ~/.asdf ]; then
-    git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.15.0
-  fi
-  echo "sourcing asdf"
-  . "$HOME/.asdf/asdf.sh"
-else
-  # asdf for version management
-  brew install asdf
-fi
+#! /usr/bin/bash
 
-# Ruby
-asdf plugin-add ruby || true
-
-asdf install ruby 3.2.1
-
-asdf global ruby 3.2.1
-
-# Python
-asdf plugin-add python || true
-
-if [[ $(is-macos) == 1 ]]; then
-  asdf install python 3.13.2
-else
-  env PYTHON_CONFIGURE_OPTS="--enable-framework" asdf install python 3.13.2
-fi
-
-asdf global python 3.13.2
-# Golang
-asdf plugin-add golang
-
-asdf install golang 1.23.7
-
-asdf global golang 1.23.7
-
-# nodejs
-asdf plugin-add nodejs
-
-asdf install nodejs 18.5.0
-
-asdf global nodejs 18.5.0
+mise install
 
 # install rust
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh

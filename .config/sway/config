@@ -239,8 +239,10 @@ exec_always ~/.config/waybar/launch-bar.sh
 # Set up screen sharing
 exec_always systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
 exec_always dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
+exec_always dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP=sway
 exec_always /usr/libexec/xdg-desktop-portal -r
 exec_always kanshi
+exec_always export XDG_CURRENT_DESKTOP=sway
 
 # Notification daemon - mako instead of dunst
 exec mako

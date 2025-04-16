@@ -36,6 +36,7 @@ if is-executable git -a -d "$DOTFILES_DIR/.git"; then git --work-tree="$DOTFILES
 
 mkdir -p "$HOME/.config/k9s/skins"
 mkdir -p "$HOME/.config/ghostty"
+mkdir -p "$HOME/.config/mise"
 
 # Bunch of symlinks
 ln -sfv "$DOTFILES_DIR/.config/zsh/.zshrc" "$HOME"
@@ -43,11 +44,12 @@ ln -sfv "$DOTFILES_DIR/.config/tmux/.tmux.conf" "$HOME"
 ln -sfv "$DOTFILES_DIR/.config/tmux/.tmux.conf.local" "$HOME"
 ln -sfv "$DOTFILES_DIR/.config/tmux/.tmux-cht-command" "$HOME"
 ln -sfv "$DOTFILES_DIR/.config/tmux/.tmux-cht-languages" "$HOME"
-ln -sfv "$DOTFILES_DIR/lang_defaults/.default-gems" "$HOME"
-ln -sfv "$DOTFILES_DIR/lang_defaults/.default_npm_packages" "$HOME"
-ln -sfv "$DOTFILES_DIR/lang_defaults/.default-python-packages" "$HOME"
-ln -sfv "$DOTFILES_DIR/lang_defaults/.default-cargo-crates" "$HOME"
-ln -sfv "$DOTFILES_DIR/lang_defaults/.default-golang-pkgs" "$HOME"
+ln -sfv "$DOTFILES_DIR/.config/mise/.default-gems" "$HOME"
+ln -sfv "$DOTFILES_DIR/.config/mise/.default_npm_packages" "$HOME"
+ln -sfv "$DOTFILES_DIR/.config/mise/.default-python-packages" "$HOME"
+ln -sfv "$DOTFILES_DIR/.config/mise/.default-cargo-crates" "$HOME"
+ln -sfv "$DOTFILES_DIR/.config/mise/.default-go-packages" "$HOME"
+ln -sfv "$DOTFILES_DIR/.config/mise/mise.toml" "$HOME/.config/mise/config.toml"
 ln -sfv "$DOTFILES_DIR/.config/nvim" "$HOME/.config"
 ln -sfv "$DOTFILES_DIR/.config/wofi" "$HOME/.config"
 ln -sfv "$DOTFILES_DIR/.config/waybar" "$HOME/.config"
@@ -65,7 +67,7 @@ ln -sfv "$DOTFILES_DIR/.config/ghostty/config" "$HOME/.config/ghostty/config"
 
 # Package managers & pagkages
 . "$DOTFILES_DIR/install/packages.sh"
-. "$DOTFILES_DIR/install/asdf_install.sh"
+. "$DOTFILES_DIR/install/mise.sh"
 if [ ! -z "$NEWKEY" ]; then
   . "$DOTFILES_DIR/install/autokey-github.sh"
 else

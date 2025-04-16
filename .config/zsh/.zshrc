@@ -54,12 +54,7 @@ if type brew &>/dev/null; then
     compinit
 fi
 
-if [[ $(is-macos) == 0 ]]; then
-    autoload -Uz compinit && compinit
-    source $(brew --prefix asdf)/asdf.sh
-else
-    . $HOME/.asdf/asdf.sh
-fi
+eval "$(/usr/bin/mise activate zsh)"
 
 fastfetch # --logo "~/.dotfiles/wallpaper/wave_wallpaper.png" --crop_mode fit
 
