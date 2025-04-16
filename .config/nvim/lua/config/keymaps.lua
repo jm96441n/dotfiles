@@ -33,7 +33,7 @@ M.map("i", "<left>", "<nop>", { noremap = true })
 M.map("i", "<right>", "<nop>", { noremap = true })
 
 -- move back and forth between projections
-M.map("n", "<leader>aa", ":A<CR>", { silent = true })
+M.map("n", "<leader>aA", ":A<CR>", { silent = true })
 M.map("n", "<leader>av", ":AV<CR>", { silent = true })
 
 --tmux sessionizer

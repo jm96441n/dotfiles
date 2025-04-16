@@ -1,5 +1,0 @@
-#! /bin/bash
-
-~/.config/polybar/launch-bar.sh && feh --bg-fill ~/.dotfiles/wallpaper/space.png
-
-notify-send -i display "Display profile" "$AUTORANDR_CURRENT_PROFILE"
