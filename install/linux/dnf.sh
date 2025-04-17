@@ -22,7 +22,8 @@ function install {
 sudo dnf -y install dnf-plugins-core
 sudo dnf-3 config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
 sudo dnf config-manager addrepo --from-repofile=https://mise.jdx.dev/rpm/mise.repo
-sudo dnf copr enable pgdev/ghostty
+sudo dnf copr enable pgdev/ghostty -y
+sudo dnf copr enable atim/lazygit -y
 
 # setup kubectl
 cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
@@ -121,6 +122,7 @@ install kitty
 install kmod-nvidia
 install kubectl
 install langpacks-en
+install lazygit
 install libX11-devel
 install libX11-xcb
 install libXScrnSaver
