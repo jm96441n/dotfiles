@@ -11,3 +11,4 @@ install com.spotify.Client
 install org.signal.Signal
 install us.zoom.Zoom
 install com.bitwarden.desktop
+install com.discordapp.Discord
