@@ -16,3 +16,17 @@ vim.filetype.add({
     ["helmfile.*%.ya?ml"] = "helm",
   },
 })
+
+-- Create a Lua function to resize windows by percentage
+vim.cmd([[
+lua << EOF
+EOF
+]])
+
+-- Then create a command that uses this function
+vim.api.nvim_create_user_command("VResizePercent", function(opts)
+  local columns = vim.o.columns
+  local percent = opts.fargs[1]
+  local new_width = math.floor(columns * percent / 100)
+  vim.cmd("vertical resize " .. new_width)
+end, { nargs = 1 })
