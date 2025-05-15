@@ -60,7 +60,7 @@
   },
   "disk": {
     "interval": 15,
-    "format": "{specific_used:0.2f}/{specific_total:0.2f} GB",
+    "format": "{specific_used:0.2f}GB/{specific_total:0.2f} GB",
     "unit": "GB"
   },
   "cpu": {
@@ -69,7 +69,7 @@
     "on-click": "foot -e gtop"
   },
   "memory": {
-    "format": "MEM: {}%",
+    "format": "MEM: {used:0.1f}GB/{total:0.1f}GB",
     "on-click": "foot -e htop"
   },
   "network": {
