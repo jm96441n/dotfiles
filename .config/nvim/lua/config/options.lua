@@ -17,12 +17,6 @@ vim.filetype.add({
   },
 })
 
--- Create a Lua function to resize windows by percentage
-vim.cmd([[
-lua << EOF
-EOF
-]])
-
 -- Then create a command that uses this function
 vim.api.nvim_create_user_command("VResizePercent", function(opts)
   local columns = vim.o.columns

@@ -71,7 +71,6 @@ return {
       }
     end,
   },
-
   -- configure toggleterm
   {
     "akinsho/toggleterm.nvim",

@@ -24,7 +24,7 @@
   },
   "custom/lock": {
     "format": " lock ",
-    "on-click": "loginctl lock-session",
+    "on-click": "swaylock -f -i ~/.dotfiles/wallpaper/space.png",
     "tooltip": false
   },
   "custom/suspend": {
