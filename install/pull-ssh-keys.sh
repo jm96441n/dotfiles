@@ -18,10 +18,6 @@ echo "copying github_rsa"
 touch "$HOME/.ssh/github_rsa"
 bw get item github_rsa | jq -c ".[] | select(.folderId | contains(\"$folderID\")) | .notes" >"$HOME/.ssh/github_rsa"
 
-echo "copying linuxupskillchallenge"
-touch "$HOME/.ssh/linuxupskillchallenge.pem"
-bw get item linuxupskillchallenge.pem | jq -c ".[] | select(.folderId | contains(\"$folderID\")) | .notes" >"$HOME/.ssh/linuxupskillchallenge.pem"
-
 echo "copying github_rsa.pub"
 touch "$HOME/.ssh/github_rsa.pub"
 bw get item github_rsa.pub | jq -c ".[] | select(.folderId | contains(\"$folderID\")) | .notes" >"$HOME/.ssh/github_rsa.pub"

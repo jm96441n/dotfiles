@@ -5,13 +5,7 @@ sudo dnf update
 
 #sudo dnf install
 
-# install yarn
-if [[ $(which yarn &>/dev/null) -ne 0 ]]; then
-  curl -o- -L https://yarnpkg.com/install.sh | bash
-fi
-
 function install {
-
   if [[ $(which "$1" &>/dev/null) -ne 0 ]]; then
     echo "Installing: ${1}..."
     sudo dnf install -y "$1"
