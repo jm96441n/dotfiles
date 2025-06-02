@@ -98,9 +98,18 @@ return {
       },
     },
   },
+  -- {
+  -- "nvim-neotest/neotest",
+  -- dependencies = {
+  -- "nvim-neotest/nvim-nio",
+  -- "nvim-lua/plenary.nvim",
+  -- "antoinemadec/FixCursorHold.nvim",
+  -- "nvim-treesitter/nvim-treesitter",
+  -- },
+  -- opts = { adapters = { "neotest-plenary" } },
+  -- },
   {
     "hrsh7th/nvim-cmp",
-    ---@param opts cmp.ConfigSchema
     opts = function(_, opts)
       local has_words_before = function()
         unpack = unpack or table.unpack
