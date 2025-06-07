@@ -22,10 +22,6 @@ echo "copying github_rsa.pub"
 touch "$HOME/.ssh/github_rsa.pub"
 bw get item github_rsa.pub | jq -c ".[] | select(.folderId | contains(\"$folderID\")) | .notes" >"$HOME/.ssh/github_rsa.pub"
 
-echo "copying ssh config"
-touch "$HOME/.ssh/config"
-bw get item config | jq -c ".[] | select(.folderId | contains(\"$folderID\")) | .notes" >"$HOME/.ssh/config"
-
 eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/github_rsa
 ssh-add ~/.ssh/hashi
