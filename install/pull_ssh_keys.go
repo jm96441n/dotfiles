@@ -44,5 +44,25 @@ func PullSSHKeys(creds BWCreds, userHomeDir string) error {
 		}
 	}
 
+	// Start SSH agent and add keys
+	fmt.Println("Starting SSH agent...")
+	_, err = runCommandWithOutput("ssh-agent", "-s")
+	if err != nil {
+		return fmt.Errorf("failed to start ssh-agent: %w", err)
+	}
+
+	fmt.Println("Adding SSH keys to agent...")
+	err = runCommand("ssh-add", fmt.Sprintf("%s/.ssh/github_rsa", userHomeDir))
+	if err != nil {
+		return fmt.Errorf("failed to add github_rsa to ssh-agent: %w", err)
+	}
+
+	err = runCommand("ssh-add", fmt.Sprintf("%s/.ssh/hashi", userHomeDir))
+	if err != nil {
+		return fmt.Errorf("failed to add hashi key to ssh-agent: %w", err)
+	}
+
+	fmt.Println("Added SSH keys to the ssh-agent")
+
 	return nil
 }
