@@ -46,7 +46,7 @@ func PullSSHKeys(creds BWCreds, userHomeDir string) error {
 
 	// Start SSH agent and add keys
 	fmt.Println("Starting SSH agent...")
-	_, err = runCommandWithOutput("ssh-agent", "-s")
+	err = runCommand("ssh-agent", "-s")
 	if err != nil {
 		return fmt.Errorf("failed to start ssh-agent: %w", err)
 	}

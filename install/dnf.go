@@ -9,11 +9,6 @@ import (
 	"github.com/go-git/go-git/v5"
 )
 
-type PkgFile struct {
-	dnf     []string
-	flatpak []string
-}
-
 var fontSymlinks = map[string]string{
 	"/system/fonts/icomoon-feather.ttf":  "/usr/share/fonts/icomoon-feather.ttf",
 	"/system/fonts/icomoon-feather.ttf_": "/usr/share/fonts/icomoon-feather.ttf_",
@@ -46,7 +41,7 @@ func Fonts(userHomeDir string) error {
 	return nil
 }
 
-func FedoraPackages(pkgs PkgFile) error {
+func FedoraPackages(cfg Config) error {
 	err := dnfUpdate()
 	if err != nil {
 		return fmt.Errorf("failed to update dnf: %w", err)
@@ -57,12 +52,12 @@ func FedoraPackages(pkgs PkgFile) error {
 		return fmt.Errorf("failed to set up extra dnf repositories: %w", err)
 	}
 
-	err = dnfInstall(pkgs.dnf)
+	err = dnfInstall(cfg.Packages.DNF)
 	if err != nil {
 		return fmt.Errorf("failed to install dnf packages: %w", err)
 	}
 
-	err = flatpakInstall(pkgs.flatpak)
+	err = flatpakInstall(cfg.Packages.Flatpak)
 	if err != nil {
 		return fmt.Errorf("failed to install flatpak packages: %w", err)
 	}
@@ -80,7 +75,7 @@ func dnfUpdate() error {
 
 var extraDNFRepos = []string{
 	"dnf -y install dnf-plugins-core",
-	"dnf-3 config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo",
+	"dnf config-manager addrepo --from-repofile=https://download.docker.com/linux/fedora/docker-ce.repo",
 	"dnf config-manager addrepo --from-repofile=https://mise.jdx.dev/rpm/mise.repo",
 	"dnf copr enable pgdev/ghostty -y",
 	"dnf copr enable atim/lazygit -y",

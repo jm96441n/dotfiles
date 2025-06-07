@@ -5,3 +5,4 @@ system/.private_function
 **/packer_compiled.lua
 
 **/__pycache__/**
+.aider*

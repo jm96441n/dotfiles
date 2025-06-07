@@ -5,6 +5,7 @@ go 1.24.2
 require (
 	github.com/BurntSushi/toml v1.5.0
 	github.com/go-git/go-git/v5 v5.16.0
+	golang.org/x/term v0.31.0
 )
 
 require (
