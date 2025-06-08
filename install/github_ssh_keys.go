@@ -15,16 +15,16 @@ type bwItem struct {
 	Notes string `json:"notes"`
 }
 
-func PullSSHKeys(creds BWCreds, userHomeDir string) error {
+func (i *Installer) PullSSHKeys(creds BWCreds) error {
 	fmt.Println("Unlocking Bitwarden CLI...")
-	output, err := runCommandWithOutput("bw", "unlock", creds.Password, "--raw")
+	output, err := i.CmdRunner.RunCommandWithOutput("bw", "unlock", creds.Password, "--raw")
 	if err != nil {
 		return err
 	}
 
 	os.Setenv("BW_SESSION", string(output))
 
-	output, err = runCommandWithOutput("bw", "list", "items", "--search", "gitub_rsa")
+	output, err = i.CmdRunner.RunCommandWithOutput("bw", "list", "items", "--search", "gitub_rsa")
 	if err != nil {
 		return err
 	}
@@ -38,26 +38,26 @@ func PullSSHKeys(creds BWCreds, userHomeDir string) error {
 	for _, item := range bwItems.Items {
 		switch item.Name {
 		case "github_rsa":
-			err = os.WriteFile(fmt.Sprintf("%s/.ssh/github_rsa", userHomeDir), []byte(item.Notes), 0600)
+			err = os.WriteFile(fmt.Sprintf("%s/.ssh/github_rsa", i.UserHomeDir), []byte(item.Notes), 0600)
 		case "github_rsa.pub":
-			err = os.WriteFile(fmt.Sprintf("%s/.ssh/github_rsa.pub", userHomeDir), []byte(item.Notes), 0600)
+			err = os.WriteFile(fmt.Sprintf("%s/.ssh/github_rsa.pub", i.UserHomeDir), []byte(item.Notes), 0600)
 		}
 	}
 
 	// Start SSH agent and add keys
 	fmt.Println("Starting SSH agent...")
-	err = runCommand("ssh-agent", "-s")
+	err = i.CmdRunner.RunCommand("ssh-agent", "-s")
 	if err != nil {
 		return fmt.Errorf("failed to start ssh-agent: %w", err)
 	}
 
 	fmt.Println("Adding SSH keys to agent...")
-	err = runCommand("ssh-add", fmt.Sprintf("%s/.ssh/github_rsa", userHomeDir))
+	err = i.CmdRunner.RunCommand("ssh-add", fmt.Sprintf("%s/.ssh/github_rsa", i.UserHomeDir))
 	if err != nil {
 		return fmt.Errorf("failed to add github_rsa to ssh-agent: %w", err)
 	}
 
-	err = runCommand("ssh-add", fmt.Sprintf("%s/.ssh/hashi", userHomeDir))
+	err = i.CmdRunner.RunCommand("ssh-add", fmt.Sprintf("%s/.ssh/hashi", i.UserHomeDir))
 	if err != nil {
 		return fmt.Errorf("failed to add hashi key to ssh-agent: %w", err)
 	}

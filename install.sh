@@ -8,7 +8,6 @@ set -eEuo pipefail
 
 export DOTFILES_DIR DOTFILES_CACHE DOTFILES_EXTRA_DIR
 DOTFILES_DIR="$HOME/.dotfiles"
-DOTFILES_CACHE="$DOTFILES_DIR/.cache.sh"
 
 if [[ -z "${BW_CLIENTSECRET}" ]]; then
   echo "Bitwarden client secret: "

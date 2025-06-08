@@ -13,16 +13,11 @@ prepend-path "$HOME/bin"
 prepend-path "/sbin"
 prepend-path "/usr/sbin"
 prepend-path "/usr/local/sbin"
-prepend-path "/usr/local/heroku/"
-prepend-path "/usr/local/opt/asdf/shims"
-prepend-path "/usr/local/opt/asdf/bin"
 prepend-path "/usr/local/mysql"
-prepend-path "/usr/local/opt/awscli@1/bin"
 prepend-path "$HOME/go/bin"
 prepend-path "$HOME/.local/bin"
 prepend-path "$HOME/.local/bin/nvim/bin"
 prepend-path "$HOME/.cargo/bin"
-prepend-path "$SPICETIFY_INSTALL:$PATH"
 
 # Remove duplicates (preserving prepended items)
 # Source: http://unix.stackexchange.com/a/40755

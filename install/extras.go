@@ -2,10 +2,10 @@ package install
 
 import "fmt"
 
-func RunScripts(cfg Config, location string) error {
-	for _, script := range cfg.Extras.Scripts {
-		scriptPath := location + script
-		out, err := runCommandWithOutput(scriptPath)
+func (i *Installer) RunScripts() error {
+	for _, script := range i.Config.Extras.Scripts {
+		scriptPath := i.Location + script
+		out, err := i.CmdRunner.RunCommandWithOutput(scriptPath)
 		if err != nil {
 			return err
 		}
