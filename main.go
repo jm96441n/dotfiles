@@ -39,7 +39,7 @@ func setupCommand() {
 	)
 	setupFlags.StringVar(&repoURL, "repo", "", "URL to the remote repository containing the dotfiles")
 	setupFlags.StringVar(&location, "location", "", "Location to clone the dotfiles repository, default is '$HOME/.dotfiles'")
-	setupFlags.StringVar(&configFileLocation, "config", "/dotfiles.toml", "Relative path to the config file within your dotfiles repo, default is '/dotfiles.toml'")
+	setupFlags.StringVar(&configFileLocation, "config", "/dotfiles.yaml", "Relative path to the config file within your dotfiles repo, default is '/dotfiles.yaml'")
 	setupFlags.Parse(os.Args[2:])
 
 	logger := slog.New(slog.NewTextHandler(os.Stdout, nil))
@@ -78,43 +78,55 @@ func setupCommand() {
 		os.Exit(1)
 	}
 
+	// Create command runner for dependency injection
+	cmdRunner := install.NewCommandRunner()
+
 	config, err := install.ReadConfigFile(userHomeDir)
 	if err != nil {
 		logger.Error("Failed to read package file", "error", err)
 		os.Exit(1)
 	}
 
-	err = install.SetupConfigSymlinks(userHomeDir)
+	// Create installer instance
+	installer := install.NewInstaller(location, userHomeDir, cmdRunner, config, terminal)
+
+	err = installer.SetupConfigSymlinks()
 	if err != nil {
 		logger.Error("Failed to set up symlinks", "error", err)
 		os.Exit(1)
 	}
 
-	err = install.FedoraPackages(config)
+	err = installer.SetupPackages()
 	if err != nil {
 		logger.Error("Failed to install Fedora packages", "error", err)
 		os.Exit(1)
 	}
 
-	err = install.Fonts(userHomeDir)
+	err = installer.Fonts()
 	if err != nil {
 		logger.Error("Failed to install fonts", "error", err)
 		os.Exit(1)
 	}
 
-	err = install.PullSSHKeys(bwCreds, userHomeDir)
+	err = installer.SetupTools()
+	if err != nil {
+		logger.Error("Failed to set up tools", "error", err)
+		os.Exit(1)
+	}
+
+	err = installer.PullSSHKeys(bwCreds)
 	if err != nil {
 		logger.Error("Failed to pull SSH keys from Bitwarden", "error", err)
 		os.Exit(1)
 	}
 
-	err = install.SetupOhMyZsh(config, userHomeDir)
+	err = installer.SetupOhMyZsh()
 	if err != nil {
 		logger.Error("Failed to set up shell", "error", err)
 		os.Exit(1)
 	}
 
-	err = install.RunScripts(config, location)
+	err = installer.RunScripts()
 	if err != nil {
 		logger.Error("Failed to run extra scripts", "error", err)
 		os.Exit(1)

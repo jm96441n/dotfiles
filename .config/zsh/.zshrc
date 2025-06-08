@@ -44,16 +44,6 @@ done
 
 export DOTFILES_DIR
 
-#export PATH="$HOME/.cargo/bin:$PATH"
-complete -C /usr/local/bin/vault vault
-
-if type brew &>/dev/null; then
-    FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
-
-    autoload -Uz compinit
-    compinit
-fi
-
 eval "$(/usr/bin/mise activate zsh)"
 
 fastfetch # --logo "~/.dotfiles/wallpaper/wave_wallpaper.png" --crop_mode fit

@@ -9,14 +9,10 @@ import (
 	"github.com/go-git/go-git/v5"
 )
 
-var fontSymlinks = map[string]string{
-	"/system/fonts/icomoon-feather.ttf":  "/usr/share/fonts/icomoon-feather.ttf",
-	"/system/fonts/icomoon-feather.ttf_": "/usr/share/fonts/icomoon-feather.ttf_",
-	"/system/fonts/siji.pcf":             "/usr/share/fonts/siji.pcf",
-}
+// Removed type aliases - using CommandRunner interface instead
 
-func Fonts(userHomeDir string) error {
-	_, err := git.PlainClone(fmt.Sprintf("%s/.nerd-fonts", userHomeDir), false, &git.CloneOptions{
+func (i *Installer) Fonts() error {
+	_, err := git.PlainClone(fmt.Sprintf("%s/.nerd-fonts", i.UserHomeDir), false, &git.CloneOptions{
 		URL:      "https://github.com/ryanoasis/nerd-fonts",
 		Depth:    1,
 		Progress: os.Stdout,
@@ -25,92 +21,104 @@ func Fonts(userHomeDir string) error {
 		return fmt.Errorf("failed to clone nerd-fonts repository: %w", err)
 	}
 
-	err = runCommand(userHomeDir + "/.nerd-fonts/install.sh")
+	err = i.CmdRunner.RunCommand(i.UserHomeDir + "/.nerd-fonts/install.sh")
 	if err != nil {
 		return fmt.Errorf("failed to run nerd-fonts install script: %w", err)
 	}
 
-	for src, dest := range fontSymlinks {
-		srcPath := userHomeDir + "/.dotfiles" + src
-		err = os.Symlink(srcPath, dest)
+	return nil
+}
+
+func (i *Installer) SetupPackages() error {
+	if i.Config.Packages.DNF == nil {
+		err := i.dnf()
 		if err != nil {
-			return fmt.Errorf("failed to create symlink from %s to %s: %w", srcPath, dest, err)
+			return fmt.Errorf("failed to install dnf packages: %w", err)
+		}
+
+	}
+
+	if i.Config.Packages.Flatpak == nil {
+		err := i.flatpakInstall()
+		if err != nil {
+			return fmt.Errorf("failed to install flatpak packages: %w", err)
 		}
 	}
 
 	return nil
 }
 
-func FedoraPackages(cfg Config) error {
-	err := dnfUpdate()
+func (i *Installer) dnf() error {
+	err := i.dnfUpdate()
 	if err != nil {
 		return fmt.Errorf("failed to update dnf: %w", err)
 	}
 
-	err = extraDNFReposSetup()
+	err = i.extraDNFReposSetup()
 	if err != nil {
 		return fmt.Errorf("failed to set up extra dnf repositories: %w", err)
 	}
 
-	err = dnfInstall(cfg.Packages.DNF)
+	err = i.dnfInstall()
 	if err != nil {
 		return fmt.Errorf("failed to install dnf packages: %w", err)
 	}
-
-	err = flatpakInstall(cfg.Packages.Flatpak)
-	if err != nil {
-		return fmt.Errorf("failed to install flatpak packages: %w", err)
-	}
-
 	return nil
 }
 
-func dnfUpdate() error {
-	err := runCommand("sudo", "dnf", "update", "-y")
+func (i *Installer) dnfUpdate() error {
+	err := i.CmdRunner.RunCommand("sudo", "dnf", "update", "-y")
 	if err != nil {
 		return fmt.Errorf("failed to run dnf update: %w", err)
 	}
 	return nil
 }
 
-var extraDNFRepos = []string{
-	"dnf -y install dnf-plugins-core",
-	"dnf config-manager addrepo --from-repofile=https://download.docker.com/linux/fedora/docker-ce.repo",
-	"dnf config-manager addrepo --from-repofile=https://mise.jdx.dev/rpm/mise.repo",
-	"dnf copr enable pgdev/ghostty -y",
-	"dnf copr enable atim/lazygit -y",
-}
+func (i *Installer) extraDNFReposSetup() error {
+	err := i.CmdRunner.RunCommand("sudo", "dnf", "install", "dnf-plugins-core", "-y")
+	if err != nil {
+		return fmt.Errorf("failed to install dnf-plugins-core: %w", err)
+	}
 
-func extraDNFReposSetup() error {
-	for _, repo := range extraDNFRepos {
-		sp := strings.Split(repo, " ")
-		err := runCommand("sudo", sp...)
+	for _, repo := range i.Config.Packages.DNF.ExtraRepo {
+		err := i.CmdRunner.RunCommand("sudo", "dnf", "config-manager", "addrepo", fmt.Sprintf("--from-repofile=%s", repo))
 		if err != nil {
-			return fmt.Errorf("failed to run extra dnf repo command '%s': %w", repo, err)
+			return fmt.Errorf("failed to add extra dnf repo '%s': %w", repo, err)
 		}
 	}
 
-	err := setupKubeCtlRepo()
-	if err != nil {
-		return err
+	for _, copr := range i.Config.Packages.DNF.Copr {
+		err := i.CmdRunner.RunCommand("sudo", "dnf", "copr", "enable", copr, "-y")
+		if err != nil {
+			return fmt.Errorf("failed to enable copr repository '%s': %w", copr, err)
+		}
 	}
 
-	err = setupRPMFusionRepos()
-	if err != nil {
-		return fmt.Errorf("failed to set up RPM Fusion repositories: %w", err)
+	if i.Config.Packages.DNF.Kubectl != nil {
+		err = i.setupKubeCtlRepo()
+		if err != nil {
+			return err
+		}
+	}
+
+	if i.Config.Packages.DNF.Fusion {
+		err = i.setupRPMFusionRepos()
+		if err != nil {
+			return fmt.Errorf("failed to set up RPM Fusion repositories: %w", err)
+		}
 	}
 
 	return nil
 }
 
-func setupKubeCtlRepo() error {
-	repoContent := `[kubernetes]
+func (i *Installer) setupKubeCtlRepo() error {
+	repoContent := fmt.Sprintf(`[kubernetes]
 name=Kubernetes
-baseurl=https://pkgs.k8s.io/core:/stable:/v1.32/rpm/
+baseurl=https://pkgs.k8s.io/core:/stable:/%s/rpm/
 enabled=1
 gpgcheck=1
 gpgkey=https://pkgs.k8s.io/core:/stable:/v1.32/rpm/repodata/repomd.xml.key
-`
+`, i.Config.Packages.DNF.Kubectl.Version)
 
 	// Write to temporary file first
 	tmpFile, err := os.CreateTemp("", "kubernetes-repo-*.repo")
@@ -126,7 +134,7 @@ gpgkey=https://pkgs.k8s.io/core:/stable:/v1.32/rpm/repodata/repomd.xml.key
 	tmpFile.Close()
 
 	// Move temp file to final location with sudo
-	err = runCommand("sudo", "mv", tmpFile.Name(), "/etc/yum.repos.d/kubernetes.repo")
+	err = i.CmdRunner.RunCommand("sudo", "mv", tmpFile.Name(), "/etc/yum.repos.d/kubernetes.repo")
 	if err != nil {
 		return fmt.Errorf("failed to move temp file to /etc/yum.repos.d: %w", err)
 	}
@@ -139,14 +147,14 @@ var fusionRepos = []string{
 	"https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-%s.noarch.rpm",
 }
 
-func setupRPMFusionRepos() error {
+func (i *Installer) setupRPMFusionRepos() error {
 	version, err := getFedoraVersionRpm()
 	if err != nil {
 		return fmt.Errorf("failed to get Fedora version: %w", err)
 	}
 
 	for _, fusionRepo := range fusionRepos {
-		err = runCommand("sudo", "dnf", "install", fmt.Sprintf(fusionRepo, version), "-y")
+		err = i.CmdRunner.RunCommand("sudo", "dnf", "install", fmt.Sprintf(fusionRepo, version), "-y")
 		if err != nil {
 			return fmt.Errorf("failed to install RPM Fusion repository: %w", err)
 		}
@@ -171,9 +179,9 @@ func getFedoraVersionRpm() (string, error) {
 	return version, nil
 }
 
-func dnfInstall(pkgs []string) error {
-	for _, pkg := range pkgs {
-		err := runCommand("sudo", "dnf", "install", pkg, "-y")
+func (i *Installer) dnfInstall() error {
+	for _, pkg := range i.Config.Packages.DNF.Packages {
+		err := i.CmdRunner.RunCommand("sudo", "dnf", "install", pkg, "-y")
 		if err != nil {
 			return fmt.Errorf("failed to install package %s: %w", pkg, err)
 		}
@@ -182,9 +190,9 @@ func dnfInstall(pkgs []string) error {
 	return nil
 }
 
-func flatpakInstall(pkgs []string) error {
-	for _, pkg := range pkgs {
-		err := runCommand("flatpak", "install", "flathub", "-y", pkg)
+func (i *Installer) flatpakInstall() error {
+	for _, pkg := range *i.Config.Packages.Flatpak {
+		err := i.CmdRunner.RunCommand("flatpak", "install", "flathub", "-y", pkg)
 		if err != nil {
 			return fmt.Errorf("failed to install flatpak package %s: %w", pkg, err)
 		}

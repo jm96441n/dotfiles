@@ -3,3 +3,12 @@ node='23.11.0'
 golang='1.24.3'
 python='3.13.3'
 ruby='3.4.3'
+rust='1.87.0'
+
+"cargo:eza" = "latest"
+"cargo:starship" = "latest"
+"cargo:stylua" = "latest"
+"cargo:ripgrep" = "latest"
+"cargo:fd-find" = "latest"
+"cargo:bat" = "latest"
+"cargo:git-delta" = "latest"
