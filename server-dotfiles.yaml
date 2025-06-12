@@ -72,7 +72,6 @@ packages: &server-packages
       - jemalloc-devel
       - jsonnet
       - jq
-      - k9s
       - kernel
       - kernel-core
       - kernel-devel
