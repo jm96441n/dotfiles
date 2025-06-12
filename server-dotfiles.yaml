@@ -62,8 +62,6 @@ packages: &server-packages
       - git
       - git-delta
       - git-extras
-      - google-cloud-cli
-      - google-cloud-cli-gke-gcloud-auth-plugin
       - gpg2
       - grub2-efi-aa64-modules
       - haproxy
