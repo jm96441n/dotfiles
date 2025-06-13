@@ -37,7 +37,6 @@ packages: &server-packages
       - autojump
       - akmod-nvidia
       - awscli
-      - bat
       - biosdevname
       - bison
       - bzip2
@@ -54,9 +53,7 @@ packages: &server-packages
       - docker-ce-cli
       - docker-compose-plugin
       - double-conversion
-      - eza
       - fastfetch
-      - fd-find
       - ffmpeg
       - fzf
       - gcc
@@ -64,7 +61,6 @@ packages: &server-packages
       - gdbm-devel
       - gh
       - git
-      - git-delta
       - git-extras
       - gpg2
       - grub2-efi-aa64-modules
