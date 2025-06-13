@@ -47,6 +47,9 @@ M.map("t", "<C-j>", [[<C-\><C-n><C-W>j]], { noremap = true })
 M.map("t", "<C-k>", [[<C-\><C-n><C-W>k]], { noremap = true })
 M.map("t", "<C-l>", [[<C-\><C-n><C-W>l]], { noremap = true })
 
+-- avante
+M.map("n", "<leader>am", ":AvanteChat<CR>", { silent = true })
+
 -- harpoon keyamps
 local harpoon = require("harpoon")
 local conf = require("telescope.config").values
