@@ -1,22 +1,24 @@
 symlinks: &server-symlinks
-  "/.config/zsh/.zshrc": "/.zshrc"
-  "/.config/tmux/.tmux.conf": "/.tmux.conf"
-  "/.config/tmux/.tmux.conf.local": "/.tmux.conf.local"
-  "/.config/tmux/.tmux-cht-command": "/.tmux-cht-command"
-  "/.config/tmux/.tmux-cht-languages": "/.tmux-cht-languages"
-  "/.config/mise/.default-gems": "/.default-gems"
-  "/.config/mise/.default_npm_packages": "/.default-npm-packages"
-  "/.config/mise/.default-python-packages": "/.default-python-packages"
-  "/.config/mise/.default-go-packages": "/.default-go-packages"
-  "/.config/mise/mise.toml": "/.config/mise/config.toml"
-  "/.config/nvim": "/.config/nnvim"
-  "/.config/ranger": "/.config/ranger"
-  "/.config/bat": "/.config/bat"
-  "/.config/k9s/skin.yml": "/.config/k9s/skins/everforest-dark.yaml"
-  "/.config/k9s/config.yml": "/.config/k9s/config.yaml"
-  "/.config/k9s/views.yml": "/.config/k9s/views.yaml"
-  "/git/.gitconfig": "/.gitconfig"
-  "/git/.githelpers": "/.githelpers"
+  config:
+    "/.config/zsh/.zshrc": "/.zshrc"
+    "/.config/tmux/.tmux.conf": "/.tmux.conf"
+    "/.config/tmux/.tmux.conf.local": "/.tmux.conf.local"
+    "/.config/tmux/.tmux-cht-command": "/.tmux-cht-command"
+    "/.config/tmux/.tmux-cht-languages": "/.tmux-cht-languages"
+    "/.config/mise/.default-gems": "/.default-gems"
+    "/.config/mise/.default_npm_packages": "/.default-npm-packages"
+    "/.config/mise/.default-python-packages": "/.default-python-packages"
+    "/.config/mise/.default-go-packages": "/.default-go-packages"
+    "/.config/mise/mise.toml": "/.config/mise/config.toml"
+    "/.config/nvim": "/.config/nnvim"
+    "/.config/ranger": "/.config/ranger"
+    "/.config/bat": "/.config/bat"
+    "/.config/k9s/skin.yml": "/.config/k9s/skins/everforest-dark.yaml"
+    "/.config/k9s/config.yml": "/.config/k9s/config.yaml"
+    "/.config/k9s/views.yml": "/.config/k9s/views.yaml"
+  git:
+    "/git/.gitconfig": "/.gitconfig"
+    "/git/.githelpers": "/.githelpers"
 
 packages: &server-packages
   dnf:
@@ -25,6 +27,7 @@ packages: &server-packages
     extra-repo:
       - https://mise.jdx.dev/rpm/mise.repo
       - https://download.docker.com/linux/fedora/docker-ce.repo
+      - https://rpm.releases.hashicorp.com/fedora/hashicorp.repo
     fusion: true
     packages:
       - ImageMagick
@@ -32,6 +35,7 @@ packages: &server-packages
       - ansible
       - autoconf
       - autojump
+      - akmod-nvidia
       - awscli
       - bat
       - biosdevname
@@ -103,6 +107,7 @@ packages: &server-packages
       - nmap
       - nodejs-npm
       - npm
+      - ollama
       - openssl
       - openssl-devel
       - packer
@@ -135,6 +140,7 @@ packages: &server-packages
       - uthash-devel
       - wget
       - xclip
+      - xorg-x11-drv-nvidia-cuda
       - xz
       - yq
       - zig
@@ -161,6 +167,9 @@ tools: &server-tools
       - python@latest
       - go@latest
       - rust@latest
+
+fonts:
+  - Fira Code Nerd Font
 
 extras:
   scripts:
