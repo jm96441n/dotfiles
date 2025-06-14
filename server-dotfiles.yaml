@@ -1,24 +1,6 @@
-symlinks: &server-symlinks
-  config:
-    "/.config/zsh/.zshrc": "/.zshrc"
-    "/.config/tmux/.tmux.conf": "/.tmux.conf"
-    "/.config/tmux/.tmux.conf.local": "/.tmux.conf.local"
-    "/.config/tmux/.tmux-cht-command": "/.tmux-cht-command"
-    "/.config/tmux/.tmux-cht-languages": "/.tmux-cht-languages"
-    "/.config/mise/.default-gems": "/.default-gems"
-    "/.config/mise/.default-npm-packages": "/.default-npm-packages"
-    "/.config/mise/.default-python-packages": "/.default-python-packages"
-    "/.config/mise/.default-go-packages": "/.default-go-packages"
-    "/.config/mise/mise.toml": "/.config/mise/config.toml"
-    "/.config/nvim": "/.config/nvim"
-    "/.config/ranger": "/.config/ranger"
-    "/.config/bat": "/.config/bat"
-    "/.config/k9s/skin.yml": "/.config/k9s/skins/everforest-dark.yaml"
-    "/.config/k9s/config.yml": "/.config/k9s/config.yaml"
-    "/.config/k9s/views.yml": "/.config/k9s/views.yaml"
-  git:
-    "/git/.gitconfig": "/.gitconfig"
-    "/git/.githelpers": "/.githelpers"
+symlinks:
+  config: *common-config-symlinks
+  git: *common-git-symlinks
 
 packages:
   dnf:
@@ -37,7 +19,7 @@ shell: *common-tools
 tools: *common-tools
 
 fonts:
-  - Fira Code Nerd Font
+  - Fira Code
 
 extras:
   scripts:

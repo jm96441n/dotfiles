@@ -1,13 +1,15 @@
 symlinks:
-  <<: *server-symlinks
-  "/.config/wofi": "/.config/wofi"
-  "/.config/waybar": "/.config/waybar"
-  "/.config/kanshi": "/.config/kanshi"
-  "/.config/mako": "/.config/mako"
-  "/.config/sway": "/.config/sway"
-  "/system/fonts/icomoon-feather.ttf": "/usr/share/fonts/icomoon-feather.ttf"
-  "/system/fonts/icomoon-feather.ttf_": "/usr/share/fonts/icomoon-feather.ttf_"
-  "/system/fonts/siji.pcf": "/usr/share/fonts/siji.pcf"
+  config:
+    <<: *common-config-symlinks
+    "/.config/wofi": "/.config/wofi"
+    "/.config/waybar": "/.config/waybar"
+    "/.config/kanshi": "/.config/kanshi"
+    "/.config/mako": "/.config/mako"
+    "/.config/sway": "/.config/sway"
+    "/system/fonts/icomoon-feather.ttf": "/usr/share/fonts/icomoon-feather.ttf"
+    "/system/fonts/icomoon-feather.ttf_": "/usr/share/fonts/icomoon-feather.ttf_"
+    "/system/fonts/siji.pcf": "/usr/share/fonts/siji.pcf"
+  git: *common-git-symlinks
 
 packages:
   dnf:
