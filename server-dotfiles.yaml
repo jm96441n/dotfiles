@@ -30,7 +30,7 @@ packages:
       - https://rpm.releases.hashicorp.com/fedora/hashicorp.repo
     fusion: true
     packages:
-      - *common-dnf
+      - <<: *common-dnf
 
 shell: *common-tools
 
