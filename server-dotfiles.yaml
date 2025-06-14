@@ -6,7 +6,7 @@ symlinks: &server-symlinks
     "/.config/tmux/.tmux-cht-command": "/.tmux-cht-command"
     "/.config/tmux/.tmux-cht-languages": "/.tmux-cht-languages"
     "/.config/mise/.default-gems": "/.default-gems"
-    "/.config/mise/.default_npm_packages": "/.default-npm-packages"
+    "/.config/mise/.default-npm-packages": "/.default-npm-packages"
     "/.config/mise/.default-python-packages": "/.default-python-packages"
     "/.config/mise/.default-go-packages": "/.default-go-packages"
     "/.config/mise/mise.toml": "/.config/mise/config.toml"
