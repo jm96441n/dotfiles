@@ -1,36 +1,15 @@
 symlinks:
   <<: *server-symlinks
-  "/.config/zsh/.zshrc": "/.zshrc"
-  "/.config/tmux/.tmux.conf": "/.tmux.conf"
-  "/.config/tmux/.tmux.conf.local": "/.tmux.conf.local"
-  "/.config/tmux/.tmux-cht-command": "/.tmux-cht-command"
-  "/.config/tmux/.tmux-cht-languages": "/.tmux-cht-languages"
-  "/.config/mise/.default-gems": "/.default-gems"
-  "/.config/mise/.default_npm_packages": "/.default-npm-packages"
-  "/.config/mise/.default-python-packages": "/.default-python-packages"
-  "/.config/mise/.default-go-packages": "/.default-go-packages"
-  "/.config/mise/mise.toml": "/.config/mise/config.toml"
-  "/.config/nvim": "/.config/nnvim"
   "/.config/wofi": "/.config/wofi"
   "/.config/waybar": "/.config/waybar"
   "/.config/kanshi": "/.config/kanshi"
   "/.config/mako": "/.config/mako"
   "/.config/sway": "/.config/sway"
-  "/.config/ranger": "/.config/ranger"
-  "/.config/bat": "/.config/bat"
-  "/.config/kitty": "/.config/kitty"
-  "/.config/k9s/skin.yml": "/.config/k9s/skins/everforest-dark.yaml"
-  "/.config/k9s/config.yml": "/.config/k9s/config.yaml"
-  "/.config/k9s/views.yml": "/.config/k9s/views.yaml"
-  "/.config/ghostty/config": "/.config/ghostty/config"
-  "/git/.gitconfig": "/.gitconfig"
-  "/git/.githelpers": "/.githelpers"
   "/system/fonts/icomoon-feather.ttf": "/usr/share/fonts/icomoon-feather.ttf"
   "/system/fonts/icomoon-feather.ttf_": "/usr/share/fonts/icomoon-feather.ttf_"
   "/system/fonts/siji.pcf": "/usr/share/fonts/siji.pcf"
 
 packages:
-  <<: *server-packages
   dnf:
     copr:
       - pgdev/ghostty
@@ -39,6 +18,7 @@ packages:
     kubectl:
       version: v1.33
     packages:
+      - *common-dnf
       - aajohan-comfortaa-fonts
       - adwaita-qt6
       - akmod-nvidia
@@ -108,9 +88,9 @@ packages:
     - com.bitwarden.desktop
     - com.discordapp.Discord
 
-shell: *server-shell
+shell: *common-shell
 
-tools: *server-tools
+tools: *common-tools
 
 extras:
   scripts:
