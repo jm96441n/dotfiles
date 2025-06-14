@@ -11,8 +11,7 @@ packages:
       - https://download.docker.com/linux/fedora/docker-ce.repo
       - https://rpm.releases.hashicorp.com/fedora/hashicorp.repo
     fusion: true
-    packages:
-      - <<: *common-dnf
+    packages: *common-dnf
 
 shell: *common-tools
 
