@@ -35,7 +35,7 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
-DOTFILES_DIR="$HOME/.dotfiles"
+DOTFILES_DIR="$HOME/dotfiles"
 
 # Finally we can source the dotfiles (order matters)
 for DOTFILE in "$DOTFILES_DIR"/system/.{function,private_function,env,path,private_env,alias,private_alias,completion,custom}; do
@@ -46,12 +46,12 @@ export DOTFILES_DIR
 
 eval "$(/usr/bin/mise activate zsh)"
 
-fastfetch # --logo "~/.dotfiles/wallpaper/wave_wallpaper.png" --crop_mode fit
+fastfetch # --logo "~/dotfiles/wallpaper/wave_wallpaper.png" --crop_mode fit
 
 eval "$(starship init zsh)"
 
 bindkey -s ^f "tmux-sessionizer\n"
-bindkey -s ^bd "tmux-sessionizer ~/.dotfiles\n"
+bindkey -s ^bd "tmux-sessionizer ~/dotfiles\n"
 
 source <(kubectl completion zsh)
 
