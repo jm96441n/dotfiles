@@ -133,7 +133,7 @@ shell: &common-shell
       plugins:
         - https://github.com/zsh-users/zsh-autosuggestions
         - https://github.com/Aloxaf/fzf-tab
-        - https://github.com/zsh-users/zsh-syntax-highlighting.git
+        - https://github.com/zsh-users/zsh-syntax-highlighting
 
 config: &common-config-symlinks
   "/.config/zsh/.zshrc": "/.zshrc"
@@ -149,9 +149,14 @@ config: &common-config-symlinks
   "/.config/nvim": "/.config/nvim"
   "/.config/ranger": "/.config/ranger"
   "/.config/bat": "/.config/bat"
+  "/.config/starship/starship.toml": "/.config/starship.toml"
   "/.config/k9s/skin.yml": "/.config/k9s/skins/everforest-dark.yaml"
   "/.config/k9s/config.yml": "/.config/k9s/config.yaml"
   "/.config/k9s/views.yml": "/.config/k9s/views.yaml"
+  "/bin/welcome": "/.local/bin/welcome"
+  "/bin/tmux-cht": "/.local/bin/tmux-cht"
+  "/bin/review": "/.local/bin/review"
+  "/bin/tmux-sessionizer": "/.local/bin/tmux-sessionizer"
 
 git: &common-git-symlinks
   "/git/.gitconfig": "/.gitconfig"
