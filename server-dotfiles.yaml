@@ -13,7 +13,7 @@ packages:
     fusion: true
     packages: *common-dnf
 
-shell: *common-tools
+shell: *common-shell
 
 tools: *common-tools
 
