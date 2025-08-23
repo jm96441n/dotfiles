@@ -18,6 +18,7 @@ prepend-path "$HOME/go/bin"
 prepend-path "$HOME/.local/bin"
 prepend-path "$HOME/.local/bin/nvim/bin"
 prepend-path "$HOME/.cargo/bin"
+prepend-path "/nix/var/nix/profiles/default/bin/"
 
 # Remove duplicates (preserving prepended items)
 # Source: http://unix.stackexchange.com/a/40755
