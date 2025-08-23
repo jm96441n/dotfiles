@@ -16,7 +16,6 @@
           "~/.ssh/github_rsa"
           "~/.ssh/hashi"
         ];
-        addKeysToAgent = "yes";
       };
     };
   };

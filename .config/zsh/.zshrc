@@ -57,3 +57,4 @@ source <(kubectl completion zsh)
 
 eval "$(direnv hook zsh)"
 welcome
+. /etc/profile.d/nix.sh

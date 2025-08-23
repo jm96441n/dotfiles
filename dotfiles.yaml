@@ -19,7 +19,7 @@ packages:
     fusion: true
     kubectl:
       version: v1.33
-    packages:
+    packages: 
       - *common-dnf
       - aajohan-comfortaa-fonts
       - adwaita-qt6
