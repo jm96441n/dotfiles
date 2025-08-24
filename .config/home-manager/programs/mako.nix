@@ -1,7 +1,7 @@
 { ... }:
 
 {
-  programs.mako = {
+  services.mako = {
     enable = true;
     settings = {
       sort = "-time";

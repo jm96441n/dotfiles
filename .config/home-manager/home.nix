@@ -31,6 +31,7 @@
     htop
     jq
     kubectl
+    mako
     mise
     neovim
     nixfmt-rfc-style
