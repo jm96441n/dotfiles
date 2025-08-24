@@ -46,8 +46,10 @@
 
   imports = [
     ./programs/git.nix
-    ./programs/zsh.nix
     ./programs/ssh-agent.nix
+    ./programs/zsh.nix
+    ./programs/bat.nix
+    ./programs/starship.nix
   ];
 
   # Dotfiles as plain files
