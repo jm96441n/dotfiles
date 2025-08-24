@@ -46,6 +46,7 @@
 
   imports = [
     ./programs/git.nix
+    ./programs/mako.nix
     ./programs/ssh-agent.nix
     ./programs/zsh.nix
     ./programs/bat.nix
