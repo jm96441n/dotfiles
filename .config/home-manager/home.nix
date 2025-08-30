@@ -21,10 +21,11 @@
     ansible
     bat
     bison
-    clang
+    bitwarden-cli
     chromium
     cmake
     curl
+    claude-code
     delta # for git pager
     direnv
     eza
@@ -62,6 +63,7 @@
     ripgrep
     starship
     strace
+    stylua
     tmux
     tree
     terraform
@@ -104,44 +106,44 @@
   ];
 
   # Dotfiles as plain files
-  # home.file = {
-  # ".tmux.conf".source = ../tmux/.tmux.conf;
-  # ".tmux.conf.local".source = ../tmux/.tmux.conf.local;
-  # ".default-gems".source = ../mise/.default-gems;
-  # ".default-npm-packages".source = ../mise/.default-npm-packages;
-  # ".default-python-packages".source = ../mise/.default-python-packages;
-  # ".default-go-packages".source = ../mise/.default-go-packages;
-  # ".config/mise/config.toml".source = ../mise/mise.toml;
-  # ".config/nvim" = {
-  # source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/.config/nvim";
-  # recursive = true;
-  # };
-  # ".config/wofi" = {
-  # source = ../wofi;
-  # recursive = true;
-  # };
-  # ".config/waybar" = {
-  # source = ../waybar;
-  # recursive = true;
-  # };
-  # ".config/sway" = {
-  # source = ../sway;
-  # recursive = true;
-  # };
-  # ".config/kanshi" = {
-  # source = ../kanshi;
-  # recursive = true;
-  # };
-  # ".config/ranger" = {
-  # source = ../ranger;
-  # recursive = true;
-  # };
-  # ".config/kitty" = {
-  # source = ../kitty;
-  # recursive = true;
-  # };
-  # ".config/ghostty/config".source = ../ghostty/config;
-  # };
+  home.file = {
+    ".tmux.conf".source = ../tmux/.tmux.conf;
+    ".tmux.conf.local".source = ../tmux/.tmux.conf.local;
+    ".default-gems".source = ../mise/.default-gems;
+    ".default-npm-packages".source = ../mise/.default-npm-packages;
+    ".default-python-packages".source = ../mise/.default-python-packages;
+    ".default-go-packages".source = ../mise/.default-go-packages;
+    ".config/mise/config.toml".source = ../mise/mise.toml;
+    ".config/nvim" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/.config/nvim";
+      recursive = true;
+    };
+    ".config/wofi" = {
+      source = ../wofi;
+      recursive = true;
+    };
+    ".config/waybar" = {
+      source = ../waybar;
+      recursive = true;
+    };
+    ".config/sway" = {
+      source = ../sway;
+      recursive = true;
+    };
+    ".config/kanshi" = {
+      source = ../kanshi;
+      recursive = true;
+    };
+    ".config/ranger" = {
+      source = ../ranger;
+      recursive = true;
+    };
+    ".config/kitty" = {
+      source = ../kitty;
+      recursive = true;
+    };
+    ".config/ghostty/config".source = ../ghostty/config;
+  };
 
   # Environment variables
   home.sessionVariables = {

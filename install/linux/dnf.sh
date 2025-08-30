@@ -35,7 +35,7 @@ sudo dnf install -y remove-retired-packages
 
 sudo dnf install -y tlp tlp-rdw
 sudo dnf install -y acpi
-sudo dnf install lm-sensors
+sudo dnf install -y lm-sensors
 
 sudo dnf install -y aajohan-comfortaa-fonts
 sudo dnf install -y langpacks-en

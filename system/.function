@@ -145,7 +145,3 @@ func main() {
 " > "$tempdir/main.go"
   tmux-sessionizer "$tempdir"
 }
-
-myhelp() {
-  # print out all functions
-}

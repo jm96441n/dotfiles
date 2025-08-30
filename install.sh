@@ -33,20 +33,10 @@ PATH="$DOTFILES_DIR/bin:$PATH"
 
 if is-executable git -a -d "$DOTFILES_DIR/.git"; then git --work-tree="$DOTFILES_DIR" --git-dir="$DOTFILES_DIR/.git" pull origin master; fi
 
-mkdir -p "$HOME/.config/k9s/skins"
-mkdir -p "$HOME/.config/ghostty"
-mkdir -p "$HOME/.config/mise"
-
 # Bunch of symlinks
-ln -sfv "$DOTFILES_DIR/.config/waybar" "$HOME/.config"
-ln -sfv "$DOTFILES_DIR/.config/kanshi" "$HOME/.config"
-ln -sfv "$DOTFILES_DIR/.config/sway" "$HOME/.config"
-ln -sfv "$DOTFILES_DIR/.config/ranger" "$HOME/.config"
-ln -sfv "$DOTFILES_DIR/.config/kitty" "$HOME/.config"
 ln -sfv "$DOTFILES_DIR/.config/k9s/skin.yml" "$HOME/.config/k9s/skins/everforest-dark.yaml"
 ln -sfv "$DOTFILES_DIR/.config/k9s/config.yml" "$HOME/.config/k9s/config.yaml"
 ln -sfv "$DOTFILES_DIR/.config/k9s/views.yml" "$HOME/.config/k9s/views.yaml"
-ln -sfv "$DOTFILES_DIR/.config/ghostty/config" "$HOME/.config/ghostty/config"
 
 # Package managers & pagkages
 . "$DOTFILES_DIR/install/packages.sh"
@@ -57,7 +47,6 @@ else
   . "$DOTFILES_DIR/install/pull-ssh-keys.sh"
 fi
 
-ln -sfv "$DOTFILES_DIR/git/.gitconfig" "$HOME"
 ln -sfv "$DOTFILES_DIR/git/.githelpers" "$HOME"
 
 . "$DOTFILES_DIR/install/projects.sh"
@@ -65,20 +54,6 @@ ln -sfv "$DOTFILES_DIR/git/.githelpers" "$HOME"
 # Install extra stuff
 
 PATH="$HOME/.cargo/bin:$PATH"
-
-# add theme for bat
-mkdir -p "$(bat --config-dir)/themes"
-cd "$(bat --config-dir)/themes"
-
-if [ ! -d "$(bat --config-dir)/themes/forest-night-textmate" ]; then
-  # Download a theme in '.tmTheme' format, for example:
-  git clone https://github.com/mhanberg/forest-night-textmate.git
-fi
-
-# Update the binary cache
-bat cache --build
-
-cd ~
 
 mkdir -p ~/.themes
 if [ ! -d "$HOME/.themes/everforest-gt" ]; then
@@ -88,12 +63,3 @@ fi
 # tell flatpak to use everforest-gtk theme
 sudo flatpak override --filesystem="$HOME/.themes"
 sudo flatpak override --env=GTK_THEME=everforest-gtk
-
-echo "Installing zsh"
-
-. "$DOTFILES_DIR/install/zsh_install.sh"
-
-if test -f .zshrc.pre-oh-my-zsh; then
-  rm .zshrc
-  mv .zshrc.pre-oh-my-zsh .zshrc
-fi

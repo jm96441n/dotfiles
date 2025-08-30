@@ -2,7 +2,6 @@
 
 set -e
 
-npm install -g @bitwarden/cli
 bw login --apikey || true
 echo "Logged in!"
 

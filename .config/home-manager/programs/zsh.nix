@@ -1,6 +1,36 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 
 {
+
+  home.file = {
+    ".oh-my-zsh/custom/plugins/fzf-tab" = {
+      source = pkgs.fetchFromGitHub {
+        owner = "Aloxaf";
+        repo = "fzf-tab";
+        rev = "v1.2.0";
+        sha256 = "sha256-q26XVS/LcyZPRqDNwKKA9exgBByE0muyuNb0Bbar2lY=";
+      };
+      recursive = true;
+    };
+    ".oh-my-zsh/custom/plugins/zsh-autosuggestions" = {
+      source = pkgs.fetchFromGitHub {
+        owner = "zsh-users";
+        repo = "zsh-autosuggestions";
+        rev = "85919cd1ffa7d2d5412f6d3fe437ebdbeeec4fc5";
+        sha256 = "sha256-KmkXgK1J6iAyb1FtF/gOa0adUnh1pgFsgQOUnNngBaE=";
+      };
+      recursive = true;
+    };
+    ".oh-my-zsh/custom/plugins/zsh-syntax-highlighting" = {
+      source = pkgs.fetchFromGitHub {
+        owner = "zsh-users";
+        repo = "zsh-syntax-highlighting";
+        rev = "5eb677bb0fa9a3e60f0eff031dc13926e093df92";
+        sha256 = "sha256-KRsQEDRsJdF7LGOMTZuqfbW6xdV5S38wlgdcCM98Y/Q=";
+      };
+      recursive = true;
+    };
+  };
   programs.zsh = {
     enable = true;
     enableCompletion = true;
@@ -28,10 +58,6 @@
       # Map vim to use neovim
       "v" = "nvim";
 
-      # useful shortcuts for editing config files
-      "zr" = "vim ~/.dotfiles/runcom/.zshrc";
-      "txr" = "vim ~/.dotfiles/runcom/.tmux.conf";
-
       # common typos
       "gaap" = "gapa";
     };
@@ -48,7 +74,7 @@
         "autojump"
         "direnv"
         "fzf"
-        # "fzf-tab"
+        "fzf-tab"
         "git"
         "git-extras"
         "git-prompt"
@@ -56,8 +82,8 @@
         "terraform"
         "tmux"
         "tmuxinator"
-        # "zsh-autosuggestions"
-        # "zsh-syntax-highlighting"
+        "zsh-autosuggestions"
+        "zsh-syntax-highlighting"
       ];
     };
     initContent = ''
