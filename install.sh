@@ -2,9 +2,18 @@
 
 set -eEuo pipefail
 
-# sudo  install curl
+# install nix
+sh <(curl --proto '=https' --tlsv1.2 -L https://nixos.org/nix/install) --daemon
 
-# Get current dir (so run this script from anywhere)
+export PATH="/nix/var/nix/profiles/default/bin:$PATH"
+
+nix-shell '<home-manager>' -A install
+
+ln -sfv "$DOTFILES_DIR/.config/home-manager" "$HOME/.config/home-manager"
+
+home-manager switch --flake ~/.config/home-manager#"$USER"
+
+fc-cache -fv
 
 export DOTFILES_DIR DOTFILES_CACHE DOTFILES_EXTRA_DIR
 DOTFILES_DIR="$HOME/.dotfiles"
@@ -25,14 +34,6 @@ if [[ -z "${BW_PASSWORD}" ]]; then
   export BW_PASSWORD="$BW_PASSWORD"
 fi
 
-# Make utilities available
-
-PATH="$DOTFILES_DIR/bin:$PATH"
-
-# Update dotfiles itself first
-
-if is-executable git -a -d "$DOTFILES_DIR/.git"; then git --work-tree="$DOTFILES_DIR" --git-dir="$DOTFILES_DIR/.git" pull origin master; fi
-
 # Bunch of symlinks
 ln -sfv "$DOTFILES_DIR/.config/k9s/skin.yml" "$HOME/.config/k9s/skins/everforest-dark.yaml"
 ln -sfv "$DOTFILES_DIR/.config/k9s/config.yml" "$HOME/.config/k9s/config.yaml"
@@ -40,20 +41,14 @@ ln -sfv "$DOTFILES_DIR/.config/k9s/views.yml" "$HOME/.config/k9s/views.yaml"
 
 # Package managers & pagkages
 . "$DOTFILES_DIR/install/packages.sh"
-. "$DOTFILES_DIR/install/mise.sh"
-if [ ! -z "$NEWKEY" ]; then
+
+mise install
+
+if [ -n "$NEWKEY" ]; then
   . "$DOTFILES_DIR/install/autokey-github.sh"
 else
   . "$DOTFILES_DIR/install/pull-ssh-keys.sh"
 fi
-
-ln -sfv "$DOTFILES_DIR/git/.githelpers" "$HOME"
-
-. "$DOTFILES_DIR/install/projects.sh"
-
-# Install extra stuff
-
-PATH="$HOME/.cargo/bin:$PATH"
 
 mkdir -p ~/.themes
 if [ ! -d "$HOME/.themes/everforest-gt" ]; then

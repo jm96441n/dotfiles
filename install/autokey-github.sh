@@ -15,7 +15,6 @@
 
 set -e
 
-npm install -g @bitwarden/cli
 bw login --apikey || true
 echo "Logged in!"
 export BW_SESSION
@@ -32,14 +31,14 @@ PUBKEY=$(cat ~/.ssh/github_rsa.pub)
 TITLE=$(hostname)
 
 RESPONSE=$(curl -s -H "Authorization: token ${TOKEN}" \
-    -X POST --data-binary "{\"title\":\"${TITLE}\",\"key\":\"${PUBKEY}\"}" \
-    https://api.github.com/user/keys)
+  -X POST --data-binary "{\"title\":\"${TITLE}\",\"key\":\"${PUBKEY}\"}" \
+  https://api.github.com/user/keys)
 
 echo "$RESPONSE"
 KEYID=$(echo "$RESPONSE" |
-    grep -o '\"id.*' |
-    grep -o "[0-9]*" |
-    grep -m 1 "[0-9]*")
+  grep -o '\"id.*' |
+  grep -o "[0-9]*" |
+  grep -m 1 "[0-9]*")
 
 echo "Public key deployed to remote service"
 
@@ -47,14 +46,14 @@ PUBKEY=$(cat ~/.ssh/hashi.pub)
 TITLE=$(hostname)
 
 RESPONSE=$(curl -s -H "Authorization: token ${TOKEN}" \
-    -X POST --data-binary "{\"title\":\"${TITLE}\",\"key\":\"${PUBKEY}\"}" \
-    https://api.github.com/user/keys)
+  -X POST --data-binary "{\"title\":\"${TITLE}\",\"key\":\"${PUBKEY}\"}" \
+  https://api.github.com/user/keys)
 
 echo "$RESPONSE"
 KEYID=$(echo "$RESPONSE" |
-    grep -o '\"id.*' |
-    grep -o "[0-9]*" |
-    grep -m 1 "[0-9]*")
+  grep -o '\"id.*' |
+  grep -o "[0-9]*" |
+  grep -m 1 "[0-9]*")
 
 echo "Public key deployed to remote service"
 

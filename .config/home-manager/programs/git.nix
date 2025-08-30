@@ -1,16 +1,17 @@
 { ... }:
 
 {
+
+  home.file = {
+    ".githelpers".source = ../../../git/.githelpers;
+  };
+
   programs.git = {
     enable = true;
 
     # User information
     userName = "jm96441n";
     userEmail = "john@jmaguire.tech";
-
-    home.file = {
-      ".githelpers".source = ../git/.githelpers;
-    };
 
     # Git aliases
     aliases = {

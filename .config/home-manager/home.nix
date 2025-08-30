@@ -43,6 +43,7 @@
     helm
     hub
     htop
+    icomoon-feather
     imagemagick
     jq
     lazygit
@@ -54,6 +55,7 @@
     meson
     mise
     neovim
+    nerd-fonts.fira-code
     nixfmt-rfc-style
     nmap
     peek
@@ -61,6 +63,7 @@
     python3
     ranger
     ripgrep
+    slack
     starship
     strace
     stylua
@@ -95,6 +98,8 @@
     zlib
 
   ];
+
+  fonts.fontconfig.enable = true;
 
   imports = [
     ./programs/git.nix
@@ -151,12 +156,26 @@
     BROWSER = "firefox";
     ZSH_PATH = "${pkgs.zsh}/bin/zsh";
     SHELL = "${pkgs.zsh}/bin/zsh";
-    DOTFILES_DIR = "$HOME/dotfiles";
+    DOTFILES_DIR = "$HOME/.dotfiles";
   };
+
+  home.sessionPath = [
+    "/bin"
+    "/usr/bin"
+    "/usr/local/bin"
+    "$DOTFILES_DIR/bin"
+    "$HOME/bin"
+    "/sbin"
+    "/usr/sbin"
+    "/usr/local/sbin"
+    "$HOME/go/bin"
+    "$HOME/.local/bin"
+    "$HOME/.local/bin/nvim/bin"
+    "$HOME/.cargo/bin"
+  ];
 
   services.kanshi.enable = true; # Display management
   services.swayidle.enable = true; # Idle management
 
   xdg.portal.config.common.default = "*";
-
 }
