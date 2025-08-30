@@ -16,33 +16,82 @@
   # Packages that should be installed to the user profile
   home.packages = with pkgs; [
     # CLI tools
+    autoconf
     autojump
+    ansible
     bat
+    bison
+    clang
+    chromium
+    cmake
     curl
     delta # for git pager
     direnv
     eza
-    fd
-    fzf
     fastfetch
+    fd
+    ffmpeg
+    firefox
+    fzf
+    gcc
+    gh
+    ghostty
     git
     git-extras
     git-lfs
+    helm
+    hub
     htop
+    imagemagick
     jq
+    lazygit
+    k9s
+    kitty
     kubectl
+    gnumake
     mako
+    meson
     mise
     neovim
     nixfmt-rfc-style
+    nmap
+    peek
+    powertop
+    python3
+    ranger
     ripgrep
     starship
+    strace
     tmux
     tree
     terraform
     unzip
+    vlc
     vim
     wget
+    yq
+
+    # Media/Graphics
+    flameshot
+
+    sway
+    swayidle
+    swaylock
+    swaybg
+    waybar
+    grim
+    slurp
+    wofi
+    mako
+    wl-clipboard
+    xdg-desktop-portal-wlr
+    xdg-desktop-portal-gtk
+
+    # Development Libraries (some may work)
+    openssl
+    sqlite
+    zlib
+
   ];
 
   imports = [
@@ -55,11 +104,44 @@
   ];
 
   # Dotfiles as plain files
-  home.file = {
-
-    # You can also source existing dotfiles
-    # ".tmux.conf".source = ./dotfiles/tmux.conf;
-  };
+  # home.file = {
+  # ".tmux.conf".source = ../tmux/.tmux.conf;
+  # ".tmux.conf.local".source = ../tmux/.tmux.conf.local;
+  # ".default-gems".source = ../mise/.default-gems;
+  # ".default-npm-packages".source = ../mise/.default-npm-packages;
+  # ".default-python-packages".source = ../mise/.default-python-packages;
+  # ".default-go-packages".source = ../mise/.default-go-packages;
+  # ".config/mise/config.toml".source = ../mise/mise.toml;
+  # ".config/nvim" = {
+  # source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/.config/nvim";
+  # recursive = true;
+  # };
+  # ".config/wofi" = {
+  # source = ../wofi;
+  # recursive = true;
+  # };
+  # ".config/waybar" = {
+  # source = ../waybar;
+  # recursive = true;
+  # };
+  # ".config/sway" = {
+  # source = ../sway;
+  # recursive = true;
+  # };
+  # ".config/kanshi" = {
+  # source = ../kanshi;
+  # recursive = true;
+  # };
+  # ".config/ranger" = {
+  # source = ../ranger;
+  # recursive = true;
+  # };
+  # ".config/kitty" = {
+  # source = ../kitty;
+  # recursive = true;
+  # };
+  # ".config/ghostty/config".source = ../ghostty/config;
+  # };
 
   # Environment variables
   home.sessionVariables = {
@@ -69,4 +151,10 @@
     SHELL = "${pkgs.zsh}/bin/zsh";
     DOTFILES_DIR = "$HOME/dotfiles";
   };
+
+  services.kanshi.enable = true; # Display management
+  services.swayidle.enable = true; # Idle management
+
+  xdg.portal.config.common.default = "*";
+
 }

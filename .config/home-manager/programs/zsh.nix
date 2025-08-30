@@ -84,10 +84,6 @@
       export PATH="/nix/var/nix/profiles/default/bin:$PATH"
     '';
   };
-  programs.starship = {
-    enable = true;
-    enableZshIntegration = true;
-  };
 
   programs.direnv = {
     enable = true;

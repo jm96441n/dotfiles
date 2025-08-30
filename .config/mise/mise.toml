@@ -5,8 +5,6 @@ python='3.13.3'
 ruby='3.4.3'
 rust='1.87.0'
 
-"cargo:eza" = "latest"
-"cargo:starship" = "latest"
 "cargo:stylua" = "latest"
 "cargo:ripgrep" = "latest"
 "cargo:fd-find" = "latest"

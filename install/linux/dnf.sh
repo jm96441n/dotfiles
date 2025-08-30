@@ -3,234 +3,49 @@
 set -eEuo pipefail
 sudo dnf update
 
-#sudo dnf install
-
-function install {
-  if [[ $(which "$1" &>/dev/null) -ne 0 ]]; then
-    echo "Installing: ${1}..."
-    sudo dnf install -y "$1"
-  else
-    echo "Already installed: ${1}"
-  fi
-}
 sudo dnf -y install dnf-plugins-core
 sudo dnf-3 config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
-sudo dnf config-manager addrepo --from-repofile=https://mise.jdx.dev/rpm/mise.repo
-sudo dnf copr enable pgdev/ghostty -y
-sudo dnf copr enable atim/lazygit -y
-
-# setup kubectl
-cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
-[kubernetes]
-name=Kubernetes
-baseurl=https://pkgs.k8s.io/core:/stable:/v1.32/rpm/
-enabled=1
-gpgcheck=1
-gpgkey=https://pkgs.k8s.io/core:/stable:/v1.32/rpm/repodata/repomd.xml.key
-EOF
+sudo dnf remove docker \
+  docker-client \
+  docker-client-latest \
+  docker-common \
+  docker-latest \
+  docker-latest-logrotate \
+  docker-logrotate \
+  docker-selinux \
+  docker-engine-selinux \
+  docker-engine
 
 # enable rpm fusion repo
 install "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm"
 install "https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm"
-install ImageMagick
-install aajohan-comfortaa-fonts
-install acpi
-install adwaita-qt6
-install akmod-nvidia
-install anaconda
-install anaconda-install-env-deps
-install anaconda-live
-install ansible
-install arandr
-install autoconf
-install autojump
-install awscli
-install bat
-install biosdevname
-install bison
-install bzip2
-install cairo-devel
-install cairo-gobject-devel
-install chkconfig
-install chromium
-install clang-devel
-install clang-resource-filesystem
-install cmake
-install conky
-install containerd.io
-install curl
-install dbus-devel
-install direnv
-install docker-buildx-plugin
-install docker-ce
-install docker-ce-cli
-install docker-compose-plugin
-install double-conversion
-install dracut-live
-install dunst
-install eza
-install fastfetch
-install fd-find
-install fedora-workstation-repositories
-install feh
-install ffmpeg
-install firefox
-install flameshot
-install fzf
-install gcc
-install gcc-c++
-install gdbm-devel
-install gh
-install ghostscript-tools-fonts
-install ghostscript-tools-printing
-install ghostty
-install git
-install git-delta
-install git-extras
-install gnome-weather
-install gobject-introspection-devel
-install google-cloud-cli
-install google-cloud-cli-gke-gcloud-auth-plugin
-install gpg2
-install grub2-efi-aa64-modules
-install gtk4-devel
-install haproxy
-install helm
-install htop
-install hub
-install i3
-install i3lock
-install i3status
-install initscripts
-install jemalloc-devel
-install jsonnet
-install jq
-install k9s
-install kernel
-install kernel-core
-install kernel-devel
-install kernel-modules
-install kernel-modules-core
-install kernel-modules-extra
-install kitty
-install kmod-nvidia
-install kubectl
-install langpacks-en
-install lazygit
-install libX11-devel
-install libX11-xcb
-install libXScrnSaver
-install libXext-devel
-install libadwaita-devel
-install libadwaita-qt6
-install libb2
-install libconfig-devel
-install libdrm-devel
-install libev-devel
-install libffi-devel
-install libreoffice-data
-install libreoffice-ure-common
-install libvirt
-install libvirt-daemon-config-network
-install libvirt-daemon-kvm
-install libxcb-devel
-install libxml2-devel
-install libyaml-devel
-install lld
-install lld-libs
-install llvm-devel
-install llvm-libs
-install lm_sensors
-install lxappearance
-install make
-install mesa-libGL-devel
-install meson
-install mise
-install ncurses-devel
-install neovim
-install nmap
-install nodejs-npm
-install nordvpn
-install npm
-install openssl
-install openssl-devel
-install packer
-install perl-core
-install pcre-devel
-install peek
-install pgadmin4
-install pgadmin4-fedora-repo
-install picom
-install pixman-devel
-install polybar
-install postgresql
-install powertop
-install proton-vpn-gnome-desktop
-install protonvpn-stable-release
-install python3-devel
-install python3-neovim
-install qemu-kvm
-install qgnomeplatform-qt6
-install qt6-qtbase
-install qt6-qtbase-common
-install qt6-qtbase-gui
-install qt6-qtdeclarative
-install qt6-qtsvg
-install qt6-qtwayland
-install ranger
-install re2c
-install readline
-install readline-devel
-install redis
-install remove-retired-packages
-install rofi
-install rpmfusion-free-release
-install rpmfusion-nonfree-release
-install ruby-devel
-install rust-src
-install sqlite
-install sqlite-devel
-install strace
-install tailscale
-install terraform
-install thefuck
-install tlp
-install tlp-rdw
-install tmux
-install tree
-install tslib
-install uthash-devel
-install vlc
-install wget
-install xbacklight
-install xcb-util-image-devel
-install xcb-util-renderutil-devel
-install xclip
-install xcompmgr
-install xinput
-install xorg-x11-proto-devel
-install xset
-install xss-lock
-install xz
-install yq
-install zig
-install zlib
-install zlib-devel
-install zlib-ng-compat-devel
-install zsh-autosuggestions
+sudo dnf install -y kernel kernel-core kernel-devel kernel-modules
+sudo dnf install -y akmod-nvidia kmod-nvidia
+sudo dnf install -y biosdevname
 
-### wayland/sway
-install sway
-install swayidle
-install swaylock
-install swaybg
-install wl-clipboard
-install waybar
-install grim
-install slurp
-install grimshot
-install wofi
-install kanshi
-install mako
-install wev
-install xdg-desktop-portal-wlr
+sudo dnf install -y docker-ce docker-ce-cli containerd.io
+sudo dnf install -y docker-buildx-plugin docker-compose-plugin
+sudo dnf install -y libvirt libvirt-daemon-config-network libvirt-daemon-kvm
+sudo dnf install -y qemu-kvm
+
+sudo dnf install -y chkconfig initscripts
+sudo dnf install -y dracut-live
+sudo dnf install -y grub2-efi-aa64-modules
+sudo dnf install -y remove-retired-packages
+
+sudo dnf install -y tlp tlp-rdw
+sudo dnf install -y acpi
+sudo dnf install lm-sensors
+
+sudo dnf install -y aajohan-comfortaa-fonts
+sudo dnf install -y langpacks-en
+
+# Development libraries that need system integration - KEEP WITH DNF
+sudo dnf install -y libX11-devel libX11-xcb libXext-devel libxcb-devel
+sudo dnf install -y cairo-devel cairo-gobject-devel
+sudo dnf install -y gtk4-devel libadwaita-devel
+sudo dnf install -y mesa-libGL-devel libdrm-devel
+sudo dnf install -y python3-devel ruby-devel
+sudo dnf install -y ncurses-devel readline-devel
+sudo dnf install -y libffi-devel libyaml-devel gdbm-devel
+sudo dnf install -y zlib-devel sqlite-devel openssl-devel
