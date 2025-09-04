@@ -10,8 +10,113 @@ local function buildTags()
   return { "-tags=" }
 end
 
-local function send_to_quickfix(line)
-  vim.fn.setqflist({ { filename = "CopilotChat.nvim", lnum = 0, text = line } }, "a")
+local function parse_frontmatter(content)
+  local frontmatter = {}
+
+  -- Check if content starts with frontmatter
+  if not content:match("^%s*%-%-%-") then
+    return frontmatter
+  end
+
+  -- Extract frontmatter content between --- markers
+  local fm_content = content:match("^%s*%-%-%-\n(.-)%-%-%-")
+  if not fm_content then
+    return frontmatter
+  end
+
+  -- Parse key-value pairs
+  for line in fm_content:gmatch("([^\n]+)") do
+    local key, value = line:match("^%s*([%w_%-]+)%s*:%s*(.*)$")
+    if key and value then
+      -- Handle different quote types and trim whitespace
+      value = value:gsub("^%s+", ""):gsub("%s+$", "")
+
+      -- Remove surrounding quotes (single or double)
+      if value:match("^['\"].*['\"]$") then
+        value = value:sub(2, -2)
+      end
+
+      frontmatter[key] = value
+    end
+  end
+
+  return frontmatter
+end
+
+local function strip_frontmatter(content)
+  -- Check if content starts with frontmatter
+  if not content:match("^%s*%-%-%-") then
+    return content
+  end
+
+  -- Find the end of frontmatter
+  local lines = {}
+  local in_frontmatter = true
+  local found_start = false
+
+  for line in content:gmatch("([^\n]*)\n?") do
+    if line:match("^%-%-%-$") then
+      if not found_start then
+        found_start = true
+      else
+        -- Found closing ---, skip this line and exit frontmatter
+        in_frontmatter = false
+      end
+    elseif not in_frontmatter then
+      table.insert(lines, line)
+    end
+    -- Skip lines that are in frontmatter
+  end
+
+  return table.concat(lines, "\n"):gsub("^%s+", ""):gsub("%s+$", "")
+end
+
+local function discover_prompt_files(directory)
+  directory = directory or "."
+  local shortcuts = {}
+
+  -- Use vim.fn.glob for better Neovim integration
+  local files = vim.fn.glob(directory .. "/**/*.prompt.md", false, true)
+
+  for _, filepath in ipairs(files) do
+    local filename = vim.fn.fnamemodify(filepath, ":t:r"):gsub("%.prompt$", "")
+
+    local file = io.open(filepath, "r")
+    if file then
+      local full_content = file:read("*all")
+      file:close()
+
+      local frontmatter = parse_frontmatter(full_content)
+      local content = strip_frontmatter(full_content)
+
+      if content and content ~= "" then
+        local name = filename:match("%-([^%-]+)$")
+
+        -- Extract description from frontmatter
+        local description = frontmatter.description or ("Prompt from " .. filename)
+
+        -- You can also extract other useful fields
+        local details = {}
+        if frontmatter.mode then
+          table.insert(details, "Mode: " .. frontmatter.mode)
+        end
+        if frontmatter.model then
+          table.insert(details, "Model: " .. frontmatter.model)
+        end
+
+        table.insert(shortcuts, {
+          name = name,
+          description = description,
+          details = #details > 0 and table.concat(details, " | ") or nil,
+          prompt = content,
+        })
+      end
+    else
+      vim.notify("Could not read file: " .. filepath, vim.log.levels.WARN)
+    end
+  end
+
+  return shortcuts
 end
 
 return {
@@ -198,6 +303,28 @@ return {
     opts = {
       inlay_hints = { enabled = false },
       servers = {
+        ast_grep = {
+          cmd = { "ast-grep", "lsp" },
+          filetypes = {
+            "javascript",
+            "typescript",
+            "python",
+            "rust",
+            "go",
+            "java",
+            "cpp",
+            "c",
+            "html",
+            "css",
+            "lua",
+            "jsx",
+            "tsx",
+          },
+          root_dir = function(fname)
+            return require("lspconfig.util").root_pattern("sgconfig.yml", "sgconfig.yaml", ".git")(fname)
+          end,
+          single_file_support = false, -- Only start in projects with sgconfig
+        },
         gopls = {
           keys = {
             -- Workaround for the lack of a DAP strategy in neotest-go: https://github.com/nvim-neotest/neotest-go/issues/12
@@ -283,23 +410,6 @@ return {
     end,
   },
 
-  -- copilot chat maybe?
-  {
-    "gptlang/CopilotChat.nvim",
-    build = function()
-      local copilot_chat_dir = vim.fn.stdpath("data") .. "/lazy/CopilotChat.nvim"
-      -- Copy remote plugin to config folder
-      vim.fn.system({ "cp", "-r", copilot_chat_dir .. "/rplugin", vim.fn.stdpath("config") })
-
-      -- Notify the user about manual steps
-      send_to_quickfix("Please run 'pip install -r " .. copilot_chat_dir .. "/requirements.txt'.")
-      send_to_quickfix("Afterwards, open Neovim and run ':UpdateRemotePlugins', then restart Neovim.")
-
-      -- NOTE: add below to plugin.py if you want to change wrap and filetype
-      -- self.nvim.command("setlocal filetype=markdown")
-      -- self.nvim.command("setlocal wrap")
-    end,
-  },
   -- markdown preview
   {
     "iamcco/markdown-preview.nvim",
@@ -348,6 +458,22 @@ return {
   { "akinsho/bufferline.nvim", enabled = false },
   { "folke/noice.nvim", enabled = false },
   {
+    "ravitemer/mcphub.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
+    build = "npm install -g mcp-hub@latest", -- Installs `mcp-hub` node binary globally
+    config = function()
+      require("mcphub").setup({
+        extensions = {
+          avante = {
+            make_slash_commands = true, -- make /slash commands from MCP server prompts
+          },
+        },
+      })
+    end,
+  },
+  {
     "yetone/avante.nvim",
     event = "VeryLazy",
     version = false, -- Never set this value to "*"! Never!
@@ -355,20 +481,92 @@ return {
       -- add any opts here
       -- for example
       provider = "copilot",
+      mode = "agentic",
       providers = {
-        openai = {
-          endpoint = "https://api.githubcopilot.com",
-          model = "copilot/claude-3.7-sonnet-thought", -- updated model
+        copilot = {
+          model = "claude-sonnet-4", -- updated model
           proxy = nil,
+          allow_insecure = false,
+          timeout = 10 * 60 * 1000,
           extra_request_body = {
-            allow_insecure = false,
-            timeout = 10 * 60 * 1000,
             temperature = 0,
             max_completion_tokens = 1000000,
-            reasoning_effort = "high", -- low|medium|high, only used for reasoning models
           },
         },
       },
+      shortcuts = discover_prompt_files("./.github/prompts"),
+
+      system_prompt = function()
+        local hub = require("mcphub").get_hub_instance()
+        return hub and hub:get_active_servers_prompt() or ""
+      end,
+      disabled_tools = {
+        "search_files", -- Important: disable this for ast-grep to be preferred
+      },
+      -- Using function prevents requiring mcphub before it's loaded
+      custom_tools = function()
+        local mcp_tools = {
+          require("mcphub.extensions.avante").mcp_tool(),
+        }
+        -- Create ast-grep tool with func instead of command
+        local ast_search_tool = {
+          name = "ast_search",
+          description = "Search code using AST patterns with ast-grep",
+          param = {
+            type = "table",
+            fields = {
+              {
+                name = "pattern",
+                description = "AST pattern to search for",
+                type = "string",
+                required = true,
+              },
+              {
+                name = "language",
+                description = "Programming language",
+                type = "string",
+                required = false,
+              },
+            },
+          },
+          returns = {
+            {
+              name = "result",
+              description = "AST search results",
+              type = "string",
+            },
+            {
+              name = "error",
+              description = "Error message if search failed",
+              type = "string",
+              optional = true,
+            },
+          },
+          func = function(params)
+            vim.notify("Running AST search for pattern: " .. params.pattern, vim.log.levels.INFO)
+            local args = { "ast-grep", "run", "-p", params.pattern, "." }
+            if params.language then
+              table.insert(args, 3, "-l")
+              table.insert(args, 4, params.language)
+            end
+
+            local cmd = table.concat(args, " ")
+            local handle = io.popen(cmd .. " 2>&1")
+            local result = handle:read("*a")
+            handle:close()
+
+            if result and result ~= "" then
+              -- Simple fix: replace all newlines with spaces
+              local clean_result = result:gsub("\n", " "):gsub("%s+", " "):gsub("^%s+", ""):gsub("%s+$", "")
+              return { result = clean_result }
+            else
+              return { result = "No matches found" }
+            end
+          end,
+        }
+        table.insert(mcp_tools, ast_search_tool)
+        return mcp_tools
+      end,
     },
     -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
     build = "make",
@@ -409,6 +607,28 @@ return {
           file_types = { "markdown", "Avante" },
         },
         ft = { "markdown", "Avante" },
+      },
+    },
+  },
+  {
+    "saghen/blink.cmp",
+    dependencies = {
+      "Kaiser-Yang/blink-cmp-avante",
+      -- ... Other dependencies
+    },
+    opts = {
+      sources = {
+        -- Add 'avante' to the list
+        default = { "avante", "lsp", "path", "buffer" },
+        providers = {
+          avante = {
+            module = "blink-cmp-avante",
+            name = "Avante",
+            opts = {
+              -- options for blink-cmp-avante
+            },
+          },
+        },
       },
     },
   },
