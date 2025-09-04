@@ -20,12 +20,18 @@
     mime.enable = true;
   };
 
+  nix = {
+    package = pkgs.nix;
+    settings.experimental-features = [ "nix-command" "flakes" ];
+  };
+
   # Packages that should be installed to the user profile
   home.packages = with pkgs; [
     # CLI tools
     autoconf
     autojump
     ansible
+    ast-grep
     bat
     bison
     bitwarden-cli

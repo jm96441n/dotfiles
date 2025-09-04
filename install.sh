@@ -2,10 +2,15 @@
 
 set -eEuo pipefail
 
-# install nix
-sh <(curl --proto '=https' --tlsv1.2 -L https://nixos.org/nix/install) --daemon
+export DOTFILES_DIR DOTFILES_CACHE DOTFILES_EXTRA_DIR
+DOTFILES_DIR="$HOME/.dotfiles"
+e install nix
+sh <(curl --proto '=https' --tlsv1.2 -L https://nixos.org/nix/install) --no-daemon
 
 export PATH="/nix/var/nix/profiles/default/bin:$PATH"
+nix-channel --add https://nixos.org/channels/nixpkgs-unstable
+nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
+nix-channel --update
 
 nix-shell '<home-manager>' -A install
 
@@ -14,9 +19,6 @@ ln -sfv "$DOTFILES_DIR/.config/home-manager" "$HOME/.config/home-manager"
 home-manager switch --flake ~/.config/home-manager#"$USER"
 
 fc-cache -fv
-
-export DOTFILES_DIR DOTFILES_CACHE DOTFILES_EXTRA_DIR
-DOTFILES_DIR="$HOME/.dotfiles"
 
 if [[ -z "${BW_CLIENTSECRET}" ]]; then
   echo "Bitwarden client secret: "
