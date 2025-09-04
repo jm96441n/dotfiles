@@ -12,6 +12,13 @@
   # Let Home Manager install and manage itself
   programs.home-manager.enable = true;
   nixpkgs.config.allowUnfree = true;
+  targets.genericLinux.enable = true;
+
+  # Ensure XDG directories are properly set
+  xdg = {
+    enable = true;
+    mime.enable = true;
+  };
 
   # Packages that should be installed to the user profile
   home.packages = with pkgs; [

@@ -74,7 +74,7 @@
         "autojump"
         "direnv"
         "fzf"
-        "fzf-tab"
+        # "fzf-tab"
         "git"
         "git-extras"
         "git-prompt"
@@ -82,8 +82,8 @@
         "terraform"
         "tmux"
         "tmuxinator"
-        "zsh-autosuggestions"
-        "zsh-syntax-highlighting"
+        # "zsh-autosuggestions"
+        # "zsh-syntax-highlighting"
       ];
     };
     initContent = ''
@@ -104,10 +104,6 @@
       bindkey -s ^f "tmux-sessionizer\n"
       bindkey -s ^bd "tmux-sessionizer ~/dotfiles\n"
 
-      . /etc/profile.d/nix.sh
-
-      export PATH="/home/johnmaguire/.nix-profile/bin:$PATH"
-      export PATH="/nix/var/nix/profiles/default/bin:$PATH"
     '';
   };
 
