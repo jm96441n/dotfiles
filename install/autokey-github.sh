@@ -16,7 +16,7 @@
 set -e
 
 # Generate SSH Key and Deploy to Github
-TOKEN=$(bw get item github.com | jq -r '.fields[0].value')
+TOKEN="$GITHUB_TOKEN"
 
 ssh-keygen -t ed25519 -C "john@jmaguire.tech" -f ~/.ssh/github_rsa
 ssh-keygen -t ed25519 -C "john.maguire@hashicorp.com" -f ~/.ssh/hashi
