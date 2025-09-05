@@ -50,16 +50,3 @@ sudo dnf install -y python3-devel ruby-devel
 sudo dnf install -y ncurses-devel readline-devel
 sudo dnf install -y libffi-devel libyaml-devel gdbm-devel
 sudo dnf install -y zlib-devel sqlite-devel openssl-devel
-flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-
-function flatpack_install {
-  echo "Installing: ${1}..."
-  flatpak install flathub "$1" -y
-}
-
-flatpack_install com.discordapp.Discord
-flatpack_install md.obsidian.Obsidian
-flatpack_install com.spotify.Client
-flatpack_install org.signal.Signal
-flatpack_install us.zoom.Zoom
-flatpack_install com.bitwarden.desktop
