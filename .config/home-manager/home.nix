@@ -22,7 +22,10 @@
 
   nix = {
     package = pkgs.nix;
-    settings.experimental-features = [ "nix-command" "flakes" ];
+    settings.experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
   };
 
   # Packages that should be installed to the user profile
@@ -158,6 +161,10 @@
     };
     ".config/kitty" = {
       source = ../kitty;
+      recursive = true;
+    };
+    ".config/k9s" = {
+      source = ../k9s;
       recursive = true;
     };
     ".config/ghostty/config".source = ../ghostty/config;

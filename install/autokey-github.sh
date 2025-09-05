@@ -15,12 +15,6 @@
 
 set -e
 
-bw login --apikey || true
-echo "Logged in!"
-export BW_SESSION
-BW_SESSION=$(bw unlock --passwordenv BW_PASSWORD --raw)
-echo "unlocked"
-
 # Generate SSH Key and Deploy to Github
 TOKEN=$(bw get item github.com | jq -r '.fields[0].value')
 
@@ -68,4 +62,3 @@ echo "Added SSH key to the ssh-agent"
 # Test the SSH connection
 
 ssh -T git@github.com || true
-echo "GITHUB_ACCESS_TOKEN=$TOKEN" >"$DOTFILES_DIR/system/.private_env"
