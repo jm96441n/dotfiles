@@ -18,8 +18,8 @@ sudo dnf remove docker \
   docker-engine
 
 # enable rpm fusion repo
-install "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm"
-install "https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm"
+sudo dnf install "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm"
+sudo dnf install "https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm"
 sudo dnf install -y kernel kernel-core kernel-devel kernel-modules
 sudo dnf install -y akmod-nvidia kmod-nvidia
 sudo dnf install -y biosdevname
@@ -36,7 +36,7 @@ sudo dnf install -y remove-retired-packages
 
 sudo dnf install -y tlp tlp-rdw
 sudo dnf install -y acpi
-sudo dnf install -y lm-sensors
+sudo dnf install -y lm_sensors
 
 sudo dnf install -y aajohan-comfortaa-fonts
 sudo dnf install -y langpacks-en

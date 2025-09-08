@@ -15,6 +15,7 @@
 
 set -e
 
+echo "RUNNING AUTOKEY"
 # Generate SSH Key and Deploy to Github
 TOKEN="$GITHUB_TOKEN"
 

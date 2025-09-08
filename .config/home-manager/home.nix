@@ -151,10 +151,6 @@
       source = ../sway;
       recursive = true;
     };
-    ".config/kanshi" = {
-      source = ../kanshi;
-      recursive = true;
-    };
     ".config/ranger" = {
       source = ../ranger;
       recursive = true;
@@ -193,9 +189,64 @@
     "$HOME/.local/bin/nvim/bin"
     "$HOME/.cargo/bin"
   ];
+  # Display management
+  services.kanshi = {
+    enable = true;
+    settings = [
+      {
+        profile = {
+          name = "external-dp3";
+          outputs = [
+            {
+              criteria = "DP-3";
+              status = "enable";
+              mode = "3440x1440";
+              position = "0,0";
+            }
+            {
+              criteria = "eDP-1";
+              status = "disable";
+            }
+          ];
+        };
+      }
 
-  services.kanshi.enable = true; # Display management
-  services.swayidle.enable = true; # Idle management
+      # Profile for when external monitor DP-4 is connected
+      {
+        profile = {
+          name = "external-dp4";
+          outputs = [
+            {
+              criteria = "DP-4";
+              status = "enable";
+              mode = "3440x1440";
+              position = "0,0";
+            }
+            {
+              criteria = "eDP-1";
+              status = "disable";
+            }
+          ];
+        };
+      }
+
+      # Profile for when only laptop screen is available
+      {
+        profile = {
+          name = "laptop-only";
+          outputs = [
+            {
+              criteria = "eDP-1";
+              status = "enable";
+              mode = "2560x1600";
+              position = "0,0";
+            }
+          ];
+        };
+      }
+    ];
+  };
+  # services.swayidle.enable = true; # Idle management
 
   xdg.portal.config.common.default = "*";
 }
