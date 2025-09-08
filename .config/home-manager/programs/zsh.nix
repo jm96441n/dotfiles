@@ -88,7 +88,7 @@
     };
     initContent = ''
       # User configuration
-      DOTFILES_DIR="$HOME/dotfiles"
+      DOTFILES_DIR="$HOME/.dotfiles"
 
       # Finally we can source the dotfiles (order matters)
       for DOTFILE in "$DOTFILES_DIR"/system/.{function,private_function,private_env,private_alias}; do
