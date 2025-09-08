@@ -95,7 +95,6 @@
     # Media/Graphics
     flameshot
 
-    sway
     swayidle
     swaylock
     swaybg
@@ -247,6 +246,10 @@
     ];
   };
   # services.swayidle.enable = true; # Idle management
+  wayland.windowManager.sway = {
+    enable = true;
+    wrapperFeatures.gtk = true;
+  };
 
   xdg.portal.config.common.default = "*";
 }
