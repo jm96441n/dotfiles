@@ -116,4 +116,9 @@
     enable = true;
     enableZshIntegration = true;
   };
+
+  programs.mise = {
+    enable = true;
+    enableZshIntegration = true;
+  };
 }
