@@ -2,8 +2,8 @@
 
 set -eEuo pipefail
 if [[ -z "$GITHUB_TOKEN" ]]; then
-	echo "Error: Set GITHUB_TOKEN env var"
-	exit 1
+  echo "Error: Set GITHUB_TOKEN env var"
+  exit 1
 fi
 
 export DOTFILES_DIR DOTFILES_CACHE DOTFILES_EXTRA_DIR
@@ -13,7 +13,7 @@ DOTFILES_DIR="$HOME/.dotfiles"
 . "$DOTFILES_DIR/install/packages.sh"
 
 # install nix
-sh <(curl --proto '=https' --tlsv1.2 -L https://nixos.org/nix/install) --no-daemon
+curl -fsSL https://install.determinate.systems/nix | sh -s -- install
 
 export PATH="/nix/var/nix/profiles/default/bin:$PATH"
 
@@ -29,6 +29,7 @@ nix-shell '<home-manager>' -A install
 rm -r "$HOME/.config/home-manager"
 
 ln -sfv "$DOTFILES_DIR/.config/home-manager" "$HOME/.config"
+# sudo ln -s ~/.nix-profile/share/wayland-sessions/sway.desktop /usr/share/wayland-sessions/sway-hm.desktop
 
 home-manager switch -b backup --extra-experimental-features nix-command --extra-experimental-features flakes --flake ~/.config/home-manager#"$USER"
 
@@ -36,7 +37,7 @@ fc-cache -fv
 
 echo "NEW KEY IS $NEWKEY"
 if [ -n "$NEWKEY" ]; then
-	. "$DOTFILES_DIR/install/autokey-github.sh"
+  . "$DOTFILES_DIR/install/autokey-github.sh"
 fi
 
 mise install

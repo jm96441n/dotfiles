@@ -18,6 +18,7 @@
   xdg = {
     enable = true;
     mime.enable = true;
+    desktopEntries = { };
   };
 
   nix = {
@@ -38,7 +39,6 @@
     bat
     bison
     bitwarden-cli
-    chromium
     cmake
     curl
     claude-code
@@ -52,7 +52,6 @@
     fzf
     gcc
     gh
-    ghostty
     git
     git-extras
     git-lfs
@@ -92,26 +91,10 @@
     wget
     yq
 
-    # Media/Graphics
-    flameshot
-
-    swayidle
-    swaylock
-    swaybg
-    waybar
-    grim
-    slurp
-    wofi
-    mako
-    wl-clipboard
-    xdg-desktop-portal-wlr
-    xdg-desktop-portal-gtk
-
     # Development Libraries (some may work)
     openssl
     sqlite
     zlib
-
   ];
 
   fonts.fontconfig.enable = true;
@@ -245,6 +228,9 @@
       }
     ];
   };
+
+  services.gnome-keyring.enable = true;
+
   # services.swayidle.enable = true; # Idle management
   wayland.windowManager.sway = {
     enable = true;

@@ -11,7 +11,6 @@
       url = "github:ghostty-org/ghostty";
     };
   };
-
   outputs =
     {
       nixpkgs,
@@ -30,7 +29,9 @@
         modules = [
           ./home.nix
           {
-            nixpkgs.overlays = [ ghostty.overlays.default ];
+            nixpkgs.overlays = [
+              ghostty.overlays.default
+            ];
           }
         ];
       };

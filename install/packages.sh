@@ -4,6 +4,8 @@ set -eEuo pipefail
 
 sudo dnf update
 
+sudo dnf copr enable scottames/ghostty
+
 sudo dnf -y install dnf-plugins-core
 sudo dnf-3 config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
 sudo dnf remove docker \
@@ -50,3 +52,15 @@ sudo dnf install -y python3-devel ruby-devel
 sudo dnf install -y ncurses-devel readline-devel
 sudo dnf install -y libffi-devel libyaml-devel gdbm-devel
 sudo dnf install -y zlib-devel sqlite-devel openssl-devel
+
+sudo dnf install -y sway swayidle swaylock swaybg waybar grim slurp wofi mako
+sudo dnf install -y wl-clipboard
+sudo dnf install -y xdg-desktop-portal-wlr xdg-desktop-portal-gtk
+
+sudo dnf install -y ghostty
+
+sudo dnf install -y chromium firefox
+
+flatpak install flathub md.obsidian.Obsidian
+flatpak install flathub com.spotify.Client
+flatpak install org.signal.Signal
