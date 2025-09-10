@@ -48,7 +48,6 @@
     fastfetch
     fd
     ffmpeg
-    firefox
     fzf
     gcc
     gh
@@ -78,7 +77,6 @@
     python3
     ranger
     ripgrep
-    slack
     starship
     strace
     stylua
@@ -189,6 +187,10 @@
               criteria = "eDP-1";
               status = "disable";
             }
+            {
+              criteria = "WL-1";
+              status = "disable";
+            }
           ];
         };
       }
@@ -208,6 +210,41 @@
               criteria = "eDP-1";
               status = "disable";
             }
+            {
+              criteria = "WL-1";
+              status = "disable";
+            }
+          ];
+        };
+      }
+
+      {
+        profile = {
+          name = "external-dp5";
+          outputs = [
+            {
+              criteria = "DP-5";
+              status = "enable";
+              mode = "3440x1440";
+              position = "0,0";
+            }
+            {
+              criteria = "eDP-1";
+              status = "disable";
+            }
+          ];
+        };
+      }
+
+      {
+        profile = {
+          name = "wayland-laptop";
+          outputs = [
+            {
+              criteria = "WL-1";
+              status = "enable";
+              position = "0,0";
+            }
           ];
         };
       }
@@ -220,7 +257,6 @@
             {
               criteria = "eDP-1";
               status = "enable";
-              mode = "2560x1600";
               position = "0,0";
             }
           ];
@@ -232,10 +268,6 @@
   services.gnome-keyring.enable = true;
 
   # services.swayidle.enable = true; # Idle management
-  wayland.windowManager.sway = {
-    enable = true;
-    wrapperFeatures.gtk = true;
-  };
 
   xdg.portal.config.common.default = "*";
 }
