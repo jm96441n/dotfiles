@@ -20,25 +20,9 @@ echo "RUNNING AUTOKEY"
 TOKEN="$GITHUB_TOKEN"
 
 ssh-keygen -t ed25519 -C "john@jmaguire.tech" -f ~/.ssh/github_rsa
-ssh-keygen -t ed25519 -C "john.maguire@hashicorp.com" -f ~/.ssh/hashi
 
 PUBKEY=$(cat ~/.ssh/github_rsa.pub)
-TITLE=$(hostname)
-
-RESPONSE=$(curl -s -H "Authorization: token ${TOKEN}" \
-  -X POST --data-binary "{\"title\":\"${TITLE}\",\"key\":\"${PUBKEY}\"}" \
-  https://api.github.com/user/keys)
-
-echo "$RESPONSE"
-KEYID=$(echo "$RESPONSE" |
-  grep -o '\"id.*' |
-  grep -o "[0-9]*" |
-  grep -m 1 "[0-9]*")
-
-echo "Public key deployed to remote service"
-
-PUBKEY=$(cat ~/.ssh/hashi.pub)
-TITLE=$(hostname)
+TITLE="$(hostname)"
 
 RESPONSE=$(curl -s -H "Authorization: token ${TOKEN}" \
   -X POST --data-binary "{\"title\":\"${TITLE}\",\"key\":\"${PUBKEY}\"}" \
@@ -53,10 +37,8 @@ KEYID=$(echo "$RESPONSE" |
 echo "Public key deployed to remote service"
 
 # Add SSH Key to the local ssh-agent"
-
 eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/github_rsa
-ssh-add ~/.ssh/hashi
 
 echo "Added SSH key to the ssh-agent"
 

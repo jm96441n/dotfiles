@@ -77,6 +77,7 @@
     python3
     ranger
     ripgrep
+    sshuttle
     starship
     strace
     stylua
@@ -155,6 +156,8 @@
     DOTFILES_DIR = "$HOME/.dotfiles";
   };
 
+  # These are only sourced on login, they are not set when
+  # starting a new shell session
   home.sessionPath = [
     "/bin"
     "/usr/bin"
@@ -164,6 +167,7 @@
     "/sbin"
     "/usr/sbin"
     "/usr/local/sbin"
+    "$HOME/hashi/cloud-sre/bin"
     "$HOME/go/bin"
     "$HOME/.local/bin"
     "$HOME/.local/bin/nvim/bin"

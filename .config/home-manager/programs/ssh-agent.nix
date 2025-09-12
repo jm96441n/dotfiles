@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ ... }:
 
 {
   # Declarative SSH agent service
@@ -8,13 +8,13 @@
   programs.ssh = {
     enable = true;
     addKeysToAgent = "yes";
-    
+
     # Declaratively add your SSH keys
     matchBlocks = {
       "*" = {
         identityFile = [
-          "~/.ssh/github_rsa"
           "~/.ssh/hashi"
+          "~/.ssh/github_rsa"
         ];
       };
     };

@@ -36,6 +36,13 @@
     enableCompletion = true;
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
+    sessionVariables = {
+      GOPATH = "$HOME/go";
+      GOPRIVATE = "github.com/hashicorp/*";
+      FZF_DEFAULT_COMMAND = "rg --files --hidden -g \"!.git/\"";
+      # To apply the command to CTRL-T as well
+      FZF_CTRL_T_COMMAND = "fd --type directory";
+    };
 
     shellAliases = {
       "reload" = "exec zsh";
@@ -82,7 +89,6 @@
         "terraform"
         "tmux"
         "tmuxinator"
-        # "zsh-autosuggestions"
         # "zsh-syntax-highlighting"
       ];
     };
@@ -103,7 +109,6 @@
       # Custom key bindings
       bindkey -s ^f "tmux-sessionizer\n"
       bindkey -s ^bd "tmux-sessionizer ~/dotfiles\n"
-
     '';
   };
 
@@ -121,4 +126,6 @@
     enable = true;
     enableZshIntegration = true;
   };
+
+  programs.fastfetch.enable = true;
 }
