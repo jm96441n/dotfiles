@@ -39,33 +39,39 @@
     bat
     bison
     bitwarden-cli
+    claude-code
     cmake
     curl
-    claude-code
+    consul
     delta # for git pager
     direnv
     eza
     fastfetch
     fd
     ffmpeg
+    flameshot
     fzf
     gcc
     gh
     git
     git-extras
     git-lfs
+    gnumake
+    gomplate
+    hcp
     helm
     hub
     htop
     icomoon-feather
     imagemagick
+    jujutsu
     jq
     lazygit
     k9s
     kitty
     kubectl
-    gnumake
     mako
+    mariadb
     meson
     mise
     neovim
@@ -74,17 +80,21 @@
     nmap
     peek
     powertop
+    postgresql
     python3
     ranger
     ripgrep
+    sentry-cli
     sshuttle
     starship
     strace
     stylua
+    squawk
     tmux
     tree
     terraform
     unzip
+    vault
     vlc
     vim
     wget
@@ -176,6 +186,7 @@
   # Display management
   services.kanshi = {
     enable = true;
+    systemdTarget = "graphical-session.target"; # This ensures it waits for the graphical session
     settings = [
       {
         profile = {
@@ -189,10 +200,6 @@
             }
             {
               criteria = "eDP-1";
-              status = "disable";
-            }
-            {
-              criteria = "WL-1";
               status = "disable";
             }
           ];
@@ -212,10 +219,6 @@
             }
             {
               criteria = "eDP-1";
-              status = "disable";
-            }
-            {
-              criteria = "WL-1";
               status = "disable";
             }
           ];

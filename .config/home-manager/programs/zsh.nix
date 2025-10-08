@@ -67,6 +67,8 @@
 
       # common typos
       "gaap" = "gapa";
+
+      "tcig" = "tmux-sessionizer $HOME/hashi/cloud-infragraph";
     };
 
     history = {
