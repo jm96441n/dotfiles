@@ -1,5 +1,13 @@
 { config, pkgs, ... }:
 
+let
+  jj-extra = pkgs.fetchFromGitHub {
+    owner = "imp";
+    repo = "jj-extra";
+    rev = "66787451896bbfabe7219b39aa54336ff5677b6a";
+    sha256 = "sha256-jKPBkTFOhS5q4H4XW+oPCIspmiX6qJYlKEy+HjmbztY=";
+  };
+in
 {
 
   home.file = {
@@ -98,6 +106,7 @@
       # User configuration
       DOTFILES_DIR="$HOME/.dotfiles"
 
+
       # Finally we can source the dotfiles (order matters)
       for DOTFILE in "$DOTFILES_DIR"/system/.{function,private_function,private_env,private_alias}; do
         [ -f "$DOTFILE" ] && . "$DOTFILE"
@@ -111,6 +120,8 @@
       # Custom key bindings
       bindkey -s ^f "tmux-sessionizer\n"
       bindkey -s ^bd "tmux-sessionizer ~/dotfiles\n"
+
+      source ${jj-extra}/jj-extra.plugin.zsh
     '';
   };
 

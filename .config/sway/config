@@ -224,7 +224,7 @@ assign [class="obsidian"] workspace number $notes
 exec sleep 1 && /usr/bin/ghostty
 exec sleep 2 && firefox
 exec sleep 3 && slack
-exec sleep 3 && flatpak run org.signal.Signal
+# exec sleep 3 && flatpak run org.signal.Signal
 exec sleep 4 && flatpak run com.spotify.Client
 exec sleep 5 && flatpak run md.obsidian.Obsidian
 

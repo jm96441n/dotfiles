@@ -32,6 +32,8 @@
   # Packages that should be installed to the user profile
   home.packages = with pkgs; [
     # CLI tools
+    awscli
+    aws-sam-cli
     autoconf
     autojump
     ansible
@@ -65,7 +67,7 @@
     icomoon-feather
     imagemagick
     jujutsu
-    jq
+    j
     lazygit
     k9s
     kitty

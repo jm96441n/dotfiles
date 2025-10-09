@@ -3,4 +3,7 @@ node='23.11.0'
 golang='1.25.1'
 python='3.13.3'
 # ruby='3.4.3'
-rust='1.87.0'
+rust='1.88.0'
+
+[settings]
+idiomatic_version_file_enable_tools=["python"]
