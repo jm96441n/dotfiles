@@ -95,6 +95,7 @@ in
         "git"
         "git-extras"
         "git-prompt"
+        "jj"
         "kubectl"
         "terraform"
         "tmux"
