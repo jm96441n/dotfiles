@@ -156,6 +156,10 @@
       source = ../k9s;
       recursive = true;
     };
+    ".config/jj" = {
+      source = ../jj;
+      recursive = true;
+    };
     ".config/ghostty/config".source = ../ghostty/config;
   };
 

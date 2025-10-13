@@ -1,0 +1,15 @@
+#:schema https://jj-vcs.github.io/jj/latest/config-schema.json
+[user]
+name = "John Maguire"
+email = "john@jmaguire.tech"
+
+[ui]
+paginate = "never"
+
+[[--scope]]
+--when.repositories = ["~/hashi"]
+[--scope.user]
+  email = "john.maguire@hashicorp.com"
+
+[git]
+  auto-local-bookmark = true

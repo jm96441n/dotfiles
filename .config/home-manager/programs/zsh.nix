@@ -104,6 +104,8 @@ in
       ];
     };
     initContent = ''
+      . "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
+
       # User configuration
       DOTFILES_DIR="$HOME/.dotfiles"
 
