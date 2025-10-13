@@ -224,8 +224,8 @@ assign [class="obsidian"] workspace number $notes
 exec sleep 1 && /usr/bin/ghostty
 exec sleep 2 && firefox
 exec sleep 3 && slack
-# exec sleep 3 && flatpak run org.signal.Signal
-exec sleep 4 && flatpak run com.spotify.Client
+ exec sleep 3 && flatpak run org.signal.Signal
+exec sleep 4 && flatpak run dev.aunetx.deezer
 exec sleep 5 && flatpak run md.obsidian.Obsidian
 
 # Autostart applications
@@ -243,7 +243,7 @@ exec_always systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
 exec_always dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
 exec_always dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP=sway
 exec_always /usr/libexec/xdg-desktop-portal -r
-# exec_always kanshi
+exec_always kanshi
 exec_always export XDG_CURRENT_DESKTOP=sway
 
 # Notification daemon - mako instead of dunst

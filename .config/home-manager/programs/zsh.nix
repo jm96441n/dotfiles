@@ -77,6 +77,7 @@ in
       "gaap" = "gapa";
 
       "tcig" = "tmux-sessionizer $HOME/hashi/cloud-infragraph";
+      "jjdv" = "jj dv";
     };
 
     history = {
