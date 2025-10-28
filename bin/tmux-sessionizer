@@ -4,7 +4,7 @@
 if [[ $# -eq 1 ]]; then
     selected=$1
 else
-    selected="$(fd . ~/hashi ~/Projects --exclude .git --type directory | fzf)"
+    selected="$(fd . ~/hashi ~/Projects ~/Documents --exclude .git --type directory | fzf)"
 fi
 
 if [[ -z $selected ]]; then

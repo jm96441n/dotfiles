@@ -78,6 +78,7 @@ in
 
       "tcig" = "tmux-sessionizer $HOME/hashi/cloud-infragraph";
       "jjdv" = "jj dv";
+      "jjcv" = "jj cv";
     };
 
     history = {

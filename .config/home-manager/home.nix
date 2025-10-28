@@ -32,7 +32,7 @@
   # Packages that should be installed to the user profile
   home.packages = with pkgs; [
     # CLI tools
-    awscli
+    awscli2
     aws-sam-cli
     autoconf
     autojump
@@ -69,9 +69,12 @@
     jujutsu
     j
     lazygit
+    lua5_1
+    lua51Packages.luarocks-nix
     k9s
     kitty
     kubectl
+    localstack
     mako
     mariadb
     meson
@@ -170,6 +173,7 @@
     ZSH_PATH = "${pkgs.zsh}/bin/zsh";
     SHELL = "${pkgs.zsh}/bin/zsh";
     DOTFILES_DIR = "$HOME/.dotfiles";
+    GOLANG_PROTOBUF_REGISTRATION_CONFLICT = "ignore";
   };
 
   # These are only sourced on login, they are not set when

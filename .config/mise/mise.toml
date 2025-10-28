@@ -4,6 +4,7 @@ golang='1.25.1'
 python='3.13.3'
 # ruby='3.4.3'
 rust='1.88.0'
+lua='5.1'
 
 [settings]
 idiomatic_version_file_enable_tools=["python"]
