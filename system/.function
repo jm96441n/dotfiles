@@ -25,25 +25,6 @@ compress() {
 	tar -czvf "$1" "$2"
 }
 
-# cp_token will copy the Consul ACL token to the clipboard, if the namespace is not provided it will default to "consul"
-cp_token() {
-	ns="$1"
-	if [ -z "$ns" ]; then
-		ns="consul"
-	fi
-
-	token=$(kubectl get --namespace "$ns" secrets/consul-bootstrap-acl-token --template={{.data.token}} 2>/dev/null || true)
-	if [ -z "$token" ]; then
-		token=$(kubectl get --namespace "$ns" secrets/consul-consul-bootstrap-acl-token --template={{.data.token}})
-	fi
-	echo $token | base64 -d | xsel --clipboard
-}
-
-# connect_logs will connect to the Consul Connect logs, the argument is optional and allows you to follow the logs by passing "-f"
-connect_logs() {
-	kl -n consul $(kgp -n consul --no-headers -o custom-columns=":metadata.name" | rg "consul-connect" | head -n 1) $1
-}
-
 
 # Show 256 TERM colors
 colors() {
@@ -58,14 +39,17 @@ colors() {
 	done
 }
 
-# Add to path
-prepend-path() {
-	[ -d $1 ] && PATH="$1:$PATH"
-}
-
-# only run black on python files
-gblack() {
-	git diff --name-only $(git branch --show-current) $(git merge-base $(git branch --show-current) master) | xargs -I{} find {} -name "*.py" -exec black -l 120 {} \;
+jj-commit-up() {
+    # Get bookmark(s) at current parent
+    local bookmark=$(jj log -r @- --no-graph -T 'bookmarks' | tr -d ' ' | grep -v '^$')
+    
+    # Run commit with any args passed
+    jj cv "$@"
+    
+    # Move bookmark to new commit if one existed
+    if [ -n "$bookmark" ]; then
+        jj bookmark set "$bookmark" -r @-
+    fi
 }
 
 # print all aliases
@@ -73,64 +57,7 @@ aliases() {
 	bat $HOME/.dotfiles/system/.alias
 }
 
-# creates venv using direnv
-create_venv() {
-	python -m venv .
-	echo "layout python" >>.envrc
-	direnv allow
-}
 
-# creates a gke cluster capabalbe of running consul
-newgke() {
-    echo "creating variables"
-	  export PROJECT_ID=$(gcloud config get-value project) &&
-		export M_TYPE=n1-standard-2 &&
-		export ZONE=us-west2-a &&
-		export CLUSTER_NAME=${PROJECT_ID}-${RANDOM}
-    echo "enabling services"
-		gcloud services enable container.googleapis.com
-    echo "creating cluster"
-		gcloud container clusters create $CLUSTER_NAME \
-			--cluster-version latest \
-			--machine-type=$M_TYPE \
-			--num-nodes 4 \
-			--zone $ZONE \
-			--project $PROJECT_ID
-}
-
-kill_cpk() {
-	kill $(ps aux | grep "[c]loud-provider-kind" | awk -F ' ' '{print $2}')
-}
-
-# exports relevant consul env vars for interacting via the command line
-cvars() {
-	export CONSUL_HTTP_ADDR="127.0.0.1:8501"
-	export CONSUL_HTTP_TOKEN=$(kubectl get --namespace consul secrets/consul-consul-bootstrap-acl-token --template={{.data.token}} | base64 -d)
-	export CONSUL_HTTP_SSL=true
-	export CONSUL_HTTP_SSL_VERIFY=false
-}
-
-# tags and pushes an image to ttl.sh
-ttlit() {
-  img=$1
-  duration=$2
-
-  if [ -z "$img" ]; then
-    echo "image is required"
-    exit 1
-  fi
-
-  if [ -z "$duration" ]; then
-    duration=30m
-  fi
-
-  ttl_img_name=$(uuidgen)
-
-  docker tag "$img" "ttl.sh/$ttl_img_name:$duration"
-  docker push "ttl.sh/$ttl_img_name:$duration"
-
-  echo "Created image at: ttl.sh/$ttl_img_name:$duration"
-}
 
 tmpgo() {
   tempdir=$(mktemp -d)
