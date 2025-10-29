@@ -57,8 +57,6 @@ aliases() {
 	bat $HOME/.dotfiles/system/.alias
 }
 
-
-
 tmpgo() {
   tempdir=$(mktemp -d)
   (cd "$tempdir" && go mod init "github.com/jm96441n/tempdir" && touch "main.go" && go mod tidy)
