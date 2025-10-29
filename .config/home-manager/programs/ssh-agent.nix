@@ -7,6 +7,7 @@
   # SSH configuration - declaratively manage keys
   programs.ssh = {
     enable = true;
+    enableDefaultConfig = false;
 
     # Declaratively add your SSH keys
     matchBlocks = {

@@ -90,7 +90,7 @@ local function discover_prompt_files(directory)
       local content = strip_frontmatter(full_content)
 
       if content and content ~= "" then
-        local name = filename:match("%-([^%-]+)$")
+        local name = filename:match("%-([^%-]+)$") or filename
 
         -- Extract description from frontmatter
         local description = frontmatter.description or ("Prompt from " .. filename)
@@ -484,7 +484,7 @@ return {
       mode = "agentic",
       providers = {
         copilot = {
-          model = "claude-sonnet-4", -- updated model
+          model = "claude-sonnet-4.5", -- updated model
           proxy = nil,
           allow_insecure = false,
           timeout = 10 * 60 * 1000,

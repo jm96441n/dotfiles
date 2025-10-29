@@ -1,4 +1,8 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  ...
+}:
 
 {
   # Home Manager needs a bit of information about you and the paths it should manage
@@ -192,6 +196,18 @@
     "$HOME/.local/bin/nvim/bin"
     "$HOME/.cargo/bin"
   ];
+
+  home.file = {
+    "projects/ast-grep-mcp" = {
+      source = pkgs.fetchFromGitHub {
+        owner = "ast-grep";
+        repo = "ast-grep-mcp";
+        rev = "main";
+        sha256 = "sha256-PhV0i5mwLdQo51nAPaAygAYmIcDgmSP1MyvySt9Gn7U=";
+      };
+      recursive = true;
+    };
+  };
   # Display management
   services.kanshi = {
     enable = true;
