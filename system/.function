@@ -39,6 +39,7 @@ colors() {
 	done
 }
 
+# commit with jj while preserving bookmarks at the current parent
 jj-commit-up() {
     # Get bookmark(s) at current parent
     local bookmark=$(jj log -r @- --no-graph -T 'bookmarks' | tr -d '*' | grep -v '^$')
