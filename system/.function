@@ -43,7 +43,6 @@ colors() {
 jj-commit-up() {
     # Get bookmark(s) at current parent
     local bookmark=$(jj log -r @- --no-graph -T 'bookmarks' | tr -d '*' | grep -v '^$')
-    echo "$bookmark"
     
     # Run commit with any args passed
     jj cv "$@"
