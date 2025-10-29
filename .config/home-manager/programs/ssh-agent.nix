@@ -7,13 +7,12 @@
   # SSH configuration - declaratively manage keys
   programs.ssh = {
     enable = true;
-    addKeysToAgent = "yes";
 
     # Declaratively add your SSH keys
     matchBlocks = {
       "*" = {
+        addKeysToAgent = "yes";
         identityFile = [
-          "~/.ssh/hashi"
           "~/.ssh/github_rsa"
         ];
       };

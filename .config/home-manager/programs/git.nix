@@ -9,42 +9,43 @@
   programs.git = {
     enable = true;
 
-    # User information
-    userName = "jm96441n";
-    userEmail = "john@jmaguire.tech";
+    settings = {
+      # User information
+      user = {
+        name = "jm96441n";
+        email = "john@jmaguire.tech";
+      };
 
-    # Git aliases
-    aliases = {
-      # Recent branches
-      rb = "!git for-each-ref --sort=-committerdate --format='%(refname:short)' refs/heads/ | head -20";
-      rbr = "!git for-each-ref --sort=-committerdate --format='%(refname:short)' refs/remotes/ | head -20";
-      cof = "!git checkout $(git for-each-ref --sort=-committerdate --format='%(refname:short)' refs/heads/ | head -21 | fzf)";
+      # Git aliases
+      aliases = {
+        # Recent branches
+        rb = "!git for-each-ref --sort=-committerdate --format='%(refname:short)' refs/heads/ | head -20";
+        rbr = "!git for-each-ref --sort=-committerdate --format='%(refname:short)' refs/remotes/ | head -20";
+        cof = "!git checkout $(git for-each-ref --sort=-committerdate --format='%(refname:short)' refs/heads/ | head -21 | fzf)";
 
-      # Code review aliases
-      stat = "!git diff --stat $(git merge-base HEAD \"$REVIEW_BASE\")";
-      heatmap = "git-heatmap";
-      files = "!git diff --name-only $(git merge-base HEAD \"$REVIEW_BASE\") -- :^vendor";
-      review = "!nvim -p $(git files) +\"tabdo Gvdiffsplit $REVIEW_BASE\" +\"let g:gitgutter_diff_base = '$REVIEW_BASE'\"";
+        # Code review aliases
+        stat = "!git diff --stat $(git merge-base HEAD \"$REVIEW_BASE\")";
+        heatmap = "git-heatmap";
+        files = "!git diff --name-only $(git merge-base HEAD \"$REVIEW_BASE\") -- :^vendor";
+        review = "!nvim -p $(git files) +\"tabdo Gvdiffsplit $REVIEW_BASE\" +\"let g:gitgutter_diff_base = '$REVIEW_BASE'\"";
 
-      # Logging aliases
-      head = "!git l -1";
-      h = "!git head";
-      hp = "!. ~/.githelpers && show_git_head";
-      r = "!git l -30";
-      ra = "!git r --all";
-      l = "!. ~/.githelpers && pretty_git_log";
-      la = "!git l --all";
+        # Logging aliases
+        head = "!git l -1";
+        h = "!git head";
+        hp = "!. ~/.githelpers && show_git_head";
+        r = "!git l -30";
+        ra = "!git r --all";
+        l = "!. ~/.githelpers && pretty_git_log";
+        la = "!git l --all";
 
-      # Pretty log
-      lg = "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative";
+        # Pretty log
+        lg = "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative";
 
-      # Commit aliases
-      ci = "commit --verbose";
-      amend = "commit --verbose --amend";
-    };
+        # Commit aliases
+        ci = "commit --verbose";
+        amend = "commit --verbose --amend";
+      };
 
-    # Core settings
-    extraConfig = {
       # Add interactive settings
       add.interactive.useBuiltin = false;
 

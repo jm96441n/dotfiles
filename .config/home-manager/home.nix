@@ -33,7 +33,6 @@
   home.packages = with pkgs; [
     # CLI tools
     awscli2
-    aws-sam-cli
     autoconf
     autojump
     ansible
