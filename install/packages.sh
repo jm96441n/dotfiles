@@ -63,4 +63,5 @@ sudo dnf install -y chromium firefox
 
 flatpak install flathub md.obsidian.Obsidian
 flatpak install flathub com.spotify.Client
-flatpak install org.signal.Signal
+flatpak install flathub org.signal.Signal
+flatpak install flathub app.zen_browser.zen
