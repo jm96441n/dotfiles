@@ -172,7 +172,6 @@
   # Environment variables
   home.sessionVariables = {
     EDITOR = "nvim";
-    BROWSER = "firefox";
     ZSH_PATH = "${pkgs.zsh}/bin/zsh";
     SHELL = "${pkgs.zsh}/bin/zsh";
     DOTFILES_DIR = "$HOME/.dotfiles";
