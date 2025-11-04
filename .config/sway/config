@@ -214,7 +214,7 @@ output eDP-1 scale 1.75
 
 # Define workspace assignments
 assign [app_id="com.mitchellh.ghostty"] workspace number $term
-assign [app_id="org.mozilla.firefox"] workspace number $web
+assign [app_id="app.zen_browser.zen"] workspace number $web
 assign [class="Slack"] workspace number $chat
 assign [class="Signal"] workspace number $chat
 assign [class="Spotify"] workspace number $spotify
@@ -222,7 +222,7 @@ assign [class="obsidian"] workspace number $notes
 
 # Launch applications with slight delays
 exec sleep 1 && /usr/bin/ghostty
-exec sleep 2 && firefox
+exec sleep 2 && flatpak run app.zen_browser.zen
 exec sleep 3 && slack
  exec sleep 3 && flatpak run org.signal.Signal
 exec sleep 4 && flatpak run dev.aunetx.deezer
