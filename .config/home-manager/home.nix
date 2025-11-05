@@ -65,6 +65,7 @@
     gomplate
     hcp
     helm
+    helix
     hub
     htop
     icomoon-feather
@@ -134,6 +135,11 @@
     ".default-python-packages".source = ../mise/.default-python-packages;
     ".default-go-packages".source = ../mise/.default-go-packages;
     ".config/mise/config.toml".source = ../mise/mise.toml;
+    ".config/helix/config.toml".source = ../helix/config.toml;
+    ".config/helix/themes" = {
+      source = ../helix/themes;
+      recursive = true;
+    };
     ".config/nvim" = {
       source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/.config/nvim";
       recursive = true;

@@ -1,0 +1,6 @@
+[keys.normal]
+C-p = "file_picker" # Ctrl+p to open file picker
+[keys.insert.j]
+k = "normal_mode" # Maps `jk` to exit insert mode
+[editor.file-picker]
+hidden = true
