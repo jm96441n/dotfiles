@@ -1,6 +1,89 @@
+theme = "everforest"
+
+[editor]
+line-number = "relative"
+mouse = true
+cursorline = true
+auto-save = false
+bufferline = "multiple"
+color-modes = true
+true-color = true
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[editor.file-picker]
+hidden = false
+git-ignore = true
+
+[editor.lsp]
+display-messages = true
+display-inlay-hints = true
+
+[editor.soft-wrap]
+enable = true
+
+[editor.indent-guides]
+render = true
+
+[editor.statusline]
+left = ["mode", "spinner", "file-name", "file-modification-indicator"]
+center = []
+right = ["diagnostics", "selections", "position", "file-encoding", "file-line-ending", "file-type"]
+
 [keys.normal]
-C-p = "file_picker" # Ctrl+p to open file picker
+# File operations (matching Neovim/LazyVim)
+C-p = "file_picker" # Ctrl+p to open file picker (like telescope)
+C-s = ":w" # Save file
+C-q = ":q" # Quit
+C-e = "buffer_picker" # Buffer picker (replacing harpoon workflow)
+
+# Disable arrow keys to encourage hjkl usage
+up = "no_op"
+down = "no_op"
+left = "no_op"
+right = "no_op"
+
+# Space leader mappings (matching LazyVim conventions)
+[keys.normal.space]
+f = { f = "file_picker", g = "global_search", b = "buffer_picker", r = "file_picker_in_current_directory" } # Find: files, grep, buffers, recent
+"/" = "global_search" # Search in project (like Telescope live_grep)
+e = "file_picker" # Explorer/file picker
+w = ":new" # Window split horizontal
+v = ":vnew" # Window split vertical
+q = ":q" # Quit
+b = "buffer_picker" # Buffers
+s = { s = "symbol_picker", w = "workspace_symbol_picker" } # Symbols (like Telescope LSP)
+c = { a = "code_action" } # Code actions
+g = { g = "goto_definition", r = "goto_reference", i = "goto_implementation", t = "goto_type_definition", d = "goto_declaration" } # LSP goto
+d = "diagnostics_picker" # Diagnostics (like Telescope diagnostics)
+"'" = "last_picker" # Resume last picker (like Telescope resume)
+
+# Go-specific mappings (matching projectionist alternate file)
+[keys.normal.space.a]
+a = ":sh echo 'Use gf on import path or :open to open alternate file manually'" # Alternate file (no direct equivalent)
+
+# Insert mode
+[keys.insert]
+C-s = ":w" # Save from insert mode
+# Disable arrow keys in insert mode
+up = "no_op"
+down = "no_op"
+left = "no_op"
+right = "no_op"
+
 [keys.insert.j]
 k = "normal_mode" # Maps `jk` to exit insert mode
-[editor.file-picker]
-hidden = true
+
+[keys.insert.k]
+j = "normal_mode" # Maps `kj` to exit insert mode
+
+# Select mode mappings (matching visual mode operations)
+[keys.select]
+# Keep similar to Vim visual mode
+"y" = ["yank", "normal_mode"] # Yank and return to normal
+"d" = ["delete_selection", "normal_mode"] # Delete and return to normal
+"c" = ["change_selection"] # Change (delete and enter insert)
+"p" = "replace_selections_with_clipboard" # Paste over selection

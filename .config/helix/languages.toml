@@ -1,0 +1,149 @@
+# Language-specific configuration for Helix
+# Migrated from Neovim LazyVim configuration
+
+[[language]]
+name = "go"
+scope = "source.go"
+injection-regex = "go"
+file-types = ["go"]
+roots = ["go.work", "go.mod"]
+auto-format = true
+comment-token = "//"
+language-servers = ["gopls"]
+formatter = { command = "goimports" }
+
+[language-server.gopls]
+command = "gopls"
+
+[language-server.gopls.config.hints]
+assignVariableTypes = true
+compositeLiteralFields = true
+compositeLiteralTypes = true
+constantValues = true
+functionTypeParameters = true
+parameterNames = true
+rangeVariableTypes = true
+
+[language-server.gopls.config]
+gofumpt = true
+staticcheck = true
+usePlaceholders = true
+completeUnimported = true
+semanticTokens = true
+
+[language-server.gopls.config.analyses]
+fieldalignment = false
+nilness = true
+unusedparams = true
+unusedwrite = true
+useany = true
+
+[language-server.gopls.config.codelenses]
+gc_details = false
+generate = true
+regenerate_cgo = true
+run_govulncheck = true
+test = true
+tidy = true
+upgrade_dependency = true
+vendor = true
+
+# Go template support
+[[language]]
+name = "gotmpl"
+scope = "source.gotmpl"
+file-types = ["gotmpl", "gohtml", "tpl"]
+roots = []
+comment-token = "//"
+language-servers = []
+indent = { tab-width = 2, unit = "  " }
+
+# Helm template support
+[[language]]
+name = "yaml"
+file-types = ["yaml", "yml"]
+roots = []
+comment-token = "#"
+language-servers = ["yaml-language-server"]
+auto-format = true
+indent = { tab-width = 2, unit = "  " }
+
+# Markdown configuration
+[[language]]
+name = "markdown"
+scope = "source.md"
+file-types = ["md", "markdown"]
+roots = [".marksman.toml"]
+language-servers = ["marksman"]
+auto-format = true
+soft-wrap.enable = true
+
+# Bash/Shell configuration
+[[language]]
+name = "bash"
+scope = "source.bash"
+file-types = ["sh", "bash"]
+roots = []
+comment-token = "#"
+language-servers = ["bash-language-server"]
+formatter = { command = "shfmt", args = ["-i", "2"] }
+auto-format = true
+
+# TypeScript/JavaScript
+[[language]]
+name = "typescript"
+scope = "source.ts"
+file-types = ["ts"]
+language-servers = ["typescript-language-server"]
+auto-format = true
+formatter = { command = "prettier", args = ["--parser", "typescript"] }
+
+[[language]]
+name = "javascript"
+scope = "source.js"
+file-types = ["js", "mjs"]
+language-servers = ["typescript-language-server"]
+auto-format = true
+formatter = { command = "prettier", args = ["--parser", "javascript"] }
+
+# JSON
+[[language]]
+name = "json"
+scope = "source.json"
+file-types = ["json"]
+language-servers = ["vscode-json-language-server"]
+auto-format = true
+formatter = { command = "prettier", args = ["--parser", "json"] }
+
+# TOML
+[[language]]
+name = "toml"
+scope = "source.toml"
+file-types = ["toml"]
+language-servers = ["taplo"]
+auto-format = true
+
+# Nix configuration
+[[language]]
+name = "nix"
+scope = "source.nix"
+file-types = ["nix"]
+roots = ["flake.nix", "shell.nix", "default.nix"]
+comment-token = "#"
+language-servers = ["nil"]
+auto-format = true
+formatter = { command = "nixpkgs-fmt" }
+indent = { tab-width = 2, unit = "  " }
+
+[language-server.nil]
+command = "nil"
+
+[language-server.nil.config.nil]
+formatting = { command = ["nixpkgs-fmt"] }
+
+[language-server.nil.config.nil.nix]
+flake = { autoArchive = true, autoEvalInputs = false }
+
+# Alternative: nixd language server (uncomment to use instead of nil)
+# [language-server.nixd]
+# command = "nixd"

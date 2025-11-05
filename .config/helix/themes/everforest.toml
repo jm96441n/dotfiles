@@ -1,0 +1,209 @@
+# Everforest Dark Theme for Helix
+# Based on the original Everforest color scheme by sainnhe
+# https://github.com/sainnhe/everforest
+
+# Syntax highlighting
+"type" = "yellow"
+"type.builtin" = "yellow"
+"type.enum.variant" = "aqua"
+
+"constructor" = "green"
+
+"constant" = "purple"
+"constant.builtin" = "purple"
+"constant.builtin.boolean" = "purple"
+"constant.character" = "purple"
+"constant.character.escape" = "orange"
+"constant.numeric" = "purple"
+
+"string" = "green"
+"string.regexp" = "orange"
+"string.special" = "orange"
+
+"comment" = "grey0"
+"comment.line" = "grey0"
+"comment.block" = "grey0"
+
+"variable" = "fg"
+"variable.builtin" = "blue"
+"variable.parameter" = "fg"
+"variable.other.member" = "fg"
+
+"label" = "aqua"
+
+"punctuation" = "grey2"
+"punctuation.delimiter" = "grey2"
+"punctuation.bracket" = "grey2"
+"punctuation.special" = "orange"
+
+"keyword" = "red"
+"keyword.control" = "red"
+"keyword.control.conditional" = "red"
+"keyword.control.repeat" = "red"
+"keyword.control.import" = "red"
+"keyword.control.return" = "red"
+"keyword.control.exception" = "red"
+"keyword.operator" = "orange"
+"keyword.directive" = "red"
+"keyword.function" = "red"
+"keyword.storage" = "red"
+"keyword.storage.modifier" = "orange"
+
+"operator" = "orange"
+
+"function" = "green"
+"function.builtin" = "blue"
+"function.macro" = "aqua"
+"function.special" = "aqua"
+"function.method" = "green"
+
+"tag" = "yellow"
+"tag.builtin" = "yellow"
+
+"namespace" = "yellow"
+
+"special" = "orange"
+
+"markup.heading" = { fg = "red", modifiers = ["bold"] }
+"markup.heading.1" = { fg = "red", modifiers = ["bold"] }
+"markup.heading.2" = { fg = "orange", modifiers = ["bold"] }
+"markup.heading.3" = { fg = "yellow", modifiers = ["bold"] }
+"markup.heading.4" = { fg = "green", modifiers = ["bold"] }
+"markup.heading.5" = { fg = "blue", modifiers = ["bold"] }
+"markup.heading.6" = { fg = "purple", modifiers = ["bold"] }
+"markup.list" = "red"
+"markup.list.numbered" = "red"
+"markup.list.unnumbered" = "red"
+"markup.bold" = { modifiers = ["bold"] }
+"markup.italic" = { modifiers = ["italic"] }
+"markup.strikethrough" = { modifiers = ["crossed_out"] }
+"markup.link.url" = { fg = "blue", modifiers = ["underlined"] }
+"markup.link.text" = "purple"
+"markup.quote" = "grey1"
+"markup.raw" = "green"
+"markup.raw.inline" = "green"
+"markup.raw.block" = "green"
+
+# Diff
+"diff.plus" = "bg_green"
+"diff.plus.gutter" = "green"
+"diff.minus" = "bg_red"
+"diff.minus.gutter" = "red"
+"diff.delta" = "bg_blue"
+"diff.delta.gutter" = "blue"
+
+# UI
+"ui.background" = { bg = "bg0" }
+"ui.background.separator" = "bg4"
+
+"ui.cursor" = { fg = "bg0", bg = "fg" }
+"ui.cursor.normal" = { fg = "bg0", bg = "fg" }
+"ui.cursor.insert" = { fg = "bg0", bg = "green" }
+"ui.cursor.select" = { fg = "bg0", bg = "blue" }
+"ui.cursor.match" = { fg = "orange", modifiers = ["bold"] }
+"ui.cursor.primary" = { fg = "bg0", bg = "fg" }
+"ui.cursor.primary.normal" = { fg = "bg0", bg = "fg" }
+"ui.cursor.primary.insert" = { fg = "bg0", bg = "green" }
+"ui.cursor.primary.select" = { fg = "bg0", bg = "blue" }
+
+"ui.cursorline.primary" = { bg = "bg1" }
+"ui.cursorline.secondary" = { bg = "bg1" }
+
+"ui.selection" = { bg = "bg_visual" }
+"ui.selection.primary" = { bg = "bg_visual" }
+
+"ui.linenr" = "grey0"
+"ui.linenr.selected" = "grey2"
+
+"ui.statusline" = { fg = "grey2", bg = "bg3" }
+"ui.statusline.inactive" = { fg = "grey0", bg = "bg1" }
+"ui.statusline.normal" = { fg = "bg0", bg = "green" }
+"ui.statusline.insert" = { fg = "bg0", bg = "blue" }
+"ui.statusline.select" = { fg = "bg0", bg = "purple" }
+"ui.statusline.separator" = "bg4"
+
+"ui.text" = "fg"
+"ui.text.focus" = { fg = "fg", modifiers = ["bold"] }
+"ui.text.inactive" = "grey1"
+"ui.text.info" = { fg = "fg", bg = "bg2" }
+
+"ui.help" = { fg = "fg", bg = "bg2" }
+
+"ui.popup" = { fg = "fg", bg = "bg2" }
+"ui.popup.info" = { fg = "fg", bg = "bg2" }
+
+"ui.window" = { fg = "bg4" }
+
+"ui.menu" = { fg = "fg", bg = "bg2" }
+"ui.menu.selected" = { fg = "bg0", bg = "green", modifiers = ["bold"] }
+"ui.menu.scroll" = { fg = "grey2", bg = "bg3" }
+
+"ui.virtual" = "grey0"
+"ui.virtual.ruler" = { bg = "bg1" }
+"ui.virtual.whitespace" = "grey0"
+"ui.virtual.indent-guide" = "bg3"
+"ui.virtual.inlay-hint" = { fg = "grey0", modifiers = ["italic"] }
+"ui.virtual.inlay-hint.parameter" = { fg = "grey0", modifiers = ["italic"] }
+"ui.virtual.inlay-hint.type" = { fg = "grey0", modifiers = ["italic"] }
+"ui.virtual.wrap" = "grey0"
+"ui.virtual.jump-label" = { fg = "red", modifiers = ["bold"] }
+
+# Gutter
+"ui.gutter" = { bg = "bg0" }
+"ui.gutter.selected" = { bg = "bg1" }
+
+# Bufferline (tabs)
+"ui.bufferline" = { fg = "grey1", bg = "bg1" }
+"ui.bufferline.active" = { fg = "fg", bg = "bg3", modifiers = ["bold"] }
+"ui.bufferline.background" = { bg = "bg0" }
+
+# Diagnostics
+"error" = "red"
+"warning" = "yellow"
+"info" = "blue"
+"hint" = "green"
+
+"diagnostic.error" = { underline = { color = "red", style = "curl" } }
+"diagnostic.warning" = { underline = { color = "yellow", style = "curl" } }
+"diagnostic.info" = { underline = { color = "blue", style = "curl" } }
+"diagnostic.hint" = { underline = { color = "green", style = "curl" } }
+"diagnostic.unnecessary" = { modifiers = ["dim"] }
+"diagnostic.deprecated" = { modifiers = ["crossed_out"] }
+
+# Git
+"git.delta.moved" = "purple"
+
+# Color palette
+[palette]
+# Background colors
+bg_dim = "#232A2E"
+bg0 = "#2D353B"
+bg1 = "#343F44"
+bg2 = "#3D484D"
+bg3 = "#475258"
+bg4 = "#4F585E"
+bg5 = "#56635f"
+
+# Background highlights
+bg_visual = "#543A48"
+bg_red = "#514045"
+bg_green = "#425047"
+bg_blue = "#3A515D"
+bg_yellow = "#4D4C43"
+
+# Foreground
+fg = "#D3C6AA"
+
+# Base colors
+red = "#E67E80"
+orange = "#E69875"
+yellow = "#DBBC7F"
+green = "#A7C080"
+aqua = "#83C092"
+blue = "#7FBBB3"
+purple = "#D699B6"
+
+# Grey scale
+grey0 = "#7A8478"
+grey1 = "#859289"
+grey2 = "#9DA9A0"

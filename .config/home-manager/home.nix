@@ -135,9 +135,8 @@
     ".default-python-packages".source = ../mise/.default-python-packages;
     ".default-go-packages".source = ../mise/.default-go-packages;
     ".config/mise/config.toml".source = ../mise/mise.toml;
-    ".config/helix/config.toml".source = ../helix/config.toml;
-    ".config/helix/themes" = {
-      source = ../helix/themes;
+    ".config/helix" = {
+      source = ../helix;
       recursive = true;
     };
     ".config/nvim" = {
