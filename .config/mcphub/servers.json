@@ -1,0 +1,31 @@
+{
+  "mcpServers": {
+    "ast-grep": {
+      "args": ["--directory", "~/projects/ast-grep-mcp", "run", "main.py"],
+      "command": "uv",
+      "env": {}
+    },
+    "awslabs.aws-documentation-mcp-server": {
+      "args": ["awslabs.aws-documentation-mcp-server@latest"],
+      "autoApprove": [],
+      "command": "uvx",
+      "disabled": false,
+      "env": {
+        "AWS_DOCUMENTATION_PARTITION": "aws",
+        "FASTMCP_LOG_LEVEL": "ERROR"
+      }
+    },
+    "github": {
+      "disabled": false,
+      "headers": {
+        "Authorization": "Bearer ${GITHUB_TOKEN}"
+      },
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp/"
+    },
+    "mcp-gopls": {
+      "command": "mcp-gopls",
+      "disabled": false
+    }
+  }
+}

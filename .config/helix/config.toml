@@ -39,6 +39,7 @@ C-p = "file_picker" # Ctrl+p to open file picker (like telescope)
 C-s = ":w" # Save file
 C-q = ":q" # Quit
 C-e = "buffer_picker" # Buffer picker (replacing harpoon workflow)
+C-f = ":sh tmux neww tmux-sessionizer" # tmux-sessionizer
 
 # Disable arrow keys to encourage hjkl usage
 up = "no_op"

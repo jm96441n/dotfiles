@@ -139,6 +139,10 @@
       source = ../helix;
       recursive = true;
     };
+    ".config/mcphub" = {
+      source = ../mcphub;
+      recursive = true;
+    };
     ".config/nvim" = {
       source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/.config/nvim";
       recursive = true;
