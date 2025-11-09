@@ -3,6 +3,21 @@
   pkgs,
   ...
 }:
+let
+  nixGLWrap =
+    pkg:
+    pkgs.runCommand "${pkg.name}-nixgl-wrapper" { } ''
+      mkdir $out
+      ln -s ${pkg}/* $out
+      rm $out/bin
+      mkdir $out/bin
+      for bin in ${pkg}/bin/*; do
+        wrapped_bin=$out/bin/$(basename $bin)
+        echo "exec ${pkgs.nixgl.nixGLIntel}/bin/nixGLIntel $bin \$@" > $wrapped_bin
+        chmod +x $wrapped_bin
+      done
+    '';
+in
 
 {
   # Home Manager needs a bit of information about you and the paths it should manage
@@ -61,6 +76,7 @@
     git
     git-extras
     git-lfs
+    (nixGLWrap ghostty)
     gnumake
     gomplate
     hcp
@@ -94,6 +110,7 @@
     ranger
     ripgrep
     sentry-cli
+    slack
     sshuttle
     starship
     strace
@@ -211,7 +228,7 @@
         owner = "ast-grep";
         repo = "ast-grep-mcp";
         rev = "main";
-        sha256 = "sha256-PhV0i5mwLdQo51nAPaAygAYmIcDgmSP1MyvySt9Gn7U=";
+        sha256 = "sha256-cn+bKrnQbTeWd3kE5NZ2FnxxS+juQZsH1NqYEPBtEOo=";
       };
       recursive = true;
     };

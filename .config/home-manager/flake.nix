@@ -10,17 +10,28 @@
     ghostty = {
       url = "github:ghostty-org/ghostty";
     };
+    nixgl = {
+      url = "github:nix-community/nixGL";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs =
     {
       nixpkgs,
       home-manager,
       ghostty,
+      nixgl,
       ...
     }:
     let
       system = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${system};
+      pkgs = import nixpkgs {
+        inherit system;
+        overlays = [
+          ghostty.overlays.default
+          nixgl.overlay
+        ];
+      };
     in
     {
       homeConfigurations."johnmaguire" = home-manager.lib.homeManagerConfiguration {
@@ -31,6 +42,7 @@
           {
             nixpkgs.overlays = [
               ghostty.overlays.default
+              nixgl.overlay
             ];
           }
         ];
