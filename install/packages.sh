@@ -65,3 +65,4 @@ flatpak install flathub md.obsidian.Obsidian
 flatpak install flathub com.spotify.Client
 flatpak install flathub org.signal.Signal
 flatpak install flathub app.zen_browser.zen
+flatpak install flathub com.slack.Slack

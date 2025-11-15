@@ -3,21 +3,21 @@
   pkgs,
   ...
 }:
-let
-  nixGLWrap =
-    pkg:
-    pkgs.runCommand "${pkg.name}-nixgl-wrapper" { } ''
-      mkdir $out
-      ln -s ${pkg}/* $out
-      rm $out/bin
-      mkdir $out/bin
-      for bin in ${pkg}/bin/*; do
-        wrapped_bin=$out/bin/$(basename $bin)
-        echo "exec ${pkgs.nixgl.nixGLIntel}/bin/nixGLIntel $bin \$@" > $wrapped_bin
-        chmod +x $wrapped_bin
-      done
-    '';
-in
+# let
+# nixGLWrap =
+# pkg:
+# pkgs.runCommand "${pkg.name}-nixgl-wrapper" { } ''
+# mkdir $out
+# ln -s ${pkg}/* $out
+# rm $out/bin
+# mkdir $out/bin
+# for bin in ${pkg}/bin/*; do
+# wrapped_bin=$out/bin/$(basename $bin)
+# echo "exec ${nixGLPackages.nixGLNvidia}/bin/nixGLNvidia $bin \$@" > $wrapped_bin
+# chmod +x $wrapped_bin
+# done
+# '';
+# in
 
 {
   # Home Manager needs a bit of information about you and the paths it should manage
@@ -37,7 +37,19 @@ in
   xdg = {
     enable = true;
     mime.enable = true;
-    desktopEntries = { };
+    desktopEntries = {
+      # ghostty = {
+      # name = "Ghostty";
+      # genericName = "Terminal Emulator";
+      # exec = "ghostty"; # Just use the wrapped version
+      # terminal = false;
+      # categories = [
+      # "System"
+      # "TerminalEmulator"
+      # ];
+      # icon = "utilities-terminal";
+      # };
+    };
   };
 
   nix = {
@@ -76,7 +88,7 @@ in
     git
     git-extras
     git-lfs
-    (nixGLWrap ghostty)
+    # ghostty
     gnumake
     gomplate
     hcp
@@ -110,7 +122,6 @@ in
     ranger
     ripgrep
     sentry-cli
-    slack
     sshuttle
     starship
     strace
@@ -327,4 +338,5 @@ in
   # services.swayidle.enable = true; # Idle management
 
   xdg.portal.config.common.default = "*";
+
 }
