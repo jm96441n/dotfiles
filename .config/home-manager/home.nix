@@ -51,6 +51,7 @@ in
   # Packages that should be installed to the user profile
   home.packages = with pkgs; [
     # CLI tools
+    actionlint
     awscli2
     autoconf
     autojump
@@ -103,6 +104,7 @@ in
     nerd-fonts.fira-code
     nixfmt-rfc-style
     nmap
+    packer
     peek
     powertop
     postgresql
@@ -110,7 +112,6 @@ in
     ranger
     ripgrep
     sentry-cli
-    slack
     sshuttle
     starship
     strace
@@ -184,6 +185,10 @@ in
       source = ../kitty;
       recursive = true;
     };
+    ".config/opencode" = {
+      source = ../opencode;
+      recursive = true;
+    };
     ".config/k9s" = {
       source = ../k9s;
       recursive = true;
@@ -220,6 +225,7 @@ in
     "$HOME/.local/bin"
     "$HOME/.local/bin/nvim/bin"
     "$HOME/.cargo/bin"
+    "$HOME/.opencode/bin"
   ];
 
   home.file = {
@@ -281,6 +287,24 @@ in
           outputs = [
             {
               criteria = "DP-5";
+              status = "enable";
+              mode = "3440x1440";
+              position = "0,0";
+            }
+            {
+              criteria = "eDP-1";
+              status = "disable";
+            }
+          ];
+        };
+      }
+
+      {
+        profile = {
+          name = "external-dp6";
+          outputs = [
+            {
+              criteria = "DP-6";
               status = "enable";
               mode = "3440x1440";
               position = "0,0";

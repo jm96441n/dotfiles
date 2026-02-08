@@ -79,6 +79,7 @@ in
       "tcig" = "tmux-sessionizer $HOME/hashi/cloud-infragraph";
       "jjdv" = "jj dv";
       "jjcv" = "jj-commit-up";
+      "oc" = "opencode";
     };
 
     history = {

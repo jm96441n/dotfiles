@@ -148,22 +148,45 @@ return {
       },
     },
   },
-
-  -- -- configure copilot
-  -- {
-  --   "zbirenbaum/copilot.lua",
-  --   cmd = "Copilot",
-  --   build = ":Copilot auth",
-  --   opts = {
-  --     suggestion = { enabled = true },
-  --     panel = { enabled = false },
-  --     filetypes = {
-  --       markdown = true,
-  --       help = true,
-  --     },
-  --   },
-  -- },
-
+  {
+    "nvim-neotest/neotest",
+    optional = true,
+    dependencies = {
+      "fredrikaverpil/neotest-golang",
+    },
+    opts = {
+      adapters = {
+        ["neotest-golang"] = {
+          go_test_args = function()
+            local root = vim.fn.getcwd() -- or use a root detection function
+            return {
+              "-v",
+              "-race",
+              "-count=1",
+              "-coverprofile=" .. root .. "/cover.out",
+            }
+          end,
+          -- Here we can set options for neotest-golang, e.g.
+          -- go_test_args = { "-v", "-race", "-count=1", "-timeout=60s" },
+          dap_go_enabled = true, -- requires leoluz/nvim-dap-go
+        },
+      },
+    },
+  },
+  {
+    "andythigpen/nvim-coverage",
+    version = "*",
+    config = function()
+      require("coverage").setup({
+        auto_reload = true,
+        lang = {
+          go = {
+            coverage_file = vim.fn.getcwd() .. "/cover.out",
+          },
+        },
+      })
+    end,
+  },
   -- easy alternate file switching
   {
     "tpope/vim-projectionist",
@@ -203,16 +226,6 @@ return {
       },
     },
   },
-  -- {
-  -- "nvim-neotest/neotest",
-  -- dependencies = {
-  -- "nvim-neotest/nvim-nio",
-  -- "nvim-lua/plenary.nvim",
-  -- "antoinemadec/FixCursorHold.nvim",
-  -- "nvim-treesitter/nvim-treesitter",
-  -- },
-  -- opts = { adapters = { "neotest-plenary" } },
-  -- },
   {
     "hrsh7th/nvim-cmp",
     opts = function(_, opts)
@@ -631,5 +644,40 @@ return {
         },
       },
     },
+  },
+  {
+    "nicolasgb/jj.nvim",
+    version = "*", -- Use latest stable release
+    -- Or from the main branch (uncomment the branch line and comment the version line)
+    -- branch = "main",
+    config = function()
+      require("jj").setup({
+        picker = {
+          -- Here you can pass the options as you would for snacks.
+          -- It will be used when using the picker
+          snacks = {},
+        },
+        keymaps = {
+          log = {
+            checkout = "<CR>",
+            describe = "d",
+            diff = "<S-d>",
+            abandon = "<S-a>",
+            fetch = "<S-f>",
+          },
+          status = {
+            open_file = "<CR>",
+            restore_file = "<S-x>",
+          },
+          close = { "q", "<Esc>" },
+        },
+        diff = {
+          backend = "diffview",
+        },
+      })
+    end,
+  },
+  {
+    "dlyongemallo/diffview.nvim",
   },
 }

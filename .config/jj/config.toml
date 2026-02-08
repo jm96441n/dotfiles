@@ -6,6 +6,7 @@ email = "john@jmaguire.tech"
 [ui]
 paginate = "never"
 editor = "nvim"
+merge-editor = "nvim"
 
 [[--scope]]
 --when.repositories = ["~/hashi"]
@@ -32,3 +33,8 @@ concat(
 [aliases]
 dv = ["--config=templates.draft_commit_description=commit_description_verbose", "describe"]
 cv = ["--config=templates.draft_commit_description=commit_description_verbose", "commit"]
+
+
+[merge-tools.nvim]
+program = "nvim"
+merge-args = ["-d", "$left", "$base", "$right", "-c", "wincmd J | split $output"]

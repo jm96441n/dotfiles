@@ -1,19 +1,44 @@
 {
   "mcpServers": {
+    "beads": {
+      "type": "local",
+      "command": "beads-mcp",
+      "args": [],
+      "tools": ["*"]
+    },
+    "terraform": {
+      "type": "local",
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "-e",
+        "TFE_TOKEN=$TFE_TOKEN",
+        "-e",
+        "TFE_ADDRESS=https://app.terraform.io",
+        "hashicorp/terraform-mcp-server:0.3.0"
+      ],
+      "tools": ["*"]
+    },
     "ast-grep": {
       "args": ["--directory", "~/projects/ast-grep-mcp", "run", "main.py"],
+      "type": "local",
       "command": "uv",
-      "env": {}
+      "env": {},
+      "tools": ["*"]
     },
-    "awslabs.aws-documentation-mcp-server": {
+    "awslabs-aws-documentation-mcp-server": {
       "args": ["awslabs.aws-documentation-mcp-server@latest"],
       "autoApprove": [],
       "command": "uvx",
       "disabled": false,
+      "type": "local",
       "env": {
         "AWS_DOCUMENTATION_PARTITION": "aws",
         "FASTMCP_LOG_LEVEL": "ERROR"
-      }
+      },
+      "tools": ["*"]
     },
     "github": {
       "disabled": false,
@@ -21,11 +46,15 @@
         "Authorization": "Bearer ${GITHUB_TOKEN}"
       },
       "type": "http",
-      "url": "https://api.githubcopilot.com/mcp/"
+      "url": "https://api.githubcopilot.com/mcp/",
+      "tools": ["*"]
     },
     "mcp-gopls": {
       "command": "mcp-gopls",
-      "disabled": false
+      "args": [],
+      "type": "local",
+      "disabled": false,
+      "tools": ["*"]
     }
   }
 }

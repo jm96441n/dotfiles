@@ -3,6 +3,8 @@
 -- Add any additional keymaps here
 
 local M = {}
+
+local picker = require("jj.picker")
 -- map helper
 function M.map(mode, lhs, rhs, opts)
   local options = { noremap = true }
@@ -46,6 +48,13 @@ M.map("t", "<C-h>", [[<C-\><C-n><C-W>h]], { noremap = true })
 M.map("t", "<C-j>", [[<C-\><C-n><C-W>j]], { noremap = true })
 M.map("t", "<C-k>", [[<C-\><C-n><C-W>k]], { noremap = true })
 M.map("t", "<C-l>", [[<C-\><C-n><C-W>l]], { noremap = true })
+
+vim.keymap.set("n", "<leader>gj", function()
+  picker.status()
+end, { desc = "JJ Picker status" })
+vim.keymap.set("n", "<leader>jgh", function()
+  picker.file_history()
+end, { desc = "JJ Picker history" })
 
 -- avante
 M.map("n", "<leader>am", ":AvanteChat<CR>", { silent = true })
