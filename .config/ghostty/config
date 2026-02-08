@@ -1,10 +1,15 @@
+# Performance settings
+window-vsync = false
+shell-integration-features = no-cursor,no-sudo,no-title
+wait-after-command = false
+
 gtk-titlebar = false
 
 font-family = FiraCode Nerd Font Mono
 
-shell-integration = zsh
+# shell-integration = zsh
 
-command = /usr/bin/zsh
+command = ~/.nix-profile/bin/zsh
 
 ## color theme - everforest
 

@@ -25,26 +25,22 @@
     }:
     let
       system = "x86_64-linux";
-      pkgs = import nixpkgs {
-        inherit system;
-        overlays = [
-          ghostty.overlays.default
-          nixgl.overlay
-        ];
-      };
     in
     {
       homeConfigurations."johnmaguire" = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
+        pkgs = import nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
+        };
 
         modules = [
-          ./home.nix
           {
             nixpkgs.overlays = [
               ghostty.overlays.default
-              nixgl.overlay
+              nixgl.overlays.default
             ];
           }
+          ./home.nix
         ];
       };
     };

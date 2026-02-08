@@ -221,7 +221,7 @@ assign [class="Spotify"] workspace number $spotify
 assign [class="obsidian"] workspace number $notes
 
 # Launch applications with slight delays
-exec sleep 1 && /usr/bin/ghostty
+exec sleep 1 && ~/.nix-profile/bin/ghostty
 exec sleep 2 && flatpak run app.zen_browser.zen
 exec sleep 3 && slack
 exec sleep 3 && flatpak run org.signal.Signal
