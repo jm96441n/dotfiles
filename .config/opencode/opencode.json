@@ -9,50 +9,13 @@
         "GREMLIN_URL": "ws://localhost:8182/gremlin"
       }
     },
-    "terraform": {
-      "type": "local",
-      "command": [
-        "docker",
-        "run",
-        "-i",
-        "--rm",
-        "-e",
-        "TFE_TOKEN=$TFE_TOKEN",
-        "-e",
-        "TFE_ADDRESS=https://app.terraform.io",
-        "hashicorp/terraform-mcp-server:0.3.0"
-      ]
-    },
-    "awslabs-aws-documentation-mcp-server": {
-      "command": ["uvx", "awslabs.aws-documentation-mcp-server@latest"],
-      "type": "local",
-      "environment": {
-        "AWS_DOCUMENTATION_PARTITION": "aws",
-        "FASTMCP_LOG_LEVEL": "ERROR"
-      }
-    },
-    "github": {
-      "headers": {
-        "Authorization": "Bearer {env:GITHUB_TOKEN}"
-      },
+    "context7": {
       "type": "remote",
-      "url": "https://api.githubcopilot.com/mcp/"
-    },
-    "mcp-gopls": {
-      "command": ["mcp-gopls"],
-      "type": "local"
-    },
-    "jira": {
-      "command": [
-        "uvx",
-        "--python=3.12",
-        "--with=packaging",
-        "mcp-atlassian",
-        "--jira-url=https://hashicorp.atlassian.net",
-        "--jira-username=John.Maguire3@ibm.com",
-        "--jira-token={env:JIRA_TOKEN}"
-      ],
-      "type": "local"
+      "url": "https://mcp.context7.com/mcp",
+      "headers": {
+        "CONTEXT7_API_KEY": "{env:CONTEXT7_KEY}"
+      },
+      "enabled": true
     }
   },
   "tools": {
