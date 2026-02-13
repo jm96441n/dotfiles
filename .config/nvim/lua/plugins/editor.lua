@@ -1,15 +1,6 @@
 local vim = vim
 local fn = vim.fn
 
-local function buildTags()
-  local cwd = fn.getcwd()
-  if string.find(cwd, "enterprise") then
-    return { "-tags=consulent" }
-  end
-
-  return { "-tags=" }
-end
-
 local function parse_frontmatter(content)
   local frontmatter = {}
 
@@ -69,6 +60,10 @@ local function strip_frontmatter(content)
   end
 
   return table.concat(lines, "\n"):gsub("^%s+", ""):gsub("%s+$", "")
+end
+
+local function is_hashi_project()
+  return vim.fn.getcwd():find("hashi") ~= nil
 end
 
 local function discover_prompt_files(directory)
@@ -339,14 +334,14 @@ return {
           single_file_support = false, -- Only start in projects with sgconfig
         },
         gopls = {
+          cmd = { "gopls", "-remote=auto" },
           keys = {
             -- Workaround for the lack of a DAP strategy in neotest-go: https://github.com/nvim-neotest/neotest-go/issues/12
             { "<leader>td", "<cmd>lua require('dap-go').debug_test()<CR>", desc = "Debug Nearest (Go)" },
           },
           settings = {
             gopls = {
-              buildFlags = buildTags(),
-              gofumpt = true,
+              gofumpt = not is_hashi_project(), -- dont use gofumpt formatting in hashicorp projects
               codelenses = {
                 gc_details = false,
                 generate = true,
@@ -646,10 +641,17 @@ return {
     },
   },
   {
+    "dlyongemallo/diffview.nvim",
+  },
+  {
+    "rafikdraoui/jj-diffconflicts",
+  },
+  {
     "nicolasgb/jj.nvim",
     version = "*", -- Use latest stable release
     -- Or from the main branch (uncomment the branch line and comment the version line)
     -- branch = "main",
+    dependencies = { "dlyongemallo/diffview.nvim" }, -- Ensure codediff loads first
     config = function()
       require("jj").setup({
         picker = {
@@ -672,12 +674,9 @@ return {
           close = { "q", "<Esc>" },
         },
         diff = {
-          backend = "diffview",
+          backend = "codediff",
         },
       })
     end,
-  },
-  {
-    "dlyongemallo/diffview.nvim",
   },
 }

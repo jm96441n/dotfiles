@@ -49,12 +49,30 @@ M.map("t", "<C-j>", [[<C-\><C-n><C-W>j]], { noremap = true })
 M.map("t", "<C-k>", [[<C-\><C-n><C-W>k]], { noremap = true })
 M.map("t", "<C-l>", [[<C-\><C-n><C-W>l]], { noremap = true })
 
+-- JJ.nvim pickers and commands
 vim.keymap.set("n", "<leader>gj", function()
   picker.status()
-end, { desc = "JJ Picker status" })
-vim.keymap.set("n", "<leader>jgh", function()
+end, { desc = "JJ Status" })
+
+vim.keymap.set("n", "<leader>jl", function()
+  picker.log()
+end, { desc = "JJ Log" })
+
+vim.keymap.set("n", "<leader>jh", function()
   picker.file_history()
-end, { desc = "JJ Picker history" })
+end, { desc = "JJ File History" })
+
+-- JJ diff commands (uses codediff backend)
+M.map("n", "<leader>jD", ":Jdiff<CR>", { desc = "JJ Diff (uses codediff)", silent = true })
+M.map("n", "<leader>jv", ":Jvdiff<CR>", { desc = "JJ Diff (vertical)", silent = true })
+M.map("n", "<leader>jH", ":Jhdiff<CR>", { desc = "JJ Diff (horizontal)", silent = true })
+
+-- Direct CodeDiff commands
+M.map("n", "<leader>cd", ":CodeDiff<CR>", { desc = "CodeDiff Explorer", silent = true })
+M.map("n", "<leader>ch", ":CodeDiff history<CR>", { desc = "CodeDiff History", silent = true })
+
+-- Hunk.nvim for selective diff editing
+M.map("n", "<leader>jd", ":DiffEditor<CR>", { desc = "JJ Interactive Diff Editor (hunk)", silent = true })
 
 -- avante
 M.map("n", "<leader>am", ":AvanteChat<CR>", { silent = true })
@@ -87,3 +105,13 @@ end, { desc = "Open harpoon window" })
 M.map("n", "<leader>ha", function()
   harpoon:list():add()
 end, { desc = "Mark file" })
+
+-- Diffview for JJ conflicts and diffs
+M.map("n", "<leader>dv", ":DiffviewOpen<CR>", { desc = "Open Diffview", silent = true })
+M.map("n", "<leader>dc", ":DiffviewClose<CR>", { desc = "Close Diffview", silent = true })
+M.map("n", "<leader>dh", ":DiffviewFileHistory<CR>", { desc = "File History", silent = true })
+M.map("n", "<leader>df", ":DiffviewFileHistory %<CR>", { desc = "Current File History", silent = true })
+
+-- Note: Diff mode keymaps are set up automatically in autocmds.lua
+-- This includes ]c/[c for navigation and <leader>co/<leader>ct for resolution
+-- These work for both 2-way (jj-diffconflicts) and 3-way (vimdiff) diffs

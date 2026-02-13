@@ -72,7 +72,6 @@
     bat
     bison
     bitwarden-cli
-    claude-code
     cmake
     curl
     consul
@@ -100,7 +99,6 @@
     icomoon-feather
     imagemagick
     jujutsu
-    j
     lazygit
     lua5_1
     lua51Packages.luarocks-nix

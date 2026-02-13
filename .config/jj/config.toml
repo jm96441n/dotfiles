@@ -6,17 +6,17 @@ email = "john@jmaguire.tech"
 [ui]
 paginate = "never"
 editor = "nvim"
-merge-editor = "nvim"
 
 [[--scope]]
 --when.repositories = ["~/hashi"]
 [--scope.user]
   email = "john.maguire@hashicorp.com"
 
+[remotes.origin]
+auto-track-bookmarks = "*"
+
 [git]
-auto-local-bookmark = true
 track-default-bookmark-on-clone = false
-push-new-bookmarks = true
 
 [template-aliases]
 commit_description_verbose = '''
@@ -34,7 +34,10 @@ concat(
 dv = ["--config=templates.draft_commit_description=commit_description_verbose", "describe"]
 cv = ["--config=templates.draft_commit_description=commit_description_verbose", "commit"]
 
-
 [merge-tools.nvim]
 program = "nvim"
-merge-args = ["-d", "$left", "$base", "$right", "-c", "wincmd J | split $output"]
+merge-args = [
+    "-c", "let g:jj_diffconflicts_marker_length=$marker_length",
+    "-c", "JJDiffConflicts!", "$output", "$base", "$left", "$right",
+]
+merge-tool-edits-conflict-markers = true

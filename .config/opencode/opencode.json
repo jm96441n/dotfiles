@@ -1,6 +1,11 @@
 {
   "$schema": "https://opencode.ai/config.json",
   "plugin": ["opencode-beads"],
+  "lsp": {
+    "gopls": {
+      "command": ["gopls", "-remote=auto"]
+    }
+  },
   "mcp": {
     "gremlin": {
       "type": "local",
