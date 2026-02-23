@@ -140,6 +140,7 @@ return {
         sh = { "shfmt" },
         gohtml = { "prettier" },
         gotmpl = { "prettier" },
+        go = { "gofmt", "golangci-lint", "goimports" },
       },
     },
   },
