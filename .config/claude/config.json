@@ -1,0 +1,24 @@
+{
+  "mcpServers": {
+    "gremlin": {
+      "command": "gremlin-mcp",
+      "args": [],
+      "env": {
+        "GREMLIN_URL": "ws://localhost:8182/gremlin"
+      }
+    },
+    "context7": {
+      "url": "https://mcp.context7.com/mcp",
+      "transport": "sse",
+      "headers": {
+        "CONTEXT7_API_KEY": "${CONTEXT7_KEY}"
+      }
+    }
+  },
+  "lspServers": {
+    "gopls": {
+      "command": "gopls",
+      "args": ["-remote=auto"]
+    }
+  }
+}

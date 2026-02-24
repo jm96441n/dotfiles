@@ -208,6 +208,16 @@
       recursive = true;
     };
     ".config/ghostty/config".source = ../ghostty/config;
+    ".claude/skills" = {
+      source = ../claude/skills;
+      recursive = true;
+    };
+    ".claude/agents" = {
+      source = ../claude/agents;
+      recursive = true;
+    };
+    ".claude/config.json".source = ../claude/config.json;
+    ".claude/settings.json".source = ../claude/settings.json;
   };
 
   # Environment variables
