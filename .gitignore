@@ -6,3 +6,4 @@ system/.private_function
 
 **/__pycache__/**
 .aider*
+.claude/**

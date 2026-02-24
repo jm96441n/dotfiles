@@ -63,6 +63,7 @@
   # Packages that should be installed to the user profile
   home.packages = with pkgs; [
     # CLI tools
+    acli
     actionlint
     awscli2
     autoconf

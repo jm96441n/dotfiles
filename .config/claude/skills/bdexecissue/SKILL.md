@@ -1,7 +1,7 @@
 ---
 description: execute a single bd issue
 argument-hint: <issue key>
-allowed-tools: Bash(bd *), Bash(git *), Bash(tea *), Read(.)
+allowed-tools: Bash(bd *), Bash(git *), Bash(tea *), Bash(jj *), Bash(ast-grep *), Bash(sg *), Read, Edit, Write, Glob, Grep
 context: fork
 ---
 # Execute Single BD Issue

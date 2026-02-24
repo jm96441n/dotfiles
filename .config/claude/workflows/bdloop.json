@@ -1,0 +1,23 @@
+{
+  "name": "bdloop-auto-approve",
+  "description": "Auto-approve operations for bdloop workflow",
+  "triggers": {
+    "skills": ["bdloop", "bdexecplan", "bdexecissue", "bdplan"]
+  },
+  "permissions": {
+    "autoApprove": true,
+    "allowedTools": [
+      "Bash(bd *)",
+      "Bash(jj *)",
+      "Bash(git *)",
+      "Bash(tea *)",
+      "Bash(ast-grep *)",
+      "Bash(sg *)",
+      "Read",
+      "Edit",
+      "Write",
+      "Skill",
+      "Task"
+    ]
+  }
+}

@@ -1,0 +1,69 @@
+#!/usr/bin/zsh
+# Create a new jj worktree in a sibling directory, start tmux session, and run bdloop
+
+set -e
+
+branch_name=$1
+epic_id=$2
+
+if [[ -z $branch_name ]]; then
+    echo "Error: Branch name required" >&2
+    echo "Usage: tmux-claude-worktree <branch-name> <epic-id>" >&2
+    exit 1
+fi
+
+if [[ -z $epic_id ]]; then
+    echo "Error: Epic ID required" >&2
+    echo "Usage: tmux-claude-worktree <branch-name> <epic-id>" >&2
+    exit 1
+fi
+
+# Find the git/jj repository root
+repo_root=$(git rev-parse --show-toplevel 2>/dev/null || jj workspace root 2>/dev/null || pwd)
+repo_name=$(basename "$repo_root")
+
+# Navigate to parent directory where worktrees will be siblings
+parent_dir=$(dirname "$repo_root")
+worktree_dir="$parent_dir/$branch_name"
+
+# Check if worktree directory already exists
+if [[ -d "$worktree_dir" ]]; then
+    echo "Error: Worktree directory already exists: $worktree_dir" >&2
+    exit 1
+fi
+
+# Create the worktree
+echo "Creating jj worktree at: $worktree_dir"
+cd "$repo_root"
+jj workspace add --name "$branch_name" "$worktree_dir"
+
+# Create the branch in the new worktree
+echo "Creating branch: $branch_name"
+cd "$worktree_dir"
+jj branch create "$branch_name"
+jj describe -m "$branch_name"
+
+# Create tmux session name from branch name (replace . with _)
+session_name=$(echo "$branch_name" | tr . _)
+
+# Check if session already exists
+if tmux has-session -t="$session_name" 2>/dev/null; then
+    echo "Error: tmux session '$session_name' already exists" >&2
+    exit 1
+fi
+
+# Create new tmux session in detached mode
+echo "Creating tmux session: $session_name"
+tmux new-session -ds "$session_name" -c "$worktree_dir"
+
+# Start claude with bdloop prompt in the new session
+echo "Starting claude with /bdloop $epic_id"
+tmux send-keys -t "$session_name" "claude '/bdloop $epic_id'" C-m
+
+echo ""
+echo "✓ Worktree created: $worktree_dir"
+echo "✓ Branch created: $branch_name"
+echo "✓ tmux session started: $session_name"
+echo ""
+echo "To switch to the session: tmux switch-client -t $session_name"
+echo "To attach to the session: tmux attach -t $session_name"
