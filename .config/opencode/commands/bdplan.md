@@ -2,14 +2,17 @@
 description: plan a set of bd issues
 allowed-tools: Bash(bd:*)
 ---
+
 # Create BD Implementation Plan
 
 ## Overview
+
 Create a structured implementation plan as a series of linked bd issues with dependency management. Uses bd's native issue tracking and dependency chains to represent a complete project plan.
 
 ## Plan Creation Process
 
 ### Initialization
+
 1. **Ensure bd is initialized**: Check if `.beads/` directory exists
 2. **Parse Requirements**: Extract key functionality, constraints, and goals from input
 3. **Structure Plan**: Break down into hierarchical tasks with dependencies
@@ -18,12 +21,15 @@ Create a structured implementation plan as a series of linked bd issues with dep
 ### Issue Structure Strategy
 
 #### Hierarchical Organization
+
 Use bd's dependency system to create project structure:
+
 - **Epic Issues**: High-level features (e.g., "Implement user authentication")
 - **Task Issues**: Specific implementation steps
 - **Dependencies**: Use `bd dep add` to chain tasks in execution order
 
 #### Dependency Types to Use
+
 - `blocks`: For sequential tasks (Task B must complete before Task A)
 - `parent-child`: For epic/subtask relationships
 - `related`: For tasks that share context but don't block
@@ -48,12 +54,14 @@ bd dep add [task-id] [blocker] --type blocks
 ```
 
 Benefits:
+
 - Fewer commands (1 instead of 3+)
 - Clearer intent (dependencies visible in creation)
 - Easier to script and automate
 - Less error-prone (no ID tracking needed)
 
 #### Step 1: Create Epic Issue
+
 ```bash
 bd create "Plan: [Feature Name]" \
   --priority 0 \
@@ -62,6 +70,7 @@ bd create "Plan: [Feature Name]" \
 ```
 
 #### Step 2: Create Task Issues with Dependencies
+
 For each implementation step, use `--parent` and `--blocks` flags to set dependencies during creation:
 
 ```bash
@@ -76,17 +85,20 @@ bd create "[Task Description]" \
 ```
 
 **Using --parent flag:**
+
 - Automatically creates `parent-child` dependency
 - Child task is created, parent epic depends on it
 - More efficient than separate `bd dep add` command
 
 **Using --blocks flag:**
+
 - Automatically creates `blocks` dependency
 - New task depends on (is blocked by) the specified task
 - Multiple `--blocks` flags can be used for multiple blockers
 
 **Alternative: Manual Dependency Management**
 If you need to add dependencies after creation:
+
 ```bash
 # Task B blocks Task A (A depends on B)
 bd dep add [prefix]-[A] [prefix]-[B] --type blocks
@@ -108,11 +120,13 @@ bd dep add [child-task-id] [parent-epic-id] --type parent-child
 ```
 
 **Why this matters:**
+
 - The dependency tree shows issues that appear in the parent's `depends_on_id` field
 - Backwards dependencies cause children to NOT appear under their parent in `bd dep tree`
 - The semantics: "parent depends on child" means "parent is complete when children are done"
 
 **Verification:**
+
 ```bash
 # After adding dependencies, always verify:
 bd dep tree [epic-id]
@@ -121,6 +135,7 @@ bd dep tree [epic-id]
 ```
 
 #### Step 4: Verify Plan Structure
+
 ```bash
 bd dep tree [epic-id]  # Visualize the full plan
 bd ready               # Verify what's ready to start
@@ -133,26 +148,33 @@ Each issue should include:
 **Title**: Clear, action-oriented description (e.g., "Implement JWT token generation")
 
 **Description**:
+
 ```markdown
 ## Context
+
 [Why this task is needed]
 
 ## Implementation Details
+
 [Technical approach and key considerations]
 
 ## Acceptance Criteria
+
 - [ ] Criterion 1
 - [ ] Criterion 2
 - [ ] Criterion 3
 
 ## Testing
+
 [How to verify this works]
 
 ## Notes
+
 [Additional context, links, references]
 ```
 
 ### Priority Levels
+
 - **0**: Critical path, high priority
 - **1**: Important but not blocking
 - **2**: Normal priority
@@ -160,6 +182,7 @@ Each issue should include:
 - **4**: Nice to have
 
 ### Status Workflow
+
 1. **open**: Issue created, ready to work when unblocked
 2. **in_progress**: Actively being worked on
 3. **closed**: Completed successfully
@@ -169,6 +192,7 @@ Use `bd ready` to find next available work.
 ### Plan Workflow Commands
 
 #### View Plan Status
+
 ```bash
 bd list --type epic                    # See all epics
 bd show [epic-id]                      # Epic details
@@ -178,6 +202,7 @@ bd blocked                             # What's waiting on dependencies
 ```
 
 #### Work on Plan
+
 ```bash
 bd ready                               # Find next task
 bd update [issue-id] --status in_progress  # Start work
@@ -187,6 +212,7 @@ bd ready                               # Find next task
 ```
 
 #### Track Progress
+
 ```bash
 bd stats                               # Overall progress
 bd list --status open                  # Remaining work
@@ -305,11 +331,13 @@ bd dep add proj-103 proj-101 --type blocks
 ```
 
 ### Raw Requirements
+
 $ARGUMENTS
 
 ### Git Integration
 
 bd auto-syncs with git:
+
 - Issues export to `.beads/*.jsonl` automatically
 - Changes sync across team members via git
 - No manual export/import needed
@@ -318,6 +346,7 @@ bd auto-syncs with git:
 ### Multi-Repository Plans
 
 For plans spanning multiple repos:
+
 ```bash
 bd init --prefix api    # In api repo
 bd init --prefix web    # In web repo
@@ -330,6 +359,7 @@ bd create "Integrate with API" \
 ### Cleanup
 
 When plan is complete:
+
 ```bash
 bd cleanup --age 30d    # Archive old closed issues
 bd compact              # Compress issue history
@@ -338,20 +368,25 @@ bd compact              # Compress issue history
 ### Advanced Features
 
 #### Templates
+
 Create issue templates for common task types:
+
 ```bash
 bd template create feature-task
 # Opens editor with template
 ```
 
 #### Comments for Progress
+
 ```bash
 bd comment [issue-id]
 # Add detailed progress notes, blockers, decisions
 ```
 
 #### Labels
+
 Organize by component:
+
 ```bash
 bd label add [issue-id] "backend"
 bd label add [issue-id] "database"

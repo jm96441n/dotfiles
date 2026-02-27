@@ -76,6 +76,7 @@
     cmake
     curl
     consul
+    dolt
     delta # for git pager
     direnv
     eza
@@ -209,16 +210,33 @@
       recursive = true;
     };
     ".config/ghostty/config".source = ../ghostty/config;
-    ".claude/skills" = {
-      source = ../claude/skills;
-      recursive = true;
-    };
+  }
+  // (
+    let
+      skillsDir = ../claude/skills;
+      skillNames = builtins.attrNames (
+        pkgs.lib.filterAttrs (_: type: type == "directory") (builtins.readDir skillsDir)
+      );
+    in
+    builtins.listToAttrs (
+      map (name: {
+        name = ".claude/skills/${name}";
+        value = {
+          source = skillsDir + "/${name}";
+          recursive = true;
+        };
+      }) skillNames
+    )
+  )
+  // {
     ".claude/agents" = {
       source = ../claude/agents;
       recursive = true;
     };
     ".claude/config.json".source = ../claude/config.json;
-    ".claude/settings.json".source = ../claude/settings.json;
+    ".claude/settings.json" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/.config/claude/settings.json";
+    };
   };
 
   # Environment variables
@@ -249,17 +267,6 @@
     "$HOME/.opencode/bin"
   ];
 
-  home.file = {
-    "projects/ast-grep-mcp" = {
-      source = pkgs.fetchFromGitHub {
-        owner = "ast-grep";
-        repo = "ast-grep-mcp";
-        rev = "main";
-        sha256 = "sha256-cn+bKrnQbTeWd3kE5NZ2FnxxS+juQZsH1NqYEPBtEOo=";
-      };
-      recursive = true;
-    };
-  };
   # Display management
   services.kanshi = {
     enable = true;

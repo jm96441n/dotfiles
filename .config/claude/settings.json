@@ -1,36 +1,5 @@
 {
-  "model": "us.anthropic.claude-opus-4-6-v1",
-  "enabledPlugins": {
-    "gopls-lsp@claude-plugins-official": true
-  },
-  "alwaysAllow": {
-    "tools": [
-      {
-        "tool": "Bash",
-        "patterns": ["bd *", "jj *", "git *", "tea *", "ast-grep *", "sg *"]
-      },
-      {
-        "tool": "Read",
-        "patterns": ["*"]
-      },
-      {
-        "tool": "Edit",
-        "patterns": ["*"]
-      },
-      {
-        "tool": "Write",
-        "patterns": ["*"]
-      },
-      {
-        "tool": "Skill",
-        "patterns": ["bdexecissue*", "bdexecplan*", "bdplan*"]
-      },
-      {
-        "tool": "Task",
-        "patterns": ["*"]
-      }
-    ]
-  },
+  "model": "anthropic.claude-opus-4-6-v1",
   "hooks": {
     "SessionStart": [
       {
@@ -159,5 +128,56 @@
         ]
       }
     ]
-  }
+  },
+  "enabledPlugins": {
+    "gopls-lsp@claude-plugins-official": true
+  },
+  "alwaysAllow": {
+    "tools": [
+      {
+        "tool": "Bash",
+        "patterns": [
+          "bd *",
+          "jj *",
+          "git *",
+          "tea *",
+          "ast-grep *",
+          "sg *"
+        ]
+      },
+      {
+        "tool": "Read",
+        "patterns": [
+          "*"
+        ]
+      },
+      {
+        "tool": "Edit",
+        "patterns": [
+          "*"
+        ]
+      },
+      {
+        "tool": "Write",
+        "patterns": [
+          "*"
+        ]
+      },
+      {
+        "tool": "Skill",
+        "patterns": [
+          "bdexecissue*",
+          "bdexecplan*",
+          "bdplan*"
+        ]
+      },
+      {
+        "tool": "Task",
+        "patterns": [
+          "*"
+        ]
+      }
+    ]
+  },
+  "skipDangerousModePermissionPrompt": true
 }

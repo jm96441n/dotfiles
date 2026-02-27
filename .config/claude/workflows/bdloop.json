@@ -9,7 +9,6 @@
     "allowedTools": [
       "Bash(bd *)",
       "Bash(jj *)",
-      "Bash(git *)",
       "Bash(tea *)",
       "Bash(ast-grep *)",
       "Bash(sg *)",

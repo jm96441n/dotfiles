@@ -40,8 +40,11 @@ jj workspace add --name "$branch_name" "$worktree_dir"
 # Create the branch in the new worktree
 echo "Creating branch: $branch_name"
 cd "$worktree_dir"
-jj branch create "$branch_name"
+jj bookmark create "$branch_name"
 jj describe -m "$branch_name"
+
+mkdir -p .beads
+echo "../$repo_name/.beads" > .beads/redirect
 
 # Create tmux session name from branch name (replace . with _)
 session_name=$(echo "$branch_name" | tr . _)
@@ -58,7 +61,7 @@ tmux new-session -ds "$session_name" -c "$worktree_dir"
 
 # Start claude with bdloop prompt in the new session
 echo "Starting claude with /bdloop $epic_id"
-tmux send-keys -t "$session_name" "claude '/bdloop $epic_id'" C-m
+tmux send-keys -t "$session_name" "claude --dangerously-skip-permissions '/bdloop $epic_id'" C-m
 
 echo ""
 echo "✓ Worktree created: $worktree_dir"

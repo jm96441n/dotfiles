@@ -3,17 +3,21 @@ description: execute-review-fix loop until review passes
 argument-hint: [scope]
 allowed-tools: Skill, Task, Bash(bd:*), Bash(jj *)
 ---
+
 # BD Execute-Review-Fix Loop
 
 ## Overview
+
 Self-correcting feedback loop: execute ready bd issues, review the resulting code, create fix issues from review findings, and re-execute until the review passes clean. Combines `/bdexecplan`, the `review` agent, and `/bdplan` into an automated quality loop.
 
 ## Arguments
+
 $ARGUMENTS
 
 Optional: epic ID or search term to scope which issues to work on. Passed through to `/bdexecplan` and used to filter `bd ready`.
 
 ## Loop Architecture
+
 ```
 bdloop [scope]
   ├── Pre-loop: capture jj baseline, verify ready work exists
@@ -36,16 +40,21 @@ bdloop [scope]
 ### 1. Pre-Loop Setup
 
 #### Capture VCS Baseline
+
 Record the current jj change ID before any work begins:
+
 ```bash
 jj log -r @ --no-graph -T 'change_id ++ "\n"'
 ```
+
 Store this as `LOOP_BASELINE` — used to scope the final summary.
 
 #### Verify Ready Work Exists
+
 ```bash
 bd ready
 ```
+
 If scoped, filter to relevant issues. If nothing is ready, exit immediately with a message — there is nothing to do.
 
 Initialize iteration counter to 0 and max iterations to **5**.
@@ -55,13 +64,17 @@ Initialize iteration counter to 0 and max iterations to **5**.
 Repeat until a stopping condition is met:
 
 #### Step A: Increment and Record Iteration Baseline
+
 Increment the iteration counter. Record the current jj change ID:
+
 ```bash
 jj log -r @ --no-graph -T 'change_id ++ "\n"'
 ```
+
 Store as `ITER_BASELINE` for this iteration.
 
 Output an iteration header:
+
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ⟳ ITERATION [N] of 5
@@ -69,20 +82,27 @@ Output an iteration header:
 ```
 
 #### Step B: Execute Plan
+
 Invoke `/bdexecplan` with the scope argument:
+
 ```
 Skill("bdexecplan", args="[scope]")
 ```
+
 This runs all ready issues in the scope through `/bdexecissue`.
 
 #### Step C: Check for Changes
+
 After execution completes, check whether any new commits were produced:
+
 ```bash
 jj log -r '$ITER_BASELINE::@ ~ $ITER_BASELINE' --no-graph
 ```
+
 If no new changes exist since the iteration baseline, exit the loop — execution produced nothing to review.
 
 #### Step D: Review Iteration Changes
+
 Invoke the review agent scoped to only this iteration's changes:
 
 ```
@@ -102,7 +122,9 @@ Review all changed files thoroughly for correctness, security, best practices, e
 ```
 
 #### Step E: Evaluate Review Findings
+
 Parse the review agent's response. Count findings by category:
+
 - **Critical** — must-fix issues (bugs, security, data integrity)
 - **Recommendations** — should-fix improvements (performance, architecture, best practices)
 - **Suggestions** — nice-to-have (informational only, do NOT trigger fixes)
@@ -110,6 +132,7 @@ Parse the review agent's response. Count findings by category:
 **Stopping condition: exit the loop if zero Critical AND zero Recommendations.**
 
 Output an evaluation card:
+
 ```
 ┌─ REVIEW RESULT (Iteration [N]) ──────
 │ Critical:        [count]
@@ -122,6 +145,7 @@ Output an evaluation card:
 If PASS, exit the loop.
 
 #### Step F: Create Fix Issues
+
 If there are Critical or Recommendation findings, invoke `/bdplan` to create fix issues. Pass the review findings as the argument so bdplan can structure them into actionable issues:
 
 ```
@@ -131,19 +155,23 @@ Skill("bdplan", args="Fix issues from review iteration [N]:
 ```
 
 #### Step G: Verify New Ready Work
+
 ```bash
 bd ready
 ```
+
 If no new ready issues were created (bdplan produced nothing actionable, or all new issues are blocked), exit the loop — there is nothing more to execute.
 
 **Oscillation check**: If the findings in this iteration are substantially similar to the previous iteration's findings, exit the loop with a warning — fixes are not converging. Compare finding descriptions; if >50% overlap, treat as oscillating.
 
 #### Step H: Continue
+
 Loop back to Step A for the next iteration.
 
 ### 3. Max Iteration Guard
 
 If the iteration counter reaches 5, exit the loop regardless of review status. Output a warning:
+
 ```
 ⚠ MAX ITERATIONS (5) REACHED — exiting loop.
   Review still has findings. Manual attention needed.
@@ -176,15 +204,15 @@ After exiting the loop (for any reason), output a summary:
 
 Any of these triggers an exit:
 
-| Condition | Exit Reason |
-|-----------|-------------|
-| Zero Critical + zero Recommendations in review | `clean review` |
-| No new commits after `/bdexecplan` | `no changes` |
-| No new ready issues after `/bdplan` | `no new issues` |
-| Iteration counter reaches 5 | `max iterations` |
-| Findings repeat across consecutive iterations | `oscillating fixes` |
-| No ready work at start of loop | `no ready work` |
-| Review agent fails/errors | `review error` (exit with warning) |
+| Condition                                      | Exit Reason                        |
+| ---------------------------------------------- | ---------------------------------- |
+| Zero Critical + zero Recommendations in review | `clean review`                     |
+| No new commits after `/bdexecplan`             | `no changes`                       |
+| No new ready issues after `/bdplan`            | `no new issues`                    |
+| Iteration counter reaches 5                    | `max iterations`                   |
+| Findings repeat across consecutive iterations  | `oscillating fixes`                |
+| No ready work at start of loop                 | `no ready work`                    |
+| Review agent fails/errors                      | `review error` (exit with warning) |
 
 ## Edge Cases
 
