@@ -3,17 +3,20 @@ description: spawn agent worktree to execute bdloop
 argument-hint: <branch-name> <epic-id>
 allowed-tools: Bash(tmux-claude-worktree *), Bash(jj *), Bash(bd *)
 ---
+
 # BD Agent Worktree
 
 ## Overview
-Creates a new jj worktree in a sibling directory, spawns a tmux session there, and starts a Claude agent running `/bdloop` on the specified epic. Used after planning is complete to delegate execution to a separate agent in an isolated workspace.
+
+Creates a new jj worktree in a sibling directory, spawns a tmux session there, and starts an agent running `/bdloop` on the specified epic. Used after planning is complete to delegate execution to a separate agent in an isolated workspace.
 
 ## Arguments
+
 $ARGUMENTS
 
 **Required:**
-- `<branch-name>`: Name for the new branch and worktree directory (e.g., "feature-auth", "fix-api-validation")
-- `<epic-id>`: BD epic or issue ID to execute (e.g., "proj-100", "api-15")
+- `<branch-name>`: Name for the new branch and worktree directory (for example `feature-auth` or `fix-api-validation`)
+- `<epic-id>`: BD epic or issue ID to execute (for example `proj-100` or `api-15`)
 
 **Example:**
 ```
@@ -22,11 +25,11 @@ $ARGUMENTS
 
 ## Workflow Context
 
-This skill is used **after** planning has been completed:
+This command is used **after** planning has been completed:
 
-1. User and Claude complete planning session
+1. User and agent complete planning session
 2. Epic and tasks are created in beads with `/bdplan`
-3. User invokes this skill to spawn a separate agent for execution
+3. User invokes this command to spawn a separate agent for execution
 4. New agent runs `/bdloop` to execute-review-fix until passing
 5. Original planning session remains available
 
@@ -35,8 +38,9 @@ This skill is used **after** planning has been completed:
 ### 1. Validate Arguments
 
 Verify both arguments are provided:
+
 ```bash
-# Arguments should be passed to skill, validate they exist
+# Arguments should be passed to command; validate they exist
 if [[ -z "$branch_name" ]] || [[ -z "$epic_id" ]]; then
   echo "Error: Both branch-name and epic-id are required"
   echo "Usage: /bdagent <branch-name> <epic-id>"
@@ -47,15 +51,17 @@ fi
 ### 2. Verify Epic Exists
 
 Before creating the worktree, confirm the epic exists in beads:
+
 ```bash
 bd show "$epic_id"
 ```
 
-If the epic doesn't exist, inform the user and suggest running `/bdplan` first.
+If the epic does not exist, inform the user and suggest running `/bdplan` first.
 
 ### 3. Check Ready Work
 
 Verify there are ready issues for the epic:
+
 ```bash
 bd ready --parent "$epic_id" --json
 ```
@@ -65,6 +71,7 @@ If no ready work exists, warn the user that the agent will have nothing to execu
 ### 4. Create Worktree and Spawn Agent
 
 Run the `tmux-claude-worktree` script:
+
 ```bash
 tmux-claude-worktree "$branch_name" "$epic_id"
 ```
@@ -73,18 +80,19 @@ The script will:
 - Create a jj worktree at `../$branch_name` (sibling directory)
 - Create branch `$branch_name` and set it as working copy
 - Create a new tmux session named after the branch
-- Start Claude in that session with `/bdloop $epic_id`
-- Leave the current session active (doesn't switch)
+- Start an agent in that session with `/bdloop $epic_id`
+- Leave the current session active (does not switch)
 
 ### 5. Report Success
 
 Output a summary for the user:
-```
-✓ Agent worktree created and started
 
-  Branch:      $branch_name
-  Worktree:    ../$branch_name
-  Epic:        $epic_id
+```
+OK: agent worktree created and started
+
+  Branch:       $branch_name
+  Worktree:     ../$branch_name
+  Epic:         $epic_id
   tmux session: $session_name
 
 The agent is now running /bdloop $epic_id in the background.
@@ -103,11 +111,11 @@ Current session remains active for continued planning or monitoring.
 **Worktree directory exists:**
 If `../$branch_name` already exists, the script will fail. Suggest using a different branch name or manually removing the old worktree.
 
-**Epic doesn't exist:**
+**Epic does not exist:**
 If the BD epic ID is invalid, inform the user and exit before creating the worktree.
 
 **No ready work:**
-Warn but proceed — the agent will report "no ready work" immediately and exit.
+Warn but proceed - the agent will report `no ready work` immediately and exit.
 
 **tmux session exists:**
 If a tmux session with the branch name already exists, the script will fail. Suggest attaching to the existing session or using a different branch name.
@@ -133,16 +141,16 @@ User: "Okay, the plan looks good. Let's get started on proj-100."
 # Other epics in the repo remain untouched
 ```
 
-## Integration with Other Skills
+## Integration with Other Commands
 
-- **After `/bdplan`**: Create the worktree and start execution
-- **Before `/session-close`**: Optionally spawn agent before ending planning session
-- **With `/jujutsu`**: Uses jj worktrees for clean isolation
+- **After `/bdplan`**: create the worktree and start execution
+- **Before `/session-close`**: optionally spawn agent before ending planning session
+- **With `/jujutsu`**: uses jj worktrees for clean isolation
 
 ## Notes
 
-- The current session does NOT switch — you stay in the planning workspace
+- The current session does not switch - you stay in the planning workspace
 - The agent runs autonomously in the background
-- Multiple agents can run in parallel (different worktrees/epics)
+- Multiple agents can run in parallel (different worktrees and epics)
 - Use `tmux list-sessions` to see all active agent sessions
 - The worktree is a sibling directory, not a subdirectory of the main repo

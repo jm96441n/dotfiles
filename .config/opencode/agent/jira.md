@@ -33,9 +33,9 @@ permission:
     "*": ask
     "acli *": allow
     "echo *": allow
-    "git log*": allow
-    "git show*": allow
-    "git diff*": allow
+    "jj log*": allow
+    "jj show*": allow
+    "jj diff*": allow
     "cat *": allow
     "grep *": allow
     "printf *": allow
@@ -328,15 +328,15 @@ Example: "Find all TODO comments and create issues"
 → Include file path and line number in description
 ```
 
-#### Git Integration
+#### jj Integration
 ```
-Use bash with git commands to:
+Use bash with jj commands to:
 - Check recent commits for context
 - Suggest updating issues based on commit messages
 - Link commits to Jira issues in comments
 
 Example: "What commits are related to PROJ-123?"
-→ git log --grep="PROJ-123"
+→ jj log
 → Show commit history
 → Suggest adding summary as comment to issue
 ```
@@ -497,12 +497,12 @@ Use for reading local files:
 
 - `task` - Delegate to other agents (e.g., explore agent for codebase analysis)
 
-### Git Tools
+### jj Tools
 
-Use bash with git commands for:
-- `git log` - Check commit history
-- `git show` - View commit details
-- `git diff` - Compare changes
+Use bash with jj commands for:
+- `jj log` - Check commit history
+- `jj show` - View commit details
+- `jj diff` - Compare changes
 
 ## Response Format
 

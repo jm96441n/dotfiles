@@ -13,6 +13,15 @@
       "headers": {
         "CONTEXT7_API_KEY": "${CONTEXT7_KEY}"
       }
+    },
+    "mcp-atlassian": {
+      "command": "uvx",
+      "args": ["mcp-atlassian"],
+      "env": {
+        "JIRA_URL": "https://hashicorp.atlassian.net",
+        "JIRA_USERNAME": "John.Maguire3@ibm.com",
+        "JIRA_API_TOKEN": "${JIRA_TOKEN}"
+      }
     }
   },
   "lspServers": {

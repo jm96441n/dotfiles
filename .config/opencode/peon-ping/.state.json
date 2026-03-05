@@ -1,0 +1,12 @@
+{
+  "last_played": {
+    "session.start": "sounds/PeonWhat1.wav",
+    "task.acknowledge": "sounds/PeonYes2.wav",
+    "user.spam": "sounds/PeonAngry2.wav",
+    "task.complete": "sounds/PeonReady1.wav",
+    "input.required": "sounds/PeonWhat1.wav",
+    "task.error": "sounds/PeonDeath.wav"
+  },
+  "session_packs": {},
+  "last_session_start_sound_time": 1773952284.054
+}

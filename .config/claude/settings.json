@@ -1,5 +1,5 @@
 {
-  "model": "anthropic.claude-opus-4-6-v1",
+  "model": "us.anthropic.claude-opus-4-6-v1",
   "hooks": {
     "SessionStart": [
       {
@@ -130,9 +130,15 @@
     ]
   },
   "enabledPlugins": {
-    "gopls-lsp@claude-plugins-official": true
+    "gopls-lsp@claude-plugins-official": true,
+    "context7@claude-plugins-official": true,
+    "github@claude-plugins-official": true,
+    "ralph-loop@claude-plugins-official": true,
+    "atlassian@claude-plugins-official": true
   },
+  "skipDangerousModePermissionPrompt": true,
   "alwaysAllow": {
+    "gopls-lsp@claude-plugins-official": true,
     "tools": [
       {
         "tool": "Bash",
@@ -178,6 +184,5 @@
         ]
       }
     ]
-  },
-  "skipDangerousModePermissionPrompt": true
+  }
 }

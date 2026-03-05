@@ -18,9 +18,11 @@ if [[ -z $epic_id ]]; then
     exit 1
 fi
 
-# Find the git/jj repository root
-repo_root=$(git rev-parse --show-toplevel 2>/dev/null || jj workspace root 2>/dev/null || pwd)
-repo_name=$(basename "$repo_root")
+# Find the jj repository root
+repo_root=$(jj workspace root 2>/dev/null) || {
+    echo "Error: Not in a jj repository" >&2
+    exit 1
+}
 
 # Navigate to parent directory where worktrees will be siblings
 parent_dir=$(dirname "$repo_root")
@@ -32,22 +34,29 @@ if [[ -d "$worktree_dir" ]]; then
     exit 1
 fi
 
+# Cleanup worktree and bookmark on failure
+cleanup() {
+    echo "Error occurred, cleaning up..." >&2
+    cd "$repo_root"
+    jj workspace forget "$branch_name" 2>/dev/null
+    rm -rf "$worktree_dir" 2>/dev/null
+}
+
 # Create the worktree
 echo "Creating jj worktree at: $worktree_dir"
 cd "$repo_root"
 jj workspace add --name "$branch_name" "$worktree_dir"
+trap cleanup ERR
 
 # Create the branch in the new worktree
 echo "Creating branch: $branch_name"
 cd "$worktree_dir"
-jj bookmark create "$branch_name"
+jj new "trunk()"
 jj describe -m "$branch_name"
+jj bookmark create "$branch_name"
 
-mkdir -p .beads
-echo "../$repo_name/.beads" > .beads/redirect
-
-# Create tmux session name from branch name (replace . with _)
-session_name=$(echo "$branch_name" | tr . _)
+# Create tmux session name from branch name (sanitize for tmux)
+session_name=$(echo "$branch_name" | tr './:' '___')
 
 # Check if session already exists
 if tmux has-session -t="$session_name" 2>/dev/null; then
@@ -55,9 +64,9 @@ if tmux has-session -t="$session_name" 2>/dev/null; then
     exit 1
 fi
 
-# Create new tmux session in detached mode
+# Create new tmux session in detached mode with BEADS_DIR set
 echo "Creating tmux session: $session_name"
-tmux new-session -ds "$session_name" -c "$worktree_dir"
+tmux new-session -ds "$session_name" -c "$worktree_dir" -e "BEADS_DIR=${repo_root}/.beads"
 
 # Start claude with bdloop prompt in the new session
 echo "Starting claude with /bdloop $epic_id"

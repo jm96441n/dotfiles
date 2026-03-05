@@ -1,7 +1,7 @@
 ---
 description: execute-review-fix loop until review passes
 argument-hint: [scope]
-allowed-tools: Skill, Task, Bash(bd:*), Bash(jj *)
+allowed-tools: Skill, Task, Bash(bd *), Bash(jj *)
 ---
 
 # BD Execute-Review-Fix Loop
@@ -20,19 +20,19 @@ Optional: beads epic ID to scope which issues to work on. Passed through to `/bd
 
 ```
 bdloop [epic-id]
-  ├── Pre-loop: capture jj baseline, verify ready work exists
-  │
-  ├── Iteration N:
-  │   ├── Record iteration baseline (jj log -r @ --no-graph -T 'change_id')
-  │   ├── /bdexecplan [epic-id]
-  │   ├── Check for changes since baseline (jj log)
-  │   ├── Review iteration changes (review agent, scoped to diff)
-  │   ├── Evaluate findings:
-  │   │   ├── No Critical + No Recommendations → exit (success)
-  │   │   └── Has Critical or Recommendations → /bdplan [findings]
-  │   └── Verify new ready issues exist for next iteration
-  │
-  └── Final summary report
+  |- Pre-loop: capture jj baseline, verify ready work exists
+  |
+  |- Iteration N:
+  |  |- Record iteration baseline (jj log -r @ --no-graph -T 'change_id')
+  |  |- /bdexecplan [epic-id]
+  |  |- Check for changes since baseline (jj log)
+  |  |- Review iteration changes (review agent, scoped to diff)
+  |  |- Evaluate findings:
+  |  |  |- No Critical + No Recommendations -> exit (success)
+  |  |  `- Has Critical or Recommendations -> /bdplan [findings]
+  |  `- Verify new ready issues exist for next iteration
+  |
+  `- Final summary report
 ```
 
 ## Instructions
@@ -47,7 +47,7 @@ Record the current jj change ID before any work begins:
 jj log -r @ --no-graph -T 'change_id ++ "\n"'
 ```
 
-Store this as `LOOP_BASELINE` — used to scope the final summary.
+Store this as `LOOP_BASELINE` - used to scope the final summary.
 
 #### Verify Ready Work Exists
 
@@ -55,7 +55,7 @@ Store this as `LOOP_BASELINE` — used to scope the final summary.
 bd ready
 ```
 
-If an epic ID is provided, check ready work with `bd ready --parent [epic-id] --json`. Otherwise, use `bd ready --json`. If nothing is ready, exit immediately with a message — there is nothing to do.
+If an epic ID is provided, check ready work with `bd ready --parent [epic-id] --json`. Otherwise, use `bd ready --json`. If nothing is ready, exit immediately with a message - there is nothing to do.
 
 Initialize iteration counter to 0 and max iterations to **5**.
 
@@ -99,7 +99,7 @@ After execution completes, check whether any new commits were produced:
 jj log -r '$ITER_BASELINE::@ ~ $ITER_BASELINE' --no-graph
 ```
 
-If no new changes exist since the iteration baseline, exit the loop — execution produced nothing to review.
+If no new changes exist since the iteration baseline, exit the loop - execution produced nothing to review.
 
 #### Step D: Review Iteration Changes
 
@@ -125,9 +125,9 @@ Review all changed files thoroughly for correctness, security, best practices, e
 
 Parse the review agent's response. Count findings by category:
 
-- **Critical** — must-fix issues (bugs, security, data integrity)
-- **Recommendations** — should-fix improvements (performance, architecture, best practices)
-- **Suggestions** — nice-to-have (informational only, do NOT trigger fixes)
+- **Critical** - must-fix issues (bugs, security, data integrity)
+- **Recommendations** - should-fix improvements (performance, architecture, best practices)
+- **Suggestions** - nice-to-have (informational only, do not trigger fixes)
 
 **Stopping condition: exit the loop if zero Critical AND zero Recommendations.**
 
@@ -160,9 +160,9 @@ Skill("bdplan", args="Fix issues from review iteration [N]:
 bd ready
 ```
 
-If no new ready issues were created for the scoped epic (or globally when unscoped), exit the loop — there is nothing more to execute.
+If no new ready issues were created for the scoped epic (or globally when unscoped), exit the loop - there is nothing more to execute.
 
-**Oscillation check**: If the findings in this iteration are substantially similar to the previous iteration's findings, exit the loop with a warning — fixes are not converging. Compare finding descriptions; if >50% overlap, treat as oscillating.
+**Oscillation check**: If the findings in this iteration are substantially similar to the previous iteration's findings, exit the loop with a warning - fixes are not converging. Compare finding descriptions; if >50% overlap, treat as oscillating.
 
 #### Step H: Continue
 
@@ -173,7 +173,7 @@ Loop back to Step A for the next iteration.
 If the iteration counter reaches 5, exit the loop regardless of review status. Output a warning:
 
 ```
-⚠ MAX ITERATIONS (5) REACHED — exiting loop.
+WARNING: max iterations (5) reached - exiting loop.
   Review still has findings. Manual attention needed.
 ```
 
@@ -184,11 +184,11 @@ After exiting the loop (for any reason), output a summary:
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   BDLOOP COMPLETE
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   Iterations:      [N]
-  Issues executed:  [total count across all iterations]
-  Exit reason:      [clean review / no changes / no new issues /
-                     max iterations / oscillating fixes / no ready work]
+  Issues executed: [total count across all iterations]
+  Exit reason:     [clean review / no changes / no new issues /
+                   max iterations / oscillating fixes / no ready work]
 
   Iteration breakdown:
     1: Executed [X] issues, review found [Y] critical, [Z] recommendations
@@ -197,7 +197,7 @@ After exiting the loop (for any reason), output a summary:
 
   Remaining suggestions (informational):
     - [any Suggestion-level findings from final review]
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
 ## Stopping Conditions
@@ -223,8 +223,8 @@ Any of these triggers an exit:
 
 ## Best Practices
 
-1. **Stay lightweight** — orchestrator only tracks state, delegates all real work
-2. **Trust the components** — `/bdexecplan` handles execution, review agent handles review, `/bdplan` handles planning
-3. **Scope reviews narrowly** — only review each iteration's diff, not the entire codebase
-4. **Report clearly** — keep the user informed with iteration cards and the final summary
-5. **Exit early** — prefer stopping cleanly over grinding through marginal fixes
+1. **Stay lightweight** - orchestrator only tracks state, delegates all real work
+2. **Trust the components** - `/bdexecplan` handles execution, review agent handles review, `/bdplan` handles planning
+3. **Scope reviews narrowly** - only review each iteration's diff, not the entire codebase
+4. **Report clearly** - keep the user informed with iteration cards and the final summary
+5. **Exit early** - prefer stopping cleanly over grinding through marginal fixes

@@ -6,6 +6,7 @@ email = "john@jmaguire.tech"
 [ui]
 paginate = "never"
 editor = "nvim"
+conflict-marker-style = "git"
 
 [[--scope]]
 --when.repositories = ["~/hashi"]
@@ -13,7 +14,7 @@ editor = "nvim"
   email = "john.maguire@hashicorp.com"
 
 [remotes.origin]
-auto-track-bookmarks = "*"
+auto-track-bookmarks = "jmag/*"
 
 [git]
 track-default-bookmark-on-clone = false
@@ -33,11 +34,3 @@ concat(
 [aliases]
 dv = ["--config=templates.draft_commit_description=commit_description_verbose", "describe"]
 cv = ["--config=templates.draft_commit_description=commit_description_verbose", "commit"]
-
-[merge-tools.nvim]
-program = "nvim"
-merge-args = [
-    "-c", "let g:jj_diffconflicts_marker_length=$marker_length",
-    "-c", "JJDiffConflicts!", "$output", "$base", "$left", "$right",
-]
-merge-tool-edits-conflict-markers = true

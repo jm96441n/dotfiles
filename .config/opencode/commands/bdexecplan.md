@@ -1,5 +1,6 @@
 ---
 description: execute a set of bd issues sequentially
+argument-hint: [epic-id]
 allowed-tools: Bash(bd:*), Skill
 ---
 # Execute BD Plan
@@ -10,7 +11,7 @@ Execute a bd plan by running /bdexecissue for each ready issue. Each issue runs 
 ## Arguments
 $ARGUMENTS
 
-Optional: epic ID or search term to scope which issues to work on. If not provided, works through all ready issues.
+Optional: beads epic ID to scope which issues to work on. If not provided, works through all ready issues.
 
 ## Instructions
 
@@ -26,11 +27,13 @@ Each `/bdexecissue` runs in a forked context—you see full progress, but tool c
 
 ### 1. Initial Plan Review (if scoped)
 
-If an epic ID or scope is provided:
+If an epic ID is provided:
 ```bash
-bd show [epic-id]          # Understand the plan
-bd dep tree [epic-id]      # See structure
+bd show [epic-id] --json
+bd dep tree [epic-id] --direction=down --type=parent-child --json
 ```
+
+If the epic does not exist, stop immediately and report the error.
 
 ### 2. Main Orchestration Loop
 
@@ -38,10 +41,14 @@ Repeat until no ready issues remain:
 
 #### Step A: Find Ready Work
 ```bash
-bd ready
+# If epic scoped
+bd ready --parent [epic-id] --json
+
+# Otherwise
+bd ready --json
 ```
 
-If scoped to an epic, filter to relevant issues.
+If scoped to an epic, only consider the ready descendant issues returned by `bd ready --parent [epic-id] --json`.
 
 #### Step B: Select Next Issue
 - Choose by priority (lower number = higher priority)
@@ -75,20 +82,28 @@ When the issue completes, output a completion card:
 
 #### Step E: Repeat
 ```bash
-bd ready
+# If epic scoped
+bd ready --parent [epic-id] --json
+
+# Otherwise
+bd ready --json
 ```
 Loop back to Step B if issues remain.
 
 ### 3. Completion
 
-When `bd ready` returns no issues:
+When the ready-work query returns no issues:
 ```bash
-bd list --status open    # Verify nothing remaining
+# If epic scoped
+bd dep tree [epic-id] --direction=down --type=parent-child --status=open --json
+
+# Otherwise
+bd list --status open --json
 ```
 
-If all issues in an epic are done:
+If an epic is scoped and the open parent-child tree shows no remaining open child issues, close the epic:
 ```bash
-bd close [epic-id] --reason "All subtasks completed"
+bd close [epic-id] --reason "All child issues completed" --json
 ```
 
 ## Orchestrator State Tracking
@@ -113,7 +128,7 @@ If an issue reports blocked:
 
 ```
 # Start
-bd ready
+bd ready --parent proj-100 --json
 → proj-12 (p1), proj-15 (p2), proj-18 (p2)
 
 # Summary card before running
@@ -131,7 +146,7 @@ bd ready
   Added JWT middleware, updated 3 endpoints, tests passing
 
 # Check ready again
-bd ready
+bd ready --parent proj-100 --json
 → proj-13 (p1, was blocked by proj-12), proj-15 (p2), proj-18 (p2)
 
 # Summary card
@@ -147,7 +162,7 @@ bd ready
   Missing config schema, created proj-19 as blocker
 
 # Check ready
-bd ready
+bd ready --parent proj-100 --json
 → proj-19 (p0, blocker), proj-15 (p2), proj-18 (p2)
 
 # Summary card for blocker
@@ -162,7 +177,7 @@ bd ready
 ✓ DONE: proj-19 — completed
   Added schema, proj-13 now unblocked
 
-# Continue until bd ready returns empty...
+# Continue until bd ready --parent proj-100 --json returns empty...
 ```
 
 ## Best Practices
@@ -175,6 +190,6 @@ bd ready
 ## Stopping Conditions
 
 Stop the loop when:
-- `bd ready` returns no issues (success!)
+- `bd ready --parent [epic-id] --json` returns no issues for the scoped epic, or `bd ready --json` returns no issues when unscoped
 - Critical blocker needs human input (report and ask)
 - Repeated failures on same issue (escalate)

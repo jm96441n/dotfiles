@@ -134,13 +134,47 @@ return {
     },
   },
   {
+    "mfussenegger/nvim-lint",
+    opts = {
+      -- Event to trigger linters
+      events = { "BufWritePost", "BufReadPost", "InsertLeave" },
+      linters_by_ft = {
+        go = { "golangcilint" },
+        -- Use the "*" filetype to run linters on all filetypes.
+        -- ['*'] = { 'global linter' },
+        -- Use the "_" filetype to run linters on filetypes that don't have other linters configured.
+        -- ['_'] = { 'fallback linter' },
+        -- ["*"] = { "typos" },
+      },
+      -- LazyVim extension to easily override linter options
+      -- or add custom linters.
+      ---@type table<string,table>
+      linters = {
+        -- -- Example of using selene only when a selene.toml file is present
+        -- selene = {
+        --   -- `condition` is another LazyVim extension that allows you to
+        --   -- dynamically enable/disable linters based on the context.
+        --   condition = function(ctx)
+        --     return vim.fs.find({ "selene.toml" }, { path = ctx.filename, upward = true })[1]
+        --   end,
+        -- },
+      },
+    },
+  },
+  {
     "stevearc/conform.nvim",
     opts = {
       formatters_by_ft = {
         sh = { "shfmt" },
         gohtml = { "prettier" },
         gotmpl = { "prettier" },
-        go = { "gofmt", "golangci-lint", "goimports" },
+        go = { "gofmt", "goimports", "golangci_lint_fmt" },
+      },
+      formatters = {
+        golangci_lint_fmt = {
+          command = "golangci-lint",
+          args = { "fmt", "--stdin" },
+        },
       },
     },
   },
@@ -643,6 +677,19 @@ return {
   },
   {
     "dlyongemallo/diffview.nvim",
+    enhanced_diff_hl = true,
+    use_icons = true,
+    preferred_adapter = "ja",
+    view = {
+      default = { layout = "diff2_horizontal" },
+      merge_tool = { layout = "diff3_horizontal" },
+    },
+    file_panel = {
+      listing_style = "tree",
+      win_config = { position = "left", width = 35 },
+    },
+    hooks = {}, -- See :h diffview-config-hooks
+    keymaps = {}, -- See :h diffview-config-keymaps
   },
   {
     "rafikdraoui/jj-diffconflicts",

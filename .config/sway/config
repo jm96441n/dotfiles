@@ -238,12 +238,11 @@ exec sleep 5 && flatpak run md.obsidian.Obsidian
 # Status bar - replace polybar with waybar
 exec_always ~/.config/waybar/launch-bar.sh
 
-# Set up screen sharing
-exec_always systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
-exec_always dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
+# Set up screen sharing and systemd integration
+exec_always systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP
 exec_always dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP=sway
 exec_always /usr/libexec/xdg-desktop-portal -r
-exec_always kanshi
+exec systemctl --user start graphical-session.target
 exec_always export XDG_CURRENT_DESKTOP=sway
 
 # Notification daemon - mako instead of dunst

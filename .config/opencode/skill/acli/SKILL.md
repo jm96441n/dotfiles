@@ -1,6 +1,11 @@
 ---
 name: acli
 description: Work with Atlassian products (Jira and Confluence) using the Atlassian CLI. Use when the user needs to create, view, edit, search, or manage Jira work items, projects, boards, sprints, filters, or Confluence spaces. Also use for authentication, user management, or automation of Atlassian workflows.
+license: MIT
+compatibility: opencode
+metadata:
+  category: atlassian
+  tools: acli
 ---
 
 # Atlassian CLI (acli)
@@ -487,7 +492,7 @@ acli jira workitem create -h
 
 ## Minimizing Output Size (Token Conservation)
 
-acli returns raw Jira REST API v3 responses — it does not strip or transform the payload. This means
+acli returns raw Jira REST API v3 responses - it does not strip or transform the payload. This means
 descriptions come back as Atlassian Document Format (ADF), a deeply nested JSON structure that can be
 hundreds of lines for a single field. **Always filter output aggressively to avoid wasting tokens.**
 
@@ -509,7 +514,7 @@ acli jira workitem search --jql "project = PROJ" --fields "key,summary,assignee"
 **Default fields for `view`:** `key,issuetype,summary,status,assignee,description`
 **Default fields for `search`:** `issuetype,key,assignee,priority,status,summary`
 
-If you don't need the description, explicitly exclude it — it's the single biggest source of bloat
+If you don't need the description, explicitly exclude it - it's the single biggest source of bloat
 due to ADF encoding.
 
 ### Use --json with jq for surgical extraction
@@ -549,7 +554,7 @@ what you need in one call.
 
 ### ADF description handling
 
-Jira descriptions are stored in Atlassian Document Format — a deeply nested JSON tree, not plain
+Jira descriptions are stored in Atlassian Document Format - a deeply nested JSON tree, not plain
 text or markdown. When the user asks about a work item's description, either:
 
 1. Exclude it with `--fields "-description"` and tell the user to check the web UI, or

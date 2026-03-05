@@ -1,0 +1,20 @@
+{
+  "active_pack": "peon",
+  "volume": 0.5,
+  "enabled": true,
+  "categories": {
+    "session.start": true,
+    "session.end": true,
+    "task.acknowledge": true,
+    "task.complete": true,
+    "task.error": true,
+    "task.progress": true,
+    "input.required": true,
+    "resource.limit": true,
+    "user.spam": true
+  },
+  "spam_threshold": 3,
+  "spam_window_seconds": 10,
+  "pack_rotation": [],
+  "debounce_ms": 500
+}

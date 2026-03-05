@@ -79,6 +79,7 @@
     dolt
     delta # for git pager
     direnv
+    dolt
     eza
     fastfetch
     fd
@@ -198,7 +199,7 @@
       recursive = true;
     };
     ".config/opencode" = {
-      source = ../opencode;
+      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/.config/opencode";
       recursive = true;
     };
     ".config/k9s" = {
@@ -210,33 +211,6 @@
       recursive = true;
     };
     ".config/ghostty/config".source = ../ghostty/config;
-  }
-  // (
-    let
-      skillsDir = ../claude/skills;
-      skillNames = builtins.attrNames (
-        pkgs.lib.filterAttrs (_: type: type == "directory") (builtins.readDir skillsDir)
-      );
-    in
-    builtins.listToAttrs (
-      map (name: {
-        name = ".claude/skills/${name}";
-        value = {
-          source = skillsDir + "/${name}";
-          recursive = true;
-        };
-      }) skillNames
-    )
-  )
-  // {
-    ".claude/agents" = {
-      source = ../claude/agents;
-      recursive = true;
-    };
-    ".claude/config.json".source = ../claude/config.json;
-    ".claude/settings.json" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/.config/claude/settings.json";
-    };
   };
 
   # Environment variables

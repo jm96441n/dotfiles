@@ -21,6 +21,15 @@
         "CONTEXT7_API_KEY": "{env:CONTEXT7_KEY}"
       },
       "enabled": true
+    },
+    "mcp-atlassian": {
+      "type": "local",
+      "command": ["uvx", "--with", "packaging", "mcp-atlassian"],
+      "environment": {
+        "JIRA_URL": "https://hashicorp.atlassian.net",
+        "JIRA_USERNAME": "John.Maguire3@ibm.com",
+        "JIRA_API_TOKEN": "{env:JIRA_TOKEN}"
+      }
     }
   },
   "tools": {
