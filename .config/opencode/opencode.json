@@ -32,6 +32,79 @@
       }
     }
   },
+  "agent": {
+    "superPlan": {
+      "description": "Planning orchestrator that gathers three independent plans, iterates on blocking questions, and synthesizes one recommended plan with tradeoffs for each planner",
+      "mode": "primary",
+      "model": "github-copilot/gpt-5.4",
+      "temperature": 0.2,
+      "steps": 12,
+      "prompt": "{file:./prompts/superplan-orchestrator.md}",
+      "tools": {
+        "write": false,
+        "edit": false,
+        "bash": false,
+        "webfetch": false,
+        "task": true
+      },
+      "permission": {
+        "task": {
+          "*": "deny",
+          "superPlan-gpt54": "allow",
+          "superPlan-gemini31": "allow",
+          "superPlan-gpt53codex": "allow"
+        }
+      }
+    },
+    "superPlan-gpt54": {
+      "description": "Independent planning subagent for superPlan using GPT-5.4",
+      "mode": "subagent",
+      "hidden": true,
+      "model": "github-copilot/gpt-5.4",
+      "temperature": 0.2,
+      "steps": 8,
+      "prompt": "{file:./prompts/superplan-planner.md}",
+      "tools": {
+        "write": false,
+        "edit": false,
+        "bash": false,
+        "webfetch": false,
+        "task": false
+      }
+    },
+    "superPlan-gemini31": {
+      "description": "Independent planning subagent for superPlan using Gemini 3.1 Pro Preview",
+      "mode": "subagent",
+      "hidden": true,
+      "model": "github-copilot/gemini-3.1-pro-preview",
+      "temperature": 0.2,
+      "steps": 8,
+      "prompt": "{file:./prompts/superplan-planner.md}",
+      "tools": {
+        "write": false,
+        "edit": false,
+        "bash": false,
+        "webfetch": false,
+        "task": false
+      }
+    },
+    "superPlan-gpt53codex": {
+      "description": "Independent planning subagent for superPlan using GPT-5.3 Codex",
+      "mode": "subagent",
+      "hidden": true,
+      "model": "github-copilot/gpt-5.3-codex",
+      "temperature": 0.2,
+      "steps": 8,
+      "prompt": "{file:./prompts/superplan-planner.md}",
+      "tools": {
+        "write": false,
+        "edit": false,
+        "bash": false,
+        "webfetch": false,
+        "task": false
+      }
+    }
+  },
   "tools": {
     "skill": true
   }

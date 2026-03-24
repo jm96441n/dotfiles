@@ -1,12 +1,12 @@
 {
   "last_played": {
-    "session.start": "sounds/PeonWhat1.wav",
-    "task.acknowledge": "sounds/PeonYes2.wav",
+    "session.start": "sounds/PeonReady1.wav",
+    "task.acknowledge": "sounds/PeonYes3.wav",
     "user.spam": "sounds/PeonAngry2.wav",
-    "task.complete": "sounds/PeonReady1.wav",
-    "input.required": "sounds/PeonWhat1.wav",
+    "task.complete": "sounds/PeonYes3.wav",
+    "input.required": "sounds/PeonWhat3.wav",
     "task.error": "sounds/PeonDeath.wav"
   },
   "session_packs": {},
-  "last_session_start_sound_time": 1773952284.054
+  "last_session_start_sound_time": 1774370374.796
 }
