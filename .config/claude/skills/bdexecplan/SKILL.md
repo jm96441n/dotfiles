@@ -1,195 +1,181 @@
 ---
-description: execute a set of bd issues sequentially
-argument-hint: [epic-id]
-allowed-tools: Bash(bd:*), Skill
+description: execute scoped bd work within an optional scope
+argument-hint: [scope-id]
+allowed-tools: Bash(bd:*), Bash(jj *), Skill
 ---
+
 # Execute BD Plan
 
 ## Overview
-Execute a bd plan by running /bdexecissue for each ready issue. Each issue runs in a forked context (context isolation without summarization), so you see full progress while keeping the orchestrator context clean.
+
+Execute BD work within an optional scope by repeatedly running `/bdexecissue` for the next ready issue.
+
+The scope can be:
+
+- an epic
+- a story or other parent issue with child checkpoints
+- a single leaf issue
+- omitted, which means work through all ready issues in the repo
+
+Each `/bdexecissue` runs in a forked context, so you see full progress while keeping the orchestrator context clean.
+
+Use `jj` for all version control operations in this workflow. Do not use raw `git` commands for status, diff, commit, rebase, bookmark or branch management.
 
 ## Arguments
+
 $ARGUMENTS
 
-Optional: beads epic ID to scope which issues to work on. If not provided, works through all ready issues.
+Optional scope ID. Use the ID that best matches the intended execution boundary.
+
+- `epic`: execute all ready descendant work in that epic
+- `story` or other parent issue: execute all ready descendant work in that scoped slice
+- leaf issue: execute that single issue directly
+- omitted: execute all ready work in the repo
 
 ## Instructions
 
-### How it works
-```
-bdexecplan
-    ├── /bdexecissue issue-1  (forked context, full output)
-    ├── /bdexecissue issue-2  (forked context, full output)
-    └── /bdexecissue issue-N  (forked context, full output)
-```
+### 1. Resolve the Scope
 
-Each `/bdexecissue` runs in a forked context—you see full progress, but tool calls don't pollute the main conversation.
+If a scope ID is provided, inspect it first:
 
-### 1. Initial Plan Review (if scoped)
-
-If an epic ID is provided:
 ```bash
-bd show [epic-id] --json
-bd dep tree [epic-id] --direction=down --type=parent-child --json
+bd show [scope-id] --json
+bd dep tree [scope-id] --direction=down --type=parent-child --json
 ```
 
-If the epic does not exist, stop immediately and report the error.
+Use the result to classify the scope:
+
+1. **Epic scope**: the issue type is `epic`
+2. **Parent scope**: the issue is not an epic, but it has parent-child descendants
+3. **Leaf scope**: the issue has no parent-child descendants
+
+If the scope does not exist, stop immediately and report the error.
+
+If the scope is a leaf issue, skip the orchestration loop and run `/bdexecissue [scope-id]` directly.
+
+If the scope is an epic or other parent issue, use `bd ready --parent [scope-id] --json` for all ready-work queries.
 
 ### 2. Main Orchestration Loop
 
-Repeat until no ready issues remain:
+Repeat until no ready issues remain in the selected scope.
 
 #### Step A: Find Ready Work
-```bash
-# If epic scoped
-bd ready --parent [epic-id] --json
 
-# Otherwise
+```bash
+# If scoped to an epic or parent issue
+bd ready --parent [scope-id] --json
+
+# If unscoped
 bd ready --json
 ```
 
-If scoped to an epic, only consider the ready descendant issues returned by `bd ready --parent [epic-id] --json`.
+Scoped execution should only consider ready descendant issues within the provided scope.
 
-#### Step B: Select Next Issue
-- Choose by priority (lower number = higher priority)
+#### Step B: Select the Next Issue
+
+- Choose the ready issue with the highest priority (lowest number)
 - If tied, take the first one
-- Don't deliberate - just pick and go
+- Do not overthink the selection
 
-#### Step C: Show Summary Card, then Run /bdexecissue [issue-id]
+#### Step C: Show a Summary Card and Run `/bdexecissue`
 
-Before invoking bdexecissue, output a brief summary card so the user knows what's being worked on:
+Before invoking `/bdexecissue`, output a short summary card:
 
-```
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-▶ STARTING: [issue-id] (P[priority])
+```text
+----------------------------------------
+STARTING: [issue-id] (P[priority])
   [issue title]
-  [1-2 line description or acceptance criteria summary]
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  [1-2 line summary]
+----------------------------------------
 ```
 
-Then use the Skill tool to invoke bdexecissue with the issue ID.
+Then invoke `/bdexecissue [issue-id]`.
 
-#### Step D: Process Result and Show Completion Card
+#### Step D: Process the Result
+
 When the issue completes, output a completion card:
 
-```
-✓ DONE: [issue-id] — [outcome: completed/blocked/needs-attention]
+```text
+DONE: [issue-id] - [completed|blocked|needs-attention]
   [brief summary of what happened]
 ```
 
-- If blocked, bdexecissue should have created/linked blocker issues
-- Continue to next ready issue
+- If blocked, expect `/bdexecissue` to create or link blocker issues when needed
+- Continue to the next ready issue in scope
 
 #### Step E: Repeat
+
+Re-run the same ready-work query and continue until it returns no ready issues.
+
+### 3. Close a Completed Scope When Appropriate
+
+When the ready-work query returns no issues, inspect whether the scoped work is actually complete or merely blocked.
+
+If the run was scoped to an epic or other parent issue, query open descendants:
+
 ```bash
-# If epic scoped
-bd ready --parent [epic-id] --json
-
-# Otherwise
-bd ready --json
-```
-Loop back to Step B if issues remain.
-
-### 3. Completion
-
-When the ready-work query returns no issues:
-```bash
-# If epic scoped
-bd dep tree [epic-id] --direction=down --type=parent-child --status=open --json
-
-# Otherwise
-bd list --status open --json
+bd dep tree [scope-id] --direction=down --type=parent-child --status=open --json
 ```
 
-If an epic is scoped and the open parent-child tree shows no remaining open child issues, close the epic:
+Rules:
+
+- If there are no remaining open child issues, close the scoped parent issue:
+
 ```bash
-bd close [epic-id] --reason "All child issues completed" --json
+bd close [scope-id] --reason "All child issues completed" --json
 ```
 
-## Orchestrator State Tracking
+- If open descendants still exist, leave the scope open and treat the run as incomplete or blocked.
+- If the scope was a leaf issue, `/bdexecissue` is responsible for closing it.
 
-Keep a simple mental log:
-- Issues attempted
-- Issues completed
-- Issues blocked (and why)
-- New issues discovered
+### 4. Final Summary
 
-Report summary at end.
+Report:
 
-## Handling Blocked Issues
-
-If an issue reports blocked:
-1. Verify blocker issue was created
-2. Check if blocker is something you can address
-3. If blocker is ready, run /bdexecissue for it next
-4. Otherwise, note it and continue with other ready work
+- scope ID and scope title, if any
+- issues attempted
+- issues completed
+- issues blocked or left open
+- whether the scope itself was closed
 
 ## Example Session
 
-```
-# Start
-bd ready --parent proj-100 --json
-→ proj-12 (p1), proj-15 (p2), proj-18 (p2)
+```text
+STARTING: proj-212 (P1)
+  Checkpoint: implement auth middleware
+  Add the core middleware path and wire protected routes
 
-# Summary card before running
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-▶ STARTING: proj-12 (P1)
-  Add user authentication to API endpoints
-  Implement JWT validation middleware for protected routes
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+/bdexecissue proj-212
 
-# Run first issue
-/bdexecissue proj-12
-→ [forked context runs]
+DONE: proj-212 - completed
+  Middleware added, routes updated, tests passing
 
-✓ DONE: proj-12 — completed
-  Added JWT middleware, updated 3 endpoints, tests passing
+STARTING: proj-213 (P1)
+  Checkpoint: add auth tests
+  Verify the refreshed auth flow end to end
 
-# Check ready again
-bd ready --parent proj-100 --json
-→ proj-13 (p1, was blocked by proj-12), proj-15 (p2), proj-18 (p2)
+/bdexecissue proj-213
 
-# Summary card
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-▶ STARTING: proj-13 (P1)
-  Refactor database connection pooling
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+DONE: proj-213 - completed
+  Added integration coverage and verified the story
 
-/bdexecissue proj-13
-→ [forked context runs]
+bd dep tree proj-200 --direction=down --type=parent-child --status=open --json
+-> no open descendants
 
-✗ DONE: proj-13 — blocked
-  Missing config schema, created proj-19 as blocker
-
-# Check ready
-bd ready --parent proj-100 --json
-→ proj-19 (p0, blocker), proj-15 (p2), proj-18 (p2)
-
-# Summary card for blocker
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-▶ STARTING: proj-19 (P0)
-  Add config schema for connection pool settings
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-/bdexecissue proj-19
-→ [forked context runs]
-
-✓ DONE: proj-19 — completed
-  Added schema, proj-13 now unblocked
-
-# Continue until bd ready --parent proj-100 --json returns empty...
+bd close proj-200 --reason "All child issues completed" --json
 ```
 
 ## Best Practices
 
-1. **Stay Lightweight** - Orchestrator only tracks status, doesn't do implementation
-2. **Trust bdexecissue** - Let it handle the details
-3. **React to Blockers** - Check if newly-ready issues include just-created blockers
-4. **Report Progress** - Keep user informed of overall status between issues
+1. Keep the orchestrator lightweight and let `/bdexecissue` handle implementation details.
+2. Use the narrowest meaningful scope so stories can execute and review independently.
+3. Close parent scopes only when all child issues are complete.
 
 ## Stopping Conditions
 
-Stop the loop when:
-- `bd ready --parent [epic-id] --json` returns no issues for the scoped epic, or `bd ready --json` returns no issues when unscoped
-- Critical blocker needs human input (report and ask)
-- Repeated failures on same issue (escalate)
+Stop execution when:
+
+- the scoped ready-work query returns no issues
+- unscoped `bd ready --json` returns no issues
+- a critical blocker requires human input
+- repeated failures on the same issue indicate the run needs escalation

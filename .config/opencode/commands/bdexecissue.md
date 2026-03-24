@@ -1,7 +1,7 @@
 ---
 description: execute a single bd issue
 argument-hint: <issue key>
-allowed-tools: Bash(bd *), Bash(tea *), Bash(jj *), Bash(ast-grep *), Bash(sg *), Read, Edit, Write, Glob, Grep
+allowed-tools: Bash(bd *), Bash(tea *), Bash(jj *), Bash(git *), Bash(ast-grep *), Bash(sg *), Read, Edit, Write, Glob, Grep
 context: fork
 ---
 
@@ -9,7 +9,15 @@ context: fork
 
 ## Overview
 
-Execute a single bd issue with proper status tracking, commenting, and jj workflow integration. This command handles one issue in isolation, keeping context clean.
+Execute a single bd issue with proper status tracking, commenting, and VCS workflow integration. This command handles one issue in isolation, keeping context clean.
+
+Detect the repo's VCS at the start of the workflow and use it for all version control steps:
+
+- If `jj workspace root` succeeds (or `.jj/` exists at the repo root), use **jj** with the squash workflow described below.
+- Otherwise, if `git rev-parse --is-inside-work-tree` succeeds (or `.git/` exists), use **git** with the standard add/commit workflow.
+- If neither is detected, stop and report that the repo has no recognized VCS.
+
+Do not mix the two within the same workflow. Pick one based on detection and stick with it.
 
 Execute the bd issue [issue-id] following the bdexecissue workflow:
 
@@ -52,17 +60,53 @@ Read the description, acceptance criteria, and any existing comments carefully.
 
 #### Commit Strategy
 
-- **Commit early and often** - each logical unit of working code
+- **Use the detected VCS only** - do not mix jj and git commands in the same workflow
 - **Never commit broken code** (except failing tests before TDD implementation)
 - **Clear messages** - explain why, not just what
-- **No Claude references** in commit messages
+- **No Claude references** in change descriptions
+
+##### If the repo uses jj
+
+- **Describe first** - start the target change with `jj describe -m "[clear message]"`
+- **Work in a scratch child** - use `jj new` before making implementation changes
+- **Squash finished work** - use `jj squash` to fold the scratch change into the described parent
+
+```bash
+# Describe the intended change first
+jj describe -m "[clear message]"
+
+# Create a scratch child for the implementation work
+jj new
+
+# Inspect progress while you work
+jj status
+jj diff
+
+# When the scratch work is ready, squash it into the described parent
+jj squash
+```
+
+##### If the repo uses git
+
+- **Stage only what belongs to this logical unit** - prefer `git add <paths>` over `git add -A`
+- **Commit per logical unit** - one commit per cohesive change with a clear message
+
+```bash
+# Inspect progress while you work
+git status
+git diff
+
+# Stage and commit each logical unit
+git add <paths>
+git commit -m "[clear message]"
+```
 
 #### Track Progress with Comments
 
-After each meaningful commit:
+After each meaningful change (jj change ID or git commit SHA):
 
 ```bash
-bd comment [issue-id] "Commit [hash]: [what was done]"
+bd comment [issue-id] "Change [change-id-or-sha]: [what was done]"
 ```
 
 ### 4. Complete the Issue
@@ -71,7 +115,7 @@ bd comment [issue-id] "Commit [hash]: [what was done]"
 
 - ✅ All acceptance criteria met
 - ✅ Tests pass (run them!)
-- ✅ All changes committed to jj
+- ✅ All changes committed (jj squashed into described parent, or git committed)
 - ✅ No uncommitted files related to this issue
 
 #### Close with Summary
@@ -85,7 +129,7 @@ bd close [issue-id] --reason "Brief summary of what was completed"
 When done, provide a brief summary:
 
 - What was implemented
-- Key commits made
+- Key changes made (jj change IDs or git commit SHAs)
 - Any issues discovered (should be filed with `bd create`)
 - Final status
 

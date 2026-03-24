@@ -1,6 +1,10 @@
 {
   "$schema": "https://opencode.ai/config.json",
   "plugin": ["opencode-beads"],
+  "instructions": [
+    "~/.config/opencode/instructions/cass.md",
+    "~/.config/opencode/instructions/caveman.md"
+  ],
   "lsp": {
     "gopls": {
       "command": ["gopls", "-remote=auto"]
@@ -29,7 +33,12 @@
         "JIRA_URL": "https://hashicorp.atlassian.net",
         "JIRA_USERNAME": "John.Maguire3@ibm.com",
         "JIRA_API_TOKEN": "{env:JIRA_TOKEN}"
-      }
+      },
+      "enabled": false
+    },
+    "cass-memory": {
+      "type": "remote",
+      "url": "http://127.0.0.1:8765"
     }
   },
   "agent": {

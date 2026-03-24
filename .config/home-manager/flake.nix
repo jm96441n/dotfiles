@@ -14,6 +14,9 @@
       url = "github:nix-community/nixGL";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    aoe = {
+      url = "github:njbrake/agent-of-empires";
+    };
   };
   outputs =
     {
@@ -21,6 +24,7 @@
       home-manager,
       ghostty,
       nixgl,
+      aoe,
       ...
     }:
     let
@@ -32,6 +36,8 @@
           inherit system;
           config.allowUnfree = true;
         };
+
+        extraSpecialArgs = { inherit aoe system; };
 
         modules = [
           {

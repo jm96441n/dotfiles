@@ -1,6 +1,6 @@
 ---
 description: execute-review-fix loop until review passes
-argument-hint: [scope]
+argument-hint: [scope-id]
 allowed-tools: Skill, Task, Bash(bd:*), Bash(jj *)
 ---
 
@@ -8,38 +8,40 @@ allowed-tools: Skill, Task, Bash(bd:*), Bash(jj *)
 
 ## Overview
 
-Self-correcting feedback loop: execute ready bd issues, review the resulting code, create fix issues from review findings, and re-execute until the review passes clean. Combines `/bdexecplan`, the `review` agent, and `/bdplan` into an automated quality loop.
+Run a self-correcting execution loop over a BD scope. The scope can be an epic, a story, another parent issue, a leaf issue, or omitted entirely. The loop executes work through `/bdexecplan`, reviews the resulting diff, creates fix issues with `/bdplan` when needed, and repeats until review passes cleanly or another stopping condition is met.
+
+Use `jj` for all version control operations, baselines, diffs, and change inspection in this workflow. Do not use raw `git` commands or Git commit SHAs. Use jj change IDs throughout.
 
 ## Arguments
 
 $ARGUMENTS
 
-Optional: beads epic ID to scope which issues to work on. Passed through to `/bdexecplan`, which uses `bd ready --parent` for epic-scoped execution.
+Optional scope ID. Passed directly through to `/bdexecplan` and used for ready-work checks.
 
 ## Loop Architecture
 
-```
-bdloop [epic-id]
-  ├── Pre-loop: capture jj baseline, verify ready work exists
-  │
-  ├── Iteration N:
-  │   ├── Record iteration baseline (jj log -r @ --no-graph -T 'change_id')
-  │   ├── /bdexecplan [epic-id]
-  │   ├── Check for changes since baseline (jj log)
-  │   ├── Review iteration changes (review agent, scoped to diff)
-  │   ├── Evaluate findings:
-  │   │   ├── No Critical + No Recommendations → exit (success)
-  │   │   └── Has Critical or Recommendations → /bdplan [findings]
-  │   └── Verify new ready issues exist for next iteration
-  │
-  └── Final summary report
+```text
+bdloop [scope-id]
+  |- Pre-loop: capture jj baseline, verify ready work exists
+  |
+  |- Iteration N:
+  |  |- Record iteration baseline
+  |  |- /bdexecplan [scope-id]
+  |  |- Check for changes since baseline
+  |  |- Review iteration changes
+  |  |- Evaluate findings
+  |  |  |- No Critical + No Recommendations -> exit success
+  |  |  `- Has Critical or Recommendations -> /bdplan [findings]
+  |  `- Verify new ready work exists in scope
+  |
+  `- Final summary report
 ```
 
 ## Instructions
 
 ### 1. Pre-Loop Setup
 
-#### Capture VCS Baseline
+#### Capture the JJ Baseline
 
 Record the current jj change ID before any work begins:
 
@@ -47,184 +49,170 @@ Record the current jj change ID before any work begins:
 jj log -r @ --no-graph -T 'change_id ++ "\n"'
 ```
 
-Store this as `LOOP_BASELINE` — used to scope the final summary.
+Store this as `LOOP_BASELINE`.
+
+Before starting the loop, inspect the working copy with `jj status`. Throughout the loop, use `jj status`, `jj diff`, and `jj log` for all VCS inspection. Never substitute `git status`, `git diff`, or `git log`.
 
 #### Verify Ready Work Exists
 
+Use the scope-aware ready query:
+
 ```bash
-bd ready
+# If scoped
+bd ready --parent [scope-id] --json
+
+# If unscoped
+bd ready --json
 ```
 
-If an epic ID is provided, check ready work with `bd ready --parent [epic-id] --json`. Otherwise, use `bd ready --json`. If nothing is ready, exit immediately with a message — there is nothing to do.
+If nothing is ready, exit immediately with `no ready work`.
 
-Initialize iteration counter to 0 and max iterations to **5**.
+Initialize iteration counter to `0` and max iterations to `5`.
 
 ### 2. Iteration Loop
 
-Repeat until a stopping condition is met:
+#### Step A: Record the Iteration Baseline
 
-#### Step A: Increment and Record Iteration Baseline
-
-Increment the iteration counter. Record the current jj change ID:
+Increment the iteration counter and record the current change ID:
 
 ```bash
 jj log -r @ --no-graph -T 'change_id ++ "\n"'
 ```
 
-Store as `ITER_BASELINE` for this iteration.
+Store as `ITER_BASELINE`.
+
+Use the jj change ID as the iteration marker. Do not switch to Git commit hashes at any point in the loop.
 
 Output an iteration header:
 
-```
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-⟳ ITERATION [N] of 5
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-```
-
-#### Step B: Execute Plan
-
-Invoke `/bdexecplan` with the epic argument:
-
-```
-Skill("bdexecplan", args="[scope]")
+```text
+----------------------------------------
+ITERATION [N] of 5
+----------------------------------------
 ```
 
-This runs all ready issues in the scope through `/bdexecissue`.
+#### Step B: Execute the Scoped Plan
 
-#### Step C: Check for Changes
+Invoke:
 
-After execution completes, check whether any new commits were produced:
+```text
+Skill("bdexecplan", args="[scope-id]")
+```
+
+This runs the scope through `/bdexecissue` and scope-closing logic.
+
+#### Step C: Check Whether Anything Changed
+
+After execution completes, inspect whether new changes were produced:
 
 ```bash
 jj log -r '$ITER_BASELINE::@ ~ $ITER_BASELINE' --no-graph
 ```
 
-If no new changes exist since the iteration baseline, exit the loop — execution produced nothing to review.
+If no new changes exist since the iteration baseline, exit with `no changes`.
 
-#### Step D: Review Iteration Changes
+#### Step D: Review the Iteration Diff
 
-Invoke the review agent scoped to only this iteration's changes:
+Invoke the review agent scoped to this iteration only:
 
-```
+```text
 Task(
   description="Review iteration [N] changes",
   subagent_type="review",
   prompt="Review the code changes made since jj change ID [ITER_BASELINE].
 
-Use this command to see the diff:
+Use these commands:
   jj diff --from [ITER_BASELINE] --to @
-
-Use this command to see the commit log:
   jj log -r '[ITER_BASELINE]::@'
 
-Review all changed files thoroughly for correctness, security, best practices, error handling, and architecture."
+Do not use raw git commands.
+
+Review all changed files for correctness, security, error handling, maintainability, and architectural fit."
 )
 ```
 
-#### Step E: Evaluate Review Findings
+#### Step E: Evaluate Findings
 
-Parse the review agent's response. Count findings by category:
+Count findings by category:
 
-- **Critical** — must-fix issues (bugs, security, data integrity)
-- **Recommendations** — should-fix improvements (performance, architecture, best practices)
-- **Suggestions** — nice-to-have (informational only, do NOT trigger fixes)
+- Critical
+- Recommendations
+- Suggestions
 
-**Stopping condition: exit the loop if zero Critical AND zero Recommendations.**
+If Critical and Recommendations are both zero, exit with `clean review`.
 
 Output an evaluation card:
 
+```text
+REVIEW RESULT (Iteration [N])
+  Critical:        [count]
+  Recommendations: [count]
+  Suggestions:     [count]
+  Verdict:         [PASS | NEEDS FIXES]
 ```
-┌─ REVIEW RESULT (Iteration [N]) ──────
-│ Critical:        [count]
-│ Recommendations: [count]
-│ Suggestions:     [count]
-│ Verdict:         [PASS / NEEDS FIXES]
-└───────────────────────────────────────
-```
-
-If PASS, exit the loop.
 
 #### Step F: Create Fix Issues
 
-If there are Critical or Recommendation findings, invoke `/bdplan` to create fix issues. Pass the review findings as the argument so bdplan can structure them into actionable issues:
+If there are Critical or Recommendation findings, invoke `/bdplan` with the actionable findings only:
 
-```
+```text
 Skill("bdplan", args="Fix issues from review iteration [N]:
 
-[paste Critical and Recommendation findings here, not Suggestions]")
+[paste Critical and Recommendation findings here]")
 ```
 
-#### Step G: Verify New Ready Work
+`/bdplan` should add the new work beneath the most relevant existing scope when possible. Prefer new checkpoints within the active story before creating cross-cutting follow-up stories.
+
+#### Step G: Verify New Ready Work Exists
+
+Re-run the scope-aware ready query:
 
 ```bash
-bd ready
+# If scoped
+bd ready --parent [scope-id] --json
+
+# If unscoped
+bd ready --json
 ```
 
-If no new ready issues were created for the scoped epic (or globally when unscoped), exit the loop — there is nothing more to execute.
+If no new ready work exists, exit with `no new issues`.
 
-**Oscillation check**: If the findings in this iteration are substantially similar to the previous iteration's findings, exit the loop with a warning — fixes are not converging. Compare finding descriptions; if >50% overlap, treat as oscillating.
+If the findings substantially repeat across consecutive iterations, exit with `oscillating fixes`.
 
 #### Step H: Continue
 
-Loop back to Step A for the next iteration.
+Loop back to Step A.
 
 ### 3. Max Iteration Guard
 
-If the iteration counter reaches 5, exit the loop regardless of review status. Output a warning:
-
-```
-⚠ MAX ITERATIONS (5) REACHED — exiting loop.
-  Review still has findings. Manual attention needed.
-```
+If the iteration counter reaches `5`, exit with `max iterations` and report that manual attention is needed.
 
 ### 4. Final Summary Report
 
-After exiting the loop (for any reason), output a summary:
+At the end, report:
 
-```
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  BDLOOP COMPLETE
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  Iterations:      [N]
-  Issues executed:  [total count across all iterations]
-  Exit reason:      [clean review / no changes / no new issues /
-                     max iterations / oscillating fixes / no ready work]
-
-  Iteration breakdown:
-    1: Executed [X] issues, review found [Y] critical, [Z] recommendations
-    2: Executed [X] issues, review found [Y] critical, [Z] recommendations
-    ...
-
-  Remaining suggestions (informational):
-    - [any Suggestion-level findings from final review]
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-```
+- iterations run
+- issues executed across all iterations
+- exit reason
+- per-iteration review counts
+- remaining suggestion-level findings
 
 ## Stopping Conditions
 
-Any of these triggers an exit:
+Exit when any of these occurs:
 
-| Condition                                      | Exit Reason                        |
-| ---------------------------------------------- | ---------------------------------- |
-| Zero Critical + zero Recommendations in review | `clean review`                     |
-| No new commits after `/bdexecplan`             | `no changes`                       |
-| No new ready issues after `/bdplan`            | `no new issues`                    |
-| Iteration counter reaches 5                    | `max iterations`                   |
-| Findings repeat across consecutive iterations  | `oscillating fixes`                |
-| No ready work at start of loop                 | `no ready work`                    |
-| Review agent fails/errors                      | `review error` (exit with warning) |
-
-## Edge Cases
-
-- **Review agent failure**: If the review Task errors or returns unusable output, exit the loop with a `review error` reason. Report what's known and recommend manual review.
-- **Empty scope**: If `bd ready` returns nothing (or nothing matching scope) at any point, exit cleanly.
-- **Oscillating fixes**: If two consecutive iterations produce >50% similar findings, exit with `oscillating fixes`. The fixes are not converging and human judgment is needed.
-- **bdplan creates blocked issues**: If all new issues are blocked by existing open work, exit with `no new issues` since nothing can progress.
+- zero Critical and zero Recommendations in review
+- no new jj changes after `/bdexecplan`
+- no new ready issues after `/bdplan`
+- iteration counter reaches 5
+- findings repeat across consecutive iterations
+- no ready work at start
+- review task fails or returns unusable output
 
 ## Best Practices
 
-1. **Stay lightweight** — orchestrator only tracks state, delegates all real work
-2. **Trust the components** — `/bdexecplan` handles execution, review agent handles review, `/bdplan` handles planning
-3. **Scope reviews narrowly** — only review each iteration's diff, not the entire codebase
-4. **Report clearly** — keep the user informed with iteration cards and the final summary
-5. **Exit early** — prefer stopping cleanly over grinding through marginal fixes
+1. Keep the loop lightweight and delegate real execution to `/bdexecplan`.
+2. Use the narrowest scope that matches the work, especially story scope for reviewable slices.
+3. Scope each review to the current iteration diff, not the entire codebase.
+4. Let `/bdplan` create fix checkpoints or stories instead of embedding ad hoc todo lists.
+5. Report clearly when the loop stopped because execution or review could not make progress.

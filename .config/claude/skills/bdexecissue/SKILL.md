@@ -11,6 +11,8 @@ context: fork
 
 Execute a single bd issue with proper status tracking, commenting, and jj workflow integration. This command handles one issue in isolation, keeping context clean.
 
+Use `jj` for all version control operations in this workflow. Do not use `git` for status, diff, commit, rebase, push, or any other VCS step.
+
 Execute the bd issue [issue-id] following the bdexecissue workflow:
 
 1. IMMEDIATELY mark in_progress: bd update [issue-id] --status in_progress
@@ -52,17 +54,37 @@ Read the description, acceptance criteria, and any existing comments carefully.
 
 #### Commit Strategy
 
-- **Commit early and often** - each logical unit of working code
+- **Use jj only** - never use `git status`, `git diff`, `git commit`, `git rebase`, `git push`, or other git commands in this workflow
+- **Describe first** - start the target change with `jj describe -m "[clear message]"`
+- **Work in a scratch child** - use `jj new` before making implementation changes
+- **Squash finished work** - use `jj squash` to fold the scratch change into the described parent
 - **Never commit broken code** (except failing tests before TDD implementation)
 - **Clear messages** - explain why, not just what
-- **No Claude references** in commit messages
+- **No Claude references** in change descriptions
+
+Follow the standard jj flow for each logical unit of work:
+
+```bash
+# Describe the intended change first
+jj describe -m "[clear message]"
+
+# Create a scratch child for the implementation work
+jj new
+
+# Inspect progress while you work
+jj status
+jj diff
+
+# When the scratch work is ready, squash it into the described parent
+jj squash
+```
 
 #### Track Progress with Comments
 
-After each meaningful commit:
+After each meaningful jj change:
 
 ```bash
-bd comment [issue-id] "Commit [hash]: [what was done]"
+bd comment [issue-id] "Change [change-id]: [what was done]"
 ```
 
 ### 4. Complete the Issue
@@ -85,7 +107,7 @@ bd close [issue-id] --reason "Brief summary of what was completed"
 When done, provide a brief summary:
 
 - What was implemented
-- Key commits made
+- Key jj changes made
 - Any issues discovered (should be filed with `bd create`)
 - Final status
 

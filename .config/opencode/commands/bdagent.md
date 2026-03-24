@@ -1,6 +1,6 @@
 ---
 description: spawn agent worktree to execute bdloop
-argument-hint: <branch-name> <epic-id>
+argument-hint: <branch-name> <scope-id>
 allowed-tools: Bash(tmux-claude-worktree *), Bash(jj *), Bash(bd *)
 ---
 
@@ -8,149 +8,136 @@ allowed-tools: Bash(tmux-claude-worktree *), Bash(jj *), Bash(bd *)
 
 ## Overview
 
-Creates a new jj worktree in a sibling directory, spawns a tmux session there, and starts an agent running `/bdloop` on the specified epic. Used after planning is complete to delegate execution to a separate agent in an isolated workspace.
+Create a new jj worktree in a sibling directory, spawn a tmux session there, and start an agent running `/bdloop` on the specified scope. Use this after planning is complete when you want autonomous execution in an isolated workspace.
+
+> **Note**: This command requires a **jj** repository because `tmux-claude-worktree` uses `jj workspace add` to create the worktree. The spawned `/bdloop` and `/bdexecissue` workflows themselves are VCS-agnostic, but the worktree creation step is jj-only. If the repo is git-only, create the worktree manually with `git worktree add` and start the agent yourself instead of using `/bdagent`.
+
+The scope may be:
+
+- an epic
+- a story
+- another parent issue with child checkpoints
+- a leaf issue
 
 ## Arguments
 
 $ARGUMENTS
 
-**Required:**
-- `<branch-name>`: Name for the new branch and worktree directory (for example `feature-auth` or `fix-api-validation`)
-- `<epic-id>`: BD epic or issue ID to execute (for example `proj-100` or `api-15`)
+Required:
 
-**Example:**
-```
+- `<branch-name>`: name for the new branch and worktree directory
+- `<scope-id>`: BD scope to execute, such as an epic ID, story ID, or issue ID
+
+Example:
+
+```text
 /bdagent feature-user-auth proj-100
+/bdagent story-refresh-auth proj-123
 ```
 
 ## Workflow Context
 
-This command is used **after** planning has been completed:
+This command is used after planning:
 
-1. User and agent complete planning session
-2. Epic and tasks are created in beads with `/bdplan`
-3. User invokes this command to spawn a separate agent for execution
-4. New agent runs `/bdloop` to execute-review-fix until passing
-5. Original planning session remains available
+1. `/bdplan` creates or extends the epic, stories, and checkpoints
+2. you choose the scope to execute
+3. `/bdagent` creates an isolated worktree and starts `/bdloop [scope-id]`
+4. the background agent executes, reviews, and fixes work for that scope
 
 ## Instructions
 
 ### 1. Validate Arguments
 
-Verify both arguments are provided:
+Verify both arguments are present:
 
 ```bash
-# Arguments should be passed to command; validate they exist
-if [[ -z "$branch_name" ]] || [[ -z "$epic_id" ]]; then
-  echo "Error: Both branch-name and epic-id are required"
-  echo "Usage: /bdagent <branch-name> <epic-id>"
+if [[ -z "$branch_name" ]] || [[ -z "$scope_id" ]]; then
+  echo "Error: Both branch-name and scope-id are required"
+  echo "Usage: /bdagent <branch-name> <scope-id>"
   exit 1
 fi
 ```
 
-### 2. Verify Epic Exists
+### 2. Verify the Repo Uses jj
 
-Before creating the worktree, confirm the epic exists in beads:
-
-```bash
-bd show "$epic_id"
-```
-
-If the epic does not exist, inform the user and suggest running `/bdplan` first.
-
-### 3. Check Ready Work
-
-Verify there are ready issues for the epic:
+`tmux-claude-worktree` requires jj. Confirm before proceeding:
 
 ```bash
-bd ready --parent "$epic_id" --json
+jj workspace root >/dev/null 2>&1 || {
+  echo "Error: /bdagent requires a jj repository (tmux-claude-worktree uses jj workspace add)"
+  echo "For git repos, create the worktree manually with: git worktree add ../<branch-name>"
+  exit 1
+}
 ```
 
-If no ready work exists, warn the user that the agent will have nothing to execute.
+### 3. Verify the Scope Exists
 
-### 4. Create Worktree and Spawn Agent
-
-Run the `tmux-claude-worktree` script:
+Before creating the worktree, confirm the scope exists:
 
 ```bash
-tmux-claude-worktree "$branch_name" "$epic_id"
+bd show "$scope_id"
 ```
 
-The script will:
-- Create a jj worktree at `../$branch_name` (sibling directory)
-- Create branch `$branch_name` and set it as working copy
-- Create a new tmux session named after the branch
-- Start an agent in that session with `/bdloop $epic_id`
-- Leave the current session active (does not switch)
+If the scope does not exist, inform the user and suggest running `/bdplan` first.
 
-### 5. Report Success
+### 4. Check Ready Work
 
-Output a summary for the user:
+Use the scope-aware ready query:
 
+```bash
+bd ready --parent "$scope_id" --json
 ```
+
+If the scope is a leaf issue, `bd ready --parent` may be empty even though the issue itself is runnable. In that case, warn but proceed.
+
+If no ready work exists for a parent scope, warn that the agent may immediately exit with `no ready work`.
+
+### 5. Create the Worktree and Spawn the Agent
+
+Run:
+
+```bash
+tmux-claude-worktree "$branch_name" "$scope_id"
+```
+
+The script should:
+
+- create a jj worktree at `../$branch_name`
+- create or switch to branch `$branch_name`
+- create a tmux session named after the branch
+- start an agent with `/bdloop $scope_id`
+- leave the current session active
+
+### 6. Report Success
+
+Report:
+
+```text
 OK: agent worktree created and started
 
-  Branch:       $branch_name
-  Worktree:     ../$branch_name
-  Epic:         $epic_id
-  tmux session: $session_name
+  Branch:        $branch_name
+  Worktree:      ../$branch_name
+  Scope:         $scope_id
+  tmux session:  $session_name
 
-The agent is now running /bdloop $epic_id in the background.
+The agent is now running /bdloop $scope_id in the background.
 
 To monitor progress:
   tmux attach -t $session_name
 
 To switch to the agent session:
   tmux switch-client -t $session_name
-
-Current session remains active for continued planning or monitoring.
 ```
 
 ## Error Handling
 
-**Worktree directory exists:**
-If `../$branch_name` already exists, the script will fail. Suggest using a different branch name or manually removing the old worktree.
-
-**Epic does not exist:**
-If the BD epic ID is invalid, inform the user and exit before creating the worktree.
-
-**No ready work:**
-Warn but proceed - the agent will report `no ready work` immediately and exit.
-
-**tmux session exists:**
-If a tmux session with the branch name already exists, the script will fail. Suggest attaching to the existing session or using a different branch name.
-
-## Use Cases
-
-**Post-planning delegation:**
-```
-User: "Okay, the plan looks good. Let's get started on proj-100."
-/bdagent implement-auth proj-100
-```
-
-**Parallel execution:**
-```
-# Planning session continues in current worktree
-# Execution happens in separate worktree with separate agent
-# User can monitor both or switch between them
-```
-
-**Epic scope:**
-```
-# Agent only works on issues under the specified epic
-# Other epics in the repo remain untouched
-```
-
-## Integration with Other Commands
-
-- **After `/bdplan`**: create the worktree and start execution
-- **Before `/session-close`**: optionally spawn agent before ending planning session
-- **With `/jujutsu`**: uses jj worktrees for clean isolation
+- If `../$branch_name` already exists, suggest using a different branch name or cleaning up the old worktree.
+- If the scope ID is invalid, exit before creating the worktree.
+- If no ready work exists, warn but allow the user to proceed.
+- If a tmux session with the same name already exists, suggest attaching to it or using a different branch name.
 
 ## Notes
 
-- The current session does not switch - you stay in the planning workspace
-- The agent runs autonomously in the background
-- Multiple agents can run in parallel (different worktrees and epics)
-- Use `tmux list-sessions` to see all active agent sessions
-- The worktree is a sibling directory, not a subdirectory of the main repo
+- The current planning session stays active.
+- The background agent will run `/bdloop`, which in turn uses `/bdexecplan` to execute and review the chosen scope.
+- Multiple agents can run in parallel as long as they use different branches, worktrees, and scopes.

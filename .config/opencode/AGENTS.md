@@ -36,11 +36,11 @@ Enter plan mode for non-trivial tasks before writing code. Explore the codebase,
 
 For multi-step implementation tasks, prefer the bd skill workflow:
 
-- `/bdplan` to break work into issues with dependencies and priorities
-- `/bdloop` to execute issues with automatic review feedback loops
+- `/bdplan` to create or extend epic -> story -> checkpoint plans with explicit dependencies
+- `/bdloop` to execute a scoped plan with automatic review feedback loops
 - `/bdexecissue` for targeted single-issue execution
-- `/bdexecplan` for sequential execution of a set of issues
+- `/bdexecplan` to execute an epic, story, or issue scope
 
 ## Worktrees — bdagent
 
-When spawning work into worktrees, use the `/bdagent` skill to ensure the agent runs in the background in an isolated jj worktree via tmux.
+When spawning work into worktrees, use the `/bdagent` skill to ensure the agent runs in the background in an isolated jj worktree via tmux for the selected epic, story, or issue scope.

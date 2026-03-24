@@ -1,6 +1,8 @@
 {
   config,
   pkgs,
+  aoe,
+  system,
   ...
 }:
 # let
@@ -64,6 +66,7 @@
   home.packages = with pkgs; [
     # CLI tools
     acli
+    aoe.packages.${system}.default
     actionlint
     awscli2
     autoconf
@@ -119,6 +122,7 @@
     nmap
     packer
     peek
+    presenterm
     powertop
     postgresql
     python3

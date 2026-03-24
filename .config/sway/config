@@ -1,6 +1,7 @@
 # This file is converted from i3 config to sway config
 # See https://github.com/swaywm/sway/wiki for a complete reference!
 
+
 set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
@@ -241,9 +242,9 @@ exec_always ~/.config/waybar/launch-bar.sh
 # Set up screen sharing and systemd integration
 exec_always systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP
 exec_always dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP=sway
-exec_always /usr/libexec/xdg-desktop-portal -r
 exec systemctl --user start graphical-session.target
 exec_always export XDG_CURRENT_DESKTOP=sway
+exec ~/.config/sway/start-portals.sh
 
 # Notification daemon - mako instead of dunst
 exec mako

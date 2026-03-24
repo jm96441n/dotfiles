@@ -7,3 +7,7 @@ system/.private_function
 **/__pycache__/**
 .aider*
 .claude/**
+
+# Dolt database files (added by bd init)
+.dolt/
+*.db
