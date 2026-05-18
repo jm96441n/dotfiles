@@ -36,40 +36,26 @@
       },
       "enabled": false
     },
-    "cass-memory": {
-      "type": "remote",
-      "url": "http://127.0.0.1:8765"
+    "ibm-slack-mcp": {
+      "type": "local",
+      "command": ["ibm-slack-mcp"],
+      "environment": {
+        "SLACK_EXCLUDE_DMS": "false",
+        "SLACK_EXCLUDE_PRIVATE_CHANNELS": "false",
+        "SLACK_EXCLUDE_GROUP_DMS": "false",
+        "SLACK_EXCLUDE_CHANNELS": "",
+        "SLACK_EXCLUDE_USERS": ""
+      },
+      "enabled": false
     }
   },
+
   "agent": {
-    "superPlan": {
-      "description": "Planning orchestrator that gathers three independent plans, iterates on blocking questions, and synthesizes one recommended plan with tradeoffs for each planner",
-      "mode": "primary",
-      "model": "github-copilot/gpt-5.4",
-      "temperature": 0.2,
-      "steps": 12,
-      "prompt": "{file:./prompts/superplan-orchestrator.md}",
-      "tools": {
-        "write": false,
-        "edit": false,
-        "bash": false,
-        "webfetch": false,
-        "task": true
-      },
-      "permission": {
-        "task": {
-          "*": "deny",
-          "superPlan-gpt54": "allow",
-          "superPlan-gemini31": "allow",
-          "superPlan-gpt53codex": "allow"
-        }
-      }
-    },
-    "superPlan-gpt54": {
-      "description": "Independent planning subagent for superPlan using GPT-5.4",
+    "superPlan-gpt55": {
+      "description": "Independent planning subagent for superPlan using GPT-5.5",
       "mode": "subagent",
       "hidden": true,
-      "model": "github-copilot/gpt-5.4",
+      "model": "github-copilot/gpt-5.5",
       "temperature": 0.2,
       "steps": 8,
       "prompt": "{file:./prompts/superplan-planner.md}",
@@ -97,11 +83,11 @@
         "task": false
       }
     },
-    "superPlan-gpt53codex": {
-      "description": "Independent planning subagent for superPlan using GPT-5.3 Codex",
+    "superPlan-opus47": {
+      "description": "Independent planning subagent for superPlan using Claude Opus 4.8",
       "mode": "subagent",
       "hidden": true,
-      "model": "github-copilot/gpt-5.3-codex",
+      "model": "github-copilot/claude-opus-4.8",
       "temperature": 0.2,
       "steps": 8,
       "prompt": "{file:./prompts/superplan-planner.md}",

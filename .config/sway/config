@@ -1,7 +1,6 @@
 # This file is converted from i3 config to sway config
 # See https://github.com/swaywm/sway/wiki for a complete reference!
 
-
 set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
@@ -28,8 +27,8 @@ bindsym $mod+Return exec ~/.nix-profile/bin/ghostty
 # kill focused window
 bindsym $mod+Shift+q kill
 
-# screenshot - replacing flameshot with grim+slurp
-bindsym $mod+Shift+s exec 'grim -g "$(slurp)" - | wl-copy'
+# screenshot - region select -> satty for annotation
+bindsym $mod+Shift+s exec 'grim -g "$(slurp -o -d)" - | ~/.cargo/bin/satty --filename - --early-exit --copy-command wl-copy'
 
 # start wofi (a program launcher, replacing rofi)
 bindsym $mod+d exec ~/.config/wofi/launcher.sh

@@ -2,6 +2,14 @@
 description: Flywheel Stage 1 — turn a rough concept into a polished, multi-model-synthesized markdown plan
 argument-hint: <rough concept seed>
 subtask: true
+tools:
+  task: true
+  question: true
+  bash: true
+  read: true
+  write: true
+  glob: true
+  edit: true
 ---
 
 You orchestrate the Flywheel planning stage (https://agent-flywheel.com/complete-guide §3): rough concept → multi-model plans → "best of all worlds" synthesis → iterative refinement loop. The output is a comprehensive markdown plan suitable for downstream conversion to bd issues.
@@ -91,6 +99,7 @@ Invoke the Task tool with `subagent_type: superPlan`. The prompt is the verbatim
 > **Goal:** Generate a plan detailed enough that an agent swarm can execute it without re-deriving architecture. The blog notes plans created this way "routinely reach 3,000–6,000+ lines" and are "the result of countless iterations and feedback from many frontier models."
 >
 > **The plan must include:**
+>
 > - Architecture overview (components, boundaries, data flow)
 > - User-visible workflows in concrete terms (not "users can search" but "users type a query, the system parses tags, results return ranked by ...")
 > - Tech stack rationale and major library choices
@@ -164,6 +173,7 @@ Loop:
    > Apply this to the plan below. The "80 elements" framing is a deliberate forcing function from the blog — it pressures models past their satisficing point. Find every issue, omission, contradiction, missing edge case, and unstated assumption. Produce the revised plan.
    >
    > **Plan:**
+   >
    > ```markdown
    > <verbatim contents of latest plan file>
    > ```

@@ -87,7 +87,8 @@
     fastfetch
     fd
     ffmpeg
-    flameshot
+    grim
+    slurp
     fzf
     gcc
     gh

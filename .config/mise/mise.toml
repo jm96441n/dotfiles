@@ -5,6 +5,8 @@ python='3.13.3'
 # ruby='3.4.3'
 rust='1.94.1'
 lua='5.1'
+"cargo:binstall" = "latest"
 
 [settings]
 idiomatic_version_file_enable_tools=["python"]
+cargo.binstall = true
