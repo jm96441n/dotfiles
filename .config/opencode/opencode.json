@@ -11,6 +11,15 @@
     }
   },
   "mcp": {
+    "codegraph": {
+      "type": "local",
+      "command": [
+        "/home/johnmaguire/.local/share/mise/installs/node/23.11.0/bin/codegraph",
+        "serve",
+        "--mcp"
+      ],
+      "enabled": true
+    },
     "gremlin": {
       "type": "local",
       "command": ["gremlin-mcp"],

@@ -1,7 +1,6 @@
 ---
 description: Flywheel Stage 1 — turn a rough concept into a polished, multi-model-synthesized markdown plan
 argument-hint: <rough concept seed>
-subtask: true
 tools:
   task: true
   question: true

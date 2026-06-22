@@ -1,5 +1,7 @@
 # Workflow Preferences
 
+ALWAYS BE BRIEF
+
 ## Version Control — Jujutsu (jj)
 
 Always use `jj` instead of `git` for version control operations. Follow the squash workflow:
@@ -21,6 +23,7 @@ Default to Go for new code. Follow Go idioms:
 - Table-driven tests
 - Short variable names in small scopes, descriptive names in larger scopes
 - Always wrap errors with context using `fmt.Errorf("context: %w", err)`
+- Comments should BE BRIEF, keep them to the minimum necessary to explain the "why" of the code, not the "what"
 
 Match the existing language when working in non-Go projects.
 
@@ -30,7 +33,8 @@ Run relevant tests after every code change to verify correctness. Don't wait to 
 
 ## Planning
 
-Enter plan mode for non-trivial tasks before writing code. Explore the codebase, understand the architecture, and present an approach for approval before implementing.
+Enter plan mode for non-trivial tasks before writing code. Explore the codebase, understand the architecture, and present an approach for approval before implementing. Utilize the codegraph mcp
+server to build context of the repository.
 
 ## Task Execution — bd Workflow
 
@@ -41,6 +45,6 @@ For multi-step implementation tasks, prefer the bd skill workflow:
 - `/bdexecissue` for targeted single-issue execution
 - `/bdexecplan` to execute an epic, story, or issue scope
 
-## Worktrees — bdagent
+## PR Responses
 
-When spawning work into worktrees, use the `/bdagent` skill to ensure the agent runs in the background in an isolated jj worktree via tmux for the selected epic, story, or issue scope.
+When asked to address comments on a PR DO NOT respond to the comments, let the user write their own response. Instead, make the requested changes and push them to the PR. The user will then review and respond to the changes.
