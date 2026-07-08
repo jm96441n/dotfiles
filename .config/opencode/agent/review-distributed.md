@@ -1,6 +1,7 @@
 ---
 description: Distributed systems reviewer for consistency, fault tolerance, and coordination patterns
 mode: subagent
+model: github-copilot/claude-opus-4.8
 temperature: 0.1
 tools:
   write: false

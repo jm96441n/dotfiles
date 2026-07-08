@@ -3,6 +3,7 @@ description: execute a single bd issue
 argument-hint: <issue key>
 allowed-tools: Bash(bd *), Bash(tea *), Bash(jj *), Bash(git *), Bash(ast-grep *), Bash(sg *), Read, Edit, Write, Glob, Grep
 context: fork
+model: github-copilot/claude-sonnet-4.6
 ---
 
 # Execute Single BD Issue

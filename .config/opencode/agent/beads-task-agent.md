@@ -1,7 +1,7 @@
 ---
 description: Beads (bd) task agent. Executes multi-step bd workflows — polishing, deduplication, plan cross-reference, exploration of the issue graph — and returns a concise summary instead of dumping raw JSON into the parent context. Use this for ANY bd work involving 2+ commands.
 mode: subagent
-model: inherit
+model: github-copilot/claude-sonnet-4.6
 temperature: 0.2
 tools:
   bash: true

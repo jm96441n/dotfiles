@@ -17,7 +17,7 @@
       };
 
       # Git aliases
-      aliases = {
+      alias = {
         # Recent branches
         rb = "!git for-each-ref --sort=-committerdate --format='%(refname:short)' refs/heads/ | head -20";
         rbr = "!git for-each-ref --sort=-committerdate --format='%(refname:short)' refs/remotes/ | head -20";

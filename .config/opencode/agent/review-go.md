@@ -1,6 +1,7 @@
 ---
 description: Go-specific code reviewer for idioms, patterns, and common pitfalls
 mode: subagent
+model: github-copilot/claude-opus-4.8
 temperature: 0.1
 tools:
   write: false

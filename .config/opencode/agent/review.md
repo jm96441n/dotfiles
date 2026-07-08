@@ -1,6 +1,7 @@
 ---
 description: Code review orchestrator that delegates to specialized reviewers and synthesizes findings
 mode: primary
+model: github-copilot/claude-opus-4.8
 temperature: 0.2
 color: "#E69875"
 tools:

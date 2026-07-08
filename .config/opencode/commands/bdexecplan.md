@@ -2,6 +2,7 @@
 description: execute scoped bd work within an optional scope
 argument-hint: [scope-id]
 allowed-tools: Bash(bd:*), Bash(jj *), Bash(git *), Task, Skill
+model: github-copilot/claude-sonnet-4.6
 ---
 
 # Execute BD Plan

@@ -1,6 +1,7 @@
 ---
 description: General code quality reviewer for correctness, security basics, and maintainability
 mode: subagent
+model: github-copilot/claude-opus-4.8
 temperature: 0.1
 tools:
   write: false

@@ -1,6 +1,7 @@
 ---
 description: Flywheel Stage 2 — convert a polished markdown plan into bd issues with full dependency graph
 argument-hint: <path-to-plan.md>
+model: github-copilot/claude-sonnet-4.6
 ---
 
 You orchestrate the Flywheel plan-to-beads conversion (https://agent-flywheel.com/complete-guide §4). The blog calls this a translation problem, not task extraction: every piece of context, reasoning, and intent in the plan must end up embedded in the beads themselves so a fresh agent can execute without reopening the plan.

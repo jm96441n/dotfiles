@@ -1,6 +1,7 @@
 ---
 description: Intelligent Jira assistant for issue management, search, sprints, and agile workflows using acli
 mode: primary
+model: github-copilot/claude-sonnet-4.6
 temperature: 0.2
 tools:
   # Local file reading - for context (reading task lists, notes, etc.)
