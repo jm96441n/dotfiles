@@ -2,56 +2,85 @@
 # lifted from https://github.com/jez/git-heatmap/blob/master/git-heatmap
 # Build a commit frequency histogram
 
-ccyan="$(echo -ne '\033[0;36m')"
-cnone="$(echo -ne '\033[0m')"
-
 set -euo pipefail
 
-ARGV=()
-while [[ $# -gt 0 ]]; do
-  key="$1"
-  case $key in
-  -n)
-    LIMIT="$2"
-    shift
-    shift
-    ;;
-  -b | --base)
-    REVIEW_BASE="$2"
-    shift
-    shift
-    ;;
-  -c | --char)
-    CHAR="$2"
-    shift
-    shift
-    ;;
-  --width)
-    WIDTH="$2"
-    shift
-    shift
-    ;;
-  -f | --filter)
-    FILTER="$2"
-    shift
-    shift
-    ;;
-  -h)
-    cat <<EOF
+ccyan=$'\033[0;36m'
+cnone=$'\033[0m'
+
+usage() {
+  cat <<'EOF'
 Heatmap of oft-edited files.
+
 Usage:
-  git heatmap [options] [<path>...]
+  git heatmap [options] [--] [<path>...]
+
 Options:
-  -n <top>                      Limit to top <n> files. [default: 30]
-  --width <n>                   Limit histogram to <n> chars.
+  -n <top>, --top <top>         Limit to top <n> files. [default: 30]
+  --width <n>                   Limit histogram to <n> chars. [default: 60]
   -b <branch>, --base <branch>  Compare relative to <branch>. If on <branch>,
                                 show heatmap for entire repo. [default: main]
   -c <char>, --char <char>      Use <char> to draw the bars. [default: █]
-  -f <cmd>, --filter <cmd>      Filter output through <cmd> before creating the
-                                the histogram.
-  -h                            Show this message.
+  -f <cmd>, --filter <cmd>      Filter paths through <cmd> before creating the
+                                histogram. Status 1 means no matches.
+  --log-arg <arg>               Pass <arg> to git log. May be repeated.
+  -h, --help                    Show this message.
 EOF
-    exit
+}
+
+die() {
+  printf '%s: %s\n' "$0" "$1" >&2
+  exit 1
+}
+
+require_value() {
+  (($# >= 2)) || die "$1 requires a value"
+}
+
+ARGV=()
+LOG_ARGS=()
+while (($# > 0)); do
+  case $1 in
+  -n | --top)
+    require_value "$@"
+    LIMIT=$2
+    shift 2
+    ;;
+  -b | --base)
+    require_value "$@"
+    REVIEW_BASE=$2
+    shift 2
+    ;;
+  -c | --char)
+    require_value "$@"
+    CHAR=$2
+    shift 2
+    ;;
+  --width)
+    require_value "$@"
+    WIDTH=$2
+    shift 2
+    ;;
+  -f | --filter)
+    require_value "$@"
+    FILTER=$2
+    shift 2
+    ;;
+  --log-arg)
+    require_value "$@"
+    LOG_ARGS+=("$2")
+    shift 2
+    ;;
+  -h | --help)
+    usage
+    exit 0
+    ;;
+  --)
+    shift
+    ARGV+=("$@")
+    break
+    ;;
+  -*)
+    die "unknown option: $1"
     ;;
   *)
     ARGV+=("$1")
@@ -64,53 +93,99 @@ LIMIT=${LIMIT:-30}
 REVIEW_BASE=${REVIEW_BASE:-main}
 CHAR=${CHAR:-█}
 WIDTH=${WIDTH:-60}
-FILTER=${FILTER:-cat -}
+FILTER=${FILTER:-cat}
+
+[[ $LIMIT =~ ^[1-9][0-9]*$ ]] || die "-n must be a positive integer"
+[[ $WIDTH =~ ^[1-9][0-9]*$ ]] || die "--width must be a positive integer"
+[[ -n $REVIEW_BASE ]] || die "--base cannot be empty"
+[[ -n $CHAR ]] || die "--char cannot be empty"
 
 files() {
-  # https://stackoverflow.com/questions/7577052/
-  git log --name-status --pretty=format: -- "${ARGV[@]+"${ARGV[@]}"}" |
-    cut -f 2-
+  git log "${LOG_ARGS[@]+"${LOG_ARGS[@]}"}" --no-renames --name-only --format= -- \
+    "${ARGV[@]+"${ARGV[@]}"}"
 }
 
-color_name() {
-  if [ -t 1 ]; then
-    sed -e "s/\(..*\/\)*\(.[^|]*\) |/\1$ccyan\2$cnone |/"
-  else
-    cat -
-  fi
+changed_files() {
+  git diff --no-renames --name-only "$merge_base" -- \
+    "${ARGV[@]+"${ARGV[@]}"}"
 }
 
-filter() {
-  grep '.' |
-    eval "$FILTER" |
+select_changed_files() {
+  awk 'FILENAME != "-" { changed[$0] = 1; next } $0 in changed' \
+    <(changed_files) -
+}
+
+rank_files() {
+  awk 'NF' |
+    # FILTER is shell code by design, so pipelines such as "grep src | grep -v test" work.
+    apply_filter |
+    awk 'NF' |
     sort |
     uniq -c |
     sort -nr |
-    head -n "$LIMIT"
+    awk -v limit="$LIMIT" 'NR <= limit'
+}
+
+apply_filter() {
+  local status
+
+  eval "$FILTER" || {
+    status=$?
+    ((status == 1)) && return 0
+    return "$status"
+  }
 }
 
 histogram() {
-  "$bars" --bar "$CHAR" --width "$WIDTH"
+  local first
+
+  IFS= read -r first || [[ -n $first ]] || return 0
+  {
+    printf '%s\n' "$first"
+    cat
+  } | "$bars" --bar "$CHAR" --width "$WIDTH"
+}
+
+color_names() {
+  if [[ ! -t 1 ]]; then
+    cat
+    return
+  fi
+
+  if [[ $bars == barchart ]]; then
+    sed -E "s#^(.*/)?([^/]+)([[:space:]]+[0-9]+[[:space:]])#\1$ccyan\2$cnone\3#"
+  else
+    sed -E "s#^(.*/)?([^/]+)([[:space:]]+\|)#\1$ccyan\2$cnone\3#"
+  fi
 }
 
 if command -v barchart &>/dev/null; then
-  bars="barchart"
+  bars=barchart
 elif command -v bars &>/dev/null; then
-  bars="bars"
+  bars=bars
 else
-  echo >&2 "$0: This command requires a command called 'bars' or 'barchart'. See the README."
-  exit 1
+  die "requires a command called 'bars' or 'barchart'"
 fi
 
-if [[ "$(git branch | grep '\*')" =~ $REVIEW_BASE ]]; then
-  # If on main, show heatmap for whole repo
-  files | filter | histogram | color_name
-else
-  MERGE_BASE="$(git merge-base HEAD "$REVIEW_BASE")"
-  files |
-    # If on separate branch, show heatmap for files changed since main
-    grep -xF -f <(git diff --name-only "$MERGE_BASE") |
-    filter |
-    histogram |
-    color_name
+git rev-parse --git-dir &>/dev/null || die "not a Git repository"
+if ! base_commit=$(git rev-parse --verify --end-of-options "${REVIEW_BASE}^{commit}" 2>/dev/null); then
+  die "invalid base revision: $REVIEW_BASE"
 fi
+
+current_ref=$(git symbolic-ref --quiet HEAD || true)
+base_ref=$(git rev-parse --symbolic-full-name --verify --end-of-options "$REVIEW_BASE" 2>/dev/null || true)
+if [[ -z $current_ref || $current_ref != "$base_ref" ]]; then
+  if ! merge_base=$(git merge-base HEAD "$base_commit"); then
+    die "HEAD and $REVIEW_BASE have no common ancestor"
+  fi
+fi
+
+selected_files() {
+  if [[ -n $current_ref && $current_ref == "$base_ref" ]]; then
+    files
+  else
+    files | select_changed_files
+  fi
+}
+
+selected_files | rank_files | histogram | color_names
