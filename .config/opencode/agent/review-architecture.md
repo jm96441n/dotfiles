@@ -1,7 +1,7 @@
 ---
 description: Reviews changes for architectural compliance and service boundary integrity
 mode: subagent
-model: github-copilot/claude-opus-4.8
+model: openrouter/z-ai/glm-5.2
 temperature: 0.1
 tools:
   write: false

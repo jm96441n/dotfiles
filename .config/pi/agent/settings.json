@@ -1,0 +1,12 @@
+{
+  "defaultProvider": "openrouter",
+  "extensions": [],
+  "skills": [],
+  "prompts": [
+    "./prompts/**/*.md"
+  ],
+  "enableSkillCommands": true,
+  "lastChangelogVersion": "0.83.0",
+  "theme": "everforest",
+  "defaultModel": "z-ai/glm-5.2"
+}

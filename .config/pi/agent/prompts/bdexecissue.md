@@ -1,0 +1,185 @@
+---
+description: execute a single bd issue
+argument-hint: <issue key>
+---
+
+# Execute Single BD Issue
+
+## Overview
+
+Execute a single bd issue with proper status tracking, commenting, and VCS workflow integration. This command handles one issue in isolation, keeping context clean.
+
+Detect the repo's VCS at the start of the workflow and use it for all version control steps:
+
+- If `jj workspace root` succeeds (or `.jj/` exists at the repo root), use **jj** with the squash workflow described below.
+- Otherwise, if `git rev-parse --is-inside-work-tree` succeeds (or `.git/` exists), use **git** with the standard add/commit workflow.
+- If neither is detected, stop and report that the repo has no recognized VCS.
+
+Do not mix the two within the same workflow. Pick one based on detection and stick with it.
+
+Execute the bd issue [issue-id] following the bdexecissue workflow:
+
+1. IMMEDIATELY mark in_progress: bd update [issue-id] --status in_progress
+2. Review details: bd show [issue-id]
+3. Implement the work with atomic commits
+4. Track progress with bd comments after commits
+5. Verify acceptance criteria and tests pass
+6. Close when complete: bd close [issue-id] --reason "[summary]"
+
+If blocked, create blocker issues and report back.
+
+Report final status: completed, blocked, or needs-attention.
+
+## Arguments
+
+$ARGUMENTS
+
+The argument should be a bd issue ID (e.g., `proj-5`, `app-12`).
+
+## Instructions
+
+### 1. Claim the Issue Immediately
+
+```bash
+bd update [issue-id] --status in_progress
+```
+
+⚠️ **CRITICAL**: Do this FIRST before any other work.
+
+### 2. Review Issue Details
+
+```bash
+bd show [issue-id]
+```
+
+Read the description, acceptance criteria, and any existing comments carefully.
+
+### 3. Implement the Work
+
+#### Commit Strategy
+
+- **Use the detected VCS only** - do not mix jj and git commands in the same workflow
+- **Never commit broken code** (except failing tests before TDD implementation)
+- **Clear messages** - explain why, not just what
+- **No Claude references** in change descriptions
+
+##### If the repo uses jj
+
+- **Describe first** - start the target change with `jj describe -m "[clear message]"`
+- **Work in a scratch child** - use `jj new` before making implementation changes
+- **Squash finished work** - use `jj squash` to fold the scratch change into the described parent
+
+```bash
+# Describe the intended change first
+jj describe -m "[clear message]"
+
+# Create a scratch child for the implementation work
+jj new
+
+# Inspect progress while you work
+jj status
+jj diff
+
+# When the scratch work is ready, squash it into the described parent
+jj squash
+```
+
+##### If the repo uses git
+
+- **Stage only what belongs to this logical unit** - prefer `git add <paths>` over `git add -A`
+- **Commit per logical unit** - one commit per cohesive change with a clear message
+
+```bash
+# Inspect progress while you work
+git status
+git diff
+
+# Stage and commit each logical unit
+git add <paths>
+git commit -m "[clear message]"
+```
+
+#### Track Progress with Comments
+
+After each meaningful change (jj change ID or git commit SHA):
+
+```bash
+bd comment [issue-id] "Change [change-id-or-sha]: [what was done]"
+```
+
+### 4. Complete the Issue
+
+#### Before Closing
+
+- ✅ All acceptance criteria met
+- ✅ Tests pass (run them!)
+- ✅ All changes committed (jj squashed into described parent, or git committed)
+- ✅ No uncommitted files related to this issue
+
+#### Close with Summary
+
+```bash
+bd close [issue-id] --reason "Brief summary of what was completed"
+```
+
+### 5. Report Back
+
+When done, provide a brief summary:
+
+- What was implemented
+- Key changes made (jj change IDs or git commit SHAs)
+- Any issues discovered (should be filed with `bd create`)
+- Final status
+
+## Handling Blockers
+
+If you discover a blocker:
+
+```bash
+# Create blocker issue
+bd create "Fix: [blocker description]" \
+  --priority 0 \
+  --description "Discovered while working on [issue-id]"
+
+# Link dependency
+bd dep add [issue-id] [blocker-id] --type blocks
+
+# Comment on original
+bd comment [issue-id] "Blocked by [blocker-id]: [reason]"
+
+# Reopen original issue
+bd update [issue-id] --status open
+```
+
+Then report back that the issue is blocked.
+
+## Discovering New Work
+
+If you find additional work needed:
+
+```bash
+bd create "[New task]" \
+  --description "Discovered during [issue-id]: [context]"
+bd comment [issue-id] "Created [new-id] for [reason]"
+```
+
+Continue with the original issue unless it's truly blocked.
+
+## Error Handling
+
+If you cannot complete the issue:
+
+1. Document what was done in a comment
+2. Document what's blocking completion
+3. Either:
+   - Create a blocker issue and link it
+   - Or leave in_progress with clear comment about state
+4. Report back with status and blockers
+
+## Best Practices
+
+1. **One Issue Focus** - Don't work on other issues, stay focused
+2. **Atomic Commits** - Small, working increments
+3. **Rich Comments** - Reference commits, document decisions
+4. **Test Before Close** - Verify functionality works
+5. **Clean Exit** - Always leave issue in a valid state (closed or clearly documented)

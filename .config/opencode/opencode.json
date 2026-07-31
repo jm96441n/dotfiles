@@ -57,11 +57,11 @@
   },
 
   "agent": {
-    "superPlan-gpt55": {
-      "description": "Independent planning subagent for superPlan using GPT-5.5",
+    "superPlan-glm52": {
+      "description": "Independent planning subagent for superPlan using GLM 5.2",
       "mode": "subagent",
       "hidden": true,
-      "model": "github-copilot/gpt-5.5",
+      "model": "openrouter/z-ai/glm-5.2",
       "temperature": 0.2,
       "steps": 8,
       "prompt": "{file:./prompts/superplan-planner.md}",
@@ -73,11 +73,11 @@
         "task": false
       }
     },
-    "superPlan-gemini31": {
-      "description": "Independent planning subagent for superPlan using Gemini 3.1 Pro Preview",
+    "superPlan-kimiK3": {
+      "description": "Independent planning subagent for superPlan using Kimi K3",
       "mode": "subagent",
       "hidden": true,
-      "model": "github-copilot/gemini-3.1-pro-preview",
+      "model": "openrouter/moonshotai/kimi-k3",
       "temperature": 0.2,
       "steps": 8,
       "prompt": "{file:./prompts/superplan-planner.md}",
@@ -89,11 +89,11 @@
         "task": false
       }
     },
-    "superPlan-opus48": {
-      "description": "Independent planning subagent for superPlan using Claude Opus 4.8",
+    "superPlan-deepseekV4Pro": {
+      "description": "Independent planning subagent for superPlan using DeepSeek V4 Pro",
       "mode": "subagent",
       "hidden": true,
-      "model": "github-copilot/claude-opus-4.8",
+      "model": "openrouter/deepseek/deepseek-v4-pro",
       "temperature": 0.2,
       "steps": 8,
       "prompt": "{file:./prompts/superplan-planner.md}",
@@ -103,6 +103,40 @@
         "bash": false,
         "webfetch": false,
         "task": false
+      }
+    },
+    "plan-glm": {
+      "description": "Read-only standalone planner using GLM 5.2",
+      "mode": "subagent",
+      "hidden": true,
+      "model": "openrouter/z-ai/glm-5.2",
+      "temperature": 0.2,
+      "steps": 12,
+      "prompt": "{file:./prompts/plan-planner.md}",
+      "tools": {
+        "write": false,
+        "edit": false,
+        "bash": false,
+        "webfetch": false,
+        "task": false,
+        "question": false
+      }
+    },
+    "plan-kimi": {
+      "description": "Read-only standalone planner using Kimi K3",
+      "mode": "subagent",
+      "hidden": true,
+      "model": "openrouter/moonshotai/kimi-k3",
+      "temperature": 0.2,
+      "steps": 12,
+      "prompt": "{file:./prompts/plan-planner.md}",
+      "tools": {
+        "write": false,
+        "edit": false,
+        "bash": false,
+        "webfetch": false,
+        "task": false,
+        "question": false
       }
     }
   },

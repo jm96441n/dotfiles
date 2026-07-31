@@ -207,6 +207,10 @@
       source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/.config/opencode";
       recursive = true;
     };
+    ".pi" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/.config/pi";
+      recursive = true;
+    };
     ".config/k9s" = {
       source = ../k9s;
       recursive = true;

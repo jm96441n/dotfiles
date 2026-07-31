@@ -2,6 +2,17 @@
 
 This project uses **bd** (beads) for issue tracking. Run `bd onboard` to get started.
 
+## Repository Layout — Symlinks
+
+Some config dirs are home-manager symlinks into this repo. When editing files
+under the paths below, you are editing tracked dotfiles (commit them here):
+
+- `~/.pi` -> `~/.dotfiles/.config/pi` — pi coding agent config
+  (`~/.pi/agent/{settings.json,AGENTS.md,APPEND_SYSTEM.md,extensions/,skills/,prompts/,themes/}`)
+- `~/.config/opencode` -> `~/.dotfiles/.config/opencode` — opencode config
+
+Not symlinked (standalone, not version-controlled here): `~/.agents/skills/`.
+
 ## Quick Reference
 
 ```bash

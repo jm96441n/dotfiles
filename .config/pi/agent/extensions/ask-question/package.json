@@ -1,0 +1,8 @@
+{
+  "name": "ask-question",
+  "private": true,
+  "dependencies": {
+    "@earendil-works/pi-coding-agent": "*",
+    "typebox": "*"
+  }
+}

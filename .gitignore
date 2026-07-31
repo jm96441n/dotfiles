@@ -11,3 +11,10 @@ system/.private_function
 # Dolt database files (added by bd init)
 .dolt/
 *.db
+
+# pi coding agent (symlinked from ~/.pi -> ~/.dotfiles/.config/pi)
+# Credentials, regenerable catalog, ephemeral sessions, and installed deps
+.config/pi/agent/auth.json
+.config/pi/agent/models-store.json
+.config/pi/agent/sessions/
+.config/pi/agent/extensions/*/node_modules/

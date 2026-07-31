@@ -1,7 +1,7 @@
 ---
 description: Writes and maintains project documentation
 mode: subagent
-model: github-copilot/claude-sonnet-4.6
+model: openrouter/z-ai/glm-5.2
 tools:
   bash: false
 ---
