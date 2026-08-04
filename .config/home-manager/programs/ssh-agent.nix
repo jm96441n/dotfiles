@@ -17,6 +17,12 @@
           "~/.ssh/github_rsa"
         ];
       };
+      "github.ibm.com" = {
+        addKeysToAgent = "yes";
+        identityFile = [
+          "~/.ssh/ibm-gh"
+        ];
+      };
     };
   };
 }

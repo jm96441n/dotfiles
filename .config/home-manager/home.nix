@@ -99,7 +99,7 @@
     gnumake
     gomplate
     hcp
-    helm
+    kubernetes-helm
     helix
     hub
     htop

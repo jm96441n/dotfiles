@@ -1,0 +1,498 @@
+{
+  "version": 1,
+  "servers": {
+    "engram": {
+      "configHash": "feff97213547dff84465e99a9cdf596d0f695ce858eb0a99c68ef9b864e01239",
+      "tools": [
+        {
+          "name": "mem_capture_passive",
+          "description": "Extract and save structured learnings from text output. Use this at the end of a task to capture knowledge automatically.\n\nThe tool looks for sections like \"## Key Learnings:\" or \"## Aprendizajes Clave:\" and extracts numbered or bulleted items. Each item is saved as a separate observation.\n\nDuplicates are automatically detected and skipped — safe to call multiple times with the same content.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "content": {
+                "description": "The text output containing a '## Key Learnings:' section with numbered or bulleted items",
+                "type": "string"
+              },
+              "session_id": {
+                "description": "Session ID (default: manual-save-{project})",
+                "type": "string"
+              },
+              "source": {
+                "description": "Source identifier (e.g. 'subagent-stop', 'session-end')",
+                "type": "string"
+              }
+            },
+            "required": [
+              "content"
+            ]
+          }
+        },
+        {
+          "name": "mem_compare",
+          "description": "Persist a semantic verdict you have already judged externally (with your LLM) into Engram.\n\nWHEN TO CALL: After you have evaluated two memories and reached a verdict, call mem_compare to PERSIST that verdict into the relation store. You do the judgment; mem_compare records it.\n\nPARAMS:\n  memory_id_a  (required) — integer id of the first observation (from mem_search or mem_get_observation)\n  memory_id_b  (required) — integer id of the second observation\n  relation     (required) — one of: related, compatible, scoped, conflicts_with, supersedes, not_conflict\n  confidence   (required) — float 0..1; your self-reported confidence in the verdict\n  reasoning    (required) — explanation of the verdict, max 200 chars\n  model        (optional) — your model identifier, stored for provenance (e.g. \"claude-haiku-4-5\")\n\nBEHAVIOR:\n  - Persists the verdict via JudgeBySemantic with system provenance (marked_by_actor=\"engram\").\n  - not_conflict: no row is inserted; tool returns success with empty sync_id (the verdict is recorded but not stored — it means \"we evaluated these and they do not conflict\").\n  - Idempotent: calling again for the same pair updates the existing row.\n  - Cross-project pairs are rejected.\n\nSUCCESS: Returns { \"sync_id\": \"rel-...\" } on persist, { \"sync_id\": \"\" } on not_conflict.\nERROR: Returns IsError=true if IDs are unknown, relation is invalid, or cross-project pair.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "confidence": {
+                "description": "Confidence score 0.0..1.0",
+                "type": "number"
+              },
+              "memory_id_a": {
+                "description": "Integer id of the first observation (from mem_search #id)",
+                "type": "number"
+              },
+              "memory_id_b": {
+                "description": "Integer id of the second observation (from mem_search #id)",
+                "type": "number"
+              },
+              "model": {
+                "description": "Your model identifier for provenance (e.g. \"claude-haiku-4-5\")",
+                "type": "string"
+              },
+              "reasoning": {
+                "description": "Brief explanation of the verdict (max 200 chars)",
+                "type": "string"
+              },
+              "relation": {
+                "description": "Verdict: related | compatible | scoped | conflicts_with | supersedes | not_conflict",
+                "type": "string"
+              }
+            },
+            "required": [
+              "memory_id_a",
+              "memory_id_b",
+              "relation",
+              "confidence",
+              "reasoning"
+            ]
+          }
+        },
+        {
+          "name": "mem_context",
+          "description": "Get recent memory context from previous sessions. Shows recent sessions and observations to understand what was done before.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "project": {
+                "description": "Filter by project (omit for all projects)",
+                "type": "string"
+              },
+              "scope": {
+                "description": "Filter observations by scope: project (default) or personal",
+                "type": "string"
+              }
+            },
+            "required": []
+          }
+        },
+        {
+          "name": "mem_current_project",
+          "description": "Detect the current project from the working directory. Returns project name, source (how it was detected), path, and available alternatives. NEVER errors — use this for discovery before writing. Recommended as the first call when starting a new session.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {},
+            "required": []
+          }
+        },
+        {
+          "name": "mem_doctor",
+          "description": "Run read-only operational diagnostics. Returns the same structured envelope as `engram doctor --json`.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "check": {
+                "description": "Optional diagnostic check code to run",
+                "type": "string"
+              },
+              "project": {
+                "description": "Project to diagnose (omit for auto-detect)",
+                "type": "string"
+              }
+            },
+            "required": []
+          }
+        },
+        {
+          "name": "mem_get_observation",
+          "description": "Get the full content of a specific observation by ID. Use when you need the complete, untruncated content of an observation found via mem_search or mem_timeline.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "description": "The observation ID to retrieve",
+                "type": "number"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "mem_judge",
+          "description": "Record a verdict on a pending memory conflict surfaced by mem_save.\n\nWHEN TO CALL: After mem_save returns judgment_required=true, iterate candidates[] and call mem_judge once per entry using that entry's judgment_id.\n\nPARAMS:\n  judgment_id (required) — from candidates[].judgment_id in the mem_save response\n  relation    (required) — one of: related, compatible, scoped, conflicts_with, supersedes, not_conflict\n  reason      (optional) — free-text explanation of the verdict\n  evidence    (optional) — JSON or text supporting the verdict\n  confidence  (optional) — float 0..1; default 1.0\n\nWHEN TO ASK USER:\n  - confidence < 0.7: surface to user before judging\n  - relation in {supersedes, conflicts_with} AND type in {architecture, policy, decision}: ask user\n  - otherwise: resolve silently\n\nSUCCESS: Returns the updated relation row with judgment_status=\"judged\".\nERROR: Returns IsError=true if judgment_id is unknown or relation verb is invalid. Row is NOT mutated on error.\n\nRe-judging an already-judged ID overwrites the verdict (deliberate revision).",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "confidence": {
+                "description": "Confidence score 0.0..1.0 (default: 1.0)",
+                "type": "number"
+              },
+              "evidence": {
+                "description": "Supporting evidence (JSON or free text)",
+                "type": "string"
+              },
+              "judgment_id": {
+                "description": "The judgment_id from candidates[] in the mem_save response (format: rel-<hex>)",
+                "type": "string"
+              },
+              "reason": {
+                "description": "Free-text explanation of the verdict",
+                "type": "string"
+              },
+              "relation": {
+                "description": "Verdict: related | compatible | scoped | conflicts_with | supersedes | not_conflict",
+                "type": "string"
+              },
+              "session_id": {
+                "description": "Session ID for provenance (default: auto)",
+                "type": "string"
+              }
+            },
+            "required": [
+              "judgment_id",
+              "relation"
+            ]
+          }
+        },
+        {
+          "name": "mem_pin",
+          "description": "Pin a local observation so it appears before recent observations in memory context. Pinned state is local to this device and is not synced.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "description": "Observation ID to pin",
+                "type": "number"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "mem_review",
+          "description": "Review observation lifecycle state. action=list returns observations whose review_after has passed; action=mark_reviewed resets one observation's review_after using its type decay policy.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "action": {
+                "description": "Action: list | mark_reviewed",
+                "type": "string"
+              },
+              "id": {
+                "description": "Backward-compatible alias for observation_id.",
+                "type": "number"
+              },
+              "limit": {
+                "description": "Max results for action=list (default: 10).",
+                "type": "number"
+              },
+              "observation_id": {
+                "description": "Observation id for action=mark_reviewed.",
+                "type": "number"
+              },
+              "project": {
+                "description": "Optional project filter for action=list; omit to list all projects.",
+                "type": "string"
+              }
+            },
+            "required": [
+              "action"
+            ]
+          }
+        },
+        {
+          "name": "mem_save",
+          "description": "Save an important observation to persistent memory. Call this PROACTIVELY after completing significant work — don't wait to be asked.\n\nWHEN to save (call this after each of these):\n- Architectural decisions or tradeoffs\n- Bug fixes (what was wrong, why, how you fixed it)\n- New patterns or conventions established\n- Configuration changes or environment setup\n- Important discoveries or gotchas\n- File structure changes\n\nFORMAT for content — use this structured format:\n  **What**: [concise description of what was done]\n  **Why**: [the reasoning, user request, or problem that drove it]\n  **Where**: [files/paths affected, e.g. src/auth/middleware.ts, internal/store/store.go]\n  **Learned**: [any gotchas, edge cases, or decisions made — omit if none]\n\nTITLE should be short and searchable, like: \"JWT auth middleware\", \"FTS5 query sanitization\", \"Fixed N+1 in user list\"\n\nExamples:\n  title: \"Switched from sessions to JWT\"\n  type: \"decision\"\n  content: \"**What**: Replaced express-session with jsonwebtoken for auth\\n**Why**: Session storage doesn't scale across multiple instances\\n**Where**: src/middleware/auth.ts, src/routes/login.ts\\n**Learned**: Must set httpOnly and secure flags on the cookie, refresh tokens need separate rotation logic\"\n\n  title: \"Fixed FTS5 syntax error on special chars\"\n  type: \"bugfix\"\n  content: \"**What**: Wrapped each search term in quotes before passing to FTS5 MATCH\\n**Why**: Users typing queries like 'fix auth bug' would crash because FTS5 interprets special chars as operators\\n**Where**: internal/store/store.go — sanitizeFTS() function\\n**Learned**: FTS5 MATCH syntax is NOT the same as LIKE — always sanitize user input\"",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "capture_prompt": {
+                "description": "Automatically capture the current user prompt when available (default: true). Set false for SDD artifacts or automated saves.",
+                "type": "boolean"
+              },
+              "content": {
+                "description": "Structured content using **What**, **Why**, **Where**, **Learned** format. Required unless observation alias is provided.",
+                "type": "string"
+              },
+              "observation": {
+                "description": "Backward-compatible alias for content. Prefer content for new clients.",
+                "type": "string"
+              },
+              "project": {
+                "description": "Optional explicit project for this memory. Accepted only when backed by known context (existing project, matching session, repo config, or ambiguous-project recovery); invalid or unbacked names fail loudly.",
+                "type": "string"
+              },
+              "project_choice_reason": {
+                "description": "Must be user_selected_after_ambiguous_project, and only after the user explicitly chose one of available_projects from an ambiguous_project error.",
+                "type": "string"
+              },
+              "recovery_token": {
+                "description": "Short-lived token returned by an ambiguous_project error. Required with project_choice_reason=user_selected_after_ambiguous_project.",
+                "type": "string"
+              },
+              "scope": {
+                "description": "Scope for this observation: project (default) or personal",
+                "type": "string"
+              },
+              "session_id": {
+                "description": "Session ID to associate with (default: manual-save-{project})",
+                "type": "string"
+              },
+              "title": {
+                "description": "Short, searchable title (e.g. 'JWT auth middleware', 'Fixed N+1 query')",
+                "type": "string"
+              },
+              "topic_key": {
+                "description": "Optional topic identifier for upserts (e.g. architecture/auth-model). Reuses and updates the latest observation in same project+scope.",
+                "type": "string"
+              },
+              "type": {
+                "description": "Category: decision, architecture, bugfix, pattern, config, discovery, learning (default: manual)",
+                "type": "string"
+              }
+            },
+            "required": [
+              "title"
+            ]
+          }
+        },
+        {
+          "name": "mem_save_prompt",
+          "description": "Save a user prompt to persistent memory. Use this to record what the user asked — their intent, questions, and requests — so future sessions have context about the user's goals.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "content": {
+                "description": "The user's prompt text",
+                "type": "string"
+              },
+              "project": {
+                "description": "Optional recovery target only after ambiguous_project. Ignored unless project_choice_reason is user_selected_after_ambiguous_project.",
+                "type": "string"
+              },
+              "project_choice_reason": {
+                "description": "Must be user_selected_after_ambiguous_project, and only after the user explicitly chose one of available_projects from an ambiguous_project error.",
+                "type": "string"
+              },
+              "recovery_token": {
+                "description": "Short-lived token returned by an ambiguous_project error. Required with project_choice_reason=user_selected_after_ambiguous_project.",
+                "type": "string"
+              },
+              "session_id": {
+                "description": "Session ID to associate with (default: manual-save-{project})",
+                "type": "string"
+              }
+            },
+            "required": [
+              "content"
+            ]
+          }
+        },
+        {
+          "name": "mem_search",
+          "description": "Search your persistent memory across all sessions. Use this to find past decisions, bugs fixed, patterns used, files changed, or any context from previous coding sessions.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "all_projects": {
+                "description": "Search across every project instead of the current one. When true, the project argument is ignored and results may come from any project. Useful for recalling decisions logged elsewhere when you don't know the project key.",
+                "type": "boolean"
+              },
+              "limit": {
+                "description": "Max results (default: 10, max: 20)",
+                "type": "number"
+              },
+              "match_mode": {
+                "description": "Token matching: \"all\" (default — every token must match, FTS5 AND) or \"any\" (any token matches — broader recall for multi-token queries). Any other value returns an error.",
+                "type": "string"
+              },
+              "project": {
+                "description": "Filter by project name. Ignored when all_projects=true.",
+                "type": "string"
+              },
+              "query": {
+                "description": "Search query — natural language or keywords",
+                "type": "string"
+              },
+              "scope": {
+                "description": "Filter by scope: project (default) or personal",
+                "type": "string"
+              },
+              "type": {
+                "description": "Filter by type: tool_use, file_change, command, file_read, search, manual, decision, architecture, bugfix, pattern",
+                "type": "string"
+              }
+            },
+            "required": [
+              "query"
+            ]
+          }
+        },
+        {
+          "name": "mem_session_end",
+          "description": "Mark a coding session as completed with an optional summary.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "description": "Session identifier to close",
+                "type": "string"
+              },
+              "summary": {
+                "description": "Summary of what was accomplished",
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "mem_session_start",
+          "description": "Register the start of a new coding session. Call this at the beginning of a session to track activity.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "directory": {
+                "description": "Working directory",
+                "type": "string"
+              },
+              "id": {
+                "description": "Unique session identifier",
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "mem_session_summary",
+          "description": "Save a comprehensive end-of-session summary. Call this when a session is ending or when significant work is complete. This creates a structured summary that future sessions will use to understand what happened.\n\nFORMAT — use this exact structure in the content field:\n\n## Goal\n[One sentence: what were we building/working on in this session]\n\n## Instructions\n[User preferences, constraints, or context discovered during this session. Things a future agent needs to know about HOW the user wants things done. Skip if nothing notable.]\n\n## Discoveries\n- [Technical finding, gotcha, or learning 1]\n- [Technical finding 2]\n- [Important API behavior, config quirk, etc.]\n\n## Accomplished\n- ✅ [Completed task 1 — with key implementation details]\n- ✅ [Completed task 2 — mention files changed]\n- 🔲 [Identified but not yet done — for next session]\n\n## Next Steps\n- [What remains to be done — for the next session]\n\n## Relevant Files\n- path/to/file.ts — [what it does or what changed]\n- path/to/other.go — [role in the architecture]\n\nGUIDELINES:\n- Be CONCISE but don't lose important details (file paths, error messages, decisions)\n- Focus on WHAT and WHY, not HOW (the code itself is in the repo)\n- Include things that would save a future agent time\n- The Discoveries section is the most valuable — capture gotchas and non-obvious learnings\n- Relevant Files should only include files that were significantly changed or are important for context",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "content": {
+                "description": "Full session summary using the Goal/Instructions/Discoveries/Accomplished/Next Steps/Relevant Files format",
+                "type": "string"
+              },
+              "project": {
+                "description": "Optional explicit project for this memory. Accepted only when backed by known context (existing project, matching session, repo config, or ambiguous-project recovery); invalid or unbacked names fail loudly.",
+                "type": "string"
+              },
+              "project_choice_reason": {
+                "description": "Must be user_selected_after_ambiguous_project, and only after the user explicitly chose one of available_projects from an ambiguous_project error.",
+                "type": "string"
+              },
+              "recovery_token": {
+                "description": "Short-lived token returned by an ambiguous_project error. Required with project_choice_reason=user_selected_after_ambiguous_project.",
+                "type": "string"
+              },
+              "session_id": {
+                "description": "Session ID (default: manual-save-{project})",
+                "type": "string"
+              }
+            },
+            "required": [
+              "content"
+            ]
+          }
+        },
+        {
+          "name": "mem_suggest_topic_key",
+          "description": "Suggest a stable topic_key for memory upserts. Use this before mem_save when you want evolving topics (like architecture decisions) to update a single observation over time.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "content": {
+                "description": "Observation content used as fallback if title is empty",
+                "type": "string"
+              },
+              "title": {
+                "description": "Observation title (preferred input for stable keys)",
+                "type": "string"
+              },
+              "type": {
+                "description": "Observation type/category, e.g. architecture, decision, bugfix",
+                "type": "string"
+              }
+            },
+            "required": []
+          }
+        },
+        {
+          "name": "mem_unpin",
+          "description": "Unpin a local observation so it only appears in normal recency order. Pinned state is local to this device and is not synced.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "description": "Observation ID to unpin",
+                "type": "number"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        },
+        {
+          "name": "mem_update",
+          "description": "Update an existing observation by ID. Only provided fields are changed.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "content": {
+                "description": "New content",
+                "type": "string"
+              },
+              "id": {
+                "description": "Observation ID to update",
+                "type": "number"
+              },
+              "scope": {
+                "description": "New scope: project or personal",
+                "type": "string"
+              },
+              "title": {
+                "description": "New title",
+                "type": "string"
+              },
+              "topic_key": {
+                "description": "New topic key (normalized internally)",
+                "type": "string"
+              },
+              "type": {
+                "description": "New type/category",
+                "type": "string"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          }
+        }
+      ],
+      "resources": [],
+      "prompts": [],
+      "instructions": "Engram provides persistent memory that survives across sessions and compactions.\n\nCORE TOOLS (always available — use without ToolSearch):\n  mem_save — save decisions, bugs, discoveries, conventions PROACTIVELY (do not wait to be asked)\n  mem_search — find past work, decisions, or context from previous sessions\n  mem_context — get recent session history (call at session start or after compaction)\n  mem_session_summary — save end-of-session summary (MANDATORY before saying \"done\")\n  mem_get_observation — get full untruncated content of a search result by ID\n  mem_save_prompt — save user prompt for context\n  mem_current_project — detect current project from cwd (recommended first call)\n\nDEFERRED TOOLS (use ToolSearch when needed):\n  mem_update, mem_review, mem_pin, mem_unpin, mem_suggest_topic_key, mem_session_start, mem_session_end,\n  mem_stats, mem_delete, mem_timeline, mem_capture_passive, mem_merge_projects\n\nPROACTIVE SAVE RULE: Call mem_save immediately after ANY decision, bug fix, discovery, or convention — not just when asked.\n\n## CONFLICT SURFACING — when mem_save returns candidates\n\nAfter every mem_save call, check the response envelope for judgment_required.\n\nIF judgment_required IS TRUE:\n  Iterate candidates[] and call mem_judge once per candidate using the\n  judgment_id from that candidate entry. Do NOT use the top-level judgment_id\n  for multiple candidates — each candidate has its own.\n\n  HEURISTIC — when to ask the user vs. resolve autonomously:\n\n  ASK the user (conversationally, as part of your next reply) when:\n    - confidence is below 0.7, OR\n    - the relation you would choose is supersedes or conflicts_with AND the\n      observation type is architecture, policy, or decision\n\n  RESOLVE silently (call mem_judge without asking) when:\n    - confidence >= 0.7 AND the relation is not supersedes/conflicts_with, OR\n    - the relation is related, compatible, scoped, or not_conflict\n\n  HOW TO ASK (conversationally — never via blocking CLI or dashboard prompt):\n    Raise it naturally in your next reply to the user. Example phrasing:\n    \"I noticed memory #abc123 might conflict with what we just saved.\n     Want me to mark the new one as superseding it, or are they about\n     different scopes? I can also mark them as compatible if both still apply.\"\n\n  AFTER RESOLUTION (both paths):\n    Call mem_judge with the chosen relation, a reason, and if the user gave\n    explicit direction, include their words as the evidence field. This persists\n    the verdict and closes the pending conflict row.",
+      "cachedAt": 1786113723805
+    }
+  }
+}
