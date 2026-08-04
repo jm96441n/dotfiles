@@ -160,7 +160,6 @@
     ./programs/zsh.nix
     ./programs/bat.nix
     ./programs/starship.nix
-    ./programs/pi-memory.nix
   ];
 
   # Dotfiles as plain files
