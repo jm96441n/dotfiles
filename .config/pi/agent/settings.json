@@ -1,15 +1,24 @@
 {
+  "defaultModel": "z-ai/glm-5.2",
   "defaultProvider": "openrouter",
+  "enableSkillCommands": true,
   "extensions": [],
-  "skills": [],
+  "lastChangelogVersion": "0.83.0",
+  "npmCommand": [
+    "mise",
+    "exec",
+    "node@23.11.0",
+    "--",
+    "npm"
+  ],
+  "packages": [
+    "npm:gentle-engram@0.1.8",
+    "npm:pi-mcp-adapter",
+    "npm:gentle-engram@0.1.8"
+  ],
   "prompts": [
     "./prompts/**/*.md"
   ],
-  "enableSkillCommands": true,
-  "lastChangelogVersion": "0.83.0",
-  "theme": "everforest",
-  "defaultModel": "z-ai/glm-5.2",
-  "packages": [
-    "npm:pi-memory"
-  ]
+  "skills": [],
+  "theme": "everforest"
 }

@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "engram": {
+      "args": [
+        "mcp",
+        "--tools=agent"
+      ],
+      "command": "/home/johnmaguire/.local/share/mise/installs/go/1.26.2/bin/engram",
+      "directTools": false,
+      "lifecycle": "lazy"
+    }
+  }
+}
