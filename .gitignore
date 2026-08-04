@@ -18,4 +18,5 @@ system/.private_function
 .config/pi/agent/models-store.json
 .config/pi/agent/sessions/
 .config/pi/agent/trust.json
+.config/pi/agent/memory
 .config/pi/agent/extensions/*/node_modules/

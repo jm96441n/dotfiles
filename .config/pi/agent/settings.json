@@ -8,5 +8,8 @@
   "enableSkillCommands": true,
   "lastChangelogVersion": "0.83.0",
   "theme": "everforest",
-  "defaultModel": "z-ai/glm-5.2"
+  "defaultModel": "z-ai/glm-5.2",
+  "packages": [
+    "npm:pi-memory"
+  ]
 }

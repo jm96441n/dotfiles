@@ -6,6 +6,7 @@ python='3.13.3'
 rust='1.94.1'
 lua='5.1'
 "cargo:cargo-binstall" = "latest"
+"npm:@tobilu/qmd" = "latest"
 
 [settings]
 idiomatic_version_file_enable_tools=["python"]
