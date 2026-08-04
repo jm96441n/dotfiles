@@ -1,5 +1,5 @@
 {
-  "defaultProvider": "openrouter",
+  "defaultProvider": "zai-coding-cn",
   "extensions": [],
   "skills": [],
   "prompts": [
@@ -8,5 +8,6 @@
   "enableSkillCommands": true,
   "lastChangelogVersion": "0.83.0",
   "theme": "everforest",
-  "defaultModel": "z-ai/glm-5.2"
+  "defaultModel": "glm-5.2",
+  "defaultThinkingLevel": "high"
 }
