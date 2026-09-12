@@ -14,13 +14,13 @@ The blog post emphasizes: **planning is 85% of the work**. Models reason far bet
 ## Tools available
 
 - `ask_question` — for all user interaction
-- `pi -p` sub-agent spawned via bash (fed `~/.pi/agent/prompts/superplan.md`) — for multi-model planning + synthesis
+- the `Agent` tool (with the `planner` subagent type) — for multi-model planning + synthesis, driven by the `/superplan` workflow in `~/.pi/agent/prompts/superplan.md`
 - `bash`, `read`, `write`, `glob`, `edit` — for repo inspection and saving artifacts
 
 ## Core rules
 
 - Stay read-only on existing source code. The only file you write is the plan markdown under `.opencode/plans/`.
-- Every multi-model synthesis point goes through a `pi -p` sub-agent fed the `~/.pi/agent/prompts/superplan.md` template. Do not inline that logic.
+- Every multi-model synthesis point follows the `/superplan` workflow from `~/.pi/agent/prompts/superplan.md`, driven through the `Agent` tool. Do not inline that logic.
 - All user interaction goes through you — `/superplan` itself will run its own intake; you wrap it with the flywheel-specific framing.
 - Do not skip the foundation check. Weak foundations leak uncertainty into every later stage.
 - Do not auto-loop refinement rounds. Always ask between rounds — convergence is a judgment call.
@@ -77,17 +77,7 @@ Wait for the user's batch response. Do not turn intake into a multi-turn intervi
 
 ### Step 2: Initial multi-model plan via /superplan
 
-Spawn a pi sub-agent via bash, feeding it the superplan template plus the verbatim flywheel-style brief. The sub-agent runs its own three planner sub-agents internally:
-
-```bash
-pi -p --no-session @~/.pi/agent/prompts/superplan.md "$(cat <<'EOF'
-Produce a comprehensive markdown plan for the project described below, using the Flywheel methodology (agent-flywheel.com/complete-guide §3).
-
-**Concept:** `<verbatim concept from Step 1>`
-...<rest of the flywheel-style brief verbatim>...
-EOF
-)"
-```
+Run the superplan workflow (`~/.pi/agent/prompts/superplan.md`) yourself in this session, applying it to the verbatim flywheel-style brief below. That workflow spawns the three planner sub-agents via the `Agent` tool and synthesizes their output. Skip its own Step 0 intake — the flywheel intake above already collected the requirements; carry those answers into the canonical brief.
 
 The brief:
 
@@ -147,7 +137,7 @@ Loop:
    - `Run 5 rounds then stop`: auto-continue until N=5, then exit
    - `Skip refinement`: exit loop immediately
 
-2. **Standard refinement round.** Re-spawn the `pi -p` superplan sub-agent (same `@~/.pi/agent/prompts/superplan.md` form). Brief:
+2. **Standard refinement round.** Re-run the `/superplan` workflow on the refinement brief below — resume the three planner agents (`Agent({ resume: ... })`) so each integrates its own revisions into its prior draft, then synthesize. Brief:
 
    > This is refinement round `<N+1>` of an existing Flywheel plan (agent-flywheel.com/complete-guide §3).
    >

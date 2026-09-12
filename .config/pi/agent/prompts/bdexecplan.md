@@ -16,7 +16,7 @@ The scope can be:
 - a single leaf issue
 - omitted, which means work through all ready issues in the repo
 
-> **Important**: Do not try to invoke `/bdexecissue` directly — it is a user-facing slash command. Either execute each issue inline following the bdexecissue rules, or delegate execution to a pi sub-agent spawned via bash (`pi -p`) to keep the orchestrator context clean.
+> **Important**: Do not try to invoke `/bdexecissue` directly — it is a user-facing slash command. Either execute each issue inline following the bdexecissue rules, or delegate execution to a sub-agent via the `Agent` tool (subagent type `general-purpose`) to keep the orchestrator context clean.
 
 This command is VCS-agnostic. Detect the repo's VCS once at the start (jj if `jj workspace root` succeeds, otherwise git if `git rev-parse --is-inside-work-tree` succeeds) and use it for all version control work in the executed issues.
 
@@ -104,8 +104,15 @@ Then execute the issue. Pick one of:
 
 **Option 2 — Delegate via a pi sub-agent**: Spawn a sub-agent via bash to keep the orchestrator context clean:
 
-```bash
-pi -p --no-session "Execute bd issue [issue-id] following the bdexecissue workflow. Detect VCS (jj or git) and use it consistently. Mark in_progress immediately, implement with atomic commits, run tests, comment progress, close on completion (or create a blocker and reopen if blocked). Report final status: completed, blocked, or needs-attention."
+Delegate each issue (or the whole scope) to a sub-agent via the `Agent` tool:
+
+```
+Agent({
+  subagent_type: "general-purpose",
+  description: "Execute bd issue [issue-id]",
+  run_in_background: false,
+  prompt: "Execute bd issue [issue-id] following the bdexecissue workflow. Detect VCS (jj or git) and use it consistently. Mark in_progress immediately, implement with atomic commits, run tests, comment progress, close on completion (or create a blocker and reopen if blocked). Report final status: completed, blocked, or needs-attention."
+})
 ```
 
 The sub-agent runs in the same repo with full tools. Do not do the execution work yourself when delegating; let the sub-agent do it and report its status.

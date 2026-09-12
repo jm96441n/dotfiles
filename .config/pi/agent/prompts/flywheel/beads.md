@@ -16,7 +16,7 @@ Note: the blog uses `br` (beads_rust). This repo uses `bd` (beads). All conversi
 ## Tools available
 
 - `ask_question` — for user confirmation
-- `pi -p` sub-agent spawned via bash — for the actual bead creation work (keeps raw `bd` JSON out of the orchestrator's context)
+- the `Agent` tool (subagent type `general-purpose`) — for the actual bead creation work (keeps raw `bd` JSON out of the orchestrator's context)
 - `bash`, `read` — for validation
 
 ## Workflow
@@ -68,9 +68,9 @@ Call `ask_question`:
   - `Convert now (Recommended)`
   - `Cancel`
 
-### Step 3: Delegate conversion to a pi sub-agent
+### Step 3: Delegate conversion to a sub-agent
 
-Spawn a pi sub-agent via bash to do the bead creation work (this keeps raw `bd` JSON out of the orchestrator's context). Write the prompt below to a temp file, then run `pi -p --no-session @/tmp/beads-prompt.md`. The prompt is the verbatim Plan-to-Beads prompt from the blog (with `br` → `bd`):
+Spawn a sub-agent via the `Agent` tool to do the bead creation work (this keeps raw `bd` JSON out of the orchestrator's context). Pass the prompt below verbatim as the `prompt` parameter. The prompt is the verbatim Plan-to-Beads prompt from the blog (with `br` → `bd`):
 
 > You are the beads-task-agent executing the Flywheel plan-to-beads conversion (agent-flywheel.com/complete-guide §4).
 >
@@ -88,7 +88,7 @@ Spawn a pi sub-agent via bash to do the bead creation work (this keeps raw `bd` 
 > 4. **Complete coverage:** every concept from the plan must end up in at least one bead. Lose nothing.
 > 5. **Explicit dependencies:** use `bd dep add <issue> <depends-on>` for every relationship. The dependency graph is what enables `bd ready` to compute the optimal execution order downstream.
 > 6. **Include testing in beads:** comprehensive unit tests and e2e test scripts with detailed logging must be part of the bead obligations, not deferred to "we'll write tests later."
-> 7. **Use parallel `pi -p` sub-agents for batch creation.** Creating 200–500 beads sequentially is slow — spawn additional `pi -p` processes for batches.
+> 7. **Work in batches.** Creating 200–500 beads sequentially is slow — create beads in batches and verify progress with `bd stats` between batches.
 >
 > **bd CLI reference (this repo's flavor):**
 >
@@ -112,7 +112,18 @@ Spawn a pi sub-agent via bash to do the bead creation work (this keeps raw `bd` 
 > - any orphan beads (no dependencies in either direction)
 > - any cycles detected (these would be a bug — fix before returning)
 
-Wait for the sub-agent's printed output.
+Then:
+
+```
+Agent({
+  subagent_type: "general-purpose",
+  description: "Convert plan to bd beads",
+  run_in_background: false,
+  prompt: "<the prompt above, with the plan path filled in>"
+})
+```
+
+Wait for the sub-agent's result.
 
 ### Step 4: Sanity check
 
@@ -151,5 +162,5 @@ The blog calls this 'check your beads N times, implement once' — under-polishe
 ## Failure modes
 
 - **Agent writes pseudo-beads:** if the agent's response describes beads in markdown rather than running `bd create`, stop and rerun with stronger instructions. Detect by checking `bd stats` before and after — if no beads were actually created, the conversion failed.
-- **Missing dependencies:** if `bd blocked` returns 0 issues, the dependency graph wasn't built. Re-spawn the pi sub-agent with: "the conversion completed but no `bd dep add` calls were made; go through every bead and add the dependency edges that the plan implies."
+- **Missing dependencies:** if `bd blocked` returns 0 issues, the dependency graph wasn't built. Resume the sub-agent (`Agent({ resume: "<agent_id>", prompt: ... })`) with: "the conversion completed but no `bd dep add` calls were made; go through every bead and add the dependency edges that the plan implies."
 - **Over-eager bead creation in unrelated projects:** confirm `pwd` matches the project the plan is for. The user might have run this from the wrong directory.

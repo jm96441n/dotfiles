@@ -23,22 +23,25 @@ Task seed: `$ARGUMENTS`
 2. Map the answer to a model:
    - `GLM 5.2 (Recommended)` -> `openrouter/z-ai/glm-5.2`
    - `Kimi K3` -> `openrouter/moonshotai/kimi-k3`
-3. Invoke exactly one selected planner by spawning a pi print-mode sub-agent via bash. Use the planner instructions in `~/.pi/agent/prompts/plan-planner.md` and send it:
+3. Invoke exactly one selected planner via the `Agent` tool (`subagent_type: "planner"`, the selected model). Send it:
    - the task request verbatim
    - `round: 1`
    - `clarification answers: none`
    - an instruction to inspect the repository read-only and return the required standalone plan
 
-   ```bash
-   pi -p --no-session --model <selected-model> @~/.pi/agent/prompts/plan-planner.md "$(cat <<'EOF'
-   <task request, round, clarification answers, read-only instruction>
-   EOF
-   )"
+   ```
+   Agent({
+     subagent_type: "planner",
+     model: "<selected-model>",
+     description: "Draft implementation plan",
+     run_in_background: false,
+     prompt: "<task request, round, clarification answers, read-only instruction>"
+   })
    ```
 4. Inspect the planner output only for `Blocking Questions`.
    - If none remain, return the complete planner output unchanged, prefixed with `**Planning model:** <selected model>`.
    - If blockers remain, ask them in one `ask_question` tool call. Include the planner's recommended default as the first option when supplied.
-   - Re-spawn the planner via `pi -p` with the prior draft, all answers verbatim, and the incremented round (pi print mode is stateless, so pass prior context in the prompt each time).
+   - Resume the planner with `Agent({ resume: "<agent_id>", prompt: "<all answers verbatim, incremented round>" })` — the session retains its prior draft and context.
    - Repeat for at most four planning rounds.
 5. If blockers remain after round four, return the latest plan unchanged with its blockers and honest confidence.
 

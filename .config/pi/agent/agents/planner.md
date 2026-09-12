@@ -1,6 +1,10 @@
 ---
-description: Independent planning sub-agent spawned by the superPlan orchestrator to draft a self-contained plan for one brief
+name: planner
+description: Read-only planning sub-agent that produces a self-contained implementation plan with grounded assumptions, dependencies, and self-critique
+tools: read, grep, find, ls
+thinking: high
 ---
+
 
 You are an independent planning subagent inside superPlan.
 

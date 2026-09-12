@@ -16,7 +16,7 @@ Note: blog uses `br` (beads_rust). This repo uses `bd` (beads). Substituted thro
 ## Tools available
 
 - `ask_question` — for round-by-round decisions
-- `pi -p` sub-agent spawned via bash — for actual polishing work (keeps multi-`bd`-command output out of the orchestrator's context)
+- the `Agent` tool (subagent type `general-purpose`) — for actual polishing work (keeps multi-`bd`-command output out of the orchestrator's context)
 - `bash` — for stats / convergence detection
 
 ## Workflow
@@ -62,7 +62,16 @@ Otherwise call `ask_question` once with a single question:
 
 #### 1b. Run the chosen polish style
 
-Spawn a pi sub-agent via bash. Write the verbatim prompt for the chosen style to a temp file, then run `pi -p --no-session @/tmp/polish-prompt.md` (all prompts from the blog, with `br` → `bd` and `bv` → `bd ready` / `bd blocked` references):
+Spawn a sub-agent via the `Agent` tool, passing the verbatim prompt for the chosen style as the `prompt` parameter (all prompts from the blog, with `br` → `bd` and `bv` → `bd ready` / `bd blocked` references):
+
+```
+Agent({
+  subagent_type: "general-purpose",
+  description: "Polish beads (round <round>)",
+  run_in_background: false,
+  prompt: "<the verbatim prompt for the chosen style>"
+})
+```
 
 ##### Standard polish
 
@@ -106,7 +115,7 @@ Spawn a pi sub-agent via bash. Write the verbatim prompt for the chosen style to
 
 ##### Fresh eyes
 
-This is a two-step prompt sequence per the blog. Do both in one `pi -p` invocation (concatenate both steps in the temp file):
+This is a two-step prompt sequence per the blog. Do both in one `Agent` call (concatenate both steps in the prompt):
 
 > You are running a Flywheel "fresh eyes" review (agent-flywheel.com/complete-guide §5).
 >
@@ -198,5 +207,5 @@ Recommended next steps (out of scope for this command family):
 
 - **Loop never exits because user keeps clicking continue:** at round 13+, surface a stronger warning.
 - **Polish made things worse:** if `open_count_delta > 20` in a single round, ask the user: "this round expanded scope a lot — did the agent oversimplify and split beads, or did it find legitimate missing work? Want to inspect before continuing?"
-- **`pi -p` sub-agent returns without making changes:** if all deltas are zero for two consecutive rounds and the user hasn't said stop, that's natural convergence. Recommend stopping.
+- **Polish sub-agent returns without making changes:** if all deltas are zero for two consecutive rounds and the user hasn't said stop, that's natural convergence. Recommend stopping.
 - **Plan path lost on cross-reference:** if the user can't recall the plan path and `.opencode/plans/` has multiple files, list them and let the user pick via `ask_question`.
