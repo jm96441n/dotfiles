@@ -81,6 +81,7 @@
     consul
     dolt
     delta # for git pager
+    devbox
     direnv
     dolt
     eza
@@ -123,6 +124,7 @@
     nmap
     packer
     peek
+    pnpm
     presenterm
     powertop
     postgresql

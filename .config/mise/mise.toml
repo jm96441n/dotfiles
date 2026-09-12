@@ -1,13 +1,13 @@
 [tools]
-node='26.7.0'
-golang='1.26.2'
-python='3.13.3'
+node = '26.7.0'
+golang = '1.26.7'
+python = '3.13.3'
 # ruby='3.4.3'
-rust='1.94.1'
-lua='5.1'
+rust = '1.94.1'
+lua = '5.1'
 "cargo:cargo-binstall" = "latest"
 "npm:@tobilu/qmd" = "latest"
 
 [settings]
-idiomatic_version_file_enable_tools=["python"]
+idiomatic_version_file_enable_tools = ["python"]
 cargo.binstall = true
