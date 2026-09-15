@@ -1,7 +1,7 @@
 ---
 description: Reviews changes for architectural compliance and service boundary integrity
 mode: subagent
-model: openrouter/z-ai/glm-5.2
+model: github-copilot/gpt-6-astra
 temperature: 0.1
 tools:
   write: false

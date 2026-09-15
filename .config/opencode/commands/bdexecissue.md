@@ -1,7 +1,7 @@
 ---
 description: execute a single bd issue
 argument-hint: <issue key>
-model: gpt-5.6-terra, openrouter/gpt-5.6-terra
+model: github-copilot/gpt-5.6-terra
 ---
 
 # Execute Single BD Issue
@@ -22,7 +22,7 @@ Execute the bd issue [issue-id] following the bdexecissue workflow:
 
 1. IMMEDIATELY mark in_progress: bd update [issue-id] --status in_progress
 2. Review details: bd show [issue-id]
-3. Implement the work with atomic commits
+3. Delegate implementation to `coder`, then commit verified work atomically
 4. Track progress with bd comments after commits
 5. Verify acceptance criteria and tests pass
 6. Close when complete: bd close [issue-id] --reason "[summary]"
@@ -55,7 +55,19 @@ bd show [issue-id]
 
 Read the description, acceptance criteria, and any existing comments carefully.
 
-### 3. Implement the Work
+### 3. Delegate and Commit the Work
+
+After claiming the issue and reading its details, delegate implementation to the reusable `coder` subagent. Keep issue tracking, VCS operations, acceptance validation, and closure in this command.
+
+```text
+Task(
+  description="Implement [issue-id]",
+  subagent_type="coder",
+  prompt="Implement bd issue [issue-id]. Issue title: [title]. Issue description and acceptance criteria: [paste verbatim]. Inspect repository guidance first. Make only the scoped code changes, run relevant validation, and return changed files, test results, unmet criteria, and blockers. Do not run bd commands or modify VCS history."
+)
+```
+
+Review the coder's report and inspect the resulting diff. If validation failed, acceptance criteria remain unmet, or the report identifies a blocker, handle it under **Handling Blockers** or **Error Handling**. Do not commit incomplete or unverified work.
 
 #### Commit Strategy
 

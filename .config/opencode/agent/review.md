@@ -1,7 +1,7 @@
 ---
 description: Read-only code review subagent invoked by the /code-review command. Enforces a strict bash allowlist and disables write/edit tools so the review flow is guaranteed read-only by policy, not prompt-following.
 mode: subagent
-model: openrouter/z-ai/glm-5.2
+model: github-copilot/gpt-6-astra
 temperature: 0.2
 tools:
   write: false

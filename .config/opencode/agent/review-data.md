@@ -1,7 +1,7 @@
 ---
 description: Database interaction reviewer for SQL, Gremlin, connection management, and query patterns
 mode: subagent
-model: openrouter/z-ai/glm-5.2
+model: github-copilot/gpt-6-astra
 temperature: 0.1
 tools:
   write: false

@@ -1,5 +1,5 @@
 ---
-description: Build a detailed implementation plan using a user-selected model
+description: Build a detailed implementation plan using a user-selected GitHub Copilot model
 argument-hint: <task description>
 agent: plan-router
 subtask: true
@@ -16,15 +16,17 @@ Task seed: `$ARGUMENTS`
      - header: `Planning model`
      - question: `Which model should produce this plan?`
      - options, in this order:
-       1. `GLM 5.2 (Recommended)` — lower cost; strong default for project planning
-       2. `Kimi K3` — higher cost; stronger coding and agentic scores, plus vision input
+        1. `GPT-6 Astra (Recommended)` — strong general planning default
+        2. `Claude Opus 4.8` — deeper reasoning for complex architecture
+        3. `GPT-5.6 Sol` — alternate implementation-planning perspective
    - If the task seed is empty, include a second question in the same call:
      - header: `Task`
      - question: `What should the planner create a plan for?`
      - options: `Describe the task` and allow a custom answer
 2. Map the answer to an OpenCode planner:
-   - `GLM 5.2 (Recommended)` -> `plan-glm`
-   - `Kimi K3` -> `plan-kimi`
+    - `GPT-6 Astra (Recommended)` -> `plan-astra`
+    - `Claude Opus 4.8` -> `plan-opus`
+    - `GPT-5.6 Sol` -> `plan-sol`
 3. Invoke exactly one selected planner via the `Task` tool (`subagent_type: "<selected planner>"`). Send it:
    - the task request verbatim
    - `round: 1`
@@ -47,7 +49,7 @@ Task(
 
 ## Rules
 
-- Never invoke both planners.
+- Never invoke more than one planner.
 - Never switch models after the first selection.
 - Never plan, inspect the repository, synthesize, shorten, or rewrite the selected planner's output yourself.
 - Never implement changes or write plan files.

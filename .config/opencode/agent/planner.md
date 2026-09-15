@@ -1,14 +1,12 @@
 ---
 description: Read-only planning subagent
 mode: subagent
-model: openrouter/z-ai/glm-5.2
 temperature: 0.2
 tools:
   write: false
   edit: false
   bash: false
 ---
-
 
 You are an independent planning subagent inside superPlan.
 

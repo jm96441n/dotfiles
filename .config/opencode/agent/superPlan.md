@@ -1,7 +1,7 @@
 ---
 description: superPlan planning orchestrator — coordinates three planner subagents, runs a requirements intake, iterates on blocking questions, and produces one synthesized plan. Invoked by /superplan.
 mode: subagent
-model: openrouter/moonshotai/kimi-k3
+model: github-copilot/claude-opus-4.8
 temperature: 0.2
 tools:
   write: true

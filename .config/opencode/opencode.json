@@ -1,6 +1,168 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "plugin": ["opencode-beads"],
+  "agent": {
+    "superPlan-astra": {
+      "description": "Independent planning subagent for superPlan using GPT-6 Astra",
+      "mode": "subagent",
+      "hidden": true,
+      "model": "github-copilot/gpt-6-astra",
+      "temperature": 0.2,
+      "steps": 8,
+      "prompt": "{file:./prompts/superplan-planner.md}",
+      "tools": {
+        "write": false,
+        "edit": false,
+        "bash": false,
+        "webfetch": false,
+        "task": false
+      }
+    },
+    "superPlan-opus": {
+      "description": "Independent planning subagent for superPlan using Claude Opus 4.8",
+      "mode": "subagent",
+      "hidden": true,
+      "model": "github-copilot/claude-opus-4.8",
+      "temperature": 0.2,
+      "steps": 8,
+      "prompt": "{file:./prompts/superplan-planner.md}",
+      "tools": {
+        "write": false,
+        "edit": false,
+        "bash": false,
+        "webfetch": false,
+        "task": false
+      }
+    },
+    "superPlan-sol": {
+      "description": "Independent planning subagent for superPlan using GPT-5.6 Sol",
+      "mode": "subagent",
+      "hidden": true,
+      "model": "github-copilot/gpt-5.6-sol",
+      "temperature": 0.2,
+      "steps": 8,
+      "prompt": "{file:./prompts/superplan-planner.md}",
+      "tools": {
+        "write": false,
+        "edit": false,
+        "bash": false,
+        "webfetch": false,
+        "task": false
+      }
+    },
+    "plan-astra": {
+      "description": "Read-only standalone planner using GPT-6 Astra",
+      "mode": "subagent",
+      "hidden": true,
+      "model": "github-copilot/gpt-6-astra",
+      "temperature": 0.2,
+      "steps": 12,
+      "prompt": "{file:./prompts/plan-planner.md}",
+      "tools": {
+        "write": false,
+        "edit": false,
+        "bash": false,
+        "webfetch": false,
+        "task": false,
+        "question": false
+      }
+    },
+    "plan-opus": {
+      "description": "Read-only standalone planner using Claude Opus 4.8",
+      "mode": "subagent",
+      "hidden": true,
+      "model": "github-copilot/claude-opus-4.8",
+      "temperature": 0.2,
+      "steps": 12,
+      "prompt": "{file:./prompts/plan-planner.md}",
+      "tools": {
+        "write": false,
+        "edit": false,
+        "bash": false,
+        "webfetch": false,
+        "task": false,
+        "question": false
+      }
+    },
+    "plan-sol": {
+      "description": "Read-only standalone planner using GPT-5.6 Sol",
+      "mode": "subagent",
+      "hidden": true,
+      "model": "github-copilot/gpt-5.6-sol",
+      "temperature": 0.2,
+      "steps": 12,
+      "prompt": "{file:./prompts/plan-planner.md}",
+      "tools": {
+        "write": false,
+        "edit": false,
+        "bash": false,
+        "webfetch": false,
+        "task": false,
+        "question": false
+      }
+    },
+    "chat": {
+      "model": "github-copilot/gpt-5.5",
+      "options": {
+        "reasoningEffort": "low"
+      }
+    },
+    "fast": {
+      "model": "github-copilot/gpt-5-mini",
+      "mode": "subagent",
+      "description": "Fast, low-cost delegation for narrow lookups, simple edits, summaries, and focused verification. Invoked with @fast.",
+      "options": {
+        "reasoningEffort": "low"
+      }
+    },
+    "sonnet": {
+      "model": "github-copilot/claude-sonnet-5",
+      "mode": "subagent",
+      "description": "Balanced implementation and analysis for standard features, debugging, code review, and multi-file changes. Invoked with @sonnet.",
+      "options": {
+        "reasoningEffort": "high"
+      }
+    },
+    "opus": {
+      "model": "github-copilot/claude-opus-5",
+      "mode": "subagent",
+      "description": "Deep reasoning for architecture, hard debugging, risky refactors, and adversarial review. Invoked with @opus.",
+      "options": {
+        "reasoningEffort": "xhigh"
+      }
+    },
+    "gpt55": {
+      "model": "github-copilot/gpt-5.5",
+      "mode": "subagent",
+      "description": "General high-capability implementation and reasoning for substantial coding or research tasks. Invoked with @gpt55.",
+      "options": {
+        "reasoningEffort": "xhigh"
+      }
+    },
+    "luna": {
+      "model": "github-copilot/gpt-5.6-luna",
+      "mode": "subagent",
+      "description": "Latest Luna model for independent investigation, synthesis, and alternative problem-solving approaches. Invoked with @luna.",
+      "options": {
+        "reasoningEffort": "high"
+      }
+    },
+    "terra": {
+      "model": "github-copilot/gpt-5.6-terra",
+      "mode": "subagent",
+      "description": "Latest Terra model for deep, high-stakes implementation, complex systems work, and comprehensive debugging. Invoked with @terra.",
+      "options": {
+        "reasoningEffort": "xhigh"
+      }
+    },
+    "sol": {
+      "model": "github-copilot/gpt-5.6-sol",
+      "mode": "subagent",
+      "description": "Latest Sol model for complex implementation, validation, and second-opinion reviews. Invoked with @sol.",
+      "options": {
+        "reasoningEffort": "high"
+      }
+    }
+  },
   "instructions": ["~/.config/opencode/instructions/caveman.md"],
   "lsp": {
     "gopls": {
@@ -11,18 +173,11 @@
     "codegraph": {
       "type": "local",
       "command": [
-        "/home/johnmaguire/.local/share/mise/installs/node/23.11.0/bin/codegraph",
+        "codegraph",
         "serve",
         "--mcp"
       ],
       "enabled": true
-    },
-    "gremlin": {
-      "type": "local",
-      "command": ["gremlin-mcp"],
-      "environment": {
-        "GREMLIN_URL": "ws://localhost:8182/gremlin"
-      }
     },
     "context7": {
       "type": "remote",
@@ -32,115 +187,19 @@
       },
       "enabled": true
     },
-    "mcp-atlassian": {
-      "type": "local",
-      "command": ["uvx", "--with", "packaging", "mcp-atlassian"],
-      "environment": {
-        "JIRA_URL": "https://hashicorp.atlassian.net",
-        "JIRA_USERNAME": "John.Maguire3@ibm.com",
-        "JIRA_API_TOKEN": "{env:JIRA_TOKEN}"
-      },
-      "enabled": false
-    },
-    "ibm-slack-mcp": {
-      "type": "local",
-      "command": ["ibm-slack-mcp"],
-      "environment": {
-        "SLACK_EXCLUDE_DMS": "false",
-        "SLACK_EXCLUDE_PRIVATE_CHANNELS": "false",
-        "SLACK_EXCLUDE_GROUP_DMS": "false",
-        "SLACK_EXCLUDE_CHANNELS": "",
-        "SLACK_EXCLUDE_USERS": ""
-      },
-      "enabled": false
+    "engram": {
+      "command": [
+        "/home/johnmaguire/.local/share/mise/installs/go/1.26.7/bin/engram",
+        "mcp",
+        "--tools=agent"
+      ],
+      "enabled": true,
+      "type": "local"
     }
   },
-
-  "agent": {
-    "superPlan-glm52": {
-      "description": "Independent planning subagent for superPlan using GLM 5.2",
-      "mode": "subagent",
-      "hidden": true,
-      "model": "openrouter/z-ai/glm-5.2",
-      "temperature": 0.2,
-      "steps": 8,
-      "prompt": "{file:./prompts/superplan-planner.md}",
-      "tools": {
-        "write": false,
-        "edit": false,
-        "bash": false,
-        "webfetch": false,
-        "task": false
-      }
-    },
-    "superPlan-kimiK3": {
-      "description": "Independent planning subagent for superPlan using Kimi K3",
-      "mode": "subagent",
-      "hidden": true,
-      "model": "openrouter/moonshotai/kimi-k3",
-      "temperature": 0.2,
-      "steps": 8,
-      "prompt": "{file:./prompts/superplan-planner.md}",
-      "tools": {
-        "write": false,
-        "edit": false,
-        "bash": false,
-        "webfetch": false,
-        "task": false
-      }
-    },
-    "superPlan-deepseekV4Pro": {
-      "description": "Independent planning subagent for superPlan using DeepSeek V4 Pro",
-      "mode": "subagent",
-      "hidden": true,
-      "model": "openrouter/deepseek/deepseek-v4-pro",
-      "temperature": 0.2,
-      "steps": 8,
-      "prompt": "{file:./prompts/superplan-planner.md}",
-      "tools": {
-        "write": false,
-        "edit": false,
-        "bash": false,
-        "webfetch": false,
-        "task": false
-      }
-    },
-    "plan-glm": {
-      "description": "Read-only standalone planner using GLM 5.2",
-      "mode": "subagent",
-      "hidden": true,
-      "model": "openrouter/z-ai/glm-5.2",
-      "temperature": 0.2,
-      "steps": 12,
-      "prompt": "{file:./prompts/plan-planner.md}",
-      "tools": {
-        "write": false,
-        "edit": false,
-        "bash": false,
-        "webfetch": false,
-        "task": false,
-        "question": false
-      }
-    },
-    "plan-kimi": {
-      "description": "Read-only standalone planner using Kimi K3",
-      "mode": "subagent",
-      "hidden": true,
-      "model": "openrouter/moonshotai/kimi-k3",
-      "temperature": 0.2,
-      "steps": 12,
-      "prompt": "{file:./prompts/plan-planner.md}",
-      "tools": {
-        "write": false,
-        "edit": false,
-        "bash": false,
-        "webfetch": false,
-        "task": false,
-        "question": false
-      }
-    }
-  },
+  "plugin": ["opencode-beads", "@dietrichgebert/ponytail"],
   "tools": {
     "skill": true
   }
 }
+

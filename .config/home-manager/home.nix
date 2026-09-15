@@ -205,10 +205,10 @@
       source = ../kitty;
       recursive = true;
     };
-    # ".config/opencode" = {
-    # source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/.config/opencode";
-    # recursive = true;
-    # };
+    ".config/opencode" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/.config/opencode";
+      recursive = true;
+    };
     ".pi" = {
       source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/.config/pi";
       recursive = true;

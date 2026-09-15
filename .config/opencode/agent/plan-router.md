@@ -1,5 +1,5 @@
 ---
-description: Routes /plan to the user-selected GLM 5.2 or Kimi K3 read-only planner
+description: Routes /plan to a user-selected GitHub Copilot read-only planner
 mode: subagent
 temperature: 0.1
 tools:
@@ -16,8 +16,9 @@ tools:
 permission:
   task:
     "*": deny
-    "plan-glm": allow
-    "plan-kimi": allow
+    "plan-astra": allow
+    "plan-opus": allow
+    "plan-sol": allow
   question: allow
 ---
 
