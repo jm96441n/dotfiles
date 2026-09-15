@@ -88,9 +88,8 @@
     fastfetch
     fd
     ffmpeg
-    grim
-    slurp
     fzf
+    grim
     gcc
     gh
     git
@@ -132,6 +131,7 @@
     ranger
     ripgrep
     sentry-cli
+    slurp
     sshuttle
     starship
     strace
@@ -221,6 +221,7 @@
       source = ../jj;
       recursive = true;
     };
+    ".config/herdr/config.toml".source = ../herdr/config.toml;
     ".config/ghostty/config".source = ../ghostty/config;
   };
 

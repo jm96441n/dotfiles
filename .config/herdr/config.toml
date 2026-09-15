@@ -1,0 +1,8 @@
+onboarding = false
+[[keys.command]]
+key = "prefix+shift+n"
+type = "popup"
+command = 'cd "$HOME" || exit; dir="$(fd . ~/hashi ~/Projects ~/projects ~/Documents --exclude .git --type directory | fzf --prompt="Workspace path: ")"; [ -n "$dir" ] && "$HERDR_BIN_PATH" workspace create --cwd "$dir"'
+description = "new workspace from directory"
+width = "80%"
+height = "80%"
