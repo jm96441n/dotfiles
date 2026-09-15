@@ -64,14 +64,14 @@ export default function (pi: ExtensionAPI) {
           const rawVal = raw === undefined ? "" : raw;
           results.push({ header: q.header, answer: rawVal.trim() || (q.options[0] || "") });
         } else {
-          let choice = await ctx.ui.select(`${q.header}\n${q.question}`, q.options);
-          if (choice === undefined) {
-            // User cancelled the menu; fall back to free-text input.
+          const OTHER = "Other (type answer)";
+          let choice = await ctx.ui.select(`${q.header}\n${q.question}`, [...q.options, OTHER]);
+          if (choice === undefined || choice === OTHER) {
+            // User picked "Other" or cancelled the menu; collect free-text input.
             const raw = await ctx.ui.input(`${q.header}\n${q.question}\nType your answer:`, "");
-            const rawVal = raw === undefined ? "" : raw;
-            choice = rawVal.trim() || q.options[0];
+            choice = (raw ?? "").trim() || q.options[0] || "";
           }
-          results.push({ header: q.header, answer: choice === undefined ? "" : choice });
+          results.push({ header: q.header, answer: choice });
         }
       }
 
