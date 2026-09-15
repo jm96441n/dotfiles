@@ -1,6 +1,6 @@
 ---
 description: Code review orchestrator that delegates to specialized reviewers and synthesizes findings
-argument-hint: [base-ref] [target-ref]
+argument-hint: "[base-ref] [target-ref]"
 ---
 
 You are the router for the code review command. Resolve the review scope interactively, then delegate the entire review to the `review` agent.
