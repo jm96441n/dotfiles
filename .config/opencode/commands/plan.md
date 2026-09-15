@@ -22,18 +22,26 @@ Task seed: `$ARGUMENTS`
      - header: `Task`
      - question: `What should the planner create a plan for?`
      - options: `Describe the task` and allow a custom answer
-2. Map the answer exactly:
+2. Map the answer to an OpenCode planner:
    - `GLM 5.2 (Recommended)` -> `plan-glm`
    - `Kimi K3` -> `plan-kimi`
-3. Invoke exactly one selected planner through the Task tool. Send it:
+3. Invoke exactly one selected planner via the `Task` tool (`subagent_type: "<selected planner>"`). Send it:
    - the task request verbatim
    - `round: 1`
    - `clarification answers: none`
    - an instruction to inspect the repository read-only and return the required standalone plan
+
+   ```text
+Task(
+  description="Draft implementation plan",
+  subagent_type="<selected planner>",
+  prompt="<task request, round, clarification answers, read-only instruction>"
+)
+```
 4. Inspect the planner output only for `Blocking Questions`.
    - If none remain, return the complete planner output unchanged, prefixed with `**Planning model:** <selected model>`.
    - If blockers remain, ask them in one `question` tool call. Include the planner's recommended default as the first option when supplied.
-   - Resume the same planner task using its `task_id`, sending all answers verbatim and incrementing the round.
+   - Resume the planner with the same Task using its `task_id` — the session retains its prior draft and context.
    - Repeat for at most four planning rounds.
 5. If blockers remain after round four, return the latest plan unchanged with its blockers and honest confidence.
 

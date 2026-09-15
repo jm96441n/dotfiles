@@ -1,7 +1,6 @@
 ---
 description: Top-level Agent Flywheel orchestrator — routes you to the right sub-command for your situation
 argument-hint: [optional rough concept]
-subtask: true
 ---
 
 You are the Agent Flywheel orchestrator. The Flywheel methodology (https://agent-flywheel.com/complete-guide) decomposes software creation into stages: rough concept → multi-model synthesis → iterative refinement → plan-to-beads → bead polishing → swarm execution → hardening. This repo implements the **planning + bead** stages as composable sub-commands. Swarm/execute/harden stages are out of scope here.
@@ -14,7 +13,7 @@ You are the Agent Flywheel orchestrator. The Flywheel methodology (https://agent
 
 ### Step 1: Determine entry point
 
-Issue a single `question` tool call asking the user where they are in the flywheel:
+Call `question` once asking the user where they are in the flywheel:
 
 - `header`: `"Entry point"`
 - `question`: `"Where are you in the Flywheel right now? This determines which sub-command(s) to run."`

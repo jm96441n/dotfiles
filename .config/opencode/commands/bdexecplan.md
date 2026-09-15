@@ -1,8 +1,6 @@
 ---
 description: execute scoped bd work within an optional scope
 argument-hint: [scope-id]
-allowed-tools: Bash(bd:*), Bash(jj *), Bash(git *), Task, Skill
-model: openrouter/z-ai/glm-5.2
 ---
 
 # Execute BD Plan
@@ -18,7 +16,7 @@ The scope can be:
 - a single leaf issue
 - omitted, which means work through all ready issues in the repo
 
-> **Important**: Do not try to invoke `/bdexecissue` directly — it is a user-facing slash command. Either execute each issue inline following the bdexecissue rules, or delegate execution to a `beads-task-agent` subagent via the `Task` tool to keep the orchestrator context clean.
+> **Important**: Do not try to invoke `/bdexecissue` directly — it is a user-facing slash command. Either execute each issue inline following the bdexecissue rules, or delegate execution to a sub-agent via the `Task` tool (subagent type `beads-task-agent`) to keep the orchestrator context clean.
 
 This command is VCS-agnostic. Detect the repo's VCS once at the start (jj if `jj workspace root` succeeds, otherwise git if `git rev-parse --is-inside-work-tree` succeeds) and use it for all version control work in the executed issues.
 
@@ -104,7 +102,9 @@ Then execute the issue. Pick one of:
 6. Verify acceptance criteria, then `bd close [issue-id] --reason "<summary>"`
 7. If blocked: `bd create` a blocker, `bd dep add [issue-id] <blocker-id> --type blocks`, comment on the original, and `bd update [issue-id] --status open`
 
-**Option 2 — Delegate via Task tool**: Spawn a subagent to keep the orchestrator context clean:
+**Option 2 — Delegate via a pi sub-agent**: Spawn a sub-agent via bash to keep the orchestrator context clean:
+
+Delegate each issue (or the whole scope) to a sub-agent via the `Task` tool:
 
 ```text
 Task(
@@ -113,6 +113,8 @@ Task(
   prompt="Execute bd issue [issue-id] following the bdexecissue workflow. Detect VCS (jj or git) and use it consistently. Mark in_progress immediately, implement with atomic commits, run tests, comment progress, close on completion (or create a blocker and reopen if blocked). Report final status: completed, blocked, or needs-attention."
 )
 ```
+
+The sub-agent runs in the same repo with full tools. Do not do the execution work yourself when delegating; let the sub-agent do it and report its status.
 
 #### Step D: Process the Result
 

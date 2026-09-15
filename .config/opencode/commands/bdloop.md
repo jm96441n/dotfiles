@@ -8,7 +8,7 @@ allowed-tools: Skill, Task, Bash(bd:*), Bash(jj *), Bash(git *)
 
 ## Overview
 
-Run a self-correcting execution loop over a BD scope. The scope can be an epic, a story, another parent issue, a leaf issue, or omitted entirely. Each iteration delegates scoped execution to a `beads-task-agent` subagent (the same work that `/bdexecplan` would do interactively), reviews the resulting diff, then delegates fix-issue creation to a subagent (the same work `/bdplan` would do), and repeats until review passes cleanly or another stopping condition is met.
+Run a self-correcting execution loop over a BD scope. The scope can be an epic, a story, another parent issue, a leaf issue, or omitted entirely. Each iteration delegates scoped execution to a sub-agent via the `Task` tool (the same work that `/bdexecplan` would do interactively), reviews the resulting diff, then delegates fix-issue creation to a sub-agent (the same work `/bdplan` would do), and repeats until review passes cleanly or another stopping condition is met.
 
 > **Important**: Do not try to invoke `/bdexecplan`, `/bdexecissue`, or `/bdplan` directly. Those are user-facing slash commands and cannot be fired by an agent. Always delegate via the `Task` tool as shown below.
 
@@ -115,44 +115,21 @@ ITERATION [N] of 5
 
 #### Step B: Execute the Scoped Plan
 
-Delegate scoped execution to a subagent via the Task tool. **Do not** try to invoke the `/bdexecplan` slash command — slash commands can only be triggered by the user. Use the `beads-task-agent` subagent, which is designed for autonomous BD work:
+Delegate scoped execution to a sub-agent via the `Task` tool (subagent type `beads-task-agent`). **Do not** try to invoke the `/bdexecplan` slash command — slash commands can only be triggered by the user. The sub-agent runs in the same repo with full tools:
 
 ```text
 Task(
   description="Execute scope [scope-id]",
   subagent_type="beads-task-agent",
-  prompt="Execute the bd scope [scope-id] following the bdexecplan workflow.
+  prompt="
+Execute the bd scope [scope-id] following the bdexecplan workflow.
 
-Repeat until no ready issues remain in scope:
-
-1. Query ready work:
-     bd ready --parent [scope-id] --json    (if scope provided)
-     bd ready --json                        (if unscoped)
-
-2. Pick the highest-priority ready issue (lowest number; ties broken by first).
-
-3. Execute that single issue end-to-end following the bdexecissue workflow:
-   - bd update <id> --status in_progress
-   - bd show <id>
-   - Detect VCS (jj or git) and use it consistently:
-     * jj repos: jj describe -m '...'; jj new; make changes; jj squash
-     * git repos: make changes; git add <paths>; git commit -m '...'
-   - Run tests
-   - bd comment <id> with progress notes referencing change IDs / commit SHAs
-   - bd close <id> --reason '...'
-   - If blocked: bd create blocker, bd dep add <id> <blocker> --type blocks,
-     bd comment <id>, bd update <id> --status open
-
-4. After all ready work in scope is complete, check open descendants:
-     bd dep tree [scope-id] --direction=down --type=parent-child --status=open --json
-   If none remain open, close the scope:
-     bd close [scope-id] --reason 'All child issues completed' --json
-
-Report which issues were attempted, completed, blocked, or left open, and whether the scope was closed."
+<the execution prompt, verbatim as before: ready-work query loop, single-issue execution per the bdexecissue workflow (VCS-aware commits, tests, comments, close/blocker handling), open-descendant check, scope closing, and the final report requirement>
+"
 )
 ```
 
-If the scope is a single leaf issue, you can pass that issue ID directly with the same prompt — the subagent will detect that there's only one item to execute.
+Do not do the execution work yourself; let the sub-agent do it and report its summary. If the scope is a single leaf issue, you can pass that issue ID directly with the same prompt — the sub-agent will detect that there's only one item to execute.
 
 #### Step C: Check Whether Anything Changed
 
@@ -175,39 +152,17 @@ If no new changes exist since the iteration baseline (no new commits and no unco
 
 #### Step D: Review the Iteration Diff
 
-Invoke the review agent scoped to this iteration only.
-
-For jj:
+Spawn a read-only review sub-agent scoped to this iteration only, via the `Task` tool. Use subagent type `review` — its read-only tool set (`read, grep, find, ls`) is enforced by the agent definition, so the sub-agent cannot mutate the repo:
 
 ```text
 Task(
   description="Review iteration [N] changes",
   subagent_type="review",
-  prompt="Review the code changes made since jj change ID [ITER_BASELINE].
-
-Use these commands:
-  jj diff --from [ITER_BASELINE] --to @
-  jj log -r '[ITER_BASELINE]::@'
-
-Review all changed files for correctness, security, error handling, maintainability, and architectural fit."
+  prompt="Review the code changes made since jj change ID [ITER_BASELINE]. Use these commands: jj diff --from [ITER_BASELINE] --to @ and jj log -r '[ITER_BASELINE]::@'. Review all changed files for correctness, security, error handling, maintainability, and architectural fit."
 )
 ```
 
-For git:
-
-```text
-Task(
-  description="Review iteration [N] changes",
-  subagent_type="review",
-  prompt="Review the code changes made since git commit [ITER_BASELINE].
-
-Use these commands:
-  git diff [ITER_BASELINE]..HEAD
-  git log [ITER_BASELINE]..HEAD
-
-Review all changed files for correctness, security, error handling, maintainability, and architectural fit."
-)
-```
+For git, substitute: `git diff [ITER_BASELINE]..HEAD` and `git log [ITER_BASELINE]..HEAD`, reviewing since git commit [ITER_BASELINE].
 
 #### Step E: Evaluate Findings
 
@@ -231,13 +186,14 @@ REVIEW RESULT (Iteration [N])
 
 #### Step F: Create Fix Issues
 
-If there are Critical or Recommendation findings, delegate fix-issue creation to a subagent via the Task tool. **Do not** try to invoke `/bdplan` — slash commands cannot be fired by an agent. Use the `general` subagent and inline the bdplan rules:
+If there are Critical or Recommendation findings, delegate fix-issue creation to a sub-agent via the `Task` tool (subagent type `beads-task-agent`). **Do not** try to invoke `/bdplan` — slash commands cannot be fired by an agent. Inline the bdplan rules in the sub-agent prompt:
 
 ```text
 Task(
   description="Plan fixes for iteration [N]",
   subagent_type="general",
-  prompt="Create bd fix issues for the actionable findings below from review iteration [N]. Use the bdplan rules:
+  prompt="
+Create bd fix issues for the actionable findings below from review iteration [N]. Use the bdplan rules:
 
 - Add new work beneath the most relevant existing scope when possible.
 - Prefer new checkpoints within the active story (parent ID: [story-or-scope-id]) over creating new cross-cutting stories.
@@ -249,7 +205,8 @@ Findings to address (Critical and Recommendations only — ignore Suggestions):
 
 [paste Critical and Recommendation findings here]
 
-Report the new issue IDs created and which scope they were added under."
+Report the new issue IDs created and which scope they were added under.
+"
 )
 ```
 
@@ -301,7 +258,7 @@ Exit when any of these occurs:
 
 ## Best Practices
 
-1. Keep the loop lightweight and delegate real execution to the `beads-task-agent` subagent.
+1. Keep the loop lightweight and delegate real execution to sub-agents via the `Task` tool.
 2. Use the narrowest scope that matches the work, especially story scope for reviewable slices.
 3. Scope each review to the current iteration diff, not the entire codebase.
 4. Let the fix-planning subagent create fix checkpoints or stories instead of embedding ad hoc todo lists.

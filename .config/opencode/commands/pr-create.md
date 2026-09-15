@@ -1,14 +1,11 @@
 ---
 description: Create or update a pull request with reviewer-friendly scope, adaptive formatting, and stack-aware sequencing
 argument-hint: [optional notes about scope, stack, or intent]
-agent: build
-model: openrouter/z-ai/glm-5.2
-subtask: true
 ---
 
 You are a PR-creation assistant. Your job is to plan, prepare, and open (or update) a reviewer-friendly pull request from the current branch, then return the PR URL and a short readiness summary.
 
-This command uses `agent: build` (not `agent: review`) because PR creation mutates state (push, `gh pr create`/`edit`) and must run with a write-capable agent. `subtask: true` keeps the work isolated.
+This command runs in the main pi agent, which has full write/bash tools (pi is YOLO by default) — appropriate because PR creation mutates state (push, `gh pr create`/`edit`).
 
 ## Inputs
 

@@ -22,13 +22,13 @@ The blog post emphasizes: **planning is 85% of the work**. Models reason far bet
 ## Tools available
 
 - `question` — for all user interaction
-- `task` with `subagent_type: superPlan` — for multi-model planning + synthesis
+- the `Task` tool (with the `planner` subagent type) — for multi-model planning + synthesis, driven by the `/superplan` workflow in `~/.config/opencode/commands/superplan.md`
 - `bash`, `read`, `write`, `glob`, `edit` — for repo inspection and saving artifacts
 
 ## Core rules
 
 - Stay read-only on existing source code. The only file you write is the plan markdown under `.opencode/plans/`.
-- Every multi-model synthesis point goes through `/superplan` via the Task tool. Do not inline that logic.
+- Every multi-model synthesis point follows the `/superplan` workflow from `~/.config/opencode/commands/superplan.md`, driven through the `Task` tool. Do not inline that logic.
 - All user interaction goes through you — `/superplan` itself will run its own intake; you wrap it with the flywheel-specific framing.
 - Do not skip the foundation check. Weak foundations leak uncertainty into every later stage.
 - Do not auto-loop refinement rounds. Always ask between rounds — convergence is a judgment call.
@@ -40,7 +40,7 @@ The blog post emphasizes: **planning is 85% of the work**. Models reason far bet
 Before any planning, verify the project has the foundation bundle the blog calls out (AGENTS.md, best-practices guides, tech stack baseline).
 
 1. Run `ls AGENTS.md README.md` and check what exists.
-2. If `AGENTS.md` is missing, issue a `question`:
+2. If `AGENTS.md` is missing, call `question` with one question:
    - `header`: `"Foundation: AGENTS.md"`
    - `question`: `"AGENTS.md is missing. The blog post strongly recommends bootstrapping it from a known-good template before planning, because every later stage inherits assumptions from it. How do you want to proceed?"`
    - `options`:
@@ -50,7 +50,7 @@ Before any planning, verify the project has the foundation bundle the blog calls
 
 ### Step 1: Concept intake
 
-Issue a single `question` tool call with **four** questions:
+Call `question` once with a `questions` array of **four** entries:
 
 1. **Concept** (`header: "Concept"`)
    - question: "Describe what you want to build. A messy stream-of-thought is fine — explain what it is, who uses it, what makes it valuable, and any rough workflows you have in mind. The more intent and end-goal context you give, the better the resulting plan."
@@ -85,7 +85,9 @@ Wait for the user's batch response. Do not turn intake into a multi-turn intervi
 
 ### Step 2: Initial multi-model plan via /superplan
 
-Invoke the Task tool with `subagent_type: superPlan`. The prompt is the verbatim flywheel-style brief:
+Run the superplan workflow (`~/.config/opencode/commands/superplan.md`) yourself in this session, applying it to the verbatim flywheel-style brief below. That workflow spawns the three planner sub-agents via the `Task` tool and synthesizes their output. Skip its own Step 0 intake — the flywheel intake above already collected the requirements; carry those answers into the canonical brief.
+
+The brief:
 
 > Produce a comprehensive markdown plan for the project described below, using the Flywheel methodology (agent-flywheel.com/complete-guide §3).
 >
@@ -122,7 +124,7 @@ Wait for `/superplan` to return.
    - lowercase, strip punctuation, collapse whitespace and non-alphanumerics to single hyphens, trim, truncate to 60 chars, trim trailing hyphen.
    - Suffix `-plan-v1`. Example: concept "Atlas Notes — internal markdown notes app" → `atlas-notes-internal-markdown-notes-app-plan-v1.md`.
 2. Ensure `.opencode/plans/` exists (`mkdir -p`).
-3. Check for collision. If `<slug>-plan-v1.md` already exists, ask via `question`:
+3. Check for collision. If `<slug>-plan-v1.md` already exists, call `question`:
    - `header`: `"Plan file collision"`
    - options: `Overwrite`, `Save as <slug>-plan-v1-alt.md (Recommended)`, `Cancel`
 4. Write the merged plan body from `/superplan` (everything under "## Merged Plan" through end) to the file. Strip `/superplan`'s "What Each Planner Proposed" / "Pros And Cons" / "Final Assumptions" boilerplate — the plan file should be a pure plan, not a synthesis report. Keep the synthesis report visible in your inline output to the user.
@@ -135,7 +137,7 @@ Track the round counter (current round = 1 after initial plan).
 Loop:
 
 1. **Decide whether to refine.** Based on the user's Step 1 refinement intensity choice:
-   - `Ask me between each round`: issue a `question` with `header: "Refinement round <N+1>?"`, `options`:
+   - `Ask me between each round`: call `question` with `header: "Refinement round <N+1>?"`, `options`:
      - `Run another refinement round (Recommended for round ≤ 5)` — proceed to step 4.2
      - `Run 'overshoot mismatch hunt' instead` — see step 4.3
      - `Stop — the plan is good enough` — exit loop
@@ -143,7 +145,7 @@ Loop:
    - `Run 5 rounds then stop`: auto-continue until N=5, then exit
    - `Skip refinement`: exit loop immediately
 
-2. **Standard refinement round.** Invoke `/superplan` again via Task tool. Brief:
+2. **Standard refinement round.** Re-run the `/superplan` workflow on the refinement brief below — resume the three planner agents (the same Task using its `task_id`) so each integrates its own revisions into its prior draft, then synthesize. Brief:
 
    > This is refinement round `<N+1>` of an existing Flywheel plan (agent-flywheel.com/complete-guide §3).
    >
@@ -208,4 +210,4 @@ Tell the user nothing else. The plan file is the artifact.
 - **Plan-bead gap:** users sometimes refine forever and never convert. Surface the next-step pointer aggressively.
 - **`/superplan` collision warnings:** since `/superplan` writes its own files under `.opencode/plans/`, your slug naming uses `-plan-vN` as a distinct suffix to avoid collision with `/superplan`'s default `<slug>.md` outputs.
 - **Empty `/superplan` output:** if a planner round returns nothing usable, do not increment the version counter. Surface the failure to the user and ask whether to retry or abort.
-- **User wants to stop mid-flow:** every `question` includes a `Cancel` / `Stop` option where appropriate.
+- **User wants to stop mid-flow:** every `question` call includes a `Cancel` / `Stop` option where appropriate.

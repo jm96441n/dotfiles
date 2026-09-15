@@ -1,7 +1,6 @@
 ---
 description: Flywheel Stage 2 — convert a polished markdown plan into bd issues with full dependency graph
 argument-hint: <path-to-plan.md>
-model: openrouter/z-ai/glm-5.2
 ---
 
 You orchestrate the Flywheel plan-to-beads conversion (https://agent-flywheel.com/complete-guide §4). The blog calls this a translation problem, not task extraction: every piece of context, reasoning, and intent in the plan must end up embedded in the beads themselves so a fresh agent can execute without reopening the plan.
@@ -17,7 +16,7 @@ Note: the blog uses `br` (beads_rust). This repo uses `bd` (beads). All conversi
 ## Tools available
 
 - `question` — for user confirmation
-- `task` with `subagent_type: beads-task-agent` — for the actual bead creation work (per AGENTS.md, multi-command bd work goes through this agent to avoid dumping raw JSON into context)
+- the `Task` tool (subagent type `beads-task-agent`) — for the actual bead creation work (keeps raw `bd` JSON out of the orchestrator's context)
 - `bash`, `read` — for validation
 
 ## Workflow
@@ -62,16 +61,16 @@ Read the plan file. Show the user:
 - Top-level section headings (extract `^# ` and `^## ` lines)
 - Estimated bead count: blog data points are 5,500-line plan → 347 beads, ~16 lines per bead. Show: `~<line_count / 16> beads expected`.
 
-Issue a `question`:
+Call `question`:
 - `header`: `"Confirm conversion"`
 - `question`: `"Ready to convert this plan into bd issues? This will create many issues with dependencies. The blog says: 'Once you're in bead space, you never look back at the markdown plan' — so we'll embed all context, rationale, and tests into the bead bodies."`
 - `options`:
   - `Convert now (Recommended)`
   - `Cancel`
 
-### Step 3: Delegate conversion to beads-task-agent
+### Step 3: Delegate conversion to a sub-agent
 
-Invoke the Task tool with `subagent_type: beads-task-agent` and the following prompt (verbatim Plan-to-Beads prompt from the blog, with `br` → `bd`):
+Spawn a sub-agent via the `Task` tool to do the bead creation work (this keeps raw `bd` JSON out of the orchestrator's context). Pass the prompt below verbatim as the `prompt` parameter. The prompt is the verbatim Plan-to-Beads prompt from the blog (with `br` → `bd`):
 
 > You are the beads-task-agent executing the Flywheel plan-to-beads conversion (agent-flywheel.com/complete-guide §4).
 >
@@ -89,7 +88,7 @@ Invoke the Task tool with `subagent_type: beads-task-agent` and the following pr
 > 4. **Complete coverage:** every concept from the plan must end up in at least one bead. Lose nothing.
 > 5. **Explicit dependencies:** use `bd dep add <issue> <depends-on>` for every relationship. The dependency graph is what enables `bd ready` to compute the optimal execution order downstream.
 > 6. **Include testing in beads:** comprehensive unit tests and e2e test scripts with detailed logging must be part of the bead obligations, not deferred to "we'll write tests later."
-> 7. **Use parallel subagents for batch creation** per AGENTS.md guidance. Creating 200–500 beads sequentially is slow.
+> 7. **Work in batches.** Creating 200–500 beads sequentially is slow — create beads in batches and verify progress with `bd stats` between batches.
 >
 > **bd CLI reference (this repo's flavor):**
 >
@@ -113,7 +112,17 @@ Invoke the Task tool with `subagent_type: beads-task-agent` and the following pr
 > - any orphan beads (no dependencies in either direction)
 > - any cycles detected (these would be a bug — fix before returning)
 
-Wait for the agent to return.
+Then:
+
+```text
+Task(
+  description="Convert plan to bd beads",
+  subagent_type="general",
+  prompt="<the prompt above, with the plan path filled in>"
+)
+```
+
+Wait for the sub-agent's result.
 
 ### Step 4: Sanity check
 
@@ -151,6 +160,6 @@ The blog calls this 'check your beads N times, implement once' — under-polishe
 
 ## Failure modes
 
-- **Agent writes pseudo-beads:** if the agent's response describes beads in markdown rather than running `bd create`, stop and rerun with stronger instructions. Detect by checking `bd stats` before and after — if no beads were actually created, the conversion failed.
-- **Missing dependencies:** if `bd blocked` returns 0 issues, the dependency graph wasn't built. Re-invoke beads-task-agent with: "the conversion completed but no `bd dep add` calls were made; go through every bead and add the dependency edges that the plan implies."
+- **Task returns pseudo-beads:** if the subagent's response describes beads in markdown rather than running `bd create`, stop and rerun with stronger instructions. Detect by checking `bd stats` before and after — if no beads were actually created, the conversion failed.
+- **Missing dependencies:** if `bd blocked` returns 0 issues, the dependency graph wasn't built. Resume the sub-agent (the same Task using its `task_id`) with: "the conversion completed but no `bd dep add` calls were made; go through every bead and add the dependency edges that the plan implies."
 - **Over-eager bead creation in unrelated projects:** confirm `pwd` matches the project the plan is for. The user might have run this from the wrong directory.

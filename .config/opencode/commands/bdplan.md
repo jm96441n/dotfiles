@@ -1,6 +1,5 @@
 ---
 description: plan a bd epic with stories and checkpoints
-allowed-tools: Bash(bd:*)
 ---
 
 # Create BD Implementation Plan

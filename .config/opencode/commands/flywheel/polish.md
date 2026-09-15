@@ -1,7 +1,6 @@
 ---
 description: Flywheel Stage 3 — iteratively polish bd issues until convergence ("Check your beads N times, implement once")
 argument-hint: [optional max round count]
-subtask: true
 ---
 
 You orchestrate Flywheel bead polishing (https://agent-flywheel.com/complete-guide §5). The blog's maxim: **"Check your beads N times, implement once,"** where N is as many as you can stomach. This is the step most people underinvest in. Each polishing round finds things the previous round missed: duplicates, missing dependencies, incomplete context, undertested obligations.
@@ -17,7 +16,7 @@ Note: blog uses `br` (beads_rust). This repo uses `bd` (beads). Substituted thro
 ## Tools available
 
 - `question` — for round-by-round decisions
-- `task` with `subagent_type: beads-task-agent` — for actual polishing work (per AGENTS.md, multi-`bd`-command work goes through this agent)
+- the `Task` tool (subagent type `beads-task-agent`) — for actual polishing work (keeps multi-`bd`-command output out of the orchestrator's context)
 - `bash` — for stats / convergence detection
 
 ## Workflow
@@ -31,7 +30,7 @@ Note: blog uses `br` (beads_rust). This repo uses `bd` (beads). Substituted thro
    bd list --status=open --json | jq 'length'
    bd blocked --json | jq 'length'
    ```
-3. If open bead count is 0, ask via `question`:
+3. If open bead count is 0, call `question`:
    - `header`: `"No open beads"`
    - `question`: `"There are no open bd issues to polish. Did you run /flywheel/beads first?"`
    - `options`: `Cancel`, `Continue anyway (I closed beads recently)`
@@ -49,7 +48,7 @@ Loop:
 
 If `$ARGUMENTS` is a number and `round > $ARGUMENTS`, exit loop.
 
-Otherwise issue a single `question`:
+Otherwise call `question` once with a single question:
 
 - `header`: `"Polish round <round>"`
 - `question`: `"What style of polishing for round <round>? The blog suggests: standard polish for early rounds, dedup after batch creation, fresh-eyes when improvements flatline, final-pass with a different model class as a last sanity check."`
@@ -63,7 +62,15 @@ Otherwise issue a single `question`:
 
 #### 1b. Run the chosen polish style
 
-Invoke Task tool with `subagent_type: beads-task-agent`. Use the verbatim prompt for the chosen style (all from the blog, with `br` → `bd` and `bv` → `bd ready` / `bd blocked` references):
+Spawn a sub-agent via the `Task` tool, passing the verbatim prompt for the chosen style as the `prompt` parameter (all prompts from the blog, with `br` → `bd` and `bv` → `bd ready` / `bd blocked` references):
+
+```text
+Task(
+  description="Polish beads (round <round>)",
+  subagent_type="general",
+  prompt="<the verbatim prompt for the chosen style>"
+)
+```
 
 ##### Standard polish
 
@@ -107,7 +114,7 @@ Invoke Task tool with `subagent_type: beads-task-agent`. Use the verbatim prompt
 
 ##### Fresh eyes
 
-This is a two-step prompt sequence per the blog. Do both in one Task invocation:
+This is a two-step prompt sequence per the blog. Do both in one `Task` call (concatenate both steps in the prompt):
 
 > You are running a Flywheel "fresh eyes" review (agent-flywheel.com/complete-guide §5).
 >
@@ -145,7 +152,7 @@ Before invoking, ask the user via `question` for the plan path if you don't alre
 
 #### 1c. Snapshot and report convergence
 
-After the Task returns:
+After the sub-agent returns:
 
 ```
 bd stats --json
@@ -199,5 +206,5 @@ Recommended next steps (out of scope for this command family):
 
 - **Loop never exits because user keeps clicking continue:** at round 13+, surface a stronger warning.
 - **Polish made things worse:** if `open_count_delta > 20` in a single round, ask the user: "this round expanded scope a lot — did the agent oversimplify and split beads, or did it find legitimate missing work? Want to inspect before continuing?"
-- **`beads-task-agent` returns without making changes:** if all deltas are zero for two consecutive rounds and the user hasn't said stop, that's natural convergence. Recommend stopping.
+- **Polish sub-agent returns without making changes:** if all deltas are zero for two consecutive rounds and the user hasn't said stop, that's natural convergence. Recommend stopping.
 - **Plan path lost on cross-reference:** if the user can't recall the plan path and `.opencode/plans/` has multiple files, list them and let the user pick via `question`.

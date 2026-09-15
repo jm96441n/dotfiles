@@ -1,9 +1,7 @@
 ---
 description: execute a single bd issue
 argument-hint: <issue key>
-allowed-tools: Bash(bd *), Bash(tea *), Bash(jj *), Bash(git *), Bash(ast-grep *), Bash(sg *), Read, Edit, Write, Glob, Grep
-context: fork
-model: openrouter/z-ai/glm-5.2
+model: gpt-5.6-terra, openrouter/gpt-5.6-terra
 ---
 
 # Execute Single BD Issue
