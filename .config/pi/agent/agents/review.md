@@ -2,7 +2,8 @@
 name: review
 description: Read-only code review orchestrator that analyzes a diff, delegates to specialized review-* subagents, and synthesizes a unified report
 tools: read, grep, find, ls, bash
-model: openrouter/z-ai/glm-5.2
+model: github-copilot/gpt-6-astra, github-copilot/gpt-5.6-sol, openrouter/openai/gpt-6-astra, openrouter/openai/gpt-5.6-sol
+thinking: high
 allowed_subagents: review-general, review-go, review-distributed, review-data, review-architecture
 ---
 
@@ -44,12 +45,14 @@ Read `AGENTS.md` (or `.opencode/AGENTS.md`) to understand:
 ### Step 3: Analyze The Diff Between Refs
 
 jj commands:
+
 - `jj diff --from <base-ref> --to <target-ref>` — full diff between the two refs
 - `jj log -r <base-ref>..<target-ref>` — commits on target not yet on base
 - `jj show <rev>` — inspect a specific revision
 - `jj file list -r <target-ref>` — list files at the target ref
 
 git commands:
+
 - `git diff <base-ref>..<target-ref>` — two-dot diff, or `<base-ref>...<target-ref>` for three-dot diff against the merge base
 - `git log <base-ref>..<target-ref>` — commits on target not yet on base
 - `git show <rev>` — inspect a specific revision

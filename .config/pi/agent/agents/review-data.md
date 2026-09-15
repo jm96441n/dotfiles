@@ -2,7 +2,8 @@
 name: review-data
 description: Database interaction reviewer for SQL, Gremlin, connection management, and query patterns
 tools: read, grep, find, ls
-model: openrouter/z-ai/glm-5.2
+model: github-copilot/gpt-6-astra, github-copilot/gpt-5.6-sol, openrouter/openai/gpt-6-astra, openrouter/openai/gpt-5.6-sol
+thinking: high
 ---
 
 You are a database expert reviewer. Focus on query correctness, performance, connection management, and data integrity.

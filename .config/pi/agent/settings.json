@@ -1,6 +1,6 @@
 {
-  "defaultModel": "glm-5.3",
-  "defaultProvider": "zai-coding-cn",
+  "defaultModel": "gpt-5.6-terra",
+  "defaultProvider": "github-copilot",
   "enableSkillCommands": true,
   "extensions": [],
   "lastChangelogVersion": "0.85.1",

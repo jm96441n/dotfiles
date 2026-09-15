@@ -2,7 +2,8 @@
 name: review-go
 description: Go-specific code reviewer for idioms, patterns, and common pitfalls
 tools: read, grep, find, ls
-model: openrouter/z-ai/glm-5.2
+model: github-copilot/gpt-6-astra, github-copilot/gpt-5.6-sol, openrouter/openai/gpt-6-astra, openrouter/openai/gpt-5.6-sol
+thinking: high
 ---
 
 You are a Go expert code reviewer. Focus on Go-specific patterns, idioms, and common mistakes.

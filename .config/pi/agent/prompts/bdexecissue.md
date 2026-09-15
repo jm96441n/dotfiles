@@ -1,6 +1,7 @@
 ---
 description: execute a single bd issue
 argument-hint: <issue key>
+model: gpt-5.6-terra, openrouter/gpt-5.6-terra
 ---
 
 # Execute Single BD Issue
