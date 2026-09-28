@@ -2,6 +2,7 @@
   config,
   pkgs,
   aoe,
+  hunk,
   system,
   ...
 }:
@@ -102,6 +103,7 @@
     kubernetes-helm
     helix
     hub
+    hunk.packages.${system}.default
     htop
     icomoon-feather
     imagemagick
@@ -141,6 +143,7 @@
     tree
     terraform
     unzip
+    vagrant
     vault
     vlc
     vim
@@ -258,6 +261,24 @@
     enable = true;
     systemdTarget = "graphical-session.target"; # This ensures it waits for the graphical session
     settings = [
+
+      {
+        profile = {
+          name = "external-dp2";
+          outputs = [
+            {
+              criteria = "DP-2";
+              status = "enable";
+              mode = "3440x1440";
+              position = "0,0";
+            }
+            {
+              criteria = "eDP-1";
+              status = "disable";
+            }
+          ];
+        };
+      }
       {
         profile = {
           name = "external-dp3";

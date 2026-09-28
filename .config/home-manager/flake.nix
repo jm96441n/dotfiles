@@ -17,6 +17,10 @@
     aoe = {
       url = "github:njbrake/agent-of-empires";
     };
+    hunk = {
+      url = "github:modem-dev/hunk";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs =
     {
@@ -25,6 +29,7 @@
       ghostty,
       nixgl,
       aoe,
+      hunk,
       ...
     }:
     let
@@ -37,7 +42,7 @@
           config.allowUnfree = true;
         };
 
-        extraSpecialArgs = { inherit aoe system; };
+        extraSpecialArgs = { inherit aoe hunk system; };
 
         modules = [
           {
