@@ -17,16 +17,16 @@ Task seed: `$ARGUMENTS`
      - question: `Which model should produce this plan?`
      - options, in this order:
         1. `GPT-6 Astra (Recommended)` — strong general planning default
-        2. `Claude Opus 4.8` — deeper reasoning for complex architecture
-        3. `GPT-5.6 Sol` — alternate implementation-planning perspective
+        2. `Claude Opus 5.5` — deeper reasoning for complex architecture
+        3. `GPT-6 Sol` — alternate implementation-planning perspective
    - If the task seed is empty, include a second question in the same call:
      - header: `Task`
      - question: `What should the planner create a plan for?`
      - options: `Describe the task` and allow a custom answer
 2. Map the answer to an OpenCode planner:
     - `GPT-6 Astra (Recommended)` -> `plan-astra`
-    - `Claude Opus 4.8` -> `plan-opus`
-    - `GPT-5.6 Sol` -> `plan-sol`
+    - `Claude Opus 5.5` -> `plan-opus`
+    - `GPT-6 Sol` -> `plan-sol`
 3. Invoke exactly one selected planner via the `Task` tool (`subagent_type: "<selected planner>"`). Send it:
    - the task request verbatim
    - `round: 1`

@@ -1,9 +1,3 @@
----
-description: execute a single bd issue
-argument-hint: <issue key>
-model: github-copilot/gpt-5.6-terra
----
-
 # Execute Single BD Issue
 
 ## Overview

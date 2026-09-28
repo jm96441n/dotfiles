@@ -1,7 +1,6 @@
 ---
 description: Writes and maintains project documentation
 mode: subagent
-model: github-copilot/gpt-5.6-luna
 tools:
   bash: false
 ---

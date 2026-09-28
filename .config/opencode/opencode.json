@@ -5,7 +5,7 @@
       "description": "Independent planning subagent for superPlan using GPT-6 Astra",
       "mode": "subagent",
       "hidden": true,
-      "model": "github-copilot/gpt-6-astra",
+      "model": "{env:OC_OPENAI}/gpt-6-astra",
       "temperature": 0.2,
       "steps": 8,
       "prompt": "{file:./prompts/superplan-planner.md}",
@@ -18,10 +18,10 @@
       }
     },
     "superPlan-opus": {
-      "description": "Independent planning subagent for superPlan using Claude Opus 4.8",
+      "description": "Independent planning subagent for superPlan using Claude Opus 5.5",
       "mode": "subagent",
       "hidden": true,
-      "model": "github-copilot/claude-opus-4.8",
+      "model": "{env:OC_ANTHROPIC}/claude-opus-5.5",
       "temperature": 0.2,
       "steps": 8,
       "prompt": "{file:./prompts/superplan-planner.md}",
@@ -34,10 +34,10 @@
       }
     },
     "superPlan-sol": {
-      "description": "Independent planning subagent for superPlan using GPT-5.6 Sol",
+      "description": "Independent planning subagent for superPlan using GPT-6 Sol",
       "mode": "subagent",
       "hidden": true,
-      "model": "github-copilot/gpt-5.6-sol",
+      "model": "{env:OC_OPENAI}/gpt-6-sol",
       "temperature": 0.2,
       "steps": 8,
       "prompt": "{file:./prompts/superplan-planner.md}",
@@ -53,7 +53,7 @@
       "description": "Read-only standalone planner using GPT-6 Astra",
       "mode": "subagent",
       "hidden": true,
-      "model": "github-copilot/gpt-6-astra",
+      "model": "{env:OC_OPENAI}/gpt-6-astra",
       "temperature": 0.2,
       "steps": 12,
       "prompt": "{file:./prompts/plan-planner.md}",
@@ -67,10 +67,10 @@
       }
     },
     "plan-opus": {
-      "description": "Read-only standalone planner using Claude Opus 4.8",
+      "description": "Read-only standalone planner using Claude Opus 5.5",
       "mode": "subagent",
       "hidden": true,
-      "model": "github-copilot/claude-opus-4.8",
+      "model": "{env:OC_ANTHROPIC}/claude-opus-5.5",
       "temperature": 0.2,
       "steps": 12,
       "prompt": "{file:./prompts/plan-planner.md}",
@@ -84,10 +84,10 @@
       }
     },
     "plan-sol": {
-      "description": "Read-only standalone planner using GPT-5.6 Sol",
+      "description": "Read-only standalone planner using GPT-6 Sol",
       "mode": "subagent",
       "hidden": true,
-      "model": "github-copilot/gpt-5.6-sol",
+      "model": "{env:OC_OPENAI}/gpt-6-sol",
       "temperature": 0.2,
       "steps": 12,
       "prompt": "{file:./prompts/plan-planner.md}",
@@ -100,14 +100,23 @@
         "question": false
       }
     },
+    "coder": { "model": "{env:OC_OPENAI}/gpt-5.6-terra" },
+    "documentation": { "model": "{env:OC_OPENAI}/gpt-5.6-luna" },
+    "superPlan": { "model": "{env:OC_ANTHROPIC}/claude-opus-4.8" },
+    "review": { "model": "{env:OC_OPENAI}/gpt-6-astra" },
+    "review-architecture": { "model": "{env:OC_OPENAI}/gpt-6-astra" },
+    "review-data": { "model": "{env:OC_OPENAI}/gpt-6-astra" },
+    "review-distributed": { "model": "{env:OC_OPENAI}/gpt-6-astra" },
+    "review-general": { "model": "{env:OC_OPENAI}/gpt-6-astra" },
+    "review-go": { "model": "{env:OC_OPENAI}/gpt-6-astra" },
     "chat": {
-      "model": "github-copilot/gpt-5.5",
+      "model": "{env:OC_OPENAI}/gpt-5.5",
       "options": {
         "reasoningEffort": "low"
       }
     },
     "fast": {
-      "model": "github-copilot/gpt-5-mini",
+      "model": "{env:OC_OPENAI}/gpt-5-mini",
       "mode": "subagent",
       "description": "Fast, low-cost delegation for narrow lookups, simple edits, summaries, and focused verification. Invoked with @fast.",
       "options": {
@@ -115,7 +124,7 @@
       }
     },
     "sonnet": {
-      "model": "github-copilot/claude-sonnet-5",
+      "model": "{env:OC_ANTHROPIC}/claude-sonnet-5",
       "mode": "subagent",
       "description": "Balanced implementation and analysis for standard features, debugging, code review, and multi-file changes. Invoked with @sonnet.",
       "options": {
@@ -123,15 +132,23 @@
       }
     },
     "opus": {
-      "model": "github-copilot/claude-opus-5",
+      "model": "{env:OC_ANTHROPIC}/claude-opus-5.5",
       "mode": "subagent",
       "description": "Deep reasoning for architecture, hard debugging, risky refactors, and adversarial review. Invoked with @opus.",
       "options": {
-        "reasoningEffort": "xhigh"
+        "reasoningEffort": "medium"
+      }
+    },
+    "fable": {
+      "model": "openrouter/anthropic/claude-fable-5.1",
+      "mode": "subagent",
+      "description": "Deep reasoning for architecture, hard debugging, risky refactors, and adversarial review. Invoked with @fable.",
+      "options": {
+        "reasoningEffort": "medium"
       }
     },
     "gpt55": {
-      "model": "github-copilot/gpt-5.5",
+      "model": "{env:OC_OPENAI}/gpt-5.5",
       "mode": "subagent",
       "description": "General high-capability implementation and reasoning for substantial coding or research tasks. Invoked with @gpt55.",
       "options": {
@@ -139,7 +156,7 @@
       }
     },
     "luna": {
-      "model": "github-copilot/gpt-5.6-luna",
+      "model": "{env:OC_OPENAI}/gpt-6-luna",
       "mode": "subagent",
       "description": "Latest Luna model for independent investigation, synthesis, and alternative problem-solving approaches. Invoked with @luna.",
       "options": {
@@ -147,7 +164,7 @@
       }
     },
     "terra": {
-      "model": "github-copilot/gpt-5.6-terra",
+      "model": "{env:OC_OPENAI}/gpt-5.6-terra",
       "mode": "subagent",
       "description": "Latest Terra model for deep, high-stakes implementation, complex systems work, and comprehensive debugging. Invoked with @terra.",
       "options": {
@@ -155,12 +172,19 @@
       }
     },
     "sol": {
-      "model": "github-copilot/gpt-5.6-sol",
+      "model": "{env:OC_OPENAI}/gpt-6-sol",
       "mode": "subagent",
       "description": "Latest Sol model for complex implementation, validation, and second-opinion reviews. Invoked with @sol.",
       "options": {
         "reasoningEffort": "high"
       }
+    }
+  },
+  "command": {
+    "bdexecissue": {
+      "description": "execute a single bd issue",
+      "model": "{env:OC_OPENAI}/gpt-5.6-terra",
+      "template": "{file:./prompts/bdexecissue.md}"
     }
   },
   "instructions": ["~/.config/opencode/instructions/caveman.md"],
@@ -172,11 +196,7 @@
   "mcp": {
     "codegraph": {
       "type": "local",
-      "command": [
-        "codegraph",
-        "serve",
-        "--mcp"
-      ],
+      "command": ["codegraph", "serve", "--mcp"],
       "enabled": true
     },
     "context7": {
@@ -202,4 +222,3 @@
     "skill": true
   }
 }
-

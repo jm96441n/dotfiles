@@ -1,7 +1,6 @@
 ---
 description: Reusable implementation subagent for scoped code changes and verification
 mode: subagent
-model: github-copilot/gpt-5.6-terra
 temperature: 0.1
 tools:
   write: true
