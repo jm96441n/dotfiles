@@ -139,6 +139,14 @@
         "reasoningEffort": "medium"
       }
     },
+    "astra": {
+      "model": "{env:OC_OPENAI}/gpt-6-astra",
+      "mode": "subagent",
+      "description": "Deep reasoning for architecture, hard debugging, risky refactors, and adversarial review. Invoked with @astra.",
+      "options": {
+        "reasoningEffort": "medium"
+      }
+    },
     "fable": {
       "model": "openrouter/anthropic/claude-fable-5.1",
       "mode": "subagent",
