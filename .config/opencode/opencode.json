@@ -1,240 +1,334 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "agent": {
+  "permissions": [
+    {
+      "action": "skill",
+      "resource": "*",
+      "effect": "allow"
+    }
+  ],
+  "agents": {
     "superPlan-astra": {
       "description": "Independent planning subagent for superPlan using GPT-6 Astra",
       "mode": "subagent",
       "hidden": true,
       "model": "{env:OC_OPENAI}/gpt-6-astra",
-      "temperature": 0.2,
       "steps": 8,
-      "prompt": "{file:./prompts/superplan-planner.md}",
-      "tools": {
-        "write": false,
-        "edit": false,
-        "bash": false,
-        "webfetch": false,
-        "task": false
-      }
+      "system": "{file:./prompts/superplan-planner.md}",
+      "permissions": [
+        {
+          "action": "edit",
+          "resource": "*",
+          "effect": "deny"
+        },
+        {
+          "action": "shell",
+          "resource": "*",
+          "effect": "deny"
+        },
+        {
+          "action": "webfetch",
+          "resource": "*",
+          "effect": "deny"
+        },
+        {
+          "action": "subagent",
+          "resource": "*",
+          "effect": "deny"
+        }
+      ]
     },
     "superPlan-opus": {
       "description": "Independent planning subagent for superPlan using Claude Opus 5.5",
       "mode": "subagent",
       "hidden": true,
       "model": "{env:OC_ANTHROPIC}/claude-opus-5.5",
-      "temperature": 0.2,
       "steps": 8,
-      "prompt": "{file:./prompts/superplan-planner.md}",
-      "tools": {
-        "write": false,
-        "edit": false,
-        "bash": false,
-        "webfetch": false,
-        "task": false
-      }
+      "system": "{file:./prompts/superplan-planner.md}",
+      "permissions": [
+        {
+          "action": "edit",
+          "resource": "*",
+          "effect": "deny"
+        },
+        {
+          "action": "shell",
+          "resource": "*",
+          "effect": "deny"
+        },
+        {
+          "action": "webfetch",
+          "resource": "*",
+          "effect": "deny"
+        },
+        {
+          "action": "subagent",
+          "resource": "*",
+          "effect": "deny"
+        }
+      ]
     },
     "superPlan-sol": {
       "description": "Independent planning subagent for superPlan using GPT-6 Sol",
       "mode": "subagent",
       "hidden": true,
       "model": "{env:OC_OPENAI}/gpt-6-sol",
-      "temperature": 0.2,
       "steps": 8,
-      "prompt": "{file:./prompts/superplan-planner.md}",
-      "tools": {
-        "write": false,
-        "edit": false,
-        "bash": false,
-        "webfetch": false,
-        "task": false
-      }
+      "system": "{file:./prompts/superplan-planner.md}",
+      "permissions": [
+        {
+          "action": "edit",
+          "resource": "*",
+          "effect": "deny"
+        },
+        {
+          "action": "shell",
+          "resource": "*",
+          "effect": "deny"
+        },
+        {
+          "action": "webfetch",
+          "resource": "*",
+          "effect": "deny"
+        },
+        {
+          "action": "subagent",
+          "resource": "*",
+          "effect": "deny"
+        }
+      ]
     },
     "plan-astra": {
       "description": "Read-only standalone planner using GPT-6 Astra",
       "mode": "subagent",
       "hidden": true,
       "model": "{env:OC_OPENAI}/gpt-6-astra",
-      "temperature": 0.2,
       "steps": 12,
-      "prompt": "{file:./prompts/plan-planner.md}",
-      "tools": {
-        "write": false,
-        "edit": false,
-        "bash": false,
-        "webfetch": false,
-        "task": false,
-        "question": false
-      }
+      "system": "{file:./prompts/plan-planner.md}",
+      "permissions": [
+        {
+          "action": "edit",
+          "resource": "*",
+          "effect": "deny"
+        },
+        {
+          "action": "shell",
+          "resource": "*",
+          "effect": "deny"
+        },
+        {
+          "action": "webfetch",
+          "resource": "*",
+          "effect": "deny"
+        },
+        {
+          "action": "subagent",
+          "resource": "*",
+          "effect": "deny"
+        },
+        {
+          "action": "question",
+          "resource": "*",
+          "effect": "deny"
+        }
+      ]
     },
     "plan-opus": {
       "description": "Read-only standalone planner using Claude Opus 5.5",
       "mode": "subagent",
       "hidden": true,
       "model": "{env:OC_ANTHROPIC}/claude-opus-5.5",
-      "temperature": 0.2,
       "steps": 12,
-      "prompt": "{file:./prompts/plan-planner.md}",
-      "tools": {
-        "write": false,
-        "edit": false,
-        "bash": false,
-        "webfetch": false,
-        "task": false,
-        "question": false
-      }
+      "system": "{file:./prompts/plan-planner.md}",
+      "permissions": [
+        {
+          "action": "edit",
+          "resource": "*",
+          "effect": "deny"
+        },
+        {
+          "action": "shell",
+          "resource": "*",
+          "effect": "deny"
+        },
+        {
+          "action": "webfetch",
+          "resource": "*",
+          "effect": "deny"
+        },
+        {
+          "action": "subagent",
+          "resource": "*",
+          "effect": "deny"
+        },
+        {
+          "action": "question",
+          "resource": "*",
+          "effect": "deny"
+        }
+      ]
     },
     "plan-sol": {
       "description": "Read-only standalone planner using GPT-6 Sol",
       "mode": "subagent",
       "hidden": true,
       "model": "{env:OC_OPENAI}/gpt-6-sol",
-      "temperature": 0.2,
       "steps": 12,
-      "prompt": "{file:./prompts/plan-planner.md}",
-      "tools": {
-        "write": false,
-        "edit": false,
-        "bash": false,
-        "webfetch": false,
-        "task": false,
-        "question": false
-      }
+      "system": "{file:./prompts/plan-planner.md}",
+      "permissions": [
+        {
+          "action": "edit",
+          "resource": "*",
+          "effect": "deny"
+        },
+        {
+          "action": "shell",
+          "resource": "*",
+          "effect": "deny"
+        },
+        {
+          "action": "webfetch",
+          "resource": "*",
+          "effect": "deny"
+        },
+        {
+          "action": "subagent",
+          "resource": "*",
+          "effect": "deny"
+        },
+        {
+          "action": "question",
+          "resource": "*",
+          "effect": "deny"
+        }
+      ]
     },
-    "coder": { "model": "{env:OC_OPENAI}/gpt-5.6-terra" },
-    "documentation": { "model": "{env:OC_OPENAI}/gpt-5.6-luna" },
-    "superPlan": { "model": "{env:OC_ANTHROPIC}/claude-opus-4.8" },
-    "review": { "model": "{env:OC_OPENAI}/gpt-6-astra" },
-    "review-architecture": { "model": "{env:OC_OPENAI}/gpt-6-astra" },
-    "review-data": { "model": "{env:OC_OPENAI}/gpt-6-astra" },
-    "review-distributed": { "model": "{env:OC_OPENAI}/gpt-6-astra" },
-    "review-general": { "model": "{env:OC_OPENAI}/gpt-6-astra" },
-    "review-go": { "model": "{env:OC_OPENAI}/gpt-6-astra" },
+    "coder": {
+      "model": "{env:OC_OPENAI}/gpt-5.6-terra"
+    },
+    "documentation": {
+      "model": "{env:OC_OPENAI}/gpt-5.6-luna"
+    },
+    "superPlan": {
+      "model": "{env:OC_ANTHROPIC}/claude-opus-4.8"
+    },
+    "review": {
+      "model": "{env:OC_OPENAI}/gpt-6-astra"
+    },
+    "review-architecture": {
+      "model": "{env:OC_OPENAI}/gpt-6-astra"
+    },
+    "review-data": {
+      "model": "{env:OC_OPENAI}/gpt-6-astra"
+    },
+    "review-distributed": {
+      "model": "{env:OC_OPENAI}/gpt-6-astra"
+    },
+    "review-general": {
+      "model": "{env:OC_OPENAI}/gpt-6-astra"
+    },
+    "review-go": {
+      "model": "{env:OC_OPENAI}/gpt-6-astra"
+    },
     "chat": {
-      "model": "{env:OC_OPENAI}/gpt-5.5",
-      "options": {
-        "reasoningEffort": "low"
-      }
+      "model": "{env:OC_OPENAI}/gpt-5.5#low"
     },
     "fast": {
-      "model": "{env:OC_OPENAI}/gpt-5-mini",
-      "mode": "subagent",
       "description": "Fast, low-cost delegation for narrow lookups, simple edits, summaries, and focused verification. Invoked with @fast.",
-      "options": {
-        "reasoningEffort": "low"
-      }
+      "mode": "subagent",
+      "model": "{env:OC_OPENAI}/gpt-5-mini#low"
     },
     "sonnet": {
-      "model": "{env:OC_ANTHROPIC}/claude-sonnet-5",
-      "mode": "subagent",
       "description": "Balanced implementation and analysis for standard features, debugging, code review, and multi-file changes. Invoked with @sonnet.",
-      "options": {
-        "reasoningEffort": "high"
-      }
+      "mode": "subagent",
+      "model": "{env:OC_ANTHROPIC}/claude-sonnet-5#high"
     },
     "opus": {
-      "model": "{env:OC_ANTHROPIC}/claude-opus-5.5",
-      "mode": "subagent",
       "description": "Deep reasoning for architecture, hard debugging, risky refactors, and adversarial review. Invoked with @opus.",
-      "options": {
-        "reasoningEffort": "medium"
-      }
+      "mode": "subagent",
+      "model": "{env:OC_ANTHROPIC}/claude-opus-5.5#medium"
     },
     "astra": {
-      "model": "{env:OC_OPENAI}/gpt-6-astra",
-      "mode": "subagent",
       "description": "Deep reasoning for architecture, hard debugging, risky refactors, and adversarial review. Invoked with @astra.",
-      "options": {
-        "reasoningEffort": "medium"
-      }
+      "mode": "subagent",
+      "model": "{env:OC_OPENAI}/gpt-6-astra#medium"
     },
     "fable": {
-      "model": "openrouter/anthropic/claude-fable-5.1",
-      "mode": "subagent",
       "description": "Deep reasoning for architecture, hard debugging, risky refactors, and adversarial review. Invoked with @fable.",
-      "options": {
-        "reasoningEffort": "high"
-      }
-    },
-    "astra": {
-      "model": "{env:OC_OPENAI}/gpt-6-astra",
       "mode": "subagent",
-      "description": "Deep reasoning for architecture, hard debugging, risky refactors, and adversarial review. Invoked with @astra.",
-      "options": {
-        "reasoningEffort": "high"
-      }
+      "model": "openrouter/anthropic/claude-fable-5.1#high"
     },
     "gpt55": {
-      "model": "{env:OC_OPENAI}/gpt-5.5",
-      "mode": "subagent",
       "description": "General high-capability implementation and reasoning for substantial coding or research tasks. Invoked with @gpt55.",
-      "options": {
-        "reasoningEffort": "xhigh"
-      }
+      "mode": "subagent",
+      "model": "{env:OC_OPENAI}/gpt-5.5#xhigh"
     },
     "luna": {
-      "model": "{env:OC_OPENAI}/gpt-6-luna",
-      "mode": "subagent",
       "description": "Latest Luna model for independent investigation, synthesis, and alternative problem-solving approaches. Invoked with @luna.",
-      "options": {
-        "reasoningEffort": "high"
-      }
+      "mode": "subagent",
+      "model": "{env:OC_OPENAI}/gpt-6-luna#high"
     },
     "terra": {
-      "model": "{env:OC_OPENAI}/gpt-5.6-terra",
-      "mode": "subagent",
       "description": "Latest Terra model for deep, high-stakes implementation, complex systems work, and comprehensive debugging. Invoked with @terra.",
-      "options": {
-        "reasoningEffort": "xhigh"
-      }
+      "mode": "subagent",
+      "model": "{env:OC_OPENAI}/gpt-5.6-terra#xhigh"
     },
     "sol": {
-      "model": "{env:OC_OPENAI}/gpt-6-sol",
-      "mode": "subagent",
       "description": "Latest Sol model for complex implementation, validation, and second-opinion reviews. Invoked with @sol.",
-      "options": {
-        "reasoningEffort": "high"
-      }
+      "mode": "subagent",
+      "model": "{env:OC_OPENAI}/gpt-6-sol#high"
     }
   },
-  "command": {
+  "commands": {
     "bdexecissue": {
       "description": "execute a single bd issue",
       "model": "{env:OC_OPENAI}/gpt-5.6-terra",
       "template": "{file:./prompts/bdexecissue.md}"
     }
   },
-  "instructions": ["~/.config/opencode/instructions/caveman.md"],
+  "instructions": [
+    "~/.config/opencode/instructions/caveman.md"
+  ],
   "lsp": {
     "gopls": {
-      "command": ["gopls", "-remote=auto"]
+      "command": [
+        "gopls",
+        "-remote=auto"
+      ]
     }
   },
   "mcp": {
-    "codegraph": {
-      "type": "local",
-      "command": ["codegraph", "serve", "--mcp"],
-      "enabled": true
-    },
-    "context7": {
-      "type": "remote",
-      "url": "https://mcp.context7.com/mcp",
-      "headers": {
-        "CONTEXT7_API_KEY": "{env:CONTEXT7_KEY}"
+    "servers": {
+      "codegraph": {
+        "type": "local",
+        "command": [
+          "codegraph",
+          "serve",
+          "--mcp"
+        ],
+        "disabled": false
       },
-      "enabled": true
-    },
-    "engram": {
-      "command": [
-        "/home/johnmaguire/.local/share/mise/installs/go/1.26.7/bin/engram",
-        "mcp",
-        "--tools=agent"
-      ],
-      "enabled": true,
-      "type": "local"
+      "context7": {
+        "type": "remote",
+        "url": "https://mcp.context7.com/mcp",
+        "headers": {
+          "CONTEXT7_API_KEY": "{env:CONTEXT7_KEY}"
+        },
+        "disabled": false
+      },
+      "engram": {
+        "command": [
+          "/home/johnmaguire/.local/share/mise/installs/go/1.26.7/bin/engram",
+          "mcp",
+          "--tools=agent"
+        ],
+        "type": "local",
+        "disabled": false
+      }
     }
   },
-  "plugin": ["opencode-beads", "@dietrichgebert/ponytail"],
-  "tools": {
-    "skill": true
-  }
+  "plugins": [
+    "opencode-beads",
+    "@dietrichgebert/ponytail"
+  ]
 }

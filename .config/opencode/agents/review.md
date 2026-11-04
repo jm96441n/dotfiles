@@ -1,46 +1,79 @@
 ---
 description: Read-only code review subagent invoked by the /code-review command. Enforces a strict bash allowlist and disables write/edit tools so the review flow is guaranteed read-only by policy, not prompt-following.
 mode: subagent
-temperature: 0.2
-tools:
-  write: false
-  edit: false
-  read: true
-  grep: true
-  glob: true
-  bash: true
-  task: true
-  webfetch: false
-  todowrite: false
-permission:
-  write:
-    "*": deny
-  edit:
-    "*": deny
-  bash:
-    "*": deny
-    "jj bookmark list*": allow
-    "jj diff*": allow
-    "jj log*": allow
-    "jj show*": allow
-    "jj status": allow
-    "jj file*": allow
-    "git status*": allow
-    "git diff*": allow
-    "git log*": allow
-    "git show*": allow
-    "git rev-parse*": allow
-    "git branch --show-current": allow
-    "git merge-base*": allow
-    "ast-grep run*": allow
-    "ast-grep scan*": allow
-    "ast-grep search*": allow
-  task:
-    "*": deny
-    "review-*": allow
-  read: allow
-  grep: allow
-  glob: allow
+permissions:
+  - action: edit
+    resource: "*"
+    effect: deny
+  - action: shell
+    resource: "*"
+    effect: deny
+  - action: shell
+    resource: "jj bookmark list*"
+    effect: allow
+  - action: shell
+    resource: "jj diff*"
+    effect: allow
+  - action: shell
+    resource: "jj log*"
+    effect: allow
+  - action: shell
+    resource: "jj show*"
+    effect: allow
+  - action: shell
+    resource: "jj status"
+    effect: allow
+  - action: shell
+    resource: "jj file*"
+    effect: allow
+  - action: shell
+    resource: "git status*"
+    effect: allow
+  - action: shell
+    resource: "git diff*"
+    effect: allow
+  - action: shell
+    resource: "git log*"
+    effect: allow
+  - action: shell
+    resource: "git show*"
+    effect: allow
+  - action: shell
+    resource: "git rev-parse*"
+    effect: allow
+  - action: shell
+    resource: "git branch --show-current"
+    effect: allow
+  - action: shell
+    resource: "git merge-base*"
+    effect: allow
+  - action: shell
+    resource: "ast-grep run*"
+    effect: allow
+  - action: shell
+    resource: "ast-grep scan*"
+    effect: allow
+  - action: shell
+    resource: "ast-grep search*"
+    effect: allow
+  - action: subagent
+    resource: "*"
+    effect: deny
+  - action: subagent
+    resource: "review-*"
+    effect: allow
+  - action: read
+    resource: "*"
+    effect: allow
+  - action: grep
+    resource: "*"
+    effect: allow
+  - action: glob
+    resource: "*"
+    effect: allow
+  - action: webfetch
+    resource: "*"
+    effect: deny
 ---
 
 You are a read-only code review orchestrator. You analyze code changes between two refs, delegate to specialized reviewers, and compile a unified review.

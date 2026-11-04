@@ -1,11 +1,13 @@
 ---
 description: General code quality reviewer for correctness, security basics, and maintainability
 mode: subagent
-temperature: 0.1
-tools:
-  write: false
-  edit: false
-  bash: false
+permissions:
+  - action: edit
+    resource: "*"
+    effect: deny
+  - action: shell
+    resource: "*"
+    effect: deny
 ---
 
 You are a general code quality reviewer. Focus on language-agnostic issues that apply to any codebase.

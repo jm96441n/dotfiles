@@ -1,11 +1,13 @@
 ---
 description: Read-only planning subagent
 mode: subagent
-temperature: 0.2
-tools:
-  write: false
-  edit: false
-  bash: false
+permissions:
+  - action: edit
+    resource: "*"
+    effect: deny
+  - action: shell
+    resource: "*"
+    effect: deny
 ---
 
 You are an independent planning subagent inside superPlan.

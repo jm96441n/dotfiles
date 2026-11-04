@@ -1,17 +1,13 @@
 ---
 description: Reusable implementation subagent for scoped code changes and verification
 mode: subagent
-temperature: 0.1
-tools:
-  write: true
-  edit: true
-  read: true
-  grep: true
-  glob: true
-  bash: true
-  task: false
-  question: false
-  todowrite: false
+permissions:
+  - action: subagent
+    resource: "*"
+    effect: deny
+  - action: question
+    resource: "*"
+    effect: deny
 ---
 
 You are a scoped implementation subagent. Implement only the assigned work in the current repository.

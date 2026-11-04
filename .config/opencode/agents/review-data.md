@@ -1,11 +1,13 @@
 ---
 description: Database interaction reviewer for SQL, Gremlin, connection management, and query patterns
 mode: subagent
-temperature: 0.1
-tools:
-  write: false
-  edit: false
-  bash: false
+permissions:
+  - action: edit
+    resource: "*"
+    effect: deny
+  - action: shell
+    resource: "*"
+    effect: deny
 ---
 
 You are a database expert reviewer. Focus on query correctness, performance, connection management, and data integrity.

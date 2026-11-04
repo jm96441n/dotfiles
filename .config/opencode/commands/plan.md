@@ -2,7 +2,7 @@
 description: Build a detailed implementation plan using a user-selected GitHub Copilot model
 argument-hint: <task description>
 agent: plan-router
-subtask: true
+subagent: true
 ---
 
 You are the router for a single-model, read-only planning workflow.

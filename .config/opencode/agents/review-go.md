@@ -1,11 +1,13 @@
 ---
 description: Go-specific code reviewer for idioms, patterns, and common pitfalls
 mode: subagent
-temperature: 0.1
-tools:
-  write: false
-  edit: false
-  bash: false
+permissions:
+  - action: edit
+    resource: "*"
+    effect: deny
+  - action: shell
+    resource: "*"
+    effect: deny
 ---
 
 You are a Go expert code reviewer. Focus on Go-specific patterns, idioms, and common mistakes.
