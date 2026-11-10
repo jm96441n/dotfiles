@@ -3,7 +3,7 @@
 {
 
   home.file = {
-    ".githelpers".source = ../../../git/.githelpers;
+    ".githelpers".source = ../../git/.githelpers;
   };
 
   programs.git = {

@@ -55,7 +55,7 @@
               home-manager.backupFileExtension = "backup";
               home-manager.extraSpecialArgs = { inherit hunk; };
               home-manager.users.johnmaguire = {
-                imports = [ ./home.nix ];
+                imports = [ ./home ];
                 targets.genericLinux.enable = nixpkgs.lib.mkForce false;
               };
             }
@@ -74,7 +74,7 @@
 
         modules = [
           { nixpkgs.overlays = overlays; }
-          ./home.nix
+          ./home
         ];
       };
 

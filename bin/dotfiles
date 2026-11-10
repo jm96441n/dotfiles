@@ -20,12 +20,12 @@ sub_edit() {
 }
 
 sub_switch() {
-  home-manager switch --flake "$DOTFILES_DIR/.config/home-manager#$USER"
+  home-manager switch --flake "$DOTFILES_DIR#$USER"
 }
 
 sub_update() {
   sudo dnf upgrade
-  nix flake update --flake "$DOTFILES_DIR/.config/home-manager"
+  nix flake update --flake "$DOTFILES_DIR"
   sub_switch
   mise upgrade
 }

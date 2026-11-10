@@ -1,6 +1,6 @@
 # Dotfiles
 
-Personal Fedora (Wayland) setup, managed with [Nix](https://nixos.org/) + [Home Manager](https://github.com/nix-community/home-manager) flakes.
+Personal NixOS + Fedora (Wayland) setup, managed with [Nix](https://nixos.org/) + [Home Manager](https://github.com/nix-community/home-manager) flakes.
 
 ## Layout
 
@@ -8,7 +8,9 @@ Personal Fedora (Wayland) setup, managed with [Nix](https://nixos.org/) + [Home 
 |------|------|
 | `install.sh` | Bootstrap: dnf packages, Nix, Home Manager, mise |
 | `install/` | `packages.sh` (dnf repos/packages, Docker, NVIDIA), SSH key + GitHub key helpers |
-| `.config/home-manager/` | `flake.nix`, `home.nix` (packages), `programs/` (zsh, git, starship, bat, mako, ssh-agent) |
+| `flake.nix`, `Makefile` | NixOS machines + Home Manager; `make switch` etc. |
+| `machines/` | NixOS configs: `shared.nix`, `home-laptop.nix` (ThinkPad P1 Gen 3), `dev-vm.nix` (VMware on Mac) |
+| `home/` | Home Manager: `default.nix` (packages), `programs/` (zsh, git, starship, bat, mako, ssh-agent) |
 | `.config/` | App configs: sway, waybar, wofi, kanshi, ghostty, kitty, tmux, nvim, helix, jj, k9s, ranger, mise |
 | `.config/{opencode,claude,pi,mcphub,herdr}` | AI coding agent configs |
 | `bin/` | Scripts: `dotfiles`, `tmux-sessionizer`, `tmux-cht`, `git-heatmap`, `git-new-branch`, `review`, etc. |
@@ -24,9 +26,29 @@ Personal Fedora (Wayland) setup, managed with [Nix](https://nixos.org/) + [Home 
 - **Editor**: neovim (helix also configured)
 - **VCS**: git + jujutsu
 - **Runtimes**: mise
-- **Tools**: see `home.packages` in [home.nix](./.config/home-manager/home.nix)
+- **Tools**: see `home.packages` in [home/default.nix](./home/default.nix)
 
-## Install
+## Install (NixOS)
+
+Run the normal NixOS installer (user `johnmaguire`), then:
+
+```sh
+nix-shell -p git gnumake
+git clone https://github.com/jm96441n/dotfiles.git ~/.dotfiles
+cd ~/.dotfiles && make bootstrap HOST=home-laptop
+```
+
+## Make targets
+
+```
+switch      nixos-rebuild switch for this host
+bootstrap   first run on a fresh install (copies hardware config)
+home        home-manager switch (non-NixOS)
+update      nix flake update
+clean       garbage-collect nix, prune mise
+```
+
+## Install (Fedora, home-manager only)
 
 ```sh
 sudo dnf upgrade

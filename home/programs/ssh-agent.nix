@@ -9,19 +9,14 @@
     enable = true;
     enableDefaultConfig = false;
 
-    # Declaratively add your SSH keys
-    matchBlocks = {
+    settings = {
       "*" = {
-        addKeysToAgent = "yes";
-        identityFile = [
-          "~/.ssh/github_rsa"
-        ];
+        AddKeysToAgent = "yes";
+        IdentityFile = [ "~/.ssh/github_rsa" ];
       };
       "github.ibm.com" = {
-        addKeysToAgent = "yes";
-        identityFile = [
-          "~/.ssh/ibm-gh"
-        ];
+        AddKeysToAgent = "yes";
+        IdentityFile = [ "~/.ssh/ibm-gh" ];
       };
     };
   };

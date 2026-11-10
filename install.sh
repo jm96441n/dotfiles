@@ -25,13 +25,9 @@ nix-channel --update
 
 nix-shell '<home-manager>' -A install
 
-# remove some stuff we're going to put back on our own
-rm -r "$HOME/.config/home-manager"
-
-ln -sfv "$DOTFILES_DIR/.config/home-manager" "$HOME/.config"
 # sudo ln -s ~/.nix-profile/share/wayland-sessions/sway.desktop /usr/share/wayland-sessions/sway-hm.desktop
 
-home-manager switch -b backup --extra-experimental-features nix-command --extra-experimental-features flakes --flake ~/.config/home-manager#"$USER"
+home-manager switch -b backup --extra-experimental-features nix-command --extra-experimental-features flakes --flake "$DOTFILES_DIR#$USER"
 
 fc-cache -fv
 

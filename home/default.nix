@@ -53,13 +53,7 @@
     };
   };
 
-  nix = {
-    package = lib.mkDefault pkgs.nix;
-    settings.experimental-features = [
-      "nix-command"
-      "flakes"
-    ];
-  };
+  news.display = "silent";
 
   # Packages that should be installed to the user profile
   home.packages = with pkgs; [
@@ -112,19 +106,17 @@
     k9s
     kitty
     kubectl
-    localstack
     mako
     mariadb
     meson
     mise
     neovim
     nerd-fonts.fira-code
-    nixfmt-rfc-style
+    nixfmt
     nmap
     packer
     peek
     pnpm
-    presenterm
     powertop
     postgresql
     python3
@@ -167,19 +159,19 @@
 
   # Dotfiles as plain files
   home.file = {
-    ".tmux.conf".source = ../tmux/.tmux.conf;
-    ".tmux.conf.local".source = ../tmux/.tmux.conf.local;
-    ".default-gems".source = ../mise/.default-gems;
-    ".default-npm-packages".source = ../mise/.default-npm-packages;
-    ".default-python-packages".source = ../mise/.default-python-packages;
-    ".default-go-packages".source = ../mise/.default-go-packages;
-    ".config/mise/config.toml".source = ../mise/mise.toml;
+    ".tmux.conf".source = ../.config/tmux/.tmux.conf;
+    ".tmux.conf.local".source = ../.config/tmux/.tmux.conf.local;
+    ".default-gems".source = ../.config/mise/.default-gems;
+    ".default-npm-packages".source = ../.config/mise/.default-npm-packages;
+    ".default-python-packages".source = ../.config/mise/.default-python-packages;
+    ".default-go-packages".source = ../.config/mise/.default-go-packages;
+    ".config/mise/config.toml".source = ../.config/mise/mise.toml;
     ".config/helix" = {
-      source = ../helix;
+      source = ../.config/helix;
       recursive = true;
     };
     ".config/mcphub" = {
-      source = ../mcphub;
+      source = ../.config/mcphub;
       recursive = true;
     };
     ".config/nvim" = {
@@ -187,23 +179,23 @@
       recursive = true;
     };
     ".config/wofi" = {
-      source = ../wofi;
+      source = ../.config/wofi;
       recursive = true;
     };
     ".config/waybar" = {
-      source = ../waybar;
+      source = ../.config/waybar;
       recursive = true;
     };
     ".config/sway" = {
-      source = ../sway;
+      source = ../.config/sway;
       recursive = true;
     };
     ".config/ranger" = {
-      source = ../ranger;
+      source = ../.config/ranger;
       recursive = true;
     };
     ".config/kitty" = {
-      source = ../kitty;
+      source = ../.config/kitty;
       recursive = true;
     };
     ".config/opencode" = {
@@ -215,15 +207,15 @@
       recursive = true;
     };
     ".config/k9s" = {
-      source = ../k9s;
+      source = ../.config/k9s;
       recursive = true;
     };
     ".config/jj" = {
-      source = ../jj;
+      source = ../.config/jj;
       recursive = true;
     };
-    ".config/herdr/config.toml".source = ../herdr/config.toml;
-    ".config/ghostty/config".source = ../ghostty/config;
+    ".config/herdr/config.toml".source = ../.config/herdr/config.toml;
+    ".config/ghostty/config".source = ../.config/ghostty/config;
   };
 
   # Environment variables

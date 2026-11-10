@@ -1,7 +1,7 @@
 HOST ?= $(shell hostname)
 FLAKE := $(CURDIR)
 
-.PHONY: switch bootstrap home
+.PHONY: switch bootstrap home update clean
 
 # Rebuild this NixOS machine.
 switch:
@@ -16,3 +16,11 @@ bootstrap:
 # Non-NixOS Linux (home-manager only).
 home:
 	home-manager switch -b backup --flake $(FLAKE)#$(USER)
+
+update:
+	nix flake update --flake $(FLAKE)
+
+clean:
+	sudo nix-collect-garbage -d
+	nix-collect-garbage -d
+	mise prune
