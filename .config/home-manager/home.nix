@@ -1,9 +1,7 @@
 {
   config,
   pkgs,
-  aoe,
   hunk,
-  system,
   ...
 }:
 # let
@@ -67,7 +65,6 @@
   home.packages = with pkgs; [
     # CLI tools
     acli
-    aoe.packages.${system}.default
     actionlint
     awscli2
     autoconf
@@ -102,8 +99,9 @@
     hcp
     kubernetes-helm
     helix
+    herdr
     hub
-    hunk.packages.${system}.default
+    hunk.packages.${pkgs.stdenv.hostPlatform.system}.default
     htop
     icomoon-feather
     imagemagick
