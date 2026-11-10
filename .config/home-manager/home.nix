@@ -1,5 +1,6 @@
 {
   config,
+  lib,
   pkgs,
   hunk,
   ...
@@ -31,7 +32,6 @@
 
   # Let Home Manager install and manage itself
   programs.home-manager.enable = true;
-  nixpkgs.config.allowUnfree = true;
   targets.genericLinux.enable = true;
 
   # Ensure XDG directories are properly set
@@ -54,7 +54,7 @@
   };
 
   nix = {
-    package = pkgs.nix;
+    package = lib.mkDefault pkgs.nix;
     settings.experimental-features = [
       "nix-command"
       "flakes"
