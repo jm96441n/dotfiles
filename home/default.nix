@@ -124,7 +124,9 @@
     ripgrep
     sentry-cli
     slurp
+    sops
     sshuttle
+    ssh-to-age
     starship
     strace
     stylua

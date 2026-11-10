@@ -1,6 +1,9 @@
 { ... }:
 {
-  imports = [ ./home-laptop-hardware.nix ];
+  imports = [
+    ./home-laptop-hardware.nix
+    ./desktop.nix
+  ];
 
   networking.hostName = "home-laptop";
 

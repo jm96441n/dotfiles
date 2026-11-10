@@ -1,0 +1,10 @@
+keys:
+  - &john age165tc62m3eyl5l8jf3nkzefzxw36dzg8qgu92x4fewpuvvnwv6yjq24l8h6
+  # Add after install: ssh homelab sudo nix shell nixpkgs#age -c age-keygen -y /var/lib/sops-nix/key.txt
+  # - &homelab age1...
+creation_rules:
+  - path_regex: secrets/homelab\.yaml$
+    key_groups:
+      - age:
+          - *john
+          # - *homelab

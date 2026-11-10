@@ -31,13 +31,6 @@
   security.sudo.wheelNeedsPassword = false;
 
   programs.zsh.enable = true;
-  programs.sway.enable = true;
-  services.gnome.gnome-keyring.enable = true;
-
-  services.greetd = {
-    enable = true;
-    settings.default_session.command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd sway";
-  };
 
   services.openssh = {
     enable = true;

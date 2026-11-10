@@ -1,0 +1,196 @@
+services:
+  # qBittorrent - Torrent client (routes through Gluetun)
+  qbittorrent:
+    image: lscr.io/linuxserver/qbittorrent:latest
+    container_name: qbittorrent
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/New_York
+    volumes:
+      - /home/johnmaguire/hdd/media/config/qbittorrent:/config
+      - /home/johnmaguire/hdd/media:/mystuff
+    # Use Gluetun's network stack
+    network_mode: host
+    # network_mode: "service:gluetun"
+    # depends_on:
+    # - gluetun
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 15G # limit runaway ram usage
+  unpackerr:
+    image: golift/unpackerr
+    container_name: unpackerr
+    volumes:
+      - /home/johnmaguire/hdd/media/config/unpackerr:/config
+      - /home/johnmaguire/hdd/media:/mystuff
+    restart: always
+    user: 1000:1000
+    networks:
+      - media_network
+    environment:
+      - TZ=America/New_York
+      - UN_LOG_FILE=/mystuff/downloads/logs/unpackerr.log
+      - UN_SONARR_0_URL=http://sonarr:8989
+      - UN_SONARR_0_API_KEY=${SONARR_API_KEY}
+      - UN_RADARR_0_URL=http://radarr:7878
+      - UN_RADARR_0_API_KEY=${RADARR_API_KEY}
+
+  # Prowlarr - Indexer manager (direct network access)
+  prowlarr:
+    image: lscr.io/linuxserver/prowlarr:latest
+    container_name: prowlarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/New_York
+    volumes:
+      - /home/johnmaguire/hdd/media/config/prowlarr:/config
+      - /etc/localtime:/etc/localtime:ro # Mount host timezone
+    ports:
+      - "9696:9696"
+    networks:
+      - media_network
+    restart: unless-stopped
+
+  # Radarr - Movie management (direct network access)
+  radarr:
+    image: lscr.io/linuxserver/radarr:latest
+    container_name: radarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/New_York
+    volumes:
+      - /home/johnmaguire/hdd/media/config/radarr:/config
+      - /home/johnmaguire/hdd/media:/mystuff
+    ports:
+      - "7878:7878"
+    networks:
+      - media_network
+    restart: unless-stopped
+    depends_on:
+      - qbittorrent
+      - prowlarr
+
+  # Sonarr - TV show management (direct network access)
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/New_York
+    volumes:
+      - /home/johnmaguire/hdd/media/config/sonarr:/config
+      - /home/johnmaguire/hdd/media/:/mystuff
+    ports:
+      - "8989:8989"
+    networks:
+      - media_network
+    restart: unless-stopped
+    depends_on:
+      - qbittorrent
+      - prowlarr
+
+  # Jellyfin - Media server (direct network access)
+  jellyfin:
+    image: lscr.io/linuxserver/jellyfin:latest
+    container_name: jellyfin
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/New_York
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=all
+    volumes:
+      - /home/johnmaguire/hdd/media/config/jellyfin:/config
+      - /home/johnmaguire/hdd/media/cache/jellyfin:/cache
+      - /home/johnmaguire/hdd/media:/data
+    network_mode: host
+    restart: unless-stopped
+    # NixOS exposes the GPU via CDI (hardware.nvidia-container-toolkit), not `runtime: nvidia`.
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: cdi
+              device_ids:
+                - nvidia.com/gpu=all
+              capabilities: [gpu]
+
+  watchtower:
+    container_name: watchtower
+    restart: always
+    environment:
+      WATCHTOWER_SCHEDULE: 0 30 12 * * 1
+      TZ: Europe/Brussels
+      WATCHTOWER_CLEANUP: "true"
+      WATCHTOWER_DEBUG: "true"
+    image: containrrr/watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+  dozzle:
+    image: amir20/dozzle:latest
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - 9091:8080
+  calibre-web-automated:
+    image: ghcr.io/calibrain/shelfmark:latest
+    container_name: calibre-web-automated
+    environment:
+      # Only change these if you know what you're doing
+      - PUID=1000
+      - PGID=1000
+      # Edit to match your current timezone https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+      - TZ=America/New_York
+      # Hardcover API Key required for Hardcover as a Metadata Provider, get one here: https://docs.hardcover.app/api/getting-started/
+      # - HARDCOVER_TOKEN=your_hardcover_api_key_here
+      # If your library is on a network share (e.g., NFS/SMB), disable WAL to reduce locking issues
+      # Accepts: true/false (default: false)
+      - NETWORK_SHARE_MODE=false
+      # Override the default port (8083) for the web server.
+      # Accepts any valid port number.
+      - CWA_PORT_OVERRIDE=8083
+    volumes:
+      # CW users migrating should stop their existing CW instance, make a copy of the config folder, and bind that here to carry over all of their user settings ect.
+      - /home/johnmaguire/hdd/media/config/cwa:/config
+      # This is an ingest dir, NOT a library one. Anything added here will be automatically added to your library according to the settings you have configured in CWA Settings page. All files placed here are REMOVED AFTER PROCESSING
+      - /home/johnmaguire/hdd/media/downloads/books:/cwa-book-ingest
+      # If you don't have an existing library, CWA will automatically create one at the bind provided here
+      - /home/johnmaguire/hdd/media/books:/calibre-library
+      # If you use calibre plugins, you can bind your plugins folder here to have CWA attempt to add them to its workflow (WIP)
+      # If you are starting with a fresh install, you also need to copy customize.py.json to the Calibre config volume above, in /path/to/config/folder/.config/calibre/customize.py.json, see the note below for more info
+      # - /path/to/your/calibre/plugins/folder:/config/.config/calibre/plugins
+    ports:
+      # Change the first number to change the port you want to access the Web UI, not the second
+      - 8083:8083
+    # If you set CWA_PORT_OVERRIDE to a port below 1024, you may need to uncomment the following line:
+    # cap_add:
+    #   - NET_BIND_SERVICE
+    restart: unless-stopped
+  shelfmark:
+    image: ghcr.io/calibrain/calibre-web-automated-book-downloader:latest
+    container_name: shelfmark
+    environment:
+      TZ: America/New_York
+      PUID: 1000
+      PGID: 1000
+    ports:
+      - 8084:8084
+    restart: unless-stopped
+    volumes:
+      - /home/johnmaguire/hdd/media/downloads/books:/cwa-book-ingest # Book destination directory
+      - /home/johnmaguire/hdd/media/config/shelfmark:/config # App configuration
+      # Download client mount - path must match your torrent/usenet client's volume exactly
+      # - /path/to/downloads:/path/to/downloads
+# Custom network for inter-container communication
+networks:
+  media_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16

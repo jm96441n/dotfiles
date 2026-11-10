@@ -1,6 +1,9 @@
 { pkgs, ... }:
 {
-  imports = [ ./dev-vm-hardware.nix ];
+  imports = [
+    ./dev-vm-hardware.nix
+    ./desktop.nix
+  ];
 
   networking.hostName = "dev";
 

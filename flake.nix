@@ -18,6 +18,14 @@
       url = "github:modem-dev/hunk";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    zen-browser = {
+      url = "github:0xc000022070/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nixos-hardware = {
       url = "github:NixOS/nixos-hardware";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -31,6 +39,8 @@
       nixgl,
       hunk,
       nixos-hardware,
+      sops-nix,
+      zen-browser,
       ...
     }:
     let
@@ -86,6 +96,16 @@
         imports = [
           nixos-hardware.nixosModules.lenovo-thinkpad-p1-gen3
           ./machines/home-laptop.nix
+          ./machines/desktop-apps.nix
+          { environment.systemPackages = [ zen-browser.packages.x86_64-linux.default ]; }
+        ];
+      };
+
+      # ThinkStation P520 home server (ZFS media pool, docker compose)
+      nixosConfigurations.homelab = mkNixos "x86_64-linux" {
+        imports = [
+          sops-nix.nixosModules.sops
+          ./machines/homelab.nix
         ];
       };
     };
