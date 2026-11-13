@@ -1,106 +1,49 @@
-# Dotfiles!
-This is a collection of useful functions, aliases, git configurations, and easy setup of a new machine.
+# Dotfiles
 
-## Packages Included
-### Linux
-  * Core
-    * [i3](https://i3wm.org/) + [i3-gaps](https://github.com/Airblader/i3) + [polybar](https://github.com/polybar/polybar) + [rofi](https://github.com/davatorium/rofi) + [picom](https://github.com/yshui/picom)
-    * [ZSH](https://www.zsh.org/) + [Oh-My-ZSH](https://ohmyz.sh/) + [starship.rs](https://starship.rs/)
-    * [kitty](https://sw.kovidgoyal.net/kitty/)
-    * [neovim](https://neovim.io/)
-  * Terminal Utilities (for full list see [dnf](./install/linux/dnf.sh), [apt-get](./install/linux/apt-get.sh))
-    * [Ag The Silver Search](https://github.com/ggreer/the_silver_searcher)
-    * [asdf](https://asdf-vm.com/)
-    * [Autojump](https://github.com/wting/autojump)
-    * [awscli](https://aws.amazon.com/cli/)
-    * [bat](https://github.com/sharkdp/bat)
-    * [curl](https://curl.se/)
-    * [docker](https://www.docker.com/)
-    * [exa](https://github.com/ogham/exa)
-    * [fzf](https://github.com/junegunn/fzf)
-    * GNU [grep](https://www.gnu.org/software/grep/)
-    * [make](https://man7.org/linux/man-pages/man1/make.1.html)
-    * [ranger](https://github.com/ranger/ranger)
-    * [tmux](https://github.com/tmux/tmux/wiki) + [tmuxinator](https://github.com/tmuxinator/tmuxinator)
-    * [Wget](https://www.gnu.org/software/wget/)
-  * Flatpak Apps
-    * [Ferdium](https://ferdium.org/)
-    * [Spotify](https://open.spotify.com/)
-    * [Signal](https://signal.org/en/)
-    * [Zoom](https://zoom.us/)
-    * [Bitwarden](https://bitwarden.com/)
+Personal Fedora (Wayland) setup, managed with [Nix](https://nixos.org/) + [Home Manager](https://github.com/nix-community/home-manager) flakes.
 
-### MacOS
-  * Core
-    * [ZSH](https://www.zsh.org/) + [Oh-My-ZSH](https://ohmyz.sh/)  + [starship.rs](https://starship.rs/)
-    * [Homebrew](https://brew.sh/) + [Homebrew Cask](https://caskroom.github.io/)
-    * [kitty](https://sw.kovidgoyal.net/kitty/) + [tmux](https://github.com/tmux/tmux/wiki) + [tmuxinator](https://github.com/tmuxinator/tmuxinator)
-    * [neovim](https://neovim.io/)
-  * Terminal Utilities (for full list see [brew](./install/macos/brew.sh))
-    * [Ag The Silver Search](https://github.com/ggreer/the_silver_searcher) GNU [grep](https://www.gnu.org/software/grep/), [Wget](https://www.gnu.org/software/wget/)
-    * [asdf](https://asdf-vm.com/)
-    * [Autojump](https://github.com/wting/autojump)
-    * [awscli](https://aws.amazon.com/cli/)
-    * [bat](https://github.com/sharkdp/bat)
-    * [curl](https://curl.se/)
-    * [docker](https://www.docker.com/)
-    * [exa](https://github.com/ogham/exa)
-    * [fzf](https://github.com/junegunn/fzf)
-    * GNU [grep](https://www.gnu.org/software/grep/)
-    * [imagemagick](https://www.imagemagick.org/)
-    * [make](https://man7.org/linux/man-pages/man1/make.1.html)
-    * [ranger](https://github.com/ranger/ranger)
-    * [tmux](https://github.com/tmux/tmux/wiki) + [tmuxinator](https://github.com/tmuxinator/tmuxinator)
-    * [tree](http://mama.indstate.edu/users/ice/tree/), [MySQL](https://www.mysql.com/), [PostgreSQL](https://www.postgresql.org/), [thefuck](https://github.com/nvbn/thefuck)
-    * [Wget](https://www.gnu.org/software/wget/)
-    * [unar](https://theunarchiver.com/command-line)
-  * macOS: [Quick Lookup plugins](https://github.com/sindresorhus/quick-look-plugins)
-  * [macOS apps](https://github.com/jm96441n/dotfiles/install/brew-cask.sh)
+## Layout
 
-### Languages Included (via asdf)
-  * Go 1.18.2
-  * Python 3.10.4
-  * Ruby 3.1.0
-  * NodeJS 18.5.0
+| Path | What |
+|------|------|
+| `install.sh` | Bootstrap: dnf packages, Nix, Home Manager, mise |
+| `install/` | `packages.sh` (dnf repos/packages, Docker, NVIDIA), SSH key + GitHub key helpers |
+| `.config/home-manager/` | `flake.nix`, `home.nix` (packages), `programs/` (zsh, git, starship, bat, mako, ssh-agent) |
+| `.config/` | App configs: sway, waybar, wofi, kanshi, ghostty, kitty, tmux, nvim, helix, jj, k9s, ranger, mise |
+| `.config/{opencode,claude,pi,mcphub,herdr}` | AI coding agent configs |
+| `bin/` | Scripts: `dotfiles`, `tmux-sessionizer`, `tmux-cht`, `git-heatmap`, `git-new-branch`, `review`, etc. |
+| `git/` | Extra git config |
+| `system/` | Env files (private env written here at install) |
+| `wallpaper/`, `everforest_colors` | Theme assets |
+
+## Stack
+
+- **WM**: sway + waybar + wofi + mako + kanshi
+- **Shell**: zsh + starship
+- **Terminal**: ghostty / kitty + tmux
+- **Editor**: neovim (helix also configured)
+- **VCS**: git + jujutsu
+- **Runtimes**: mise
+- **Tools**: see `home.packages` in [home.nix](./.config/home-manager/home.nix)
 
 ## Install
 
-1. Ensure your system is up to date
-  * Fedora
-  ```
-    sudo dnf upgrade
-  ```
-  * Ubuntu
-  ```
-    sudo apt-get update
-  ```
-  * MacOS
-  ```
-    sudo softwareupdate -i -a
-    xcode-select --install
-  ```
-2. Clone with Git
-  git clone https://github.com/jm96441n/dotfiles.git ~/.dotfiles
-
-3. Run the installation script
-
-Note: this assumes you have a bitwarden account as there are secrets that are sourced from bitwarden during the setup
-```
-source ~/.dotfiles/install.sh
+```sh
+sudo dnf upgrade
+git clone https://github.com/jm96441n/dotfiles.git ~/.dotfiles
+GITHUB_TOKEN=... bash ~/.dotfiles/install.sh
 ```
 
 ## The `dotfiles` command
-```
-$ dotfiles help
-Usage: dotfiles <command>
 
-Commands:
-   clean            Clean up caches (apt/dnf, asdf, gem)
-   edit             Open dotfiles in vim
-   help             This help message
-   update           Update packages and pkg managers (packages, pip, gem, asdf)
+```
+clean    Clean up caches (dnf, nix, mise)
+edit     Open dotfiles in $EDITOR
+help     This help message
+switch   Apply home-manager config
+update   Update dnf, flake inputs, home-manager, mise
 ```
 
 ## Credits
 
-The [dotfiles community](https://dotfiles.github.io) and [webpro](https://github.com/webpro/dotfiles) who I've adapted these from
+The [dotfiles community](https://dotfiles.github.io) and [webpro](https://github.com/webpro/dotfiles).
