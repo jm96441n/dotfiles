@@ -140,15 +140,8 @@
       # Submodule settings
       submodule.recursive = true;
 
-      # URL rewrites
-      url = {
-        "git@github.com:" = {
-          insteadOf = "https://github.com/";
-        };
-        "ssh://git@github.com:" = {
-          insteadOf = "https://github.com/";
-        };
-      };
+      # Fetch over https (works without keys), push over ssh.
+      url."git@github.com:".pushInsteadOf = "https://github.com/";
 
       # Conditional includes
       includeIf."gitdir:~/hashi/".path = "~/.dotfiles/git/hashi/.gitconfig";
