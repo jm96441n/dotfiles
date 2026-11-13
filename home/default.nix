@@ -217,7 +217,10 @@
       recursive = true;
     };
     ".config/herdr/config.toml".source = ../.config/herdr/config.toml;
-    ".config/ghostty/config".source = ../.config/ghostty/config;
+    # Nix fills in the zsh path (~/.nix-profile on Fedora, /etc/profiles on NixOS).
+    ".config/ghostty/config".text = builtins.readFile ../.config/ghostty/config + ''
+      command = ${config.programs.zsh.package}/bin/zsh
+    '';
   };
 
   # Environment variables
