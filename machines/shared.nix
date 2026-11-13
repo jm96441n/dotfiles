@@ -39,6 +39,9 @@
 
   virtualisation.docker.enable = true;
 
+  # Run prebuilt generic-Linux binaries (mason, mise's node/python, tree-sitter CLI).
+  programs.nix-ld.enable = true;
+
   environment.systemPackages = with pkgs; [
     git
     vim
