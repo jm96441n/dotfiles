@@ -15,6 +15,8 @@
     powerManagement.enable = true;
   };
   programs.sway.extraOptions = [ "--unsupported-gpu" ];
+  # Text console + greetd on the NVIDIA card (otherwise a black screen with a cursor).
+  boot.kernelParams = [ "nvidia-drm.fbdev=1" ];
 
   hardware.enableRedistributableFirmware = true;
   services.power-profiles-daemon.enable = true;
