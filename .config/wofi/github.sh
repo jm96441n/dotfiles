@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Source environment variables
 . "$HOME/.dotfiles/system/.private_env"

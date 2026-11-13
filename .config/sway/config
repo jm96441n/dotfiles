@@ -22,7 +22,7 @@ exec swayidle -w \
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec ~/.nix-profile/bin/ghostty
+bindsym $mod+Return exec ghostty
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -221,7 +221,7 @@ assign [class="Spotify"] workspace number $spotify
 assign [class="obsidian"] workspace number $notes
 
 # Launch applications with slight delays
-exec sleep 1 && ~/.nix-profile/bin/ghostty
+exec sleep 1 && ghostty
 exec sleep 2 && flatpak run app.zen_browser.zen
 exec sleep 3 && slack
 exec sleep 3 && flatpak run org.signal.Signal
@@ -229,7 +229,7 @@ exec sleep 4 && flatpak run dev.aunetx.deezer
 exec sleep 5 && flatpak run md.obsidian.Obsidian
 
 # Autostart applications
-# exec swaymsg 'workspace 1: term; exec /usr/bin/ghostty'
+# exec swaymsg 'workspace 1: term; exec ghostty'
 # exec swaymsg 'workspace 2: web; exec firefox'
 # exec swaymsg 'workspace 3: chat; exec "flatpak run com.slack.Slack"'
 # exec swaymsg 'workspace 4: spotify; exec "flatpak run com.spotify.Client"'
