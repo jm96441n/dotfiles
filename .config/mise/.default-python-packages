@@ -1,10 +1,5 @@
 ipython
 ipdb
-black
-flake8
-numpy
 neovim
-pandas
 pytest
-thefuck
-autorandr
+ruff

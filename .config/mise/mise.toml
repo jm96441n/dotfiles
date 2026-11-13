@@ -1,13 +1,15 @@
 [tools]
 node = '26.7.0'
 golang = '1.27.3'
-python = '3.13.3'
+python = '3.15.2'
 # ruby='3.4.3'
-rust = '1.94.1'
-lua = '5.1'
+rust = '1.100.0'
+# lua: provided by nix (home/default.nix, lua5_1) for neovim support
 "cargo:cargo-binstall" = "latest"
 "npm:@tobilu/qmd" = "latest"
 
 [settings]
 idiomatic_version_file_enable_tools = ["python"]
+# nix-ld is enabled, so precompiled binaries work; compiling from source fails on NixOS (no FHS headers)
+all_compile = false
 cargo.binstall = true

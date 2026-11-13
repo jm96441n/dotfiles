@@ -225,11 +225,11 @@ assign [class="obsidian"] workspace number $notes
 
 # Launch applications with slight delays
 exec sleep 1 && ghostty
-exec sleep 2 && flatpak run app.zen_browser.zen
+exec sleep 2 && zen-beta
 exec sleep 3 && slack
-exec sleep 3 && flatpak run org.signal.Signal
+exec sleep 3 && flatpak signal-desktop
 exec sleep 4 && flatpak run dev.aunetx.deezer
-exec sleep 5 && flatpak run md.obsidian.Obsidian
+exec sleep 5 && flatpak obsidian
 
 # Autostart applications
 # exec swaymsg 'workspace 1: term; exec ghostty'
