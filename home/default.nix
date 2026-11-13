@@ -114,6 +114,7 @@
     nerd-fonts.fira-code
     nixfmt
     nmap
+    opencode
     packer
     peek
     pnpm
