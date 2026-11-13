@@ -57,6 +57,9 @@
 
   # Packages that should be installed to the user profile
   home.packages = with pkgs; [
+    # Cursor theme (sway/wlroots fallback is tiny)
+    adwaita-icon-theme
+
     # CLI tools
     acli
     actionlint
@@ -228,6 +231,8 @@
   # Environment variables
   home.sessionVariables = {
     EDITOR = "nvim";
+    XCURSOR_THEME = "Adwaita";
+    XCURSOR_SIZE = "32";
     ZSH_PATH = "${pkgs.zsh}/bin/zsh";
     SHELL = "${pkgs.zsh}/bin/zsh";
     DOTFILES_DIR = "$HOME/.dotfiles";

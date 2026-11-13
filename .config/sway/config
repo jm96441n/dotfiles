@@ -210,6 +210,9 @@ input "type:keyboard" {
 
 # Wallpaper - replace feh with swaybg
 output * bg ~/.dotfiles/wallpaper/space.png fill
+
+# Bigger cursor (default 24 is tiny)
+seat * xcursor_theme Adwaita 32
 output eDP-1 scale 1.75
 
 # Define workspace assignments
