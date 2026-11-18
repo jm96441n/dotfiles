@@ -5,6 +5,16 @@
       "action": "skill",
       "resource": "*",
       "effect": "allow"
+    },
+    {
+      "action": "chiasmus_chiasmus_graph",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "chiasmus_chiasmus_map",
+      "resource": "*",
+      "effect": "deny"
     }
   ],
   "agents": {
@@ -323,6 +333,20 @@
           "--tools=agent"
         ],
         "type": "local",
+        "disabled": false
+      },
+      "chiasmus": {
+        "type": "local",
+        "command": [
+          "npx",
+          "-y",
+          "chiasmus"
+        ],
+        "environment": {
+          "CHIASMUS_LOCAL_EMBED": "1",
+          "CHIASMUS_LOCAL_EMBED_MODEL": "hf:Qwen/Qwen3-Embedding-0.6B-GGUF",
+          "CHIASMUS_LOCAL_EMBED_DIM": "1024"
+        },
         "disabled": false
       }
     }
