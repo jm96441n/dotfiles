@@ -14,10 +14,6 @@
         AddKeysToAgent = "yes";
         IdentityFile = [ "~/.ssh/github_rsa" ];
       };
-      "github.ibm.com" = {
-        AddKeysToAgent = "yes";
-        IdentityFile = [ "~/.ssh/ibm-gh" ];
-      };
     };
   };
 }

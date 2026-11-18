@@ -2,6 +2,7 @@
 { pkgs, ... }:
 {
   environment.systemPackages = with pkgs; [
+    bitwarden-desktop
     chromium
     firefox
     obsidian
