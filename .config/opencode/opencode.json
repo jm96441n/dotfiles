@@ -328,7 +328,7 @@
       },
       "engram": {
         "command": [
-          "/home/johnmaguire/.local/share/mise/installs/go/1.26.7/bin/engram",
+          "engram",
           "mcp",
           "--tools=agent"
         ],

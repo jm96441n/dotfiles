@@ -20,7 +20,7 @@ import type { Plugin } from "@opencode/plugin"
 
 const ENGRAM_PORT = parseInt(process.env.ENGRAM_PORT ?? "7437")
 const ENGRAM_URL = `http://127.0.0.1:${ENGRAM_PORT}`
-const ENGRAM_BIN = process.env.ENGRAM_BIN ?? Bun.which("engram") ?? "/home/johnmaguire/.local/share/mise/installs/go/1.26.7/bin/engram"
+const ENGRAM_BIN = process.env.ENGRAM_BIN ?? Bun.which("engram") ?? "engram"
 
 // Engram's own MCP tools — don't count these as "tool calls" for session stats
 const ENGRAM_TOOLS = new Set([
