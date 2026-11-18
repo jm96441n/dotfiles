@@ -103,6 +103,7 @@
     htop
     icomoon-feather
     imagemagick
+    jq
     jujutsu
     lazygit
     lua5_1
@@ -227,6 +228,19 @@
       command = ${config.programs.zsh.package}/bin/zsh
     '';
   };
+
+  # herdr has no declarative plugin config; config.toml keybinds need this plugin.
+  home.activation.herdrPlugins = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    export PATH="${
+      lib.makeBinPath [
+        pkgs.git
+        pkgs.jq
+      ]
+    }:$PATH"
+    if ! ${pkgs.herdr}/bin/herdr plugin list 2>/dev/null | grep -q vim-herdr-navigation; then
+      run ${pkgs.herdr}/bin/herdr plugin install paulbkim-dev/vim-herdr-navigation --yes || true
+    fi
+  '';
 
   # Environment variables
   home.sessionVariables = {

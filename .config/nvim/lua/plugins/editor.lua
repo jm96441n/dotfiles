@@ -368,7 +368,10 @@ return {
       vim.g.tmux_navigator_no_mappings = 1
     end,
     config = function()
-      dofile(vim.fn.glob(vim.fn.expand("~/.config/herdr/plugins/github/vim-herdr-navigation-*/editor/nvim.lua")))
+      local f = vim.fn.glob("~/.config/herdr/plugins/github*/vim-herdr-navigation-*/**/editor/nvim.lua", false, true)[1]
+      if f then
+        dofile(f)
+      end
     end,
   },
 
