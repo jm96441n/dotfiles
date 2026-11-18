@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 
 set -eEuo pipefail
-if [[ -z "$GITHUB_TOKEN" ]]; then
+if [[ -z "${GITHUB_TOKEN:-}" ]]; then
   echo "Error: Set GITHUB_TOKEN env var"
   exit 1
 fi
@@ -31,12 +31,8 @@ home-manager switch -b backup --extra-experimental-features nix-command --extra-
 
 fc-cache -fv
 
-echo "NEW KEY IS $NEWKEY"
-if [ -n "$NEWKEY" ]; then
-  . "$DOTFILES_DIR/install/autokey-github.sh"
-fi
-
 mise install
 
-echo "GITHUB_ACCESS_TOKEN=$GITHUB_TOKEN" >"$DOTFILES_DIR/system/.private_env"
-echo "GITHUB_TOKEN=$GITHUB_TOKEN" >"$DOTFILES_DIR/system/.private_env"
+cat >"$DOTFILES_DIR/system/.private_env" <<EOF
+export GITHUB_TOKEN="$GITHUB_TOKEN"
+EOF
