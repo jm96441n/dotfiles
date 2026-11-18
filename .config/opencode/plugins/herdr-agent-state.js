@@ -3,6 +3,7 @@
 // add custom hooks/plugins beside this file instead of editing it.
 // HERDR_INTEGRATION_ID=opencode
 // HERDR_INTEGRATION_VERSION=11
+// Hand-ported to the OpenCode V2 plugin API; `herdr integration install` will revert it to V1.
 
 import net from "node:net";
 
@@ -118,84 +119,101 @@ function reportState(state, sessionID) {
   return request("pane.report_agent", params);
 }
 
-export const HerdrAgentStatePlugin = async () => {
-  if (
-    process.env.HERDR_ENV !== "1" ||
-    !process.env.HERDR_SOCKET_PATH ||
-    !process.env.HERDR_PANE_ID
-  ) {
-    return {};
+// V2 renamed V1 events; normalize to the names the handler below uses.
+const V2_EVENT_TYPES = new Map([
+  ["form.created", "question.asked"],
+  ["form.replied", "question.replied"],
+  ["form.cancelled", "question.rejected"],
+  ["session.tool.called", "tool.execute.before"],
+  ["session.compaction.ended", "session.compacted"],
+  ["session.execution.failed", "session.error"],
+]);
+
+async function handleEvent(event) {
+  const type = V2_EVENT_TYPES.get(event?.type) ?? event?.type;
+  const data = event?.data ?? {};
+  const sessionID =
+    sessionIDFromProperties(data) ?? sessionIDFromProperties(data.form);
+
+  if (type === "session.created" && sessionID && data.parentID) {
+    childSessions.set(sessionID, data.parentID);
+  }
+  if (sessionID && childSessions.has(sessionID)) {
+    const state = CHILD_EVENT_STATES.get(type);
+    if (state) {
+      let rootSessionID = sessionID;
+      while (childSessions.has(rootSessionID)) {
+        rootSessionID = childSessions.get(rootSessionID);
+      }
+      await reportState(state, rootSessionID);
+    }
+    return;
   }
 
-  return {
-    "chat.message": async ({ sessionID }) => {
+  switch (type) {
+    case "session.created":
+      // Creation is server-global, so an attached client may own it. The
+      // TUI plugin separately reports the root selected in this pane.
+      reportedRootSessionID = sessionID;
+      break;
+    case "session.status": {
+      const state = stateFromSessionStatus(data.status);
+      if (state) {
+        await reportState(state, sessionID);
+      } else if (sessionID !== reportedRootSessionID) {
+        await reportSession(sessionID);
+      }
+      break;
+    }
+    case "tool.execute.before":
+    case "permission.replied":
+    case "question.replied":
+    case "question.rejected":
+    case "session.compacted":
+      await reportState("working", sessionID);
+      break;
+    case "permission.asked":
+    case "question.asked":
+    case "session.error":
+      await reportState("blocked", sessionID);
+      break;
+    case "session.idle":
+      await reportState("idle", sessionID);
+      break;
+    default:
+      break;
+  }
+}
+
+export default {
+  id: "herdr-agent-state",
+  async setup(ctx) {
+    if (
+      process.env.HERDR_ENV !== "1" ||
+      !process.env.HERDR_SOCKET_PATH ||
+      !process.env.HERDR_PANE_ID
+    ) {
+      return;
+    }
+
+    await ctx.session.hook("prompt", async ({ sessionID }) => {
       if (sessionID && childSessions.has(sessionID)) {
         return;
       }
       await reportState("working", sessionID);
-    },
-    event: async ({ event }) => {
-      const type = event?.type;
-      const properties = event?.properties ?? {};
-      const sessionID = sessionIDFromProperties(properties);
+    });
 
-      const info = properties.info;
-      if (info?.id && info.parentID) {
-        childSessions.set(info.id, info.parentID);
-      }
-      if (sessionID && childSessions.has(sessionID)) {
-        const state = CHILD_EVENT_STATES.get(type);
-        if (state) {
-          let rootSessionID = sessionID;
-          while (childSessions.has(rootSessionID)) {
-            rootSessionID = childSessions.get(rootSessionID);
-          }
-          await reportState(state, rootSessionID);
+    const controller = new AbortController();
+    void (async () => {
+      try {
+        for await (const event of ctx.event.subscribe({ signal: controller.signal })) {
+          await handleEvent(event).catch(() => {});
         }
-        return;
+      } catch {
+        // stream aborted on unload
       }
+    })();
 
-      switch (type) {
-        case "session.created":
-          // Creation is server-global, so an attached client may own it. The
-          // TUI plugin separately reports the root selected in this pane.
-          reportedRootSessionID = sessionID;
-          break;
-        case "session.updated":
-          if (sessionID && sessionID !== reportedRootSessionID) {
-            await reportSession(sessionID);
-          }
-          break;
-        case "session.status": {
-          const state = stateFromSessionStatus(properties.status);
-          if (state) {
-            await reportState(state, sessionID);
-          } else {
-            await reportSession(sessionID);
-          }
-          break;
-        }
-        case "tool.execute.before":
-        case "tool.execute.after":
-        case "permission.replied":
-        case "question.replied":
-        case "question.rejected":
-        case "session.compacted":
-          await reportState("working", sessionID);
-          break;
-        case "permission.asked":
-        case "question.asked":
-        case "session.error":
-          await reportState("blocked", sessionID);
-          break;
-        case "session.idle":
-          await reportState("idle", sessionID);
-          break;
-        case "session.deleted":
-          break;
-        default:
-          break;
-      }
-    },
-  };
+    return () => controller.abort();
+  },
 };
