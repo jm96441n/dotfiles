@@ -18,6 +18,8 @@
   # Text console + greetd on the NVIDIA card (otherwise a black screen with a cursor).
   boot.kernelParams = [ "nvidia-drm.fbdev=1" ];
 
+  services.tailscale.enable = true;
+
   hardware.enableRedistributableFirmware = true;
   services.power-profiles-daemon.enable = true;
   services.fwupd.enable = true;

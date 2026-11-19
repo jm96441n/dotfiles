@@ -1,5 +1,6 @@
 keys:
   - &john age165tc62m3eyl5l8jf3nkzefzxw36dzg8qgu92x4fewpuvvnwv6yjq24l8h6
+  - &homelab age1u2thsj3ek90z4h0y0vmuhm00yuxkpyukrhmuj5g9t2l0jn75cgvsvxvyn5
   # Add after install: ssh homelab sudo nix shell nixpkgs#age -c age-keygen -y /var/lib/sops-nix/key.txt
   # - &homelab age1...
 creation_rules:
@@ -7,4 +8,4 @@ creation_rules:
     key_groups:
       - age:
           - *john
-          # - *homelab
+          - *homelab
