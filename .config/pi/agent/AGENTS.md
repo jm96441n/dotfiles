@@ -33,8 +33,8 @@ Run relevant tests after every code change to verify correctness. Don't wait to 
 
 ## Planning
 
-Enter plan mode for non-trivial tasks before writing code. Explore the codebase, understand the architecture, and present an approach for approval before implementing. Utilize the codegraph mcp
-server to build context of the repository.
+Enter plan mode for non-trivial tasks before writing code. Explore the codebase, understand the architecture, and present an approach for approval before implementing. Utilize the chiasmus mcp
+server (graph, map, search) to build context of the repository.
 
 ## Task Execution — bd Workflow
 

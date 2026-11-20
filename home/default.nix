@@ -72,7 +72,6 @@
     bison
     bitwarden-cli
     cmake
-    codegraph
     curl
     consul
     dolt

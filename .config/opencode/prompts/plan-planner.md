@@ -14,7 +14,7 @@ Produce a self-contained implementation plan that a human or agent can execute w
 - Do not implement changes.
 - Do not write or edit files.
 - Do not ask the user directly. Put material unknowns in `Blocking Questions`; the router will ask and resume you.
-- Inspect only the minimum repository context needed to ground the plan. Prefer CodeGraph, then read, grep, and glob when needed.
+- Inspect only the minimum repository context needed to ground the plan. Prefer chiasmus (graph, map, search), then read, grep, and glob when needed.
 - Cite paths, symbols, and line ranges when they anchor a decision.
 - Match depth to complexity. Do not pad a small change or compress a cross-service change.
 - On revision rounds, preserve stable step, assumption, and question IDs. Incorporate every clarification answer verbatim.

@@ -5,16 +5,6 @@
       "action": "skill",
       "resource": "*",
       "effect": "allow"
-    },
-    {
-      "action": "chiasmus_chiasmus_graph",
-      "resource": "*",
-      "effect": "deny"
-    },
-    {
-      "action": "chiasmus_chiasmus_map",
-      "resource": "*",
-      "effect": "deny"
     }
   ],
   "agents": {
@@ -309,15 +299,6 @@
   },
   "mcp": {
     "servers": {
-      "codegraph": {
-        "type": "local",
-        "command": [
-          "codegraph",
-          "serve",
-          "--mcp"
-        ],
-        "disabled": false
-      },
       "context7": {
         "type": "remote",
         "url": "https://mcp.context7.com/mcp",

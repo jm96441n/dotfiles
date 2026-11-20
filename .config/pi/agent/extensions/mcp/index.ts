@@ -24,12 +24,18 @@ const clients = new Map<string, Client>();
 
 const servers: ServerDef[] = [
   {
-    name: "codegraph",
+    name: "chiasmus",
     connect: (cwd) => {
       const transport = new StdioClientTransport({
-        command: "codegraph",
-        args: ["serve", "--mcp"],
+        command: "npx",
+        args: ["-y", "chiasmus"],
         cwd,
+        env: {
+          ...(process.env as Record<string, string>),
+          CHIASMUS_LOCAL_EMBED: "1",
+          CHIASMUS_LOCAL_EMBED_MODEL: "hf:Qwen/Qwen3-Embedding-0.6B-GGUF",
+          CHIASMUS_LOCAL_EMBED_DIM: "1024",
+        },
       });
       const client = new Client(
         { name: "pi", version: "1" },
