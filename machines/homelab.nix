@@ -11,6 +11,8 @@
   # Required by ZFS; any stable 8-hex-digit value.
   networking.hostId = "2e37df79";
 
+  networking.firewall.allowedTCPPorts = [ 8080 ];
+
   # Media files are owned by uid/gid 1000; keep them matching.
   users.users.johnmaguire.uid = 1000;
   users.groups.johnmaguire.gid = 1000;
