@@ -30,6 +30,10 @@
       url = "github:NixOS/nixos-hardware";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    rex = {
+      url = "https://pkgs.superlogical.com/rex/nix/snapshot.tar.gz";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs =
     {
@@ -41,6 +45,7 @@
       nixos-hardware,
       sops-nix,
       zen-browser,
+      rex,
       ...
     }:
     let
@@ -89,7 +94,12 @@
       };
 
       # VMware Fusion VM on Apple Silicon Macs
-      nixosConfigurations.dev-vm = mkNixos "aarch64-linux" ./machines/dev-vm.nix;
+      nixosConfigurations.dev-vm = mkNixos "aarch64-linux" {
+        imports = [
+          rex.nixosModules.default
+          ./machines/dev-vm.nix
+        ];
+      };
 
       # ThinkPad P1 Gen 3
       nixosConfigurations.home-laptop = mkNixos "x86_64-linux" {
