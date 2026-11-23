@@ -1,0 +1,471 @@
+# OmniWM config modelled on .config/sway/config. Option plays the role of sway's $mod
+# (Command would clash with macOS app shortcuts). Schema is strict: see
+# https://omniwm.app/config/settings-reference/ before adding or removing keys.
+schemaVersion = 5
+
+[general]
+animationsEnabled = true
+defaultLayoutType = "dwindle"
+hotkeysEnabled = true
+hyperKeyModifiers = "Control+Option+Shift+Command"
+ipcEnabled = true
+preventSleepEnabled = false
+systemHyperTrigger = "None"
+updateChecksEnabled = true
+workspaceAutoBackAndForth = true
+
+[focus]
+crossesMonitorAtEdge = false
+followsMouse = false
+followsWindowToMonitor = false
+lockModifier = "off"
+moveCrossesMonitorAtEdge = false
+moveMouseToFocusedWindow = false
+raiseOnMouseFocus = false
+
+[mouseWarp]
+constrainToArrangement = false
+enabled = true
+margin = 1
+
+[routing]
+arrangements = []
+mode = "macOS"
+
+[gaps]
+fullscreenUsesOuterGaps = false
+size = 20.0
+
+[gaps.outer]
+bottom = 0.0
+left = 0.0
+right = 0.0
+top = 0.0
+
+[niri]
+alwaysCenterSingleColumn = false
+centerFocusedColumn = "never"
+infiniteLoop = false
+singleWindowFit = "fill"
+visibleContainerCount = 2
+
+[dwindle]
+defaultSplitRatio = 1.0
+moveToRootStable = true
+singleWindowFit = "fill"
+smartSplit = false
+splitWidthMultiplier = 1.0
+useGlobalGaps = true
+
+# everforest blue, same as sway client.focused
+[borders]
+enabled = true
+width = 2.0
+
+[borders.color]
+alpha = 1.0
+blue = 0.702
+green = 0.733
+red = 0.498
+
+[overview]
+zoom = 1.0
+
+[overview.backdrop]
+alpha = 0.0
+blue = 0.08
+green = 0.05
+red = 0.05
+
+[overview.windowBorders.hovered]
+alpha = 1.0
+blue = 1.0
+green = 0.6
+red = 0.4
+
+[overview.windowBorders.normal]
+alpha = 0.5
+blue = 0.35
+green = 0.3
+red = 0.3
+
+[overview.windowBorders.selected]
+alpha = 1.0
+blue = 0.4
+green = 0.8
+red = 0.3
+
+[workspaceBar]
+backgroundOpacity = 0.1
+deduplicateAppIcons = false
+enabled = true
+excludedBundleIDs = []
+height = 24.0
+hideEmptyWorkspaces = false
+hideInNativeFullscreen = false
+notchActiveZoneWidth = 180.0
+notchMode = "moveBelowMenuBar"
+position = "overlappingMenuBar"
+reserveLayoutSpace = false
+revealHoldMilliseconds = 200.0
+revealModifier = "off"
+showFloatingWindows = false
+showLabels = true
+systemStatsButton = false
+windowLevel = "popup"
+xOffset = 0.0
+yOffset = 0.0
+
+[workspaceBar.iconOverrides]
+
+[gestures]
+fingerCount = 3
+invertDirection = true
+# mouse*ModifierKey: required by v0.8.0, dropped on main (kept as unknown keys there)
+mouseMoveModifierKey = "option"
+mouseResizeModifierKey = "option"
+scrollEnabled = true
+scrollModifierKey = "optionShift"
+scrollSensitivity = 5.0
+trackpadScrollStyle = "snap"
+workspaceSwipeAxis = "vertical"
+workspaceSwipeEnabled = false
+workspaceSwipeFingerCount = 3
+
+[statusBar]
+showAppNames = false
+showWorkspaceName = false
+useWorkspaceId = false
+
+[hiddenBar]
+enabled = true
+hiddenBundleIDs = []
+rehideIntervalSeconds = 5.0
+
+[launcher]
+shell = "zsh"
+terminal = "ghostty"
+
+[clipboard]
+historyEnabled = false
+maxItemBytes = 8388608
+maxItems = 200
+maxTotalBytes = 67108864
+
+[quakeTerminal]
+animationDuration = 0.2
+autoHide = false
+backgroundEffect = "standardBlur"
+enabled = true
+heightPercent = 50.0
+position = "center"
+widthPercent = 50.0
+
+[scratchpads.labels]
+
+[appearance]
+# mode: required by v0.8.0, dropped on main
+mode = "automatic"
+tabRailAppIcons = false
+
+# Actions not listed here are unassigned.
+
+[[hotkeys]]
+binding = "Option+H"
+id = "focus.left"
+
+[[hotkeys]]
+binding = "Option+J"
+id = "focus.down"
+
+[[hotkeys]]
+binding = "Option+K"
+id = "focus.up"
+
+[[hotkeys]]
+binding = "Option+L"
+id = "focus.right"
+
+[[hotkeys]]
+binding = "Option+Shift+H"
+id = "move.left"
+
+[[hotkeys]]
+binding = "Option+Shift+J"
+id = "move.down"
+
+[[hotkeys]]
+binding = "Option+Shift+K"
+id = "move.up"
+
+[[hotkeys]]
+binding = "Option+Shift+L"
+id = "move.right"
+
+[[hotkeys]]
+binding = "Option+1"
+id = "switchWorkspace.0"
+
+[[hotkeys]]
+binding = "Option+2"
+id = "switchWorkspace.1"
+
+[[hotkeys]]
+binding = "Option+3"
+id = "switchWorkspace.2"
+
+[[hotkeys]]
+binding = "Option+4"
+id = "switchWorkspace.3"
+
+[[hotkeys]]
+binding = "Option+5"
+id = "switchWorkspace.4"
+
+[[hotkeys]]
+binding = "Option+6"
+id = "switchWorkspace.5"
+
+[[hotkeys]]
+binding = "Option+7"
+id = "switchWorkspace.6"
+
+[[hotkeys]]
+binding = "Option+8"
+id = "switchWorkspace.7"
+
+[[hotkeys]]
+binding = "Option+9"
+id = "switchWorkspace.8"
+
+[[hotkeys]]
+binding = "Option+0"
+id = "switchWorkspace.9"
+
+[[hotkeys]]
+binding = "Option+Shift+1"
+id = "moveToWorkspace.0"
+
+[[hotkeys]]
+binding = "Option+Shift+2"
+id = "moveToWorkspace.1"
+
+[[hotkeys]]
+binding = "Option+Shift+3"
+id = "moveToWorkspace.2"
+
+[[hotkeys]]
+binding = "Option+Shift+4"
+id = "moveToWorkspace.3"
+
+[[hotkeys]]
+binding = "Option+Shift+5"
+id = "moveToWorkspace.4"
+
+[[hotkeys]]
+binding = "Option+Shift+6"
+id = "moveToWorkspace.5"
+
+[[hotkeys]]
+binding = "Option+Shift+7"
+id = "moveToWorkspace.6"
+
+[[hotkeys]]
+binding = "Option+Shift+8"
+id = "moveToWorkspace.7"
+
+[[hotkeys]]
+binding = "Option+Shift+9"
+id = "moveToWorkspace.8"
+
+[[hotkeys]]
+binding = "Option+Shift+0"
+id = "moveToWorkspace.9"
+
+[[hotkeys]]
+binding = "Option+Shift+Q"
+id = "closeFocusedWindow"
+
+[[hotkeys]]
+binding = "Option+F"
+id = "toggleFullscreen"
+
+[[hotkeys]]
+binding = "Option+Shift+Space"
+id = "toggleFocusedWindowFloating"
+
+[[hotkeys]]
+binding = "Option+Space"
+id = "toggleFloatingFocus"
+
+# sway: layout toggle split / split h / split v
+[[hotkeys]]
+binding = "Option+E"
+id = "toggleSplit"
+
+[[hotkeys]]
+binding = "Option+C"
+id = "preselect.right"
+
+[[hotkeys]]
+binding = "Option+V"
+id = "preselect.down"
+
+# sway: wofi launcher
+[[hotkeys]]
+binding = "Option+D"
+id = "openCommandPalette.applications"
+
+# sway: mark / goto mark / unmark
+[[hotkeys]]
+binding = "Option+M"
+id = "setWindowMark"
+
+[[hotkeys]]
+binding = "Option+G"
+id = "openCommandPalette.windows"
+
+[[hotkeys]]
+binding = "Option+U"
+id = "removeWindowMark"
+
+# sway: resize mode. Option+R enters, H/J/K/L resize, Escape leaves.
+[[hotkeys]]
+binding = "Option+R"
+id = "toggleWindowMode"
+
+[[hotkeys]]
+id = "resizeShrink.horizontal"
+modeKey = "H"
+
+[[hotkeys]]
+id = "resizeGrow.vertical"
+modeKey = "J"
+
+[[hotkeys]]
+id = "resizeShrink.vertical"
+modeKey = "K"
+
+[[hotkeys]]
+id = "resizeGrow.horizontal"
+modeKey = "L"
+
+[[workspaces]]
+displayName = "term"
+id = "AD36F001-C57E-41A5-AC1D-DF5249D007F0"
+layoutType = "default"
+name = "1"
+
+[workspaces.monitorAssignment]
+type = "main"
+
+[[workspaces]]
+displayName = "web"
+id = "454CECD4-5E9D-4ED1-95D7-979D48817F5F"
+layoutType = "default"
+name = "2"
+
+[workspaces.monitorAssignment]
+type = "main"
+
+[[workspaces]]
+displayName = "chat"
+id = "BEB842B5-E894-4791-9FD1-397C3CDD3538"
+layoutType = "default"
+name = "3"
+
+[workspaces.monitorAssignment]
+type = "main"
+
+[[workspaces]]
+displayName = "music"
+id = "248AA883-2261-4D45-943C-79C0E46A232B"
+layoutType = "default"
+name = "4"
+
+[workspaces.monitorAssignment]
+type = "main"
+
+[[workspaces]]
+displayName = "notes"
+id = "8B8C45D6-CE9E-41D9-BD50-BE4989D5E3DE"
+layoutType = "default"
+name = "5"
+
+[workspaces.monitorAssignment]
+type = "main"
+
+[[workspaces]]
+id = "5953F2BF-A378-4266-91B2-287174C4FA4D"
+layoutType = "default"
+name = "6"
+
+[workspaces.monitorAssignment]
+type = "main"
+
+[[workspaces]]
+id = "A7D5E104-6985-4516-8ED5-07F144F2A33D"
+layoutType = "default"
+name = "7"
+
+[workspaces.monitorAssignment]
+type = "main"
+
+[[workspaces]]
+id = "0E18F6B0-345A-4078-8B21-33641F07A861"
+layoutType = "default"
+name = "8"
+
+[workspaces.monitorAssignment]
+type = "main"
+
+[[workspaces]]
+id = "8D4D711C-2B2F-4FEC-86BF-FA952037738A"
+layoutType = "default"
+name = "9"
+
+[workspaces.monitorAssignment]
+type = "main"
+
+[[workspaces]]
+id = "3F1C2B6A-9E4D-4C7B-8A51-2D6E0F9B7C10"
+layoutType = "default"
+name = "10"
+
+[workspaces.monitorAssignment]
+type = "main"
+
+# sway assign rules; min sizes for Ghostty and Zen are OmniWM's defaults.
+[[appRules]]
+assignToWorkspace = "1"
+bundleId = "com.mitchellh.ghostty"
+id = "7876C9EF-437E-4D4F-9C27-B1B02F4AABCE"
+minHeight = 48.0
+minWidth = 90.0
+
+[[appRules]]
+assignToWorkspace = "2"
+bundleId = "app.zen-browser.zen"
+id = "1CF39647-F30D-4E76-9686-79B551F1B094"
+minHeight = 495.0
+minWidth = 500.0
+
+[[appRules]]
+assignToWorkspace = "3"
+bundleId = "com.tinyspeck.slackmacgap"
+id = "5B0E8C2F-1D7A-4E39-9C64-A2F81B3D6E01"
+
+[[appRules]]
+assignToWorkspace = "3"
+bundleId = "org.whispersystems.signal-desktop"
+id = "C4A7F1D2-6B3E-4F58-8D90-1E2B3C4D5E02"
+
+[[appRules]]
+assignToWorkspace = "4"
+bundleId = "com.deezer.deezer-desktop"
+id = "9E2D4B6A-7C1F-4A83-B5D2-3F4E5A6B7C03"
+
+[[appRules]]
+assignToWorkspace = "5"
+bundleId = "md.obsidian"
+id = "D1E2F3A4-B5C6-4D7E-8F90-A1B2C3D4E504"

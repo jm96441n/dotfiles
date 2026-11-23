@@ -34,6 +34,10 @@
       url = "https://pkgs.superlogical.com/rex/nix/snapshot.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-darwin = {
+      url = "github:nix-darwin/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs =
     {
@@ -46,6 +50,7 @@
       sops-nix,
       zen-browser,
       rex,
+      nix-darwin,
       ...
     }:
     let
@@ -116,6 +121,20 @@
         imports = [
           sops-nix.nixosModules.sops
           ./machines/homelab.nix
+        ];
+      };
+
+      # Work MacBook: GUI apps only, dev work happens in dev-vm via Rex
+      darwinConfigurations.work-mac = nix-darwin.lib.darwinSystem {
+        modules = [
+          ./machines/work-mac.nix
+          home-manager.darwinModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.backupFileExtension = "backup";
+            home-manager.users.johnmaguire = ./home/darwin.nix;
+          }
         ];
       };
     };
