@@ -67,6 +67,11 @@
           modules = [
             { nixpkgs.overlays = overlays; }
             ./machines/shared.nix
+            rex.nixosModules.default
+            {
+              services.rex.enable = true;
+              users.users.johnmaguire.extraGroups = [ "rex" ];
+            }
             machine
             home-manager.nixosModules.home-manager
             {
@@ -95,15 +100,17 @@
         modules = [
           { nixpkgs.overlays = overlays; }
           ./home
+          rex.homeManagerModules.default
+          {
+            programs.rex.enable = true;
+            services.rex.enable = true;
+          }
         ];
       };
 
       # VMware Fusion VM on Apple Silicon Macs
       nixosConfigurations.dev-vm = mkNixos "aarch64-linux" {
-        imports = [
-          rex.nixosModules.default
-          ./machines/dev-vm.nix
-        ];
+        imports = [ ./machines/dev-vm.nix ];
       };
 
       # ThinkPad P1 Gen 3
