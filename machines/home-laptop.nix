@@ -22,6 +22,9 @@
 
   services.tailscale.enable = true;
 
+  services.rex.enable = true;
+  users.users.johnmaguire.extraGroups = [ "rex" ];
+
   hardware.enableRedistributableFirmware = true;
   services.power-profiles-daemon.enable = true;
   services.fwupd.enable = true;

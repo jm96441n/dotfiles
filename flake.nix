@@ -68,10 +68,6 @@
             { nixpkgs.overlays = overlays; }
             ./machines/shared.nix
             rex.nixosModules.default
-            {
-              services.rex.enable = true;
-              users.users.johnmaguire.extraGroups = [ "rex" ];
-            }
             machine
             home-manager.nixosModules.home-manager
             {

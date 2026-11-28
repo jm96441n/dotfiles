@@ -11,5 +11,7 @@
     headless = true;
   };
 
-  # Headless: Rex for Mac connects over ssh://johnmaguire@dev (server enabled in mkNixos)
+  # Headless: Rex for Mac connects over ssh://johnmaguire@dev
+  services.rex.enable = true;
+  users.users.johnmaguire.extraGroups = [ "rex" ];
 }

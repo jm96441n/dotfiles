@@ -83,6 +83,17 @@
   services.openssh.enable = lib.mkForce false;
   services.tailscale.enable = true;
 
+  # Phone access: the login server maps the Tailscale identity to a Rex server
+  # running as johnmaguire. The shared server (services.rex.enable) runs
+  # terminals as the rex system user, whose shell is nologin, so every
+  # terminal exits instantly.
+  services.rex.loginServer = {
+    enable = true;
+    tailscaleServe.enable = true;
+    accounts.johnmaguire.principals = [ "tailscale:jm96441n@github" ];
+    defaults."tailscale:jm96441n@github" = "johnmaguire";
+  };
+
   # Token-based Cloudflare tunnel (same as `cloudflared service install <token>` on Fedora).
   # Token lives outside the repo: /etc/cloudflared/token (root, mode 600).
   systemd.services.cloudflared = {
