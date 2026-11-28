@@ -21,3 +21,8 @@ system/.private_function
 .config/pi/agent/memory
 .config/pi/agent/extensions/*/node_modules/
 .config/opencode/service.json
+
+# Beads / Dolt files (added by bd init)
+.beads-credential-key
+.beads/proxieddb/
+*.gate.lock*
