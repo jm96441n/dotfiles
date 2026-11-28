@@ -34,6 +34,10 @@
       url = "https://pkgs.superlogical.com/rex/nix/snapshot.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    rex-rune = {
+      # Own nixpkgs pin: build needs newer Rust and Zig.
+      url = "github:shuv1337/rex-rune";
+    };
     nix-darwin = {
       url = "github:nix-darwin/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -50,6 +54,7 @@
       sops-nix,
       zen-browser,
       rex,
+      rex-rune,
       nix-darwin,
       ...
     }:
@@ -115,7 +120,12 @@
           nixos-hardware.nixosModules.lenovo-thinkpad-p1-gen3
           ./machines/home-laptop.nix
           ./machines/desktop-apps.nix
-          { environment.systemPackages = [ zen-browser.packages.x86_64-linux.default ]; }
+          {
+            environment.systemPackages = [
+              zen-browser.packages.x86_64-linux.default
+              rex-rune.packages.x86_64-linux.default
+            ];
+          }
         ];
       };
 

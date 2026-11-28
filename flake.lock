@@ -44,6 +44,22 @@
         "type": "github"
       }
     },
+    "flake-compat_2": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1696426674,
+        "narHash": "sha256-kvjfFW7WAETZlt09AgDn1MrtKzP7t90Vf7vypd3OL1U=",
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "rev": "0f9255e01c2351cc7d116c072cb317785dd33b33",
+        "type": "github"
+      },
+      "original": {
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "type": "github"
+      }
+    },
     "flake-parts": {
       "inputs": {
         "nixpkgs-lib": "nixpkgs-lib"
@@ -307,6 +323,22 @@
         "type": "github"
       }
     },
+    "nixpkgs_3": {
+      "locked": {
+        "lastModified": 1793735720,
+        "narHash": "sha256-smoxPKrzAhdGuFd2LLnG4m8P6IrZuW95DVyzjnlab7w=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "9d3b8db48266c17be0b5f9c6360c3ecfbac3d1f5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "rex": {
       "inputs": {
         "nixpkgs": [
@@ -324,6 +356,25 @@
         "url": "https://pkgs.superlogical.com/rex/nix/snapshot.tar.gz"
       }
     },
+    "rex-rune": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_3",
+        "zig": "zig_3"
+      },
+      "locked": {
+        "lastModified": 1795827511,
+        "narHash": "sha256-EQstXI3FFNqDd36b0xIPdEogb7dYH72oXf9wYuk4FI8=",
+        "owner": "shuv1337",
+        "repo": "rex-rune",
+        "rev": "3aa8c2a1e42569dab3865ca39d38a14bfbe99303",
+        "type": "github"
+      },
+      "original": {
+        "owner": "shuv1337",
+        "repo": "rex-rune",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "ghostty": "ghostty",
@@ -334,6 +385,7 @@
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_2",
         "rex": "rex",
+        "rex-rune": "rex-rune",
         "sops-nix": "sops-nix",
         "zen-browser": "zen-browser"
       }
@@ -390,6 +442,22 @@
       }
     },
     "systems_3": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
+      }
+    },
+    "systems_4": {
+      "flake": false,
       "locked": {
         "lastModified": 1681028828,
         "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
@@ -496,6 +564,29 @@
       "original": {
         "type": "git",
         "url": "https://codeberg.org/jcollie/zig-overlay.git"
+      }
+    },
+    "zig_3": {
+      "inputs": {
+        "flake-compat": "flake-compat_2",
+        "nixpkgs": [
+          "rex-rune",
+          "nixpkgs"
+        ],
+        "systems": "systems_4"
+      },
+      "locked": {
+        "lastModified": 1793794620,
+        "narHash": "sha256-T0jPhlCAvtTHx89EKEfvK+D2Rz/bBmgi8TYDJlLed0g=",
+        "owner": "mitchellh",
+        "repo": "zig-overlay",
+        "rev": "8a03a01a5cce1cc224d7eef154b1c7c67db517e5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mitchellh",
+        "repo": "zig-overlay",
+        "type": "github"
       }
     },
     "zon2nix": {
