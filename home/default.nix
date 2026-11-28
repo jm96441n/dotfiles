@@ -140,6 +140,7 @@
     tmux
     tree
     terraform
+    (callPackage ../pkgs/terminal-browser.nix { })
     unzip
     vagrant
     vault
