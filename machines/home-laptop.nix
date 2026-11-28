@@ -6,6 +6,8 @@
   ];
 
   networking.hostName = "home-laptop";
+  # Powersave causes WiFi latency spikes (SSH lag over tailscale).
+  networking.networkmanager.wifi.powersave = false;
 
   # Quadro T1000 (Turing). BIOS is set to Discrete Graphics, so NVIDIA drives
   # everything; sway refuses NVIDIA without --unsupported-gpu.
