@@ -25,6 +25,14 @@
   services.rex.enable = true;
   users.users.johnmaguire.extraGroups = [ "rex" ];
 
+  # Login server maps local uid 1000 to a Rex server running as johnmaguire.
+  # Without it the shared server runs terminals as the rex user (shell nologin).
+  services.rex.loginServer = {
+    enable = true;
+    accounts.johnmaguire.principals = [ "peer:1000" ];
+    defaults."peer:1000" = "johnmaguire";
+  };
+
   hardware.enableRedistributableFirmware = true;
   services.power-profiles-daemon.enable = true;
   services.fwupd.enable = true;
