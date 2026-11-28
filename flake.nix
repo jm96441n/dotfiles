@@ -81,7 +81,7 @@
               home-manager.backupFileExtension = "backup";
               home-manager.extraSpecialArgs = { inherit hunk; };
               home-manager.users.johnmaguire = {
-                imports = [ ./home ];
+                imports = [ ./home rex.homeManagerModules.default ];
                 targets.genericLinux.enable = nixpkgs.lib.mkForce false;
               };
             }

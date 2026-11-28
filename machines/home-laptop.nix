@@ -22,16 +22,15 @@
 
   services.tailscale.enable = true;
 
-  services.rex.enable = true;
-  users.users.johnmaguire.extraGroups = [ "rex" ];
-
-  # Login server maps local uid 1000 to a Rex server running as johnmaguire.
-  # Without it the shared server runs terminals as the rex user (shell nologin).
-  services.rex.loginServer = {
-    enable = true;
-    accounts.johnmaguire.principals = [ "peer:1000" ];
-    defaults."peer:1000" = "johnmaguire";
+  # Personal Rex server as a systemd user service (single-user machine; the
+  # shared server runs terminals as the rex user, whose shell is nologin).
+  # Socket: /run/user/1000/rex/server.sock — point rex-rune there.
+  home-manager.users.johnmaguire = {
+    programs.rex.enable = true;
+    services.rex.enable = true;
   };
+  # Keep the user service (and rex sessions) alive after logout.
+  users.users.johnmaguire.linger = true;
 
   hardware.enableRedistributableFirmware = true;
   services.power-profiles-daemon.enable = true;
