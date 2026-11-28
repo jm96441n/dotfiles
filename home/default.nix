@@ -69,6 +69,7 @@
     ansible
     ast-grep
     bat
+    beads
     bison
     bitwarden-cli
     cmake
